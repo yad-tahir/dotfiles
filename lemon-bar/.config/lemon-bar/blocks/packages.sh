@@ -4,7 +4,7 @@
 
 while true; do
 	tmp=$(pacman -Q | wc -l)
-	tmp2=$(pacman -Qu | wc -l)
+	tmp2=$(pacman -Qu | awk '!/\[ignored\]$/' | wc -l)
 
 	[ -e "$PANEL_FIFO" ] && echo "Sj" $tmp " " $tmp2
 

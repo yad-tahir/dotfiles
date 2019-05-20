@@ -19,7 +19,13 @@ backup_sets=('rpool/sys/root/default'
 
 # GPG Key for backups
 key=$(cat $GNUPGHOME/usage/zfs-backup.encrypt.key)
-location=/cloud/backup
+
+# Get the target location
+if [ "$#" -eq 1 ]; then
+	location="${1}/backup"
+else
+	location="/cloud/backup"
+fi
 
 function backup {
 

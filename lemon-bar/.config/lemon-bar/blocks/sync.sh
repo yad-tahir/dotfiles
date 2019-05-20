@@ -6,6 +6,8 @@ while true; do
 
 	if [ "$tmp" != "No syning activities" ]; then
 		echo "Sg"
+	elif [ "$tmp" == "Download" ]; then
+		echo "Sg%{F$COLOR_INDICATOR1} %{F-}"
 	elif [ "$tmp" == "Uploading" ]; then
 		echo "Sg%{F$COLOR_INDICATOR3} %{F-}"
 	else

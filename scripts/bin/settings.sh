@@ -21,6 +21,7 @@ export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 # Pass
 export PASSWORD_STORE_DIR=$HOME/documents/shadows
 export PASSWORD_STORE_SIGNING_KEY=$(cat $GNUPGHOME/usage/pass.sign.key)
+export PASSWORD_STORE_GENERATED_LENGTH=25
 
 # Terminal
 export RXVT_SOCKET=/run/user/1000/urxvtd-arch-laptop
