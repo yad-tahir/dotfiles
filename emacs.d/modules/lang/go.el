@@ -39,13 +39,6 @@
 											:with company-dabbrev-code
 											:with company-keywords)))))))
 
-;; (use-package exec-path-from-shell
-;;   :ensure t
-;;   :config
-;;   (exec-path-from-shell-initialize)
-;;   (exec-path-from-shell-copy-env "GOPATH"))
-
-
 ;; (use-package flycheck-gometalinter
 ;;   :after (go-mode flycheck)
 ;;   :hook ((flycheck-mode . flycheck-gometalinter-setup))

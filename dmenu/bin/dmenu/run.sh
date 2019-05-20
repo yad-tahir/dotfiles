@@ -6,18 +6,14 @@
 # Get the settings
 . /home/yad/bin/settings.sh
 
-
-cachedir="$HOME/.cache/"
-if [ ! -d "$cachedir" ]; then
-	mkdir "$cachedir"
-fi
-
-cache=$cachedir/dmenu_run
+cache="/tmp/dmenu_run"
 
 run=$(
 	IFS=:
+
 	# Rebuild the cached list if necessary
-	if stest -dqr -n "$cache" $PATH; then
+	if stest -dqr -n "$cache" $PATH 2> /dev/null ; then
+
 		# Add Emacs and firefox to the beginning of the list
 		prefix_commands=("emacs" "firefox-developer-edition")
 		echo_string=
@@ -27,12 +23,13 @@ run=$(
 			echo_string="${i}\\n${echo_string}"
 			filter_string="${i}\$|${filter_string}"
 		done
+		# Delete the last character
+		filter_string="${filter_string:0:${#filter_string}-1}"
 
 		{ echo -e "${echo_string}";
 		  stest -flx $PATH |
-			  awk '!/${filter_string}/' |
-			  sort -u; } |
-			uniq > "$cache"
+			  awk "!/${filter_string}/" |
+			  sort -u | uniq ; } > "$cache"
 	fi
 	cat "$cache" | dmenu -i -f -h $PANEL_HEIGHT \
 						 -nb "$COLOR_BACKGROUND" \

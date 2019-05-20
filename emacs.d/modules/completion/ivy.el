@@ -65,8 +65,8 @@
    "C-u" 'kill-line
    "C-d" '(lambda()(interactive)(evil-ex))
    "<escape>" '(lambda ()
-   				 (interactive)
-   				 (ignore-errors
+				 (interactive)
+				 (ignore-errors
 				   (if (and delete-selection-mode transient-mark-mode mark-active)
 					   (setq deactivate-mark  t)
 					 (when (get-buffer "*Completions*")
@@ -125,17 +125,17 @@
 					  :foreground chocolate-theme-highlight :weight 'bold)
   (set-face-attribute 'ivy-org nil
 					  :inherit nil
-  					  :background nil
-  					  :foreground chocolate-theme-white+1
+					  :background nil
+					  :foreground chocolate-theme-white+1
 					  :weight 'bold)
 
   ;; Make ivy identical to some of the faces in dired mode. However,
   ;; we don't want to inherit from dired as this might trigger auto-loading
   (set-face-attribute 'ivy-subdir nil :inherit 'font-lock-function-name-face
-  					  :background nil
-  					  :foreground nil)
+					  :background nil
+					  :foreground nil)
   (set-face-attribute 'ivy-remote nil :inherit 'font-lock-keyword-face
-  					  :background nil :foreground nil)
+					  :background nil :foreground nil)
 
   (ivy-mode))
 
@@ -258,14 +258,15 @@
   ;; Although I don't use this option that much.
   (ivy-set-actions 'counsel-find-file '(("d" delete-file "delete")))
 
-  ;; start projectile since we need it for counsel-ag commands
+  ;; Start projectile since we need it for counsel-ag commands
   (require 'projectile)
   (projectile-mode 1)
 
-  ;; Configure counsel-fzf to use Ag instead. Currently,
-  ;; counsel-ag does not support occur-mode.
-  (setq counsel-fzf-dir-function 'counsel-fzf-dir-function-projectile
-		counsel-fzf-cmd "ag -l --nocolor --noheading --nogroup -g %s")
+  (setq counsel-ag-base-command "ag --hidden --nocolor --nogroup %s"
+		;; Configure counsel-fzf to use Ag instead. Currently,
+		;; counsel-ag does not support occur-mode.
+		counsel-fzf-dir-function 'counsel-fzf-dir-function-projectile
+		counsel-fzf-cmd "ag -l --hidden --nocolor --noheading --nogroup -g %s")
 
 	;;; To ignore counsel's internal processing
   (defun do--counsel-fzf-function (org-func &rest string)
@@ -275,24 +276,7 @@
 	  (setq ivy--old-re (ivy--regex-fuzzy string))
 	  (counsel--async-command (format counsel-fzf-cmd string)))
 	nil)
-  (advice-add 'counsel-fzf-function :around #'do--counsel-fzf-function)
-
-  ;; (defun do--counsel-ag-function (org-func &rest string)
-  ;;   (require 's)
-  ;;   (setq string (car string))
-  ;;   (let* ((default-directory (ivy-state-directory ivy-last))
-  ;; 		 (args (s-slice-at "--" string))
-  ;; 		 (regex (car args)))
-  ;; 	(setq counsel-ag-command (format counsel-ag-base-command regex))
-  ;; 	(when (= (length args) 2)
-  ;; 	  (setq counsel-ag-command
-  ;; 			(concat counsel-ag-command " " (nth 1 args))))
-  ;; 	(counsel-delete-process)
-  ;; 	(counsel--async-command counsel-ag-command)
-  ;; 	nil))
-  ;; (advice-add 'counsel-ag-function :around #'do--counsel-ag-function)
-
-  )
+  (advice-add 'counsel-fzf-function :around #'do--counsel-fzf-function))
 
 
 (use-package counsel-projectile
@@ -324,24 +308,24 @@
 
 (use-package swiper
   :after(ivy)
-	:commands (swiper)
-	:init
-	(general-define-key
-	 :states '(visual normal)
-	 "SPC l/" 'swiper)
-	:config
-	(general-define-key
-	 :keymaps 'swiper-map
-	 "C-t" 'ivy-next-line
-	 "C-c C-f" 'nil
-	 "C-c" 'ivy-previous-line
-	 "M-c" 'ivy-beginning-of-buffer
-	 "M-t" 'ivy-end-of-buffer
-	 "C-w" 'forward-word
-	 "C-b" 'backward-word
-	 "C-$" 'move-end-of-line
-	 "C-0" 'move-beginning-of-line
-	 "C-q" 'ivy-immediate-done))
+  :commands (swiper)
+  :init
+  (general-define-key
+   :states '(visual normal)
+   "SPC l/" 'swiper)
+  :config
+  (general-define-key
+   :keymaps 'swiper-map
+   "C-t" 'ivy-next-line
+   "C-c C-f" 'nil
+   "C-c" 'ivy-previous-line
+   "M-c" 'ivy-beginning-of-buffer
+   "M-t" 'ivy-end-of-buffer
+   "C-w" 'forward-word
+   "C-b" 'backward-word
+   "C-$" 'move-end-of-line
+   "C-0" 'move-beginning-of-line
+   "C-q" 'ivy-immediate-done))
 
 (use-package wgrep
   :ensure t

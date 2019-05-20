@@ -28,7 +28,7 @@
 	  mode-line-default-help-echo nil ; disable mode-line mouseovers
 	  mouse-yank-at-point nil  ; disable mouse craziness
 	  resize-mini-windows 'fit  ; Minibuffer resizing
-	  ;; show-help-function nil          ; hide :help-echo text
+	  show-help-function nil          ; hide :help-echo text
 	  uniquify-buffer-name-style 'forward
 	  uniquify-strip-common-suffix nil
 	  use-dialog-box nil              ; always avoid GUI
@@ -47,24 +47,29 @@
 	  ;; keyword-base scrolling
 	  scroll-step 1
 	  scroll-conservatively 10000
-	  scroll-margin 5
+	  scroll-margin 0
 	  auto-window-vscroll nil
+	  ;; Disable multi-line echo messages. Annoying while jumping in the evil mode
+	  eldoc-echo-area-use-multiline-p nil
 	  ;; No beeping or blinking
 	  ring-bell-function #'ignore
 	  visible-bell nil)
 
 
 (setq-default tab-width 4
+			  tooltip-delay 5
 			  indent-tabs-mode t)
 
 (put 'narrow-to-region 'disabled nil)
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-;; (global-hl-line-mode 1)
 (desktop-save-mode 0)
-(scroll-bar-mode 0)
-(tool-bar-mode -1)
-(menu-bar-mode -1)
+(tooltip-mode nil) ;; Redirect tooltip messages to the echo area
+
+;; Disabled by .Xresources
+;; (scroll-bar-mode 0)
+;; (tool-bar-mode -1)
+;; (menu-bar-mode -1)
 
 (cl-eval-when (compile)
   (require 'recentf))

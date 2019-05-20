@@ -1,10 +1,10 @@
 [Trigger]
-Operation = Upgrade
-Operation = Install
-Operation = Remove
-Type = Package
-Target = *
+Operation=Upgrade
+Operation=Install
+Operation=Remove
+Type=Package
+Target=*
 [Action]
-Description = Notify Lemonbar
-When = PostTransaction
-Exec = /bin/sudo -u yad /bin/sh -c '/home/yad/.config/lemon-bar/blocks/packages.sh > /tmp/lemon-panel-fifo'
+Description=Notify Lemonbar
+When=PostTransaction
+Exec=/bin/sudo -u yad /bin/sh -c '/home/yad/.config/lemon-bar/blocks/packages.sh > /tmp/lemon-panel-fifo'

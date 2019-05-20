@@ -7,7 +7,6 @@
   :ensure t
   :demand t
   :defines (evil-want-Y-yank-to-eol chocolate-theme-element+6)
-
   :init
   (setq-default evil-search-module 'evil-search)
 
@@ -61,12 +60,9 @@
    "?" 'evil-ex-search-backward
    "*" 'evil-ex-search-word-forward
    "g*" 'evil-ex-search-unbounded-word-forward
-   "j" 'evil-find-char-to
-   "J" 'evil-find-char-to-backward
    "gj" 'evil-find-char-to-backward
    "gn" 'evil-next-match
-   "gN" 'evil-previous-match
-   "gH" 'evil-previous-match
+   "gh" 'evil-previous-match
    "H" 'nil
    "N" 'nil
    "C" 'nil
@@ -104,9 +100,23 @@
    "x" 'nil
    "SPC li" 'do-evil-insert-to-motion
    "SPC la" 'do-evil-append-to-motion
-   "SPC SPC" '(lambda (interactive)
-				(call-interactively 'evil-ex-execute ":nor @j"))
-   )
+   ;; Jumping motions
+   "g:" 'goto-last-change-reverse
+   "gj" 'evil-jump-backward
+   "gJ" 'evil-jump-forward
+   "gH" 'evil-window-top
+   "gM" 'evil-window-middle
+   "gL" 'evil-window-bottom
+   "SPC lj" 'nil
+   "SPC ljh" 'evil-jump-backward
+   "SPC ljn" 'evil-jump-forward
+   "SPC ljH" 'goto-last-change
+   "SPC ljN" 'goto-last-change-reverse
+   "SPC ljt" 'evil-jump-to-tag
+   "SPC ljc" 'evil-goto-column
+   "SPC ljd" 'evil-goto-definition
+   "SPC ljl" 'evil-show-jumps
+   "SPC ljs" 'evil-jump-backward-swap)
 
 
   (general-define-key
@@ -224,6 +234,7 @@
 		evil-indent-convert-tabs t
 		evil-auto-indent t
 		evil-shift-width 4
+		evil-jumps-cross-buffers t
 		;; indent-tabs-mode t
 		evil-shift-round t
 		evil-insert-skip-empty-lines t

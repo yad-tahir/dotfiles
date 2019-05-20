@@ -54,12 +54,12 @@ The aim of this function is to minimize duplicated windows as much as possible."
 			(select-frame-set-input-focus (window-frame win)))))
 	;; Otherwise, continue
 	(apply org-fun args)))
-(advice-add 'find-file :around #'do--switch-to-buffer)
+
+(advice-add 'find-file :around 'do--switch-to-buffer)
 (advice-add 'switch-to-buffer :around #'do--switch-to-buffer)
 (with-eval-after-load 'ivy
   (advice-add 'ivy--switch-buffer-action :around #'do--switch-to-buffer))
 
-;;;###autoload
 (defun do--display-buffer (buf &rest args)
   "A custom display buffer function to avoid creating Emacs windows as much
 as possible. Since we are using i3wm, there is no need for nested windows inside
@@ -68,4 +68,3 @@ Emacs. The buffer BUF will instead be display on the current window"
   (with-current-buffer buf
 	(display-buffer-same-window buf 'nil)))
 (advice-add 'display-buffer :override #'do--display-buffer)
-

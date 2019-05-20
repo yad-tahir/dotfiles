@@ -1,8 +1,12 @@
 ;;; -*- lexical-binding: t; -*-
 
+(cl-eval-when (compile)
+	(require 'dired))
+
 (use-package dired
   :defer t
   :commands (do-file-manager dired)
+  :functions (do--dired-simultaneous-find do-dired-find-file-other-frame)
   :init
   (general-define-key
    :keymaps 'override
@@ -16,17 +20,21 @@
 	(if (null path)
 		(dired default-directory)
 	  (dired path)))
+
   :config
+  ;; Load wdired.el to enable the edit mode
+  (cl-eval-when (compile)
+	(require 'wdired))
 
-  (defun do-dired-find-marked-files-noframe ()
+  (defun do-dired-find-file-other-frame (&optional file)
+	"Find FILE in a new frame.
+If this function called interactively, then get the file under POINT
+in the dired mode."
 	(interactive)
-	"Find all marked files in the dired buffer."
-	(do--dired-simultaneous-find (dired-get-marked-files) nil))
-
-  (defun do-dired-find-marked-files ()
-	"Find all marked files in the dired buffer. Display each file in a separate frame."
-	(interactive)
-	(do--dired-simultaneous-find (dired-get-marked-files) t))
+	(do-make-frame)
+	(if (called-interactively-p 'interactive)
+		(dired-find-file-other-window)
+	  (find-file file)))
 
   (defun do--dired-simultaneous-find (file-list frame)
 	"Find all marked files in the dired mode.
@@ -34,16 +42,27 @@
 	(while (not (null file-list))
 	  (let* ((file (car file-list)))
 		(if frame
-		  (progn
-			(select-frame (make-frame))
-			(find-file file))
+			(do-dired-find-file-other-frame file)
 		  (find-file-noselect file)))
 	  (setq file-list (cdr file-list))))
 
+  (defun do-dired-find-marked-files-noframe ()
+	(interactive)
+	"Find all marked files in the dired buffer."
+	(do--dired-simultaneous-find (dired-get-marked-files) nil))
 
-  ;; Load wdired.el to customize some variables
-  (cl-eval-when (compile)
-	(require 'wdired))
+  (defun do-dired-find-marked-files ()
+	"Find all marked files in the dired buffer. Display each file in a
+separate frame."
+	(interactive)
+	(do--dired-simultaneous-find (dired-get-marked-files) t))
+
+  (defun do-dired-find-file ()
+	"Get the file under POINT. If it is not a directory, open it in a new buffer"
+	(interactive)
+	(if (file-directory-p (dired-get-filename))
+		(dired-find-alternate-file)
+	  (dired-find-file)))
 
   (setq wdired-allow-to-change-permissions t
 		wdired-create-parent-directories t
@@ -67,10 +86,8 @@
    ;; general
    "t" 'dired-next-line
    "c" 'dired-previous-line
-   ;; "<return>" 'dired-find-file
-   "<return>" 'dired-find-alternate-file
-   "M-<return>" '(lambda ()(interactive)
-				   (do-make-frame)(dired-find-file-other-window))
+   "<return>" 'do-dired-find-file
+   "C-<return>" 'do-dired-find-file-other-frame
    "{" 'dired-prev-dirline
    "}" 'dired-next-dirline
    "<" 'dired-prev-dirline
@@ -146,7 +163,6 @@
    "i" 'dired-toggle-read-only
    "I" 'dired-toggle-read-only)
 
-  
   (use-package dired-open
 	:ensure t
 	:after (dired)
@@ -154,20 +170,22 @@
 	(general-define-key
 	 :keymaps 'dired-mode-map
 	 :states 'normal
-	 "C-<return>" 'dired-open-xdg))
-  
-  ;; (use-package dired-ranger
-  ;; 	:ensure t
-  ;;   :after (dired)
-  ;;   :config
-  ;;   (general-define-key
-  ;;    :keymaps 'dired-mode-map
-  ;;    :states 'normal
-  ;;    "Y" 'dired-ranger-copy
-  ;;    "M" 'dired-ranger-move
-  ;;    "P" 'dired-ranger-paste))
+	 "M-<return>" 'dired-open-xdg))
+
+  (use-package dired-ranger
+	:disabled t
+	:ensure t
+	:after (dired)
+	:config
+	(general-define-key
+	 :keymaps 'dired-mode-map
+	 :states 'normal
+	 "Y" 'dired-ranger-copy
+	 "M" 'dired-ranger-move
+	 "P" 'dired-ranger-paste))
 
   (use-package dired-collapse
+	:disabled t
 	:ensure t
 	:commands (dired-collapse-mode)
 	;; :hook ((dired-mode . dired-collapse-mode))
@@ -178,31 +196,32 @@
 	 "lc" 'dired-collapse-mode))
 
   (use-package dired-subtree
-  	:ensure t
-  	:commands (dired-subtree-insert
-  			   dired-subtree-remove
-  			   dired-subtree-beginning
-  			   dired-subtree-end)
-  	:init
-  	(general-define-key
-  	 :keymaps 'dired-mode-map
-  	 :states 'normal
-  	 "<tab>" 'dired-subtree-insert
-  	 "<M-tab>" 'dired-subtree-remove
-  	 "[" 'dired-subtree-beginning
-  	 "]" 'dired-subtree-end
-  	 "*}" 'dired-subtree-mark-subtree)
-  	:config
-  	(set-face-attribute 'dired-subtree-depth-1-face nil
-  						:background chocolate-theme-shadow)
-  	(set-face-attribute 'dired-subtree-depth-2-face nil
-  						:background chocolate-theme-shadow+1)
-  	(set-face-attribute 'dired-subtree-depth-3-face nil
-  						:background chocolate-theme-shadow+2)
-  	(set-face-attribute 'dired-subtree-depth-4-face nil
-  						:background chocolate-theme-shadow+3)
-  	(set-face-attribute 'dired-subtree-depth-4-face nil
-  						:background chocolate-theme-shadow+3))
+	:disabled t
+	:ensure t
+	:commands (dired-subtree-insert
+			   dired-subtree-remove
+			   dired-subtree-beginning
+			   dired-subtree-end)
+	:init
+	(general-define-key
+	 :keymaps 'dired-mode-map
+	 :states 'normal
+	 "<tab>" 'dired-subtree-insert
+	 "<M-tab>" 'dired-subtree-remove
+	 "[" 'dired-subtree-beginning
+	 "]" 'dired-subtree-end
+	 "*}" 'dired-subtree-mark-subtree)
+	:config
+	(set-face-attribute 'dired-subtree-depth-1-face nil
+						:background chocolate-theme-shadow)
+	(set-face-attribute 'dired-subtree-depth-2-face nil
+						:background chocolate-theme-shadow+1)
+	(set-face-attribute 'dired-subtree-depth-3-face nil
+						:background chocolate-theme-shadow+2)
+	(set-face-attribute 'dired-subtree-depth-4-face nil
+						:background chocolate-theme-shadow+3)
+	(set-face-attribute 'dired-subtree-depth-4-face nil
+						:background chocolate-theme-shadow+3))
 
   (use-package openwith
 	:ensure t
@@ -222,3 +241,5 @@
 	:ensure t
 	:config
 	(require 'vlf-setup)))
+
+(provide 'file-manager)

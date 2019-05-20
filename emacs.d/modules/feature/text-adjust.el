@@ -10,9 +10,6 @@
 
   (general-define-key
    :states '(normal visual)
-   "gj" 'do-join-region
-   "gJ" 'do-wrap-region
-   "SPC lj" '(:ignore t :which-key "join")
    "SPC ljj" 'do-join-region
    "SPC ljJ" 'do-wrap-region
    "SPC ljr" 'do-rewrap-region)
