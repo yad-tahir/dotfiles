@@ -13,6 +13,9 @@ stow zathura
 stow systemd
 stow icc-profiles
 stow i3
+stow x11
+stow git
+stow shell
 
 echo "Restore /etc"
 sudo stow etc -t /etc
