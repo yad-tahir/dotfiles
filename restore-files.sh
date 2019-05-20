@@ -39,4 +39,8 @@ cd ./network-manager/
 sudo stow etc -t /etc
 cd ..
 
+echo "Change the default shell from Bash to Dash"
+sudo rm /bin/sh
+sudo ln -s /bin/dash /bin/sh
+
 echo "Done."
