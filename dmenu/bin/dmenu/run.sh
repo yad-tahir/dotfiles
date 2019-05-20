@@ -6,32 +6,26 @@
 # Get the settings
 . $HOME/bin/settings.sh
 
-cache="/tmp/dmenu_run"
-
 run=$(
-	IFS=:
-
-	# Rebuild the cached list if necessary
-	if stest -dqr -n "$cache" $PATH 2> /dev/null ; then
-
+		IFS='|'
 		# Add Emacs and firefox to the beginning of the list
-		prefix_commands="emacs firefox-developer-edition"
+		prefix_commands="emacs|firefox-developer-edition"
 		echo_string=
 		filter_string=
 		
-		for i in ${prefix_commands}; do
+		for i in $prefix_commands; do
 			echo_string="${i}\\n${echo_string}"
 			filter_string="${i}\$|${filter_string}"
 		done
 		# Delete the last character
-		filter_string="${filter_string:0:${#filter_string}-1}"
-
-		{ echo -e "${echo_string}";
+		filter_string=$(awk -v VAL="$filter_string" \
+						'BEGIN {print substr(VAL,0,length(VAL)-1)}')
+		IFS=:
+		{ echo "${echo_string}";
 		  stest -flx $PATH |
 			  awk "!/${filter_string}/" |
-			  sort -u | uniq ; } > "$cache"
-	fi
-	cat "$cache" | dmenu -i -f -h $PANEL_HEIGHT \
+			  sort -u | uniq ; } |
+			dmenu -i -f -h $PANEL_HEIGHT \
 						 -nb "$COLOR_BACKGROUND" \
 						 -nf "$COLOR_FOREGROUND" \
 						 -sb "$COLOR_INDICATOR3" \
