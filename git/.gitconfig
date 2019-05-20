@@ -1,3 +1,7 @@
 [user]
-name = yad.tahir
-email = me (at-no-spam) yad.email
+	name = Dr. Yad S. Tahir
+	email = yad (at) ieee.org
+	signingkey = D2131282A9B2B974
+
+[commit]
+	gpgsign = true

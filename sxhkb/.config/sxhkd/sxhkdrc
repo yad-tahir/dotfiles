@@ -172,6 +172,9 @@ super + g
 super + shift + g
 	emacsclient -qne "(do-$(echo -e "file-manager\ncalculator\nscratch-buffer\nmusic-playlist\nnotebook\nagenda\ncapture" | dmenu -i -f -h $PANEL_HEIGHT -nb "$COLOR_BACKGROUND" -nf "$COLOR_FOREGROUND" -sb "$COLOR_INDICATOR1" -sf "$COLOR_BACKGROUND" -l 0 -fn "$PANEL_FONT_FAMILY" -p "Emacs"))" > /dev/null
 
+super + shift + p
+	~/.config/scripts/menu/dmenu_pass.sh
+
 # Screenshot
 super + F3
 	scrot &

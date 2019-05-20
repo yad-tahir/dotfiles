@@ -17,6 +17,10 @@ export MPD_PORT="6600"
 export GNUPGHOME=/home/yad/.config/gpg
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
+# Pass
+export PASSWORD_STORE_DIR=$HOME/documents/shadows
+export PASSWORD_STORE_SIGNING_KEY=$(cat $PASSWORD_STORE_DIR/.sign.key)
+
 # Terminal
 export RXVT_SOCKET=/run/user/1000/urxvtd-arch-laptop
 
