@@ -6,6 +6,9 @@
 @Caps_Lock
 	~/.config/lemon-bar/blocks/caps.sh > /tmp/lemon-panel-fifo
 
+alt + space
+	~/bin/toggle-keyboard-layout.sh
+
 # Make sxhkd reload its configuration files:
 super + shift + r
 	pkill -USR1 -x sxhkd
