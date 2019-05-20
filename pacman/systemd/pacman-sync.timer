@@ -1,0 +1,9 @@
+[Unit]
+Description=Resync pacman database every hour
+
+[Timer]
+OnBootSec=15min
+OnUnitActiveSec=60min
+
+[Install]
+WantedBy=timers.target

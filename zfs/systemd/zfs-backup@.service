@@ -1,0 +1,11 @@
+[Unit]
+Description=Backup ZFS datasets to /%i
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+ExecStart=/home/yad/bin/backup/zfs-export.sh /%i
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target

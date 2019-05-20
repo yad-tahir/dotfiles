@@ -1,0 +1,10 @@
+[Unit]
+Description=Run zfs-backup@%i.service on a daily basis
+
+[Timer]
+Unit=zfs-backup@%i.service
+OnCalendar=*-*-* 00:01:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target
