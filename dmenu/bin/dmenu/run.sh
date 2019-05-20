@@ -49,9 +49,9 @@ run=$(
 case "$run" in
 	# If it ends with '!', run it in a terminal instead
 	*!)
-		exec $(echo "$TERMINAL -hold -e $run" | sed -e 's/!$//') &
+		exec $(echo "$TERMINAL -hold -e $run" | sed -e 's/!$//')
 		;;
 	*?*)
-		exec "$run" &
+		exec "$run"
 		;;
 esac

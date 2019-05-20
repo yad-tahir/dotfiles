@@ -22,4 +22,4 @@ value=$(printf '%s\n' "${password_files[@]}" |
 
 [[ -n $value ]] || exit
 
-pass show -c "$value" &>/dev/null
+exec pass show -c "$value" &>/dev/null

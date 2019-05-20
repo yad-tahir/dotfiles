@@ -29,5 +29,5 @@ run=$(echo -e "${echo_string}" |
 
 
 if [ ! -z "${run}" -a "${run}" != "" ]; then
-	exec emacsclient -qne "(${run})" > /dev/null &
+	exec emacsclient -qne "(${run})" > /dev/null
 fi
