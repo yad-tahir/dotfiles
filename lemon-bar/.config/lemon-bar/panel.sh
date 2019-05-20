@@ -7,35 +7,37 @@ PWD=$(dirname $0)
 
 # Kill any panel processes older than us, instead of bailing like the example
 # does. That caused one too many panel-less boots for me.
-
 while [ $(pgrep -cx panel.sh) -gt 1 ] ; do
-	pkill -ox -9 panel.sh
+	pkill -of -TERM panel.sh
 done
 
 # Kill any remaining trays / xtitle instances so we don't have multiples.
-killall -9 bspc 2> /dev/null
-killall -9 lemonbar 2> /dev/null
+killall -TERM lemonbar 2> /dev/null
+
 # Remove the old panel completely
 xdo id -a "$PANEL_WM_NAME" | xargs -n 1 -I % xdo kill %
 
-# Setup taken from example, tell bspwm to avoid our status/tray and to start
-# sending status updates to a FIFO
-trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
+# Kill sub processes when the script is terminated
+trap "kill $$" SIGINT
+trap 'kill -HUP 0' EXIT
+trap 'kill $(jobs -p)' EXIT
 
-[ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
+[ -e "${PANEL_FIFO}" ] && rm "$PANEL_FIFO"
 mkfifo "$PANEL_FIFO" -m600
 
-bspc config top_padding $PANEL_HEIGHT
+# The old process have been called because of the pkill loop above. Re-launch it.
 bspc subscribe report > "$PANEL_FIFO" &
+
+xtitle -sf 'T%s\n' > "$PANEL_FIFO" &
+
+
+bspc config top_padding $PANEL_HEIGHT
 
 # Here are the subprograms that add information to the status FIFO which are
 # interpreted by panel_bar, below. Each output is detected by its first
 # character, which is how the bspwm internal information is presented.
-
-killall -9 xtitle 2> /dev/null
-xtitle -sf 'T%s\n' > "$PANEL_FIFO" &
-
-# Sys Blocks
+#
+# SYS Blocks
 # Here are the blocks that must be refreshed regularly. The refresh
 # delay, in seconds, is passed as a first argument to each script.
 . $PWD/blocks/clock.sh 1 > "$PANEL_FIFO" &
@@ -298,14 +300,13 @@ function panel_bar {
 }
 # panel_bar
 # Actually invoking the panel and piping to bar
-panel_bar | lemonbar -a 80 -p -g x$PANEL_HEIGHT -f "$PANEL_FONT_FAMILY" -f "$PANEL_FONT_FAMILY2" -F "$COLOR_FOREGROUND" -B "$COLOR_BACKGROUND" -u 2 -U "$COLOR_INDICATOR2" -n $PANEL_WM_NAME | /usr/bin/xargs -n 1 -I % /bin/sh -c % &
-
-#killall -9 stalonetray 2> /dev/null
-# stalonetray --geometry $TRAY_GEOM -i $PANEL_HEIGHT -bg "#${COLOR_BACKGROUND:3}" --grow-gravity NE --kludges force_icons_size &
-
+panel_bar |
+	lemonbar -a 80 -p -g x$PANEL_HEIGHT -f "$PANEL_FONT_FAMILY" -f "$PANEL_FONT_FAMILY2" -F "$COLOR_FOREGROUND" -B "$COLOR_BACKGROUND" -u 2 -U "$COLOR_INDICATOR2" -n $PANEL_WM_NAME |
+	/usr/bin/xargs -n 1 -I % /bin/sh -c % &
 
 
-xdo id -m -a "$PANEL_WM_NAME" | xargs -n 1 -I % xdo above -t "$(xdo id -N Bspwm -n root | sort | head -n 1)" %
+xdo id -m -a "$PANEL_WM_NAME" |
+	xargs -n 1 -I % xdo above -t "$(xdo id -N Bspwm -n root | sort | head -n 1)" %
 
 
 wait

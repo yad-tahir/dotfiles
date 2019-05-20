@@ -26,13 +26,15 @@ export PASSWORD_STORE_GENERATED_LENGTH=25
 # Terminal
 export RXVT_SOCKET=/run/user/1000/urxvtd-arch-laptop
 
-# Colors
+#Lemon-bar
 export PANEL_FONT_FAMILY="DejaVu Sans Mono-6"
 export PANEL_FONT_FAMILY2="FontAwesome-7"
-
-export PANEL_FIFO="/tmp/lemon-panel-fifo"
 export PANEL_HEIGHT="35"
 export PANEL_WM_NAME=lemon_bspwm_panel
+
+export PANEL_FIFO="/tmp/lemon-panel-fifo"
+
+# Colors
 export COLOR_FOREGROUND='#e6beae'
 export COLOR_BACKGROUND='#0f0b0c'
 export COLOR_ACTIVE="#392626"
