@@ -13,7 +13,6 @@ stow bspwm
 stow lemon-bar
 stow sxhkb
 stow mpd
-stow rofi
 stow zathura
 stow urxvt
 stow monitor
