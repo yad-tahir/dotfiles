@@ -5,7 +5,9 @@
 . /home/yad/bin/settings.sh
 
 prefix=${PASSWORD_STORE_DIR}
-password_files=( "$prefix"/**/*.gpg )
+# Get the files
+password_files=( "$prefix"/**/*.gpg  "$prefix"/**/**/*.gpg )
+# Remove the path and .gpg extension
 password_files=( "${password_files[@]#"$prefix"/}" )
 password_files=( "${password_files[@]%.gpg}" )
 

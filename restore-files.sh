@@ -1,5 +1,8 @@
 #!/bin/sh
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+cd $DIR
+
 echo "Start stowing!"
 
 mkdir ../bin 2> /dev/null
@@ -12,7 +15,7 @@ stow sxhkb
 stow mpd
 stow rofi
 stow zathura
-stow systemd
+stow urxvt
 stow monitor
 stow i3
 stow x11

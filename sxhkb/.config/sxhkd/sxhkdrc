@@ -180,13 +180,13 @@ super + F3
 
 # Screen lock
 super + shift + l
-	~/bin/lock-screen.sh
+	~/bin/lock-screen.sh &
 
 # Terminal emulator
 
 # Try to launch a urxvt client. Restart the urxvt server if it is needed.
 super + Return
- emacs --no-splash --no-desktop --eval '(do-eshell-new)' > /dev/null
+	emacs --no-splash --no-desktop --eval '(do-eshell-new)' > /dev/null &
 
 super + Escape
-	urxvtc
+	urxvtc &

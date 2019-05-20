@@ -1,4 +1,4 @@
-# Place environment variable assignments, since it gets executed
+# Place environment settings, since it gets executed
 # automatically by the DisplayManager during the start-up process
 # desktop session as well as by the login shell when one logs in from
 # the textual console
@@ -16,4 +16,7 @@ alias kweb='sudo -u yad -g no_net KeeWeb'
 alias cleaor='clear'
 
 # Other variables
-source /home/yad/bin/settings.sh
+source ~/bin/settings.sh
+
+# Adjust the path
+PATH="~/bin:${PATH}"
