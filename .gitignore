@@ -1,0 +1,15 @@
+*.cache
+*cache.el
+*.elc
+*.el~
+*#*#
+emacs.d/*%backup%*~
+emacs.d/projectile-bookmarks.eld
+emacs.d/smex-items
+emacs.d/packages
+emacs.d/elpa
+emacs.d/tramp
+emacs.d/transient
+emacs.d/auto-save-list
+emacs.d/eshell
+emacs.d/recentf

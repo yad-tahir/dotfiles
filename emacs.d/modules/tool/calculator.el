@@ -1,0 +1,20 @@
+
+(cl-eval-when (compile)
+  (require 'calc)
+  (require 'calc-aent))
+
+;;;###autoload
+(defun do-calculator ()
+  (interactive)
+  (let ((calculator-frame-found nil))
+	(dolist (m (frame-list))
+	  (when (equal (frame-parameter m 'name) "calculator" )
+		(with-current-buffer (window-buffer (frame-selected-window m))
+		  (when (equal (format "%s" major-mode) "calc-mode")
+			(setq calculator-frame-found t)
+			(raise-frame m)))))
+	(when (not calculator-frame-found)
+	  (do-make-frame "calculator")
+	  (full-calc)
+	  (calc-trail-display 1)
+	  (calc-alg-entry))))

@@ -1,0 +1,11 @@
+[Unit]
+Description=Urxvt Terminal Daemon
+Requires=urxvtd.socket
+
+[Service]
+ExecStart=/usr/bin/urxvtd -o -q
+Environment=RXVT_SOCKET=%t/urxvtd-%H
+StandardInput=socket
+
+[Install]
+WantedBy=default.target

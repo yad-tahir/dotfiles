@@ -1,0 +1,231 @@
+# Please see https://i3wm.org/docs/userguide.html for a complete reference!
+
+set $mod Mod4
+set $alt Mod1
+set $ctrl Ctrl
+set $shift Shift
+focus_wrapping no
+focus_follows_mouse no
+
+# Use the command fc-list | grep <font_name> to search through your fonts. The name of the font is after the colon in the output
+font pango: DejaVu Sans Mono, FontAwesome 6
+
+# Theme
+set $bg-color 	                  #0f0b0c
+set $active-color                 #bd9c8f
+set $inactive-color               #392626
+set $urgent-color                 #fd972f
+set $text-color                   #e6beae
+set $indicator-color              #a7e23e
+
+# Window colors
+#                       border          background      text         indicator
+client.focused          $active-color   $active-color   $bg-color  $indicator-color
+client.unfocused        $inactive-color $inactive-color $text-color  $inactive-color
+client.focused_inactive $inactive-color $inactive-color $text-color  $inactive-color
+client.urgent           $urgent-color   $urgent-color   $bg-color  $indicator-color
+
+default_floating_border pixel 1
+default_border pixel 1
+# hide_edge_borders vertical
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+	status_command i3blocks -c ~/.config/i3/i3blocks.conf
+	position top
+	tray_padding 1
+	# mode hide
+	# hidden_state hide
+	# modifier $mod
+	colors {
+	   background $bg-color
+	   separator  $text-color
+	   statusline $text-color
+	   #                  border             background         text
+	   focused_workspace  $indicator-color   $indicator-color   $bg-color
+	   active_workspace   $inactive-color    $inactive-color    $text-color
+	   inactive_workspace $bg-color          $bg-color          $text-color
+	   urgent_workspace   $urgent-color      $urgent-color      $bg-color
+	}
+}
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Kill focused window
+bindsym $mod+q kill
+
+# Change focus
+bindsym $mod+h focus left
+bindsym $mod+t focus down
+bindsym $mod+c focus up
+bindsym $mod+n focus right
+
+# Alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move focused window
+bindsym $mod+$shift+h move left
+bindsym $mod+$shift+t move down
+bindsym $mod+$shift+c move up
+bindsym $mod+$shift+n move right
+
+# Alternatively, you can use the cursor keys:
+bindsym $mod+$shift+Left move left
+bindsym $mod+$shift+Down move down
+bindsym $mod+$shift+Up move up
+bindsym $mod+$shift+Right move right
+
+# Enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# Split
+bindcode $mod+61 split h
+bindcode $mod+20 split v
+
+# Focus
+bindsym $mod+a focus parent
+
+# Change container layout
+bindsym $mod+u layout toggle tabbed stacking splitv splith
+
+# Toggle tiling / floating
+bindsym $mod+space floating toggle
+
+# Restart i3
+bindsym $mod+$shift+r restart
+
+# Exit i3 (logs you out of your X session)
+bindsym $mod+$shift+x exec "i3-nagbar -t warning -m 'Do you really want to exit i3?' -b 'Yep, exit i3' 'i3-msg exit'"
+
+# Resize window (you can also use the mouse for that)
+mode "resize" {
+        # these bindings trigger as soon as you enter the resize mode
+        bindsym n resize shrink width 10 px or 10 ppt
+        bindsym c resize grow height 10 px or 10 ppt
+        bindsym t resize shrink height 10 px or 10 ppt
+        bindsym h resize grow width 10 px or 10 ppt
+
+        # Same bindings, but for the arrow keys
+        bindsym Right resize shrink width 10 px or 10 ppt
+        bindsym Up resize grow height 10 px or 10 ppt
+        bindsym Down resize shrink height 10 px or 10 ppt
+        bindsym Left resize grow width 10 px or 10 ppt
+
+        # Back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym $mod+w mode "resize"
+
+# Lock
+bindsym $mod+$shift+l exec --no-startup-id /home/yad/.config/i3/lock-screen.sh
+
+# Configure workspaces
+set $ws1  "1"
+set $ws2  "2"
+set $ws3  "3"
+set $ws4  "4"
+set $ws5  "5"
+set $ws6  "6"
+set $ws7  "7"
+set $ws8  "8"
+set $ws9  "9"
+set $ws10 "10"
+
+# Switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# TAB is used to switch between containers
+bindcode $mod+23 exec --no-startup-id ~/.config/i3/focus_next_visible.py
+bindcode $mod+$alt+23 exec --no-startup-id ~/.config/i3/focus_next_visible.py reverse
+
+# Move focused container to workspace
+bindsym $mod+$shift+1 move container to workspace $ws1
+bindsym $mod+$shift+2 move container to workspace $ws2
+bindsym $mod+$shift+3 move container to workspace $ws3
+bindsym $mod+$shift+4 move container to workspace $ws4
+bindsym $mod+$shift+5 move container to workspace $ws5
+bindsym $mod+$shift+6 move container to workspace $ws6
+bindsym $mod+$shift+7 move container to workspace $ws7
+bindsym $mod+$shift+8 move container to workspace $ws8
+bindsym $mod+$shift+9 move container to workspace $ws9
+bindsym $mod+$shift+0 move container to workspace $ws10
+
+bindsym $mod+$alt+h move container to output left
+bindsym $mod+$alt+n move container to output right
+bindsym $mod+$alt+c move workspace to output left
+bindsym $mod+$alt+t move workspace to output right
+
+# Highlight Caps lock in i3block
+bindsym --release Caps_Lock exec pkill -SIGRTMIN+1 i3blocks
+bindsym $alt+space exec --no-startup-id ~/.config/i3/toggle-keyboard-layout.sh
+
+# Pulse audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pulsemixer --change-volume +5 --color 0 && pkill -RTMIN+23 i3blocks  #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pulsemixer --change-volume -5 --color 0 && pkill -RTMIN+23 i3blocks #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pulsemixer --toggle-mute --color 0 && pkill -RTMIN+23 i3blocks # mute sound
+
+# Media player controls
+bindsym XF86AudioPause exec emacsclient -nqe '(do-music-toggle)'
+bindsym XF86AudioNext exec emacsclient -nqe '(do-music-next)'
+bindsym XF86AudioPrev exec emacsclient -nqe '(do-music-previous)'
+assign [instance="music-playlist"] $ws9
+
+# PDF reader
+assign [class="Zathura"] $ws8
+
+for_window [instance="calculator"] floating enable
+for_window [instance="calculator"] resize set 1200 600
+for_window [instance="calculator"] move position center
+for_window [instance="calculator"] border pixel 1
+for_window [instance="calculator"] sticky enable
+
+for_window [instance="scratch-buffer"] floating enable
+for_window [instance="scratch-buffer"] resize set 1200 600
+for_window [instance="scratch-buffer"] move position center
+for_window [instance="scratch-buffer"] border pixel 1
+for_window [instance="scratch-buffer"] sticky enable
+
+# bindsym $mod+$shift+q [instance="emacs"] exec --no-startup-id emacsclient -e '(progn (evil-delete-buffer (current-buffer)))'
+
+# Beloved text editor
+bindsym F2 exec --no-startup-id emacsclient -nqe '(do-make-frame)'
+bindsym $shift+F2 exec --no-startup-id emacsclient -nqc
+
+# Screenshotting
+bindsym $mod+F3 exec --no-startup-id scrot
+
+bindsym $mod+$shift+F3 exec --no-startup-id scrot -u
+# Terminals
+bindsym $mod+Return exec --no-startup-id urxvtc
+# bindsym $mod+Return exec --no-startup-id emacsclient -qne '(do-eshell-new)'
+bindsym $mod+Escape exec --no-startup-id urxvtc
+# bindsym $mod+Escape exec --no-startup-id emacsclient -qne '(do-agenda)'
+
+# App lauchers
+bindsym $mod+g exec --no-startup-id rofi -show drun -show-icons -width 30 -config ~/.config/rofi/config.rasi -modi drun -p 'applications' > /dev/null
+
+bindsym $mod+m exec --no-startup-id bash -c "~/.config/screenlayout/$(echo -e 'home\noffice\nlab' | rofi -dmenu -width 30 -config ~/.config/rofi/config.rasi -p 'monitor').sh && xsetroot -solid '#392626'" > /dev/null
+
+bindsym $mod+e exec --no-startup-id emacsclient -qne "(do-$(echo -e 'file-manager\ncalculator\nscratch-buffer\nmusic-playlist\nnotebook\nagenda\ncapture' | rofi -dmenu -width 30 -config ~/.config/rofi/config.rasi -p 'emacs' ))"
+
+bindsym $mod+o exec --no-startup-id echo -e "https://youtube.com\nhttps://gmail.com" | rofi -dmenu -width 30 -config ~/.config/rofi/config.rasi -p 'bookmarks' | xargs -n 1 -I % firefox-developer-edition --new-tab %
+
+bindsym $mod+s exec --no-startup-id rofi -dmenu -width 30 -config ~/.config/rofi/config.rasi -p 'online search' | xargs -n 1 -I % firefox-developer-edition --new-tab "https://duckduckgo.com/?q=%"
+
+# Set Background
+exec --no-startup-id xsetroot -solid "#392626"

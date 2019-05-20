@@ -1,0 +1,190 @@
+##
+## General keybindings
+##
+
+# Caps lock. Notify the panel bar if it is required.
+@Caps_Lock
+	~/.config/lemon-bar/blocks/caps.sh > /tmp/lemon-panel-fifo
+
+# Make sxhkd reload its configuration files:
+super + shift + r
+	pkill -USR1 -x sxhkd
+
+# Quit/restart bspwm
+super + shift + x
+	pkill -x panel.sh; bspc quit
+
+# Close and kill
+super + {_,shift + }q
+	bspc node -{c,k}
+
+# Swap the biggest local node to the current focused one.
+super + s
+	bspc node newest.focused.local -s biggest.local
+
+# Swap the newest marked node to the current focused one.
+super + shift + s
+	bspc node any.marked -s newest.focused.local
+
+super + control + s
+	bspc node last -s newest.focused.local
+
+# Balance the selected nodes.
+super + equal
+	bspc node -B
+
+super + shift + equal
+	sh -c 'fwid=$(bspc query -N -n focused.local); bspc node any.local -f && bspc node -B && bspc node $fwid -f'
+
+# Rotate the selected tree.
+super r
+	bspc node -R -90
+
+super {_,shift +} v
+	bspc node {-F vertical,-F horizontal}
+
+
+##
+## State/flags
+##
+
+# Toggle between various display modes: hide panel, monocle and normal modes.
+super + shift + f
+	{bspc config top_padding 0, bspc desktop -l monocle, bspc  desktop -l tiled; bspc config top_padding 35}
+
+# Toggle the floating mode.
+super + @space
+	bspc node -t '~{floating,tiled}'
+
+# Set the node flags.
+super + {m,f,l}
+	bspc node -g {marked,private,locked}; /usr/bin/bspc wm -g > /tmp/lemon-panel-fifo && /usr/bin/xtitle -f "T%s\n" > /tmp/lemon-panel-fifo
+
+# Clear the node flags
+super + control + {m,f,l}
+	bspc query -N | xargs -n 1 -I % bspc node % -g {marked,private,locked}=off; /usr/bin/bspc wm -g > /tmp/lemon-panel-fifo && /usr/bin/xtitle -f "T%s\n" > /tmp/lemon-panel-fifo
+
+
+##
+## Focus
+##
+
+# Focus the node in the given direction.
+super + {_,shift + }{h,t,c,n}
+	bspc node -{f,s} {west,south,north,east}
+
+# Focus the node for the given path jump.
+super + {a,b}
+	bspc node -f @{parent,brother}
+
+# Focus the next/previous node.
+super + {_,shift + }Tab
+	bspc node -f {next,prev}.local
+
+# Focus the next/previous desktop in the current monitor.
+super + bracket{left,right}
+	bspc desktop -f {prev,next}.local
+
+# Focus the last node/desktop.
+super + comma
+	bspc desktop -f last
+
+# Focus on the marked node.
+super + quoteright
+	bspc node -f any.marked
+
+# # Focus the older or newer node in the focus history.
+# super + {o,i}
+# 	bspc wm -h off; \
+# 	bspc node {older,newer} -f; \
+# 	bspc wm -h on
+
+# Focus or send to the given desktop.
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} '{1-9,10}'
+
+
+
+##
+## Preselect
+##
+
+# Preselect the direction.
+super + minus
+	bspc node -p {south,north,west,east}
+
+# Cancel the preselection for the focused node.
+super + shift + minus
+	bspc node -p cancel
+
+# Preselect the ratio.
+super + ctrl + {1-9}
+	bspc node -o 0.{1-9}
+
+
+##
+## Move/resize
+##
+
+# expand a window by moving one of its side outward.
+super + {Left,Up,Down,Right}
+	bspc node -z {left -20 0,top 0 -20,top 0 20,left 20 0}
+
+super + shift + {Left,Up,Down,Right}
+	bspc node -z {right -20 0,bottom 0 -20,bottom 0 20,right 20 0}
+
+
+##
+## Media control
+##
+
+XF86AudioMute
+	pulsemixer --set-volume {0,20} --color 0; pkill -RTMIN+23 i3blocks 2> /dev/null; ~/.config/lemon-bar/blocks/volume.sh > /tmp/lemon-panel-fifo &
+
+{XF86AudioRaiseVolume,XF86AudioLowerVolume}
+	pulsemixer --change-volume {+5,-5} --color 0; pkill -RTMIN+23 i3blocks 2> /dev/null; ~/.config/lemon-bar/blocks/volume.sh > /tmp/lemon-panel-fifo &
+
+XF86AudioPlay
+	emacsclient -nqe '(do-music-toggle)' > /dev/null
+XF86AudioNext
+	emacsclient -nqe '(do-music-next)' > /dev/null
+XF86AudioPrev
+	emacsclient -nqe '(do-music-previous)' > /dev/null
+{XF86AudioNext,XF86AudioPrev} + shift
+	mpc seek {+00,-00}10 > /dev/null
+
+##
+## Program launcher
+##
+
+# Emacs
+F2
+	emacsclient -nqe '(do-make-frame)'
+
+# Dmenu
+super + shift + m
+	~/.config/scripts/screen-layout/$(echo -e "home\noffice\nlab\nlaptop" | dmenu -i -f -h $PANEL_HEIGHT -nb "$COLOR_BACKGROUND" -nf "$COLOR_FOREGROUND" -sb "$COLOR_INDICATOR2" -sf "$COLOR_BACKGROUND" -l 0 -fn "$PANEL_FONT_FAMILY" -p "Monitor Layout").sh > /dev/null
+
+super + g
+	dmenu_run -i -f -h $PANEL_HEIGHT -nb "$COLOR_BACKGROUND" -nf "$COLOR_FOREGROUND" -sb "$COLOR_INDICATOR3" -sf "$COLOR_BACKGROUND" -l 0 -fn "$PANEL_FONT_FAMILY" -p "App"
+	# rofi -show drun -show-icons -width 30 -monitor -1 -config ~/.config/rofi/config.rasi -modi drun -p 'applications' > /dev/null &
+
+super + shift + g
+	emacsclient -qne "(do-$(echo -e "file-manager\ncalculator\nscratch-buffer\nmusic-playlist\nnotebook\nagenda\ncapture" | dmenu -i -f -h $PANEL_HEIGHT -nb "$COLOR_BACKGROUND" -nf "$COLOR_FOREGROUND" -sb "$COLOR_INDICATOR1" -sf "$COLOR_BACKGROUND" -l 0 -fn "$PANEL_FONT_FAMILY" -p "Emacs"))" > /dev/null
+
+# Screenshot
+super + F3
+	scrot &
+
+# Screen lock
+super + shift + l
+	/home/yad/.config/i3/lock-screen.sh
+
+# Terminal emulator
+
+# Try to launch a urxvt client. Restart the urxvt server if it is needed.
+super + Return
+ emacs --no-splash --no-desktop --eval '(do-eshell-new)' > /dev/null
+
+super + Escape
+	urxvtc
