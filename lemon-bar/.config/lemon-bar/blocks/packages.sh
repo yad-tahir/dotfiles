@@ -1,5 +1,7 @@
 #!/bin/sh
 
+. /home/yad/.config/scripts/settings.sh
+
 while true; do
 	tmp=$(pacman -Q | wc -l)
 	tmp2=$(pacman -Qu | wc -l)
