@@ -74,7 +74,8 @@ The third optional argument PROPS indicates the properties of the frame"
 										 (concat "(" dired-directory ")"))
 										(t ""))
 									   (/ (line-number-at-pos) 0.01 (line-number-at-pos (point-max)))
-									   )))
+									   ))
+			  pop-up-frames t)
 
 (provide 'do-windows)
 ;;; windows.el ends here

@@ -60,11 +60,3 @@ The aim of this function is to minimize duplicated windows as much as possible."
 (with-eval-after-load 'ivy
   (advice-add 'ivy--switch-buffer-action :around #'do--switch-to-buffer))
 
-(defun do--display-buffer (buf &rest args)
-  "A custom display buffer function to avoid creating Emacs windows as much
-as possible. Since we are using i3wm, there is no need for nested windows inside
-Emacs. The buffer BUF will instead be display on the current window"
-  (ignore args)
-  (with-current-buffer buf
-	(display-buffer-same-window buf 'nil)))
-(advice-add 'display-buffer :override #'do--display-buffer)
