@@ -4,7 +4,7 @@
 	"core/evil"
 	"ui/general"
 	"ui/theme" ;; don't put it on top; it increases the startup time somehow!
-	"ui/status-bar" ;; slow
+	"ui/status-bar"
 	"ui/windows"
 	"ui/buffers"
 	"ui/line-numbering"
@@ -12,7 +12,7 @@
 
 	"completion/ivy" ;; slow
 	"completion/company"
-	"completion/commands" ;; a bit slow
+	"completion/commands" ;; slow
 	"completion/snippets"
 
 	"feature/scratches"
@@ -34,13 +34,11 @@
 	;; "lang/php"
 
 	"tool/notebook"
-	"tool/music" ;; needs optimization
+	"tool/music" ;; needs improvements
 	"tool/english"
-	"tool/shell" ;; cleaning
+	"tool/shell" ;; needs improvements
 	"tool/git"
-	;; "tool/pdf"
 	"tool/calculator"
-	;; "tool/dashboard"
 	)
 (do-modules-load t)
 ;; (do-modules-bootstrap-load)
