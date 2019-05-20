@@ -1,7 +1,7 @@
 #! /bin/sh
 #
 
-. /home/yad/bin/settings.sh
+. $HOME/bin/settings.sh
 
 while true; do
 	ping=$(ping 8.8.8.8 -c 3 2> /dev/null |

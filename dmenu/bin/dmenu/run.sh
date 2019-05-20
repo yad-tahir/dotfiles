@@ -4,7 +4,7 @@
 # then use dmenu to show it.
 
 # Get the settings
-. /home/yad/bin/settings.sh
+. $HOME/bin/settings.sh
 
 cache="/tmp/dmenu_run"
 

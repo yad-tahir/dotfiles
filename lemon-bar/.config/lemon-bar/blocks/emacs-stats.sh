@@ -1,7 +1,7 @@
 #! /bin/sh
 #
 
-. /home/yad/bin/settings.sh
+. $HOME/bin/settings.sh
 
 EMACS_FIFO=${PANEL_FIFO}-emacs
 [ -e "$EMACS_FIFO" ] && rm "$EMACS_FIFO"
@@ -9,7 +9,7 @@ mkfifo "$EMACS_FIFO" -m600
 
 # Keep the pipeline open
 # Source: https://bbs.archlinux.org/viewtopic.php?id=168461
-sid=$(sleep 9999d > $EMACS_FIFO &
+sid=$(sleep 99d > $EMACS_FIFO &
 	  echo $!) &
 
 if [ "$#" -eq 0 ]; then

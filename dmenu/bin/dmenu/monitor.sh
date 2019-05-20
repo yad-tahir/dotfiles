@@ -3,7 +3,7 @@
 # A small menu to choose the monitor setup
 
 # Get the settings
-. /home/yad/bin/settings.sh
+. $HOME/bin/settings.sh
 
 
 layouts=("laptop" "lab" "office" "home")

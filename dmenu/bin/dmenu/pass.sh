@@ -2,7 +2,7 @@
 
 # Modify from https://git.zx2c4.com/password-store/tree/contrib/dmenu/passmenu
 
-. /home/yad/bin/settings.sh
+. $HOME/bin/settings.sh
 
 prefix=${PASSWORD_STORE_DIR}
 # Get the files
@@ -22,4 +22,4 @@ value=$(printf '%s\n' "${password_files[@]}" |
 
 [[ -n $value ]] || exit
 
-exec pass show -c "$value" &>/dev/null
+sudo -u $USER -g no_net /bin/sh -c ". $HOME/bin/settings.sh && pass -c \"$value\""

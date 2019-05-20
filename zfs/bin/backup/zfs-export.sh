@@ -9,7 +9,7 @@ if [ $UID -ne 0 ]; then
 fi
 
 # Get the settings
-. /home/yad/bin/settings.sh
+. /home/$USERNAME/bin/settings.sh
 
 # ZFS sets
 backup_sets=('rpool/sys/root/default'

@@ -2,7 +2,7 @@
 Description=Lemon bar
 
 [Service]
-ExecStart=/bin/sh -c '. ~/bin/settings.sh && ~/.config/lemon-bar/panel.sh'
+ExecStart=/bin/sh -c '. $HOME/bin/settings.sh && $HOME/.config/lemon-bar/panel.sh'
 Restart=always
 RestartSec=1s
 Type=simple

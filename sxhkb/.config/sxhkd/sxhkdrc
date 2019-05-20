@@ -162,7 +162,7 @@ XF86AudioPrev
 
 # Emacs
 F2
-	emacsclient -nqe '(do-make-frame)' -a='/usr/bin/urxvt -e nano'
+	emacsclient -nqe '(do-make-frame)' -a='/usr/bin/urxvt -e nano' > /dev/null &
 
 # Dmenu
 super + shift + m

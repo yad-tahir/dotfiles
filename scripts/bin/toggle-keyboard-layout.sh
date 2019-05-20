@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. /home/yad/bin/settings.sh
+. $HOME/bin/settings.sh
 
 state=$(setxkbmap -query |
 				awk '/^layout/{split($2,arr,","); print toupper(arr[1])}')

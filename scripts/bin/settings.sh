@@ -8,14 +8,16 @@ export VISUAL="emacsclient -c"         # $VISUAL opens in GUI mode
 export TERMINAL="urxvtc"
 export BROWSER="firefox-developer-edition"
 export JAVA_HOME="/usr/lib/jvm/default"
-export USERNAME="yad"
+export USERNAME="yad" # @TODO: Fix this
+					  # To make it also available outside of your user
+					  # session, add it to /etc/environment
 
 # mpd
 export MPD_HOST="localhost"
 export MPD_PORT="6600"
 
 # gpg & ssh
-export GNUPGHOME=/home/yad/.config/gpg
+export GNUPGHOME=/home/${USERNAME}/.config/gpg
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
 # Pass

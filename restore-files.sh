@@ -21,8 +21,6 @@ stow x11
 stow git
 stow shell
 
-sudo stow etc -t /etc
-
 cd ./zfs/
 mkdir ../../bin/backup 2> /dev/null
 stow bin -t ../../bin
@@ -32,7 +30,14 @@ sudo rm /usr/lib/systemd/system/zfs-backup@.* 2> /dev/null
 sudo cp ./systemd/* /usr/lib/systemd/system
 cd ..
 
-sudo rm /usr/lib/systemd/system/pacman-sync.*
-sudo cp ./pacman/systemd/* /usr/lib/systemd/system/
+cd ./pacman/
+sudo rm /usr/lib/systemd/system/pacman-sync.* 2> /dev/null
+sudo cp ./systemd/* /usr/lib/systemd/system/
+sudo stow etc -t /etc
+cd ..
+
+cd ./network-manager/
+sudo stow etc -t /etc
+cd ..
 
 echo "Done."
