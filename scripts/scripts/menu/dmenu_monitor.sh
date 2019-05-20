@@ -3,7 +3,7 @@
 # A small menu to choose the monitor setup
 
 # Get the settings
-. /home/yad/.config/scripts/settings.sh
+. /home/yad/scripts/settings.sh
 
 
 layouts=("laptop" "lab" "office" "home")
@@ -24,5 +24,5 @@ run=$(echo -e "${echo_string}" |
 
 
 if [ ! -z "${run}" -a "${run}" != "" ]; then
-	exec ~/.config/scripts/screen-layout/"${run}.sh" > /dev/null &
+	exec ~/scripts/screen-layout/"${run}.sh" > /dev/null &
 fi

@@ -21,4 +21,4 @@ export GNUPGHOME=/home/yad/.config/gpg
 gpg-connect-agent /bye
 
 # Other variables
-source /home/yad/.config/scripts/settings.sh
+source /home/yad/scripts/settings.sh

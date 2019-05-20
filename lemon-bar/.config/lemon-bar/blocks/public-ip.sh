@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 
-. /home/yad/.config/scripts/settings.sh
+. /home/yad/scripts/settings.sh
 
 while true; do
 	code=$(curl ipinfo.io 2> /dev/null | awk '/country/ {print substr($2,2,2)}' 2> /dev/null)

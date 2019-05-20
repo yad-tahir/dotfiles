@@ -3,7 +3,7 @@
 
 PWD=$(dirname $0)
 
-. $HOME/.config/scripts/settings.sh
+. $HOME/scripts/settings.sh
 
 # Kill any panel processes older than us, instead of bailing like the example
 # does. That caused one too many panel-less boots for me.

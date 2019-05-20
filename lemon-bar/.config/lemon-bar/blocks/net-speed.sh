@@ -1,7 +1,7 @@
 #! /bin/sh
 #
 
-. /home/yad/.config/scripts/settings.sh
+. /home/yad/scripts/settings.sh
 
 while true; do
 	ping=$(ping 8.8.8.8 -c 3 | awk '/avg/{split($4,arr,"/"); printf("%3.0f\n",arr[2])}' | awk '$1=$1' 2> /dev/null)

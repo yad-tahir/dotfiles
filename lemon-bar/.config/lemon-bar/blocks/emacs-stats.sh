@@ -1,7 +1,7 @@
 #! /bin/sh
 #
 
-. /home/yad/.config/scripts/settings.sh
+. /home/yad/scripts/settings.sh
 
 EMACS_FIFO=${PANEL_FIFO}-emacs
 [ -e "$EMACS_FIFO" ] && rm "$EMACS_FIFO"

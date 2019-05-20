@@ -4,7 +4,7 @@
 # then use dmenu to show it.
 
 # Get the settings
-. /home/yad/.config/scripts/settings.sh
+. /home/yad/scripts/settings.sh
 
 
 cachedir="$HOME/.cache/"

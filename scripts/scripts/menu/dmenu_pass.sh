@@ -2,7 +2,7 @@
 
 # Modify from https://git.zx2c4.com/password-store/tree/contrib/dmenu/passmenu
 
-. /home/yad/.config/scripts/settings.sh
+. /home/yad/scripts/settings.sh
 
 prefix=${PASSWORD_STORE_DIR}
 password_files=( "$prefix"/**/*.gpg )

@@ -2,7 +2,7 @@
 Description=Sxhkd key binder
 
 [Service]
-ExecStart=/bin/sh -c '. ~/.config/scripts/settings.sh && /usr/bin/sxhkd'
+ExecStart=/bin/sh -c '. ~/scripts/settings.sh && /usr/bin/sxhkd'
 ExecReload=/usr/bin/kill -SIGUSR1 $MAINPID
 Restart=always
 RestartSec=1s

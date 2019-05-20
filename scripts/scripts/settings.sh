@@ -8,6 +8,7 @@ export VISUAL="emacsclient -c"         # $VISUAL opens in GUI mode
 export TERMINAL="urxvtc"
 export BROWSER="firefox-developer-edition"
 export JAVA_HOME="/usr/lib/jvm/default"
+export USERNAME="yad"
 
 # mpd
 export MPD_HOST="localhost"
@@ -19,7 +20,7 @@ export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
 # Pass
 export PASSWORD_STORE_DIR=$HOME/documents/shadows
-export PASSWORD_STORE_SIGNING_KEY=$(cat $PASSWORD_STORE_DIR/.sign.key)
+export PASSWORD_STORE_SIGNING_KEY=$(cat $GNUPGHOME/usage/pass.sign.key)
 
 # Terminal
 export RXVT_SOCKET=/run/user/1000/urxvtd-arch-laptop

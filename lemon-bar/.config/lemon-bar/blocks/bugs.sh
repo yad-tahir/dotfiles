@@ -2,7 +2,7 @@
 #
 
 
-. /home/yad/.config/scripts/settings.sh
+. /home/yad/scripts/settings.sh
 
 function print_num_packages {
 	c=$(journalctl -b -p err --no-pager --no-tail --no-full | wc -l)

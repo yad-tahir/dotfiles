@@ -163,16 +163,16 @@ F2
 
 # Dmenu
 super + shift + m
-	~/.config/scripts/menu/dmenu_monitor.sh
+	~/scripts/menu/dmenu_monitor.sh
 
 super + g
-	~/.config/scripts/menu/dmenu_run.sh
+	~/scripts/menu/dmenu_run.sh
 
 super + shift + g
-	~/.config/scripts/menu/dmenu_emacs.sh
+	~/scripts/menu/dmenu_emacs.sh
 
 super + shift + p
-	~/.config/scripts/menu/dmenu_pass.sh
+	~/scripts/menu/dmenu_pass.sh
 
 # Screenshot
 super + F3
@@ -180,7 +180,7 @@ super + F3
 
 # Screen lock
 super + shift + l
-	/home/yad/.config/i3/lock-screen.sh
+	~/scripts/lock-screen.sh
 
 # Terminal emulator
 
