@@ -8,6 +8,6 @@ stow mpd
 stow rofi
 stow zathura
 stow systemd
-
+stow icc-profiles
 stow i3
 

@@ -1,8 +1,8 @@
 #!/bin/sh
 xrandr --output HDMI-0 --off --output DP-4 --mode 3840x2160 --pos 2880x0 --rotate left --output DP-3 --mode 3840x1600 --pos 5040x0 --rotate normal --output DP-2 --mode 2880x1800 --pos 0x0 --rotate normal --output DP-1 --off --output DP-0 --off
 
-dispwin -d 2 ~/.config/color/icc/devices/display/U3818DW#2-2018-10-20-2347.icc
-dispwin -d 3 ~/.config/color/icc/devices/display/U2718Q#3-2018-10-21-0034.icc
+dispwin -d 2 ~/.config/icc-profiles/U3818DW#2-2018-10-20-2347.icc
+dispwin -d 3 ~/.config/icc-profiles/U2718Q#3-2018-10-21-0034.icc
 
 # Set the workspaces
 bspc monitor DP-2 -n DP-2 -d 10 &> /dev/null
