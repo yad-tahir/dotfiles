@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 #
 
 PWD=$(dirname $0)
@@ -136,15 +136,15 @@ function panel_bar {
 
 					## Set the dominated color. The priority order is
 					## lock, fixed, marked and then other.
-					if [ "$locked_flag" == "L" ] ; then
+					if [ "$locked_flag" = "L" ] ; then
 						FG=$COLOR_FOREGROUND
 						UG=$COLOR_INDICATOR4
 						BG=$COLOR_BACKGROUND
-					elif [ "$fixed_flag" == "F" ] ; then
+					elif [ "$fixed_flag" = "F" ] ; then
 						FG=$COLOR_FOREGROUND
 						UG=$COLOR_INDICATOR3
 						BG=$COLOR_BACKGROUND
-					elif [ "$marked_flag" == "M" ] ; then
+					elif [ "$marked_flag" = "M" ] ; then
 						FG=$COLOR_FOREGROUND
 						UG=$COLOR_INDICATOR2
 						BG=$COLOR_BACKGROUND
@@ -274,9 +274,10 @@ function panel_bar {
 
 		#Create a panel for each monitor
 		fmt=
-		for (( i=0; i < $num_mon; i++ ))
-		do
+		i=0
+		while [ $i -lt $num_mon ]; do
 			fmt="${fmt}%{l}%{S$i}${monitor_info_arr[$i]} ${titles[$i]}%{r}${sys}"
+			i=$(($i+1))
 		done
 
 		printf "%s\n" "$fmt"

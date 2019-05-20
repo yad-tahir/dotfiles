@@ -5,7 +5,7 @@ while true; do
 	ACPI=$(acpi)
 	CODE=$(echo $ACPI | awk '{print tolower(substr($3,1,length($3)-1))}')
 
-	if [ $CODE == "discharging" ]
+	if [ $CODE = "discharging" ]
 	then
 		BAT=$(echo $ACPI | awk '{print substr($4,1,length($4)-2)}')
 		if [ $BAT -ge 90 ];then

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # A small script that makes BSPWM slightly more suitable for ultra-wide
 # monitors. When there are three windows or less in the currently

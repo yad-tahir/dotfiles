@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # A small menu to choose the monitor setup
 

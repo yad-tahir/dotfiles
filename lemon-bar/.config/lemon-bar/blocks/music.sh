@@ -8,7 +8,7 @@ while true; do
 	state=$(mpc current -f '%title% %artist% %album%' 2> /dev/null)
 	pause=$(mpc status | awk '/paused/{print $0}' 2> /dev/null)
 
-	if [ "$state" == "" -o "$pause" != "" ]; then
+	if [ "$state" = "" -o "$pause" != "" ]; then
 		echo "Sw "
 		break
 	else

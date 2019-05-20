@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+
 xrandr --output HDMI-0 --off --output DP-4 --mode 3840x2160 --pos 2880x0 --rotate left --output DP-3 --mode 3840x1600 --pos 5040x0 --rotate normal --output DP-2 --mode 2880x1800 --pos 0x0 --rotate normal --output DP-1 --off --output DP-0 --off
 
 dispwin -d 2 ~/.config/icc-profiles/U3818DW#2-2018-10-20-2347.icc

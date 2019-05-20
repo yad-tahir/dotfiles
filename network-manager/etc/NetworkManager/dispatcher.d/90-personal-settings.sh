@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$1" == "wlp4s0" ]; then
+if [ "$1" = "wlp4s0" ]; then
 case "$2" in
     up)
 		# Refresh the local DNS client

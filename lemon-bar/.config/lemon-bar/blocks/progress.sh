@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 #
 # A utility script to draw a progress using text underline.
 
