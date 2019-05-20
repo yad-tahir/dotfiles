@@ -5,7 +5,7 @@
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -c"          # $EDITOR opens in terminal
 export VISUAL="emacsclient -c"         # $VISUAL opens in GUI mode
-export TERMINAL="gnome-terminal"
+export TERMINAL="urxvtc"
 export BROWSER="firefox-developer-edition"
 export JAVA_HOME="/usr/lib/jvm/default"
 

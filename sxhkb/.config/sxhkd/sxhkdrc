@@ -163,14 +163,13 @@ F2
 
 # Dmenu
 super + shift + m
-	~/.config/scripts/screen-layout/$(echo -e "home\noffice\nlab\nlaptop" | dmenu -i -f -h $PANEL_HEIGHT -nb "$COLOR_BACKGROUND" -nf "$COLOR_FOREGROUND" -sb "$COLOR_INDICATOR2" -sf "$COLOR_BACKGROUND" -l 0 -fn "$PANEL_FONT_FAMILY" -p "Monitor Layout").sh > /dev/null
+	~/.config/scripts/menu/dmenu_monitor.sh
 
 super + g
-	dmenu_run -i -f -h $PANEL_HEIGHT -nb "$COLOR_BACKGROUND" -nf "$COLOR_FOREGROUND" -sb "$COLOR_INDICATOR3" -sf "$COLOR_BACKGROUND" -l 0 -fn "$PANEL_FONT_FAMILY" -p "App"
-	# rofi -show drun -show-icons -width 30 -monitor -1 -config ~/.config/rofi/config.rasi -modi drun -p 'applications' > /dev/null &
+	~/.config/scripts/menu/dmenu_run.sh
 
 super + shift + g
-	emacsclient -qne "(do-$(echo -e "file-manager\ncalculator\nscratch-buffer\nmusic-playlist\nnotebook\nagenda\ncapture" | dmenu -i -f -h $PANEL_HEIGHT -nb "$COLOR_BACKGROUND" -nf "$COLOR_FOREGROUND" -sb "$COLOR_INDICATOR1" -sf "$COLOR_BACKGROUND" -l 0 -fn "$PANEL_FONT_FAMILY" -p "Emacs"))" > /dev/null
+	~/.config/scripts/menu/dmenu_emacs.sh
 
 super + shift + p
 	~/.config/scripts/menu/dmenu_pass.sh
