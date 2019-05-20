@@ -1,0 +1,9 @@
+[Unit]
+Description=Backup ZFS datasets to the cloud on a hourly basis
+
+[Timer]
+OnCalendar=*-*-* 00:06:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

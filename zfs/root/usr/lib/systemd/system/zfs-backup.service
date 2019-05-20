@@ -1,0 +1,11 @@
+[Unit]
+Description=Backup ZFS datasets to GDrive
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+ExecStart=/home/yad/scripts/backup/zfs-export.sh
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target

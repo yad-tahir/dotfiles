@@ -2,7 +2,6 @@
 
 echo "Start stowing!"
 
-echo "Restore the home directory"
 stow scripts
 stow bspwm
 stow lemon-bar
@@ -17,8 +16,12 @@ stow x11
 stow git
 stow shell
 
-echo "Restore /etc"
 sudo stow etc -t /etc
+
+cd ./zfs/
+stow scripts -t $HOME/scripts
+sudo stow root -t /
+cd ..
 
 
 echo "Done."
