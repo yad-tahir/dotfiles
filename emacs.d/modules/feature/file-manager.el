@@ -170,7 +170,7 @@
   (use-package dired-collapse
 	:ensure t
 	:commands (dired-collapse-mode)
-	:hook ((dired-mode . dired-collapse-mode))
+	;; :hook ((dired-mode . dired-collapse-mode))
 	:init
 	(general-define-key
 	 :keymaps 'dired-mode-map

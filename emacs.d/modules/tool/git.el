@@ -13,12 +13,11 @@
    ;; make a prefix-command and add description
    "" '(:ignore t :which-key "go")
    "g" #'magit-status)
-  :config
 
+  :config
   ;; Make sure all environment variables are set
-  (eval-and-compile
   (unless (fboundp 'exec-path-from-shell)
-	(require 'exec-path-from-shell)))
+	(require 'exec-path-from-shell))
 
   (general-define-key
    :keymaps 'magit-status-mode-map

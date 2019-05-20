@@ -15,9 +15,5 @@ alias pacman-unused='pacman -Qtdq'
 alias kweb='sudo -u yad -g no_net KeeWeb'
 alias cleaor='clear'
 
-# gpg & ssh
-export GNUPGHOME=/home/yad/.config/gpg
-gpg-connect-agent /bye
-
 # Other variables
 source /home/yad/bin/settings.sh
