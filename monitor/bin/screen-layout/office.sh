@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 xrandr --output HDMI-0 --off --output DP-4 --mode 3440x1440 --pos 2880x0 --rotate normal --output DP-3 --mode 3440x1440 --pos 6320x0 --rotate normal --output DP-2 --mode 2880x1800 --pos 0x0 --rotate normal --output DP-1 --off --output DP-0 --off
 

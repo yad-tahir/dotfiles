@@ -5,20 +5,19 @@
 # Get the settings
 . $HOME/bin/settings.sh
 
-emacs_commands=("do-capture"
-				"do-agenda"
-				"do-music-playlist"
-				"do-scratch-buffer"
-				"do-calculator"
-				"do-notebook"
-				"do-file-manager")
+emacs_commands="do-capture
+				do-agenda
+				do-music-playlist
+				do-scratch-buffer
+				do-calculator
+				do-notebook
+				do-file-manager"
 
-echo_string=
-for i in ${emacs_commands[*]}; do
+for i in $emacs_commands; do
 	echo_string="${i}\\n${echo_string}"
 done
 
-run=$(echo -e "${echo_string}" |
+run=$(echo "${echo_string}" |
 		  dmenu -i -f -h $PANEL_HEIGHT \
 				-nb "$COLOR_BACKGROUND" \
 				-nf "$COLOR_FOREGROUND" \

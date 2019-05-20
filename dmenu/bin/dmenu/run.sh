@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # A small script to prepare a list of commands available in the system,
 # then use dmenu to show it.
@@ -15,11 +15,11 @@ run=$(
 	if stest -dqr -n "$cache" $PATH 2> /dev/null ; then
 
 		# Add Emacs and firefox to the beginning of the list
-		prefix_commands=("emacs" "firefox-developer-edition")
+		prefix_commands="emacs firefox-developer-edition"
 		echo_string=
 		filter_string=
 		
-		for i in ${prefix_commands[*]}; do
+		for i in ${prefix_commands}; do
 			echo_string="${i}\\n${echo_string}"
 			filter_string="${i}\$|${filter_string}"
 		done

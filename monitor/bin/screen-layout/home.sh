@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 xrandr --output HDMI-0 --off --output DP-4 --mode 3840x2160 --pos 2880x0 --rotate left --output DP-3 --mode 3840x1600 --pos 5040x0 --rotate normal --output DP-2 --mode 2880x1800 --pos 0x0 --rotate normal --output DP-1 --off --output DP-0 --off
 
@@ -16,12 +16,12 @@ systemctl --user restart lemon-bar.service &
 # Refresh the background
 xsetroot -solid "$COLOR_BACKGROUND" &
 
-# Launch Apps
-bspc desktop 6 -f &&
-urxvtc -e /bin/sh -c 'htop;bash' &&
-urxvtc -e /bin/sh -c 'journalctl -fn 100;bash' &
-
 # Setup the sound system
 systemctl --user restart pulseaudio.service &&
 	pactl set-default-sink alsa_output.pci-0000_01_00.1.hdmi-stereo-extra2 &&
 	pactl set-card-profile 0 output:hdmi-stereo-extra2 &
+
+# Launch Apps
+# bspc desktop 6 -f &&
+# urxvtc -e /bin/sh -c 'htop;bash' &&
+# urxvtc -e /bin/sh -c 'journalctl -fn 100;bash' &

@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/sh
 
 xrandr --output DP-4 --mode 1280x1024 --pos 0x0
 xrandr --output DP-3 --mode 1280x1024 --pos 0x0

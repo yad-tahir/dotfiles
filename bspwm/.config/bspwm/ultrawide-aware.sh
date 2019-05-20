@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 
-# A small script that makes BSPWM slightly more suitable for ultra-wide
+# A small shell script that makes BSPWM slightly more suitable for ultra-wide
 # monitors. When there are three windows or less in the currently
 # focused desktop, this script automatically equalizes their size.
 # This script needs to be executed independently. It cannot be part of
@@ -18,7 +18,6 @@ bspc subscribe node > $ULTRAWIDE_FIFO &
 while read line ; do
 	case $line in
 		node_add*|node_remove*)
-			read -a arr <<< $line
 			size=$(bspc query -N -d | wc -l)
 
 			# Balance when the number of windows is three or less.
