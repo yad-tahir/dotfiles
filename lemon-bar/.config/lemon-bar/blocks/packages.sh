@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. /home/yad/scripts/settings.sh
+. /home/yad/bin/settings.sh
 
 while true; do
 	tmp=$(pacman -Q | wc -l)

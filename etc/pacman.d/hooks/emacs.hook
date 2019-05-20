@@ -23,4 +23,4 @@ Target=m17n-lib
 Depends=emacs
 Description=Remove Emacs cache files
 When=PostTransaction
-Exec=/usr/bin/bash -c "find /home/yad/dotfiles/emacs/ -name '*.elc' -type f -delete && rm -R /home/yad/dotfiles/emacs/packages"
+Exec=/bin/sh -c "/home/yad/.emacs.d/clean.sh"

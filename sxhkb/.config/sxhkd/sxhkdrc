@@ -163,16 +163,16 @@ F2
 
 # Dmenu
 super + shift + m
-	~/scripts/menu/dmenu_monitor.sh
+	~/bin/dmenu/monitor.sh
 
 super + g
-	~/scripts/menu/dmenu_run.sh
+	~/bin/dmenu/run.sh
 
 super + shift + g
-	~/scripts/menu/dmenu_emacs.sh
+	~/bin/dmenu/emacs.sh
 
 super + shift + p
-	~/scripts/menu/dmenu_pass.sh
+	~/bin/dmenu/pass.sh
 
 # Screenshot
 super + F3
@@ -180,7 +180,7 @@ super + F3
 
 # Screen lock
 super + shift + l
-	~/scripts/lock-screen.sh
+	~/bin/lock-screen.sh
 
 # Terminal emulator
 

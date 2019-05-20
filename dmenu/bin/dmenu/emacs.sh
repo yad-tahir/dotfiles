@@ -3,7 +3,7 @@
 # A small menu to launch an Emacs command
 
 # Get the settings
-. /home/yad/scripts/settings.sh
+. /home/yad/bin/settings.sh
 
 emacs_commands=("do-capture"
 				"do-agenda"

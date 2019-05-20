@@ -4,7 +4,7 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
-ExecStart=/home/yad/scripts/backup/zfs-export.sh
+ExecStart=/home/yad/bin/backup/zfs-export.sh
 KillMode=process
 
 [Install]

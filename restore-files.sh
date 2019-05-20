@@ -2,9 +2,10 @@
 
 echo "Start stowing!"
 
-mkdir $HOME/scripts 2> /dev/null
+mkdir ../bin 2> /dev/null
 stow scripts
 
+stow dmenu
 stow bspwm
 stow lemon-bar
 stow sxhkb
@@ -12,7 +13,7 @@ stow mpd
 stow rofi
 stow zathura
 stow systemd
-stow icc-profiles
+stow monitor
 stow i3
 stow x11
 stow git
@@ -21,8 +22,8 @@ stow shell
 sudo stow etc -t /etc
 
 cd ./zfs/
-mkdir $HOME/scripts/backup 2> /dev/null
-stow scripts -t $HOME/scripts
+mkdir ../../bin/backup 2> /dev/null
+stow bin -t ../../bin
 sudo stow root -t /
 cd ..
 

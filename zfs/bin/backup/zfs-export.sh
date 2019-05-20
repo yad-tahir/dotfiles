@@ -3,8 +3,13 @@
 # A small script to export some zfs sets. The script is designed to be executed
 # once a day.
 
+if [ $UID -ne 0 ]; then
+	echo "Please run this program as superuser"
+	exit 1
+fi
+
 # Get the settings
-. /home/yad/scripts/settings.sh
+. /home/yad/bin/settings.sh
 
 # ZFS sets
 backup_sets=('rpool/sys/root/default'

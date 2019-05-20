@@ -9,7 +9,6 @@ alias ls='ls -ali'
 alias s="sudo su"
 alias e="emacs"
 alias ec="emacsclient -cn"
-alias nano="emacsclient -cn"
 alias firefox="firefox-developer-edition"
 alias pacman-history="expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -n 100"
 alias pacman-unused='pacman -Qtdq'
@@ -21,4 +20,4 @@ export GNUPGHOME=/home/yad/.config/gpg
 gpg-connect-agent /bye
 
 # Other variables
-source /home/yad/scripts/settings.sh
+source /home/yad/bin/settings.sh
