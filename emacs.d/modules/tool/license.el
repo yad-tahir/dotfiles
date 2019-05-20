@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019
 
@@ -16,22 +17,16 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
-(cl-eval-when (compile)
-  (require 'calc)
-  (require 'calc-aent))
+(use-package lice
+  :ensure t
+  :after (evil general)
+  :commands (lice)
+  :init
+  (general-define-key
+   :prefix "SPC l"
+   :keymaps 'override
+   :states 'normal
+   "l" 'lice)
+  :config
+  (setq lice:default-license "gpl-2.0"))
 
-;;;###autoload
-(defun do-calculator ()
-  (interactive)
-  (let ((calculator-frame-found nil))
-	(dolist (m (frame-list))
-	  (when (equal (frame-parameter m 'name) "calculator" )
-		(with-current-buffer (window-buffer (frame-selected-window m))
-		  (when (equal (format "%s" major-mode) "calc-mode")
-			(setq calculator-frame-found t)
-			(raise-frame m)))))
-	(when (not calculator-frame-found)
-	  (do-make-frame "calculator")
-	  (full-calc)
-	  (calc-trail-display 1)
-	  (calc-alg-entry))))

@@ -1,5 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 
+
 (defcustom chocolate-theme-bg "#0f0b0c"
   "Palette - default background"
   :type 'string :group 'chocolate-theme)
