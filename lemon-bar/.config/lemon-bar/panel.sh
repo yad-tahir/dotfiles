@@ -65,9 +65,6 @@ bspc config top_padding $PANEL_HEIGHT
 
 num_mon=$(bspc query -M | wc -l)
 function panel_bar {
-	monitor_info_arr=("" "" "" "" "")
-	titles=("" "" "" "" "")
-	focused_wm_flags=("" "" "" "" "")
 	while read line ; do
 		case $line in
 			# Handle Sys blocks
@@ -177,12 +174,34 @@ function panel_bar {
 					w_class=$(xprop -id $(xdo id) | awk '/^WM_CLASS/{print $4}' | sed 's/"//g')
 					if [ "$w_class" = "Emacs" ]; then
 						title_text="${title_text}${title:0:${#title}-7} "
-						eposition="${title:(-4)}"
-						eposition="${eposition:0:${#eposition}-1}"
+						progress="${title:(-4)}"
+						progress="${progress:0:${#eposition}-1}"
 						t="%{U$UG}%{F$FG}%{B$BG}"
-						t="${t}"$($PWD/blocks/progress.sh " $title_text" $eposition)
+						t="${t}"$($PWD/blocks/progress.sh " $title_text" $progress)
 						titles[$selected_monitor]="${t}%{B-}%{F-}%{U-}"
+					elif [ "$w_class" = "Firefox" ]; then
+						case "$title" in
+							*%*)
+								meta=" - Firefox Developer Edition"
+								title_text=$(echo "${title_text}${title}" |
+												 sed -e "s/$meta//")
+								title_text="${title_text:0:${#title_text}-1}"
+								# Get the progress as a number and trim whitespaces
+								progress=$(echo "${title_text:(-3)}" |
+											   sed -e 's/-//' | awk '{$1=$1};1')
+								title_text="${title_text:0:${#title_text}-${#progress}-3}${meta}"
 
+								t="%{U$UG}%{F$FG}%{B$BG}"
+								t="${t}"$($PWD/blocks/progress.sh \
+											  " $title_text " \
+											  "$progress")
+								titles[$selected_monitor]="${t}%{B-}%{F-}%{U-}"
+							;;
+							*)
+								title_text="${title_text}${title}"
+								titles[$selected_monitor]="%{U$UG}%{F$FG}%{B$BG}%{+u} ${title_text} %{-u}%{B-}%{F-}%{U-}"
+								;;
+						esac
 					else
 						title_text="${title_text}${title}"
 						titles[$selected_monitor]="%{U$UG}%{F$FG}%{B$BG}%{+u} ${title_text} %{-u}%{B-}%{F-}%{U-}"
