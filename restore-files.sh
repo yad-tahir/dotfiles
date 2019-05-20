@@ -17,7 +17,6 @@ stow rofi
 stow zathura
 stow urxvt
 stow monitor
-stow i3
 stow x11
 stow git
 stow shell
