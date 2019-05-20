@@ -20,18 +20,17 @@
 if [ "$1" = "wlp4s0" ]; then
 case "$2" in
     up)
-		# Refresh the local DNS client
+		# OpenVPN requires DNS. A restart is needed to make sure the DNS daemon is
+		# well initialized.
 		systemctl restart systemd-resolved.service &&
-		# Start the VPN
 		systemctl start openvpn-client@uk.service
 	;;
     down)
+		systemctl restart systemd-resolved.service &&
 		systemctl stop openvpn-client@uk.service;
 	;;
     connectivity-change)
-		# Refresh the local DNS client
 		systemctl restart systemd-resolved.service &&
-		# Reconnect the VPN
 		systemctl restart openvpn-client@uk.service
 	;;
 esac

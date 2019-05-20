@@ -166,6 +166,10 @@
 
 
   (general-define-key
+   :states 'motion
+   "j" 'nil)
+
+  (general-define-key
    :states 'normal
    "z" 'undo
    "C-Z" 'redo
@@ -178,6 +182,7 @@
    "s" 'nil ;; Used for searching instead
    "U" 'evil-change-line
    "," 'widen ;; @TASK: To evil operator
+   "l" 'nil
    "u" 'evil-change
    "d" 'evil-delete)
 
@@ -200,6 +205,7 @@
 		  ;; @TODO: Does not work in Visual Block Mode
 		  (evil-ex "'<,'>normal @"))
    "u" 'nil
+   "l" 'nil
    "d" 'nil)
 
 

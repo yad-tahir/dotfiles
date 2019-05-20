@@ -45,8 +45,100 @@
   (setf (cdr magit-blob-mode-map) nil)
 
   (general-define-key
-   :keymaps 'magit-mode-map
+   :keymaps 'magit-log-select-mode-map
    :states '(normal visual)
+   "lq" 'magit-log-select-pick
+   "l <escape>" 'magit-log-select-quit)
+
+  (general-define-key
+   :keymaps 'magit-log-mode-map
+   :states 'normal
+   "p"  'magit-log-move-to-parent
+   "s"  'magit-log-toggle-commit-limit
+   "+"  'magit-log-double-commit-limit
+   "-"  'magit-log-half-commit-limit
+   "r"  'magit-rebase
+   "m"  'magit-merge
+   "x"  'magit-reset
+   "l"  'nil
+   "lp" 'magit-log-move-to-parent
+   "ls" 'magit-log-toggle-commit-limit
+   "lr" 'magit-rebase
+   "lm"  'magit-merge
+   "lx"  'magit-reset
+   "l+" 'magit-log-double-commit-limit
+   "l-" 'magit-log-half-commit-limit)
+
+  (general-define-key
+   :keymaps 'git-rebase-mode-map
+   :states 'normal
+   "<return>" 'git-rebase-show-commit
+   "p"        'git-rebase-pick
+   "d"        'git-rebase-kill-line
+   "j"        'git-rebase-break
+   "e"        'git-rebase-edit
+   "b"        'git-rebase-label
+   "m"        'git-rebase-merge
+   "f"        'git-rebase-fixup
+   "w"        'git-rebase-reword
+   "s"        'git-rebase-squash
+   "r"        'git-rebase-reset
+   "!"        'git-rebase-exec
+   "i"        'git-rebase-insert
+   "x"        'git-rebase-noop
+   "lp"       'git-rebase-pick
+   "l,"       'git-rebase-kill-line
+   "lb"       'git-rebase-break
+   "le"       'git-rebase-edit
+   "ll"       'git-rebase-label
+   "lm"       'git-rebase-merge
+   "lM"       'git-rebase-merge-toggle-editmsg
+   "lf"       'git-rebase-fixup
+   "lw"       'git-rebase-reword
+   "ls"       'git-rebase-squash
+   "lt"       'git-rebase-reset
+   "lx"       'git-rebase-exec
+   "li"       'git-rebase-insert
+   "lz"       'git-rebase-noop
+   "<space>"  'git-rebase-show-or-scroll-up
+   "DEL"      'git-rebase-show-or-scroll-down
+   "M-c"      'git-rebase-move-line-up
+   "M-t"      'git-rebase-move-line-down
+   "z"        'git-rebase-undo)
+
+  (general-define-key
+   :keymaps '(magit-file-section-map
+			  magit-untracked-section-map
+			  magit-unstaged-section-map
+			  magit-unmerged-section-map
+			  magit-merge-preview-mode-map
+			  magit-staged-section-map
+			  magit-hunk-section-map)
+   "a" 'magit-apply
+   "s" 'magit-stage
+   "u" 'magit-unstage
+   "d" 'magit-discard
+   "i" 'magit-commit-add-log
+   "d" 'magit-diff-trace-definition
+   "e" 'magit-diff-edit-hunk-commit)
+
+  (general-define-key
+   :keymaps 'magit-diff-mode-map
+   :states '(normal visual)
+   "lj" 'magit-jump-to-diffstat-or-diff
+   "lc" 'magit-diff-while-committing)
+
+  (general-define-key
+   :keymaps 'magit-file-mode-map
+   :states 'normal
+   "lg" 'magit-file-dispatch
+   "lG" 'magit-dispatch
+   "N" 'magit-blob-next
+   "H" 'magit-blob-previous)
+
+(general-define-key
+   :keymaps 'magit-mode-map
+   :states 'normal
    [return] 'magit-visit-thing
    [C-return] 'magit-dired-jump
    "<tab>" 'magit-section-toggle
@@ -63,96 +155,60 @@
    "<f5>" 'magit-refresh)
 
   (general-define-key
-   :keymaps 'magit-log-mode-map
-   :states '(normal visual)
-   "p" 'magit-log-move-to-parent
-   "s" 'magit-log-toggle-commit-limit
-   "+" 'magit-log-double-commit-limit
-   "-" 'magit-log-half-commit-limit
-   "l" 'nil
-   "lp" 'magit-log-move-to-parent
-   "ls" 'magit-log-toggle-commit-limit
-   "l+" 'magit-log-double-commit-limit
-   "l-" 'magit-log-half-commit-limit)
-
-
-  (general-define-key
-   :keymaps '(magit-file-section-map
-			  magit-unstaged-section-map
-			  magit-staged-section-map
-			  magit-hunk-section-map)
-   "a" 'magit-apply
-   "s" 'magit-stage
-   "u" 'magit-unstage
-   "d" 'magit-discard
-   "i" 'magit-commit-add-log
-   "d" 'magit-diff-trace-definition
-   "e" 'magit-diff-edit-hunk-commit)
-
-
-  (general-define-key
-   :keymaps 'magit-diff-mode-map
-   :states '(normal visual)
-   "lj" 'magit-jump-to-diffstat-or-diff
-   "lc" 'magit-diff-while-committing)
-
-  (general-define-key
-   :keymaps 'magit-file-mode-map
-   :states '(normal visual)
-   "lg" 'magit-file-dispatch
-   "lG" 'magit-dispatch
-   "N" 'magit-blob-next
-   "H" 'magit-blob-previous)
-
-  (general-define-key
    :keymaps 'magit-status-mode-map
-   :prefix "l"
-   :states '(normal visual)
-   "$" 'magit-process-buffer
-   "A" 'magit-cherry-pick
-   "b" 'magit-branch
-   "B" 'magit-bisect
-   "c" 'magit-commit
-   "C" 'magit-clone
-   "d" 'magit-diff
-   "D" 'magit-diff-refresh
-   "e" 'magit-ediff-dwim
-   "E" 'magit-ediff
-   "f" 'magit-fetch
-   "F" 'magit-pull
-   "g" 'magit-refresh
-   "G" 'magit-refresh-all
-   "h" 'magit-dispatch
-   "k" 'magit-delete-thing
-   "?" 'magit-dispatch
-   "l" 'magit-log
-   "L" 'magit-log-refresh
-   "m" 'magit-merge
-   "M" 'magit-remote
-   "o" 'magit-submodule
-   "O" 'magit-subtree
-   "q" 'magit-mode-bury-buffer
+   :states 'normal
    "p" 'magit-push
    "r" 'magit-rebase
-   "R" 'magit-file-rename
-   "t" 'magit-tag
-   "T" 'magit-notes
-   "s" 'magit-stage-file
-   "S" 'magit-stage-modified
-   "u" 'magit-unstage-file
-   "U" 'magit-unstage-all
-   "v" 'magit-revert-no-commit
-   "V" 'magit-revert
-   "w" 'magit-am
-   "W" 'magit-patch
-   "x" 'magit-reset-quickly
-   "X" 'magit-reset
-   "y" 'magit-show-refs
-   "Y" 'magit-cherry
-   "z" 'magit-stash
-   "Z" 'magit-stash
-   ":" 'magit-git-command
-   "!" 'magit-run)
+   "f" 'magit-fetch
+   "F" 'magit-pull
+   "a" 'magit-log
+
+   "l"  '(:ignore t :which-key "go")
+   "l$" 'magit-process-buffer
+   "lA" 'magit-cherry-pick
+   "lb" 'magit-branch
+   "lB" 'magit-bisect
+   "lc" 'magit-commit
+   "lC" 'magit-clone
+   "ld" 'magit-diff
+   "lD" 'magit-diff-refresh
+   "le" 'magit-ediff-dwim
+   "lE" 'magit-ediff
+   "lf" 'magit-fetch
+   "lF" 'magit-pull
+   "lg" 'magit-refresh
+   "lG" 'magit-refresh-all
+   "lh" 'magit-dispatch
+   "lk" 'magit-delete-thing
+   "l?" 'magit-dispatch
+   "ll" 'magit-log
+   "lL" 'magit-log-refresh
+   "lm" 'magit-merge
+   "lM" 'magit-remote
+   "lo" 'magit-submodule
+   "lO" 'magit-subtree
+   "lq" 'magit-mode-bury-buffer
+   "lp" 'magit-push
+   "lr" 'magit-rebase
+   "lR" 'magit-file-rename
+   "lt" 'magit-tag
+   "lT" 'magit-notes
+   "ls" 'magit-stage-file
+   "lS" 'magit-stage-modified
+   "lu" 'magit-unstage-file
+   "lU" 'magit-unstage-all
+   "lv" 'magit-revert-no-commit
+   "lV" 'magit-revert
+   "lw" 'magit-am
+   "lW" 'magit-patch
+   "lx" 'magit-reset-quickly
+   "lX" 'magit-reset
+   "ly" 'magit-show-refs
+   "lY" 'magit-cherry
+   "lz" 'magit-stash
+   "lZ" 'magit-stash
+   "l:" 'magit-git-command
+   "l!" 'magit-run)
 
   ;; Make sure all environment variables are set
   (unless (fboundp 'exec-path-from-shell)
@@ -162,6 +218,7 @@
   (add-hook 'magit-file-mode-hook 'magit-blob-mode)
 
   (evil-set-initial-state 'magit-popup-mode 'emacs)
+  (setq magit-status-show-hashes-in-headers t)
 
   (set-face-attribute 'magit-section-heading nil
 					  :background nil

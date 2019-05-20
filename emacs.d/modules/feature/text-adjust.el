@@ -242,9 +242,17 @@ region. Passing nil makes the region starts from (region-end)."
 	 "g/" 'evil-commentary))
 
   (use-package evil-lion
+	:defer t
 	:ensure t
-	:commands (evil-line-mode) ;; @FIX add startup hook
+	:commands (evil-lion-left evil-lion-right)
+	:init
+	(general-define-key
+	 :states '(normal visual)
+	 "SPC l<" #'evil-lion-left
+	 "SPC l>" #'evil-lion-right)
 	:config
+	(setq evil-lion-left-align-key (kbd "l <")
+		  evil-lion-right-align-key (kbd "l >"))
 	(evil-lion-mode))
 
   (use-package drag-stuff
