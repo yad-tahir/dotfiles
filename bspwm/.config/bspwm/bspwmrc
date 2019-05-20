@@ -35,15 +35,14 @@ bspc monitor DP-2 -n DP-2 -d 10
 # Set the background color
 xsetroot -solid $COLOR_BACKGROUND &
 
-# launch the bar
-$HOME/.config/lemon-bar/panel.sh &
-
 # Fix the mouse size
 xsetroot -xcf /usr/share/icons/Adwaita/cursors/left_ptr 16 &
 
 # Keybindings
-systemctl --user restart sxhkd.service
+systemctl --user start sxhkd.service &
 
+# launch the bar
+systemctl --user start lemon-bar.service &
 
 # Startup commands
 gpg-connect-agent /bye

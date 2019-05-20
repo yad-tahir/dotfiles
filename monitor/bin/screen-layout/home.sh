@@ -10,18 +10,17 @@ bspc monitor DP-3 -n DP-3 -d 1 2 3 4 5 &> /dev/null
 bspc monitor DP-4 -n DP-4 -d 6 7 8 9 &> /dev/null
 
 # restart the bar
-~/.config/lemon-bar/panel.sh &
-
-# Setup the sound system
-systemctl --user restart pulseaudio.service &&
-	pactl set-default-sink alsa_output.pci-0000_01_00.1.hdmi-stereo-extra2 &&
-	pactl set-card-profile 0 output:hdmi-stereo-extra2
+systemctl --user restart lemon-bar.service &
 
 # Refresh the background
 xsetroot -solid "$COLOR_BACKGROUND" &
-
 
 # Launch Apps
 bspc desktop 6 -f &&
 urxvtc -e /bin/sh -c 'htop;bash' &&
 urxvtc -e /bin/sh -c 'journalctl -fn 100;bash' &
+
+# Setup the sound system
+systemctl --user restart pulseaudio.service &&
+	pactl set-default-sink alsa_output.pci-0000_01_00.1.hdmi-stereo-extra2 &&
+	pactl set-card-profile 0 output:hdmi-stereo-extra2 &

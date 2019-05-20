@@ -5,27 +5,12 @@ PWD=$(dirname $0)
 
 . $HOME/bin/settings.sh
 
-# Kill any panel processes older than us, instead of bailing like the example
-# does. That caused one too many panel-less boots for me.
-while [ $(pgrep -cx panel.sh) -gt 1 ] ; do
-	pkill -of -TERM panel.sh
-done
-
-# Kill any remaining trays / xtitle instances so we don't have multiples.
-killall -TERM lemonbar 2> /dev/null
-
 # Remove the old panel completely
 xdo id -a "$PANEL_WM_NAME" | xargs -n 1 -I % xdo kill %
-
-# Kill sub processes when the script is terminated
-trap "kill $$" SIGINT
-trap 'kill -HUP 0' EXIT
-trap 'kill $(jobs -p)' EXIT
 
 [ -e "${PANEL_FIFO}" ] && rm "$PANEL_FIFO"
 mkfifo "$PANEL_FIFO" -m600
 
-# The old process have been called because of the pkill loop above. Re-launch it.
 bspc subscribe report > "$PANEL_FIFO" &
 
 xtitle -sf 'T%s\n' > "$PANEL_FIFO" &

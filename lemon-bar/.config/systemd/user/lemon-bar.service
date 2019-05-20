@@ -1,0 +1,11 @@
+[Unit]
+Description=Lemon bar
+
+[Service]
+ExecStart=/bin/sh -c '. ~/bin/settings.sh && ~/.config/lemon-bar/panel.sh'
+Restart=always
+RestartSec=1s
+Type=simple
+
+[Install]
+WantedBy=default.target

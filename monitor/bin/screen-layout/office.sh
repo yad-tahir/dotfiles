@@ -12,7 +12,7 @@ bspc monitor DP-3 -n DP-3 -d 1 2 3 4 5 &> /dev/null
 bspc monitor DP-4 -n DP-4 -d 6 7 8 9 &> /dev/null
 
 # restart the bar
-~/.config/lemon-bar/panel.sh &
+systemctl --user restart lemon-bar.service &
 
 
 xsetroot -solid "$COLOR_BACKGROUND" &
