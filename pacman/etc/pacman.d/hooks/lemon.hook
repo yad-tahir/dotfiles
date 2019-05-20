@@ -7,4 +7,4 @@ Target=*
 [Action]
 Description=Notify Lemonbar
 When=PostTransaction
-Exec=/bin/sh -c '. /home/$USERNAME/bin/settings.sh && /home/$USERNAME/.config/lemon-bar/blocks/packages.sh > $PANEL_FIFO'
+Exec=/bin/sudo -u yad /bin/sh -c '. ~/bin/settings.sh && ~/.config/lemon-bar/blocks/packages.sh > $PANEL_FIFO'

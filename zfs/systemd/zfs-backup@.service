@@ -5,7 +5,7 @@ After=network-online.target
 
 [Service]
 Environment=USERNAME=yad
-ExecStart=/home/yad/bin/backup/zfs-export.sh /%i
+ExecStart=/bin/zfs-export.sh /%i
 KillMode=process
 
 [Install]

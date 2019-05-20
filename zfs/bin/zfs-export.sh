@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # A small script to export some zfs sets. The script is designed to be executed
 # once a day.

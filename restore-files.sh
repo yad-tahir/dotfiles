@@ -21,8 +21,7 @@ stow git
 stow shell
 
 cd ./zfs/
-mkdir ../../bin/backup 2> /dev/null
-stow bin -t ../../bin
+sudo stow bin -t /bin
 # Enabling symbolic systemd's units can be very buggy. Hence, we need to
 # copy the actual files
 sudo rm /usr/lib/systemd/system/zfs-backup@.* 2> /dev/null
@@ -33,6 +32,7 @@ cd ./pacman/
 sudo rm /usr/lib/systemd/system/pacman-sync.* 2> /dev/null
 sudo cp ./systemd/* /usr/lib/systemd/system/
 sudo stow etc -t /etc
+sudo stow bin -t /bin
 cd ..
 
 cd ./network-manager/

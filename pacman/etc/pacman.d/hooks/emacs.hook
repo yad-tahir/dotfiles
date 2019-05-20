@@ -23,4 +23,4 @@ Target=m17n-lib
 Depends=emacs
 Description=Remove Emacs cache files
 When=PostTransaction
-Exec=/bin/sh -c "/home/$USERNAME/.emacs.d/clean.sh"
+Exec=sudo -u yad /bin/sh -c "~/.emacs.d/clean.sh"

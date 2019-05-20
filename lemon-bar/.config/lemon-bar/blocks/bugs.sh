@@ -1,10 +1,9 @@
 #! /bin/sh
 #
 
-
 . $HOME/bin/settings.sh
 
-function print_num_packages {
+function print_num_bugs {
 	c=$(journalctl -b -p err --no-pager --no-tail --no-full | wc -l)
 	if [ $c -gt 30 ]; then
 		c="%{B$COLOR_INDICATOR4}%{F$COLOR_BACKGROUND}"$c"%{F-}%{B-}"
@@ -21,11 +20,11 @@ if [ "$#" -eq 0 ]; then
 	journalctl -f -b -p err --no-pager --no-tail --no-full > $BUGS_FIFO &
 
 	while read line ; do
-		print_num_packages
+		print_num_bugs
 	done < $BUGS_FIFO
 else
 	while true; do
-		print_num_packages
+		print_num_bugs
 		sleep $1
 	done
 fi

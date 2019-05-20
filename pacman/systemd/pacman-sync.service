@@ -4,7 +4,8 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
-ExecStart=/bin/sh -c "/bin/rm /var/lib/pacman/db.lck 2> /dev/null; pacman -Syy; /usr/bin/sudo -u $USERNAME /bin/sh -c '$HOME/.config/lemon-bar/blocks/packages.sh > $PANEL_FIFO'"
+Environment=USERNAME=yad
+ExecStart=/bin/pacman-sync.sh
 KillMode=process
 
 [Install]

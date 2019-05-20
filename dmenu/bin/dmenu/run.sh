@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # A small script to prepare a list of commands available in the system,
 # then use dmenu to show it.
@@ -46,9 +46,9 @@ run=$(
 case "$run" in
 	# If it ends with '!', run it in a terminal instead
 	*!)
-		exec $(echo "$TERMINAL -hold -e $run" | sed -e 's/!$//')
+		$(echo "$TERMINAL -hold -e $run" | sed -e 's/!$//') &
 		;;
 	*?*)
-		exec "$run"
+		"$run" &
 		;;
 esac

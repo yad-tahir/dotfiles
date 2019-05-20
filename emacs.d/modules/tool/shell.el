@@ -75,16 +75,16 @@
   :hook ((eshell-mode . fish-completion-mode))
   :config
   (with-eval-after-load 'em-term
-;; Basic eShell key bindings should be in this minor mode as the
-  ;; implementation of eshell-mode-map really sucks!
-  ;; (general-define-key
-  ;;  :keymaps 'eshell-mode-map
-  ;;  :states 'insert
-  ;;  "<tab>" 'completion-at-point
-  ;;  "C-q" 'eshell-interrupt-process
-  ;;  "C-c" 'eshell-previous-input
-  ;;  "C-t" 'eshell-next-input)
-  ))
+	;; Basic eShell key bindings should be in this minor mode as the
+	;; implementation of eshell-mode-map really sucks!
+	;; (general-define-key
+	;;  :keymaps 'eshell-mode-map
+	;;  :states 'insert
+	;;  "<tab>" 'completion-at-point
+	;;  "C-q" 'eshell-interrupt-process
+	;;  "C-c" 'eshell-previous-input
+	;;  "C-t" 'eshell-next-input)
+	))
 
 ;; (use-package eshell-fixed-prompt
 ;;   :ensure t
@@ -103,13 +103,13 @@
   :defer 20
   :ensure t
   :config
-    (setq exec-path-from-shell-arguments (list "-l"))
-	(setq exec-path-from-shell-shell-name "sh")
-    (setq exec-path-from-shell-check-startup-files nil)
+  (setq exec-path-from-shell-arguments (list "-l")
+		exec-path-from-shell-shell-name "bash"
+		exec-path-from-shell-check-startup-files nil)
 
-    (add-to-list 'exec-path-from-shell-variables "SHELL")
-    (add-to-list 'exec-path-from-shell-variables "GOPATH")
-    (add-to-list 'exec-path-from-shell-variables "GNUPGHOME")
-    (add-to-list 'exec-path-from-shell-variables "SSH_AUTH_SOCK")
+		(add-to-list 'exec-path-from-shell-variables "SHELL")
+		(add-to-list 'exec-path-from-shell-variables "GOPATH")
+		(add-to-list 'exec-path-from-shell-variables "GNUPGHOME")
+		(add-to-list 'exec-path-from-shell-variables "SSH_AUTH_SOCK")
 
-    (exec-path-from-shell-initialize))
+		(exec-path-from-shell-initialize))
