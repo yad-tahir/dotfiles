@@ -221,7 +221,8 @@
    :keymaps 'with-editor-mode-map
    :prefix "l"
    :states 'normal
-   "q" 'with-editor-finish)
+   "q" 'with-editor-finish
+   "<escape>" 'with-editor-cancel)
 
   (setq-default evil-symbol-word-search t) ;; make * and  more useful
 
