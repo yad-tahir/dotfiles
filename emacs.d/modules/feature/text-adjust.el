@@ -233,13 +233,22 @@ region. Passing nil makes the region starts from (region-end)."
 	 :states '(visual)
 	 "r" 'er/expand-region))
 
-  (use-package evil-commentary
-	:ensure t
-	:commands (evil-commentary)
-	:init
-	(general-define-key
-	 :states '(normal visual)
-	 "g/" 'evil-commentary))
+  (use-package evil-nerd-commenter
+  	:ensure t
+	:commands (evilnc-comment-operator)
+  	:init
+  	(general-define-key
+  	 :states '(normal visual)
+  	 "g/" 'evilnc-comment-operator))
+
+  ;; As of June 14, evil-commentary is a bit buggy when the whitespace mode is on.
+  ;; (use-package evil-commentary
+  ;; 	:ensure t
+  ;; 	:commands (evil-commentary)
+  ;; 	:init
+  ;; 	(general-define-key
+  ;; 	 :states '(normal visual)
+  ;; 	 "g/" 'evil-commentary))
 
   (use-package evil-lion
 	:defer t
