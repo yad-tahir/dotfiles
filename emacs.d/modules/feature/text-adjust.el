@@ -283,6 +283,14 @@ region. Passing nil makes the region starts from (region-end)."
 	 :states '(normal visual)
 	 "gr" 'evil-replace-with-register))
 
+  (use-package evil-numbers
+  	:ensure t
+    :commands (evil-numbers/dec-at-pt evil-numbers/inc-at-pt)
+    :init
+    (general-define-key
+     :states '(normal visual)
+     "g-" 'evil-numbers/dec-at-pt
+     "g+" 'evil-numbers/inc-at-pt))
 
   ;; (use-package aggressive-indent
   ;;   :hook ((prog-mode . aggressive-indent-mode)
@@ -295,13 +303,4 @@ region. Passing nil makes the region starts from (region-end)."
   ;;    :states 'visual
   ;;    "." #'fold-active-region-all))
 
-  ;; (use-package evil-numbers
-  ;;   :commands (evil-numbers/dec-at-pt evil-numbers/inc-at-pt)
-  ;;   :init
-  ;;   (general-define-key
-  ;;    :states '(normal visual)
-  ;;    "g-" 'evil-numbers/dec-at-pt
-  ;;    "g=" 'evil-numbers/inc-at-pt
-  ;;    "g+" 'evil-numbers/inc-at-pt)
-  )
-
+)
