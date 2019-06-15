@@ -156,27 +156,27 @@ region. Passing nil makes the region starts from (region-end)."
   (use-package smartparens
 	:ensure t
 	:hook ((prog-mode . turn-on-smartparens-mode))
-  	:config
+	:config
 	(require 'smartparens-config)
 	(setq sp-highlight-pair-overlay nil
 		  sp-highlight-wrap-overlay nil
 		  sp-highlight-wrap-tag-overlay nil)
 
 	(general-define-key
-  	 :keymaps 'smartparens-mode-map
-  	 :states 'normal
-  	 "M-n" 'sp-forward-slurp-sexp
-  	 "M-h" 'sp-forward-barf-sexp
-  	 "g M-n" 'sp-backward-slurp-sexp
-  	 "g M-h" 'sp-backward-barf-sexp
+	 :keymaps 'smartparens-mode-map
+	 :states 'normal
+	 "M-n" 'sp-forward-slurp-sexp
+	 "M-h" 'sp-forward-barf-sexp
+	 "g M-n" 'sp-backward-slurp-sexp
+	 "g M-h" 'sp-backward-barf-sexp
 	 "SPC ls" '(:ignore t :which-key "smart parens")
-  	 "SPC lsn" 'sp-forward-slurp-sexp
-  	 "SPC lsN" 'sp-forward-barf-sexp
-  	 "SPC lsh" 'sp-backward-slurp-sexp
-  	 "SPC lsH" 'sp-backward-barf-sexp
-  	 "SPC lsc" 'sp-up-sexp
-  	 "SPC lst" 'sp-down-sexp
-  	 "SPC lsu" 'sp-splice-sexp
+	 "SPC lsn" 'sp-forward-slurp-sexp
+	 "SPC lsN" 'sp-forward-barf-sexp
+	 "SPC lsh" 'sp-backward-slurp-sexp
+	 "SPC lsH" 'sp-backward-barf-sexp
+	 "SPC lsc" 'sp-up-sexp
+	 "SPC lst" 'sp-down-sexp
+	 "SPC lsu" 'sp-splice-sexp
 	 "SPC lsj" 'sp-join-sexp))
 
   ;; (use-package evil-paredit
@@ -234,12 +234,12 @@ region. Passing nil makes the region starts from (region-end)."
 	 "r" 'er/expand-region))
 
   (use-package evil-nerd-commenter
-  	:ensure t
+	:ensure t
 	:commands (evilnc-comment-operator)
-  	:init
-  	(general-define-key
-  	 :states '(normal visual)
-  	 "g/" 'evilnc-comment-operator))
+	:init
+	(general-define-key
+	 :states '(normal visual)
+	 "g/" 'evilnc-comment-operator))
 
   ;; As of June 14, evil-commentary is a bit buggy when the whitespace mode is on.
   ;; (use-package evil-commentary
@@ -274,6 +274,14 @@ region. Passing nil makes the region starts from (region-end)."
 	 "M-t" 'drag-stuff-down
 	 "M-n" 'drag-stuff-right
 	 "M-h" 'drag-stuff-left))
+
+  (use-package evil-replace-with-register
+	:ensure t
+	:commands 'evil-replace-with-register
+	:init
+	(general-define-key
+	 :states '(normal visual)
+	 "gr" 'evil-replace-with-register))
 
 
   ;; (use-package aggressive-indent
