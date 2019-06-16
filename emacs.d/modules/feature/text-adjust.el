@@ -17,79 +17,16 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
-(with-eval-after-load 'evil
-
-  (declare-function do-join-region nil)
-  (declare-function do-wrap-region nil)
-  (declare-function do-rewrap-region nil)
-  (declare-function do--expand-region-init nil)
-
+(use-package fusion
+  :load-path "~/.emacs.d/local-packages/fusion"
+  :commands (fusion-join fusion-split fusion-resplit)
+  :init
   (general-define-key
    :states '(normal visual)
-   "SPC ljj" 'do-join-region
-   "SPC ljJ" 'do-wrap-region
-   "SPC ljr" 'do-rewrap-region)
-
-  (evil-define-operator do-join-region (beginning end)
-	"Replaces new line chars in region by single spaces.
-
-The second argument BEGINNING indicates the starting position of the
-region. Passing nil makes the region starts
-from (region-beginning).
-
-The third argument END indicates the starting position of the
-region. Passing nil makes the region starts from (region-end).
-
-	This evil operator is the reverse of 'do-wrap-region'"
-
-	;; Check the arguments and assign default values
-	(unless beginning
-	  (setq beginning (region-beginning)))
-	(unless end
-	  (setq end (region-end)))
-	(when (< beginning end)
-	  ;; Indent before filling is always a good idea
-	  (evil-indent beginning end)
-	  ;; Ask Emacs to join the region by setting the fill-column var to max int
-	  (evil-join beginning end)
-	  ;; (let ((fill-column most-positive-fixnum))
-	  ;; 	(fill-region beginning end))
-	  (evil-indent beginning end)))
-
-  (evil-define-operator do-wrap-region (beginning end)
-	"Fills the selected region and makes it indent.
-
-The second argument BEGINNING indicates the starting position of the
-region. Passing nil makes the region starts
-from (region-beginning).
-
-The third argument END indicates the starting position of the
-region. Passing nil makes the region starts from (region-end)."
-
-	(unless beginning
-	  (setq beginning (region-beginning)))
-	(unless end
-	  (setq end (region-end)))
-	(when (< beginning end)
-	  (evil-indent beginning end)
-	  (fill-region beginning end)
-	  (evil-indent beginning end)))
-
-  (evil-define-operator do-rewrap-region (beginning end)
-	"Joins region then fills it again. This function is useful to re-wrap
-a badly fragmented region.
-
-The second argument BEGINNING indicates the starting position of the
-region. Passing nil makes the region starts
-from (region-beginning).
-
-The third argument END indicates the starting position of the
-region. Passing nil makes the region starts from (region-end)."
-	(interactive)
-	(do-join-region beginning end)
-	(do-wrap-region beginning end))
-
-;;; Third-party packages
+   "SPC lj" '(:ignore t :which-key "join")
+   "SPC ljj" 'fusion-join
+   "SPC ljs" 'fusion-split
+   "SPC ljr" 'fusion-resplit))
 
   (use-package evil-surround
 	:ensure t
@@ -303,4 +240,3 @@ region. Passing nil makes the region starts from (region-end)."
   ;;    :states 'visual
   ;;    "." #'fold-active-region-all))
 
-)
