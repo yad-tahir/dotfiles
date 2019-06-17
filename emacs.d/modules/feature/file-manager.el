@@ -18,12 +18,11 @@
 ;; 02110-1301, USA.
 
 (cl-eval-when (compile)
-	(require 'dired))
+  (require 'dired))
 
 (use-package dired
-  :defer t
   :commands (do-file-manager dired)
-  :functions (do--dired-simultaneous-find do-dired-find-file-other-frame)
+  :functions (do--dired-simultaneous-find)
   :init
   (general-define-key
    :keymaps 'override
@@ -43,23 +42,15 @@
   (cl-eval-when (compile)
 	(require 'wdired))
 
-  (defun do-dired-find-file-other-frame (&optional file)
-	"Find FILE in a new frame.
-If this function called interactively, then get the file under POINT
-in the dired mode."
-	(interactive)
-	(do-make-frame)
-	(if (called-interactively-p 'interactive)
-		(dired-find-file-other-window)
-	  (find-file file)))
-
   (defun do--dired-simultaneous-find (file-list frame)
 	"Find all marked files in the dired mode.
 	If FRAME is t, create a separate frame for each file."
 	(while (not (null file-list))
 	  (let* ((file (car file-list)))
 		(if frame
-			(do-dired-find-file-other-frame file)
+			(progn
+			  (do-make-frame)
+			  (find-file file))
 		  (find-file-noselect file)))
 	  (setq file-list (cdr file-list))))
 
@@ -75,11 +66,26 @@ separate frame."
 	(do--dired-simultaneous-find (dired-get-marked-files) t))
 
   (defun do-dired-find-file ()
-	"Get the file under POINT. If it is not a directory, open it in a new buffer"
+	"Get the file under POINT. Open it in a new buffer if it is not a directory."
 	(interactive)
 	(if (file-directory-p (dired-get-filename))
 		(dired-find-alternate-file)
 	  (dired-find-file)))
+
+  (defun do-dired-up-directory ()
+	"Run Dired on parent directory of current directory without creating a new
+  buffer."
+	(interactive)
+	(let* ((dir (dired-current-directory))
+		   (up (file-name-directory (directory-file-name dir))))
+	  (or (dired-goto-file (directory-file-name dir))
+		  ;; Only try dired-goto-subdir if buffer has more than one dir.
+		  (and (cdr dired-subdir-alist)
+			   (dired-goto-subdir up))
+		  (progn
+			(kill-buffer (current-buffer))
+			(dired up)
+			(dired-goto-file dir)))))
 
   (setq wdired-allow-to-change-permissions t
 		wdired-create-parent-directories t
@@ -104,12 +110,12 @@ separate frame."
    "t" 'dired-next-line
    "c" 'dired-previous-line
    "<return>" 'do-dired-find-file
-   "C-<return>" 'do-dired-find-file-other-frame
+   "C-<return>" 'dired-find-file-other-window
+   "DEL" 'do-dired-up-directory
    "{" 'dired-prev-dirline
    "}" 'dired-next-dirline
    "<" 'dired-prev-dirline
    ">" 'dired-next-dirline
-   "DEL" 'dired-up-directory
    ";" 'nil
    "q" 'nil
    "l" 'nil
@@ -178,85 +184,85 @@ separate frame."
    "a" 'dired-toggle-read-only
    "A" 'dired-toggle-read-only
    "i" 'dired-toggle-read-only
-   "I" 'dired-toggle-read-only)
+   "I" 'dired-toggle-read-only))
 
-  (use-package dired-open
-	:ensure t
-	:after (dired)
-	:config
-	(general-define-key
-	 :keymaps 'dired-mode-map
-	 :states 'normal
-	 "M-<return>" 'dired-open-xdg))
+(use-package dired-open
+  :ensure t
+  :after (dired)
+  :config
+  (general-define-key
+   :keymaps 'dired-mode-map
+   :states 'normal
+   "M-<return>" 'dired-open-xdg))
 
-  (use-package dired-ranger
-	:disabled t
-	:ensure t
-	:after (dired)
-	:config
-	(general-define-key
-	 :keymaps 'dired-mode-map
-	 :states 'normal
-	 "Y" 'dired-ranger-copy
-	 "M" 'dired-ranger-move
-	 "P" 'dired-ranger-paste))
+(use-package dired-ranger
+  :disabled t
+  :ensure t
+  :after (dired)
+  :config
+  (general-define-key
+   :keymaps 'dired-mode-map
+   :states 'normal
+   "Y" 'dired-ranger-copy
+   "M" 'dired-ranger-move
+   "P" 'dired-ranger-paste))
 
-  (use-package dired-collapse
-	:disabled t
-	:ensure t
-	:commands (dired-collapse-mode)
-	;; :hook ((dired-mode . dired-collapse-mode))
-	:init
-	(general-define-key
-	 :keymaps 'dired-mode-map
-	 :states 'normal
-	 "lc" 'dired-collapse-mode))
+(use-package dired-collapse
+  :disabled t
+  :ensure t
+  :commands (dired-collapse-mode)
+  ;; :hook ((dired-mode . dired-collapse-mode))
+  :init
+  (general-define-key
+   :keymaps 'dired-mode-map
+   :states 'normal
+   "lc" 'dired-collapse-mode))
 
-  (use-package dired-subtree
-	:disabled t
-	:ensure t
-	:commands (dired-subtree-insert
-			   dired-subtree-remove
-			   dired-subtree-beginning
-			   dired-subtree-end)
-	:init
-	(general-define-key
-	 :keymaps 'dired-mode-map
-	 :states 'normal
-	 "<tab>" 'dired-subtree-insert
-	 "<M-tab>" 'dired-subtree-remove
-	 "[" 'dired-subtree-beginning
-	 "]" 'dired-subtree-end
-	 "*}" 'dired-subtree-mark-subtree)
-	:config
-	(set-face-attribute 'dired-subtree-depth-1-face nil
-						:background chocolate-theme-shadow)
-	(set-face-attribute 'dired-subtree-depth-2-face nil
-						:background chocolate-theme-shadow+1)
-	(set-face-attribute 'dired-subtree-depth-3-face nil
-						:background chocolate-theme-shadow+2)
-	(set-face-attribute 'dired-subtree-depth-4-face nil
-						:background chocolate-theme-shadow+3)
-	(set-face-attribute 'dired-subtree-depth-4-face nil
-						:background chocolate-theme-shadow+3))
+(use-package dired-subtree
+  :disabled t
+  :ensure t
+  :commands (dired-subtree-insert
+			 dired-subtree-remove
+			 dired-subtree-beginning
+			 dired-subtree-end)
+  :init
+  (general-define-key
+   :keymaps 'dired-mode-map
+   :states 'normal
+   "<tab>" 'dired-subtree-insert
+   "<M-tab>" 'dired-subtree-remove
+   "[" 'dired-subtree-beginning
+   "]" 'dired-subtree-end
+   "*}" 'dired-subtree-mark-subtree)
+  :config
+  (set-face-attribute 'dired-subtree-depth-1-face nil
+					  :background chocolate-theme-shadow)
+  (set-face-attribute 'dired-subtree-depth-2-face nil
+					  :background chocolate-theme-shadow+1)
+  (set-face-attribute 'dired-subtree-depth-3-face nil
+					  :background chocolate-theme-shadow+2)
+  (set-face-attribute 'dired-subtree-depth-4-face nil
+					  :background chocolate-theme-shadow+3)
+  (set-face-attribute 'dired-subtree-depth-4-face nil
+					  :background chocolate-theme-shadow+3))
 
-  (use-package openwith
-	:ensure t
-	:hook ((org-mode . openwith-mode)
-		   (dired-mode . openwith-mode))
-	:config
-	(setq openwith-associations '(("\\.rar\\'" "file-roller" (file))
-								  ("\\.zip\\'" "file-roller" (file))
-								  ("\\.7z\\'" "file-roller" (file))
-								  ("\\.gz\\'" "file-roller" (file))
-								  ("\\.tar\\'" "file-roller" (file))
-								  ("\\.pdf\\'" "zathura" (file)))))
+(use-package openwith
+  :ensure t
+  :hook ((org-mode . openwith-mode)
+		 (dired-mode . openwith-mode))
+  :config
+  (setq openwith-associations '(("\\.rar\\'" "file-roller" (file))
+								("\\.zip\\'" "file-roller" (file))
+								("\\.7z\\'" "file-roller" (file))
+								("\\.gz\\'" "file-roller" (file))
+								("\\.tar\\'" "file-roller" (file))
+								("\\.pdf\\'" "zathura" (file)))))
 
-  ;; For large file
-  (use-package vlf
-	:defer t
-	:ensure t
-	:config
-	(require 'vlf-setup)))
+;; For large file
+(use-package vlf
+  :defer t
+  :ensure t
+  :config
+  (require 'vlf-setup))
 
 (provide 'file-manager)
