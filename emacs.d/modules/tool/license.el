@@ -23,7 +23,7 @@
   :commands (lice)
   :init
   (general-define-key
-   :prefix "SPC l"
+   :prefix "x"
    :keymaps 'override
    :states 'normal
    "l" 'lice)

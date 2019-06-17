@@ -24,10 +24,10 @@
   (general-define-key
    :keymaps 'override
    :states '(normal visual)
-   "SPC lj" '(:ignore t :which-key "join")
-   "SPC ljj" 'fusion-join
-   "SPC ljs" 'fusion-split
-   "SPC ljr" 'fusion-resplit))
+   "xj" '(:ignore t :which-key "join")
+   "xjj" 'fusion-join
+   "xjs" 'fusion-split
+   "xjr" 'fusion-resplit))
 
   (use-package evil-surround
 	:ensure t
@@ -53,7 +53,7 @@
 	:config
 	(general-define-key
 	 :states '(normal)
-	 :prefix "SPC l"
+	 :prefix "x"
 	 "s" '(:ignore t :which-key "surround")
 	 "ss" 'evil-surround-edit
 	 "si" 'evil-surround-edit
@@ -63,7 +63,7 @@
 
 	(general-define-key
 	 :states '(visual)
-	 :prefix "SPC l"
+	 :prefix "x"
 	 "s" '(:ignore t :which-key "surround")
 	 "ss" 'evil-surround-region
 	 "si" 'evil-surround-region
@@ -107,15 +107,15 @@
 	 "M-h" 'sp-forward-barf-sexp
 	 "g M-n" 'sp-backward-slurp-sexp
 	 "g M-h" 'sp-backward-barf-sexp
-	 "SPC ls" '(:ignore t :which-key "smart parens")
-	 "SPC lsn" 'sp-forward-slurp-sexp
-	 "SPC lsN" 'sp-forward-barf-sexp
-	 "SPC lsh" 'sp-backward-slurp-sexp
-	 "SPC lsH" 'sp-backward-barf-sexp
-	 "SPC lsc" 'sp-up-sexp
-	 "SPC lst" 'sp-down-sexp
-	 "SPC lsu" 'sp-splice-sexp
-	 "SPC lsj" 'sp-join-sexp))
+	 "xs" '(:ignore t :which-key "smart parens")
+	 "xsn" 'sp-forward-slurp-sexp
+	 "xsN" 'sp-forward-barf-sexp
+	 "xsh" 'sp-backward-slurp-sexp
+	 "xsH" 'sp-backward-barf-sexp
+	 "xsc" 'sp-up-sexp
+	 "xst" 'sp-down-sexp
+	 "xsu" 'sp-splice-sexp
+	 "xsj" 'sp-join-sexp))
 
   ;; (use-package evil-paredit
   ;; 	:disabled t
@@ -130,10 +130,10 @@
   ;; 	 :keymaps 'evil-paredit-mode-map
   ;; 	 :states 'normal
   ;; 	 ;; Bindings for basic movements
-  ;; 	 "SPC lsn" 'paredit-forward-slurp-sexp
-  ;; 	 "SPC lsN" 'paredit-forward-barf-sexp
-  ;; 	 "SPC lsh" 'paredit-backward-slurp-sexp
-  ;; 	 "SPC lsh" 'paredit-backward-barf-sexp
+  ;; 	 "xsn" 'paredit-forward-slurp-sexp
+  ;; 	 "xsN" 'paredit-forward-barf-sexp
+  ;; 	 "xsh" 'paredit-backward-slurp-sexp
+  ;; 	 "xsh" 'paredit-backward-barf-sexp
   ;; 	 "M-n" 'paredit-forward-slurp-sexp
   ;; 	 "M-h" 'paredit-forward-barf-sexp
   ;; 	 "g M-h" 'paredit-backward-slurp-sexp
@@ -145,23 +145,23 @@
   ;; 	 "U" 'evil-paredit-change-line
   ;; 	 "d" 'evil-paredit-delete
   ;; 	 "D" 'evil-paredit-delete-line
-  ;; 	 "SPC lsu" 'evil-change
-  ;; 	 "SPC lsU" 'evil-change-line
-  ;; 	 "SPC lsd" 'evil-delete
-  ;; 	 "SPC lsD" 'evil-delete-line)
+  ;; 	 "xsu" 'evil-change
+  ;; 	 "xsU" 'evil-change-line
+  ;; 	 "xsd" 'evil-delete
+  ;; 	 "xsD" 'evil-delete-line)
 
   ;; 	(general-define-key
   ;; 	 :keymaps 'evil-paredit-mode-map
   ;; 	 :states 'visual
   ;; 	 ;; Surrounding region
-  ;; 	 "SPC ls(" 'paredit-wrap-round
-  ;; 	 "SPC ls)" 'paredit-wrap-round
-  ;; 	 "SPC ls]" 'paredit-wrap-square
-  ;; 	 "SPC ls[" 'paredit-wrap-square
-  ;; 	 "SPC ls{" 'paredit-wrap-curly
-  ;; 	 "SPC ls}" 'paredit-wrap-curly
-  ;; 	 "SPC ls>" 'paredit-wrap-angled
-  ;; 	 "SPC ls<" 'paredit-wrap-angled))
+  ;; 	 "xs(" 'paredit-wrap-round
+  ;; 	 "xs)" 'paredit-wrap-round
+  ;; 	 "xs]" 'paredit-wrap-square
+  ;; 	 "xs[" 'paredit-wrap-square
+  ;; 	 "xs{" 'paredit-wrap-curly
+  ;; 	 "xs}" 'paredit-wrap-curly
+  ;; 	 "xs>" 'paredit-wrap-angled
+  ;; 	 "xs<" 'paredit-wrap-angled))
 
   (use-package expand-region
 	:ensure t
@@ -195,8 +195,8 @@
 	:init
 	(general-define-key
 	 :states '(normal visual)
-	 "SPC l<" #'evil-lion-left
-	 "SPC l>" #'evil-lion-right)
+	 "x<" #'evil-lion-left
+	 "x>" #'evil-lion-right)
 	:config
 	(setq evil-lion-left-align-key (kbd "l <")
 		  evil-lion-right-align-key (kbd "l >"))
@@ -219,7 +219,8 @@
 	:init
 	(general-define-key
 	 :states '(normal visual)
-	 "gr" 'evil-replace-with-register))
+	 ;; Remove the Replace state with something more useful
+	 "r" 'evil-replace-with-register))
 
   (use-package evil-numbers
   	:ensure t

@@ -330,7 +330,7 @@
   :init
   (general-define-key
    :states '(visual normal)
-   "SPC l/" 'swiper)
+   "x/" 'swiper)
   :config
   (general-define-key
    :keymaps 'swiper-map

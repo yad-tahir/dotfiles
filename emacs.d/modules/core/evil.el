@@ -64,6 +64,7 @@
    "C-:" 'evil-ex
    "C-;" 'evil-ex)
 
+  ;; Motion
   (general-define-key
    :states 'motion
    :keymaps 'override
@@ -79,7 +80,12 @@
    "g*" 'evil-ex-search-unbounded-word-forward
    "gj" 'evil-find-char-to-backward
    "gn" 'evil-next-match
-   "gh" 'evil-previous-match
+   "gh" 'evil-previous-match)
+
+  (general-define-key
+   :states 'motion
+   "s" 'nil
+   "j" 'nil
    "H" 'nil
    "N" 'nil
    "C" 'nil
@@ -90,6 +96,7 @@
    "L" 'nil
    "S" 'nil)
 
+  ;; Normal
   (general-define-key
    :states 'normal
    :keymaps 'override
@@ -113,10 +120,8 @@
    ";" 'evil-ex
    "j" 'evil-find-char-to
    "J" 'evil-find-char-to-backward
-   "s" 'nil
-   "x" 'nil
-   "SPC li" 'do-evil-insert-to-motion
-   "SPC la" 'do-evil-append-to-motion
+   "li" 'do-evil-insert-to-motion
+   "la" 'do-evil-append-to-motion
    ;; Jumping motions
    "g:" 'goto-last-change-reverse
    "gj" 'evil-jump-backward
@@ -124,50 +129,16 @@
    "gH" 'evil-window-top
    "gM" 'evil-window-middle
    "gL" 'evil-window-bottom
-   "SPC lj" 'nil
-   "SPC ljh" 'evil-jump-backward
-   "SPC ljn" 'evil-jump-forward
-   "SPC ljH" 'goto-last-change
-   "SPC ljN" 'goto-last-change-reverse
-   "SPC ljt" 'evil-jump-to-tag
-   "SPC ljc" 'evil-goto-column
-   "SPC ljd" 'evil-goto-definition
-   "SPC ljl" 'evil-show-jumps
-   "SPC ljs" 'evil-jump-backward-swap)
-
-
-  (general-define-key
-   :states 'visual
-   :keymaps 'override
-   "<mouse-3>" '(lambda () (interactive) (message "no mouse please!"))
-   "<mouse-2>" '(lambda () (interactive) (message "no mouse please!"))
-   "h" 'backward-char
-   "n" 'forward-char
-   "c" 'evil-previous-visual-line
-   "t" 'evil-next-visual-line
-   "gc" 'evil-previous-line
-   "gt" 'evil-next-line
-   "C-n" 'evil-ex-search-next
-   "C-h" 'evil-ex-search-previous
-   "gp" '(lambda()(interactive)(evil-insert-newline-below)(yank))
-   "gP" '(lambda()(interactive)(evil-insert-newline-above)(yank))
-   "C-p" '(lambda ()(interactive)
-			(let ((evil-this-register ?0))
-			  (call-interactively 'evil-paste-after)))
-   "'" 'evil-goto-mark
-   ":" 'evil-ex
-   ";" 'evil-ex
-   "j" 'evil-find-char-to
-   "J" 'evil-find-char-to-backward
-   "s" 'nil
-   "x" 'nil
-   "SPC li" 'do-evil-insert-to-motion
-   "SPC la" 'do-evil-append-to-motion)
-
-
-  (general-define-key
-   :states 'motion
-   "j" 'nil)
+   "xg" '(:ignore t :which-key "jump")
+   "xgh" 'evil-jump-backward
+   "xgn" 'evil-jump-forward
+   "xgH" 'goto-last-change
+   "xgN" 'goto-last-change-reverse
+   "xgt" 'evil-jump-to-tag
+   "xgc" 'evil-goto-column
+   "xgd" 'evil-goto-definition
+   "xgl" 'evil-show-jumps
+   "xgs" 'evil-jump-backward-swap)
 
   (general-define-key
    :states 'normal
@@ -183,8 +154,36 @@
    "U" 'evil-change-line
    "," 'widen ;; @TASK: To evil operator
    "l" 'nil
+   "x" 'nil
    "u" 'evil-change
    "d" 'evil-delete)
+
+  ;; Visual
+  (general-define-key
+   :states 'visual
+   :keymaps 'override
+   "<mouse-3>" '(lambda () (interactive) (message "no mouse please!"))
+   "<mouse-2>" '(lambda () (interactive) (message "no mouse please!"))
+   "h" 'backward-char
+   "n" 'forward-char
+   "c" 'evil-previous-visual-line
+   "t" 'evil-next-visual-line
+   "gc" 'evil-previous-line
+   "gt" 'evil-next-line
+   "C-n" 'evil-ex-search-next
+   "C-h" 'evil-ex-search-previous
+   "gp" '(lambda()(interactive)(evil-insert-newline-below)(yank))
+   "gP" '(lambda()(interactive)(evil-insert-newline-above)(yank))
+   "C-p" '(lambda ()(interactive)
+			(let ((evil-this-register ?0))
+			  (call-interactively 'evil-paste-after)))
+   "'" 'evil-goto-mark
+   ":" 'evil-ex
+   ";" 'evil-ex
+   "j" 'evil-find-char-to
+   "J" 'evil-find-char-to-backward
+   "xi" 'do-evil-insert-to-motion
+   "xa" 'do-evil-append-to-motion)
 
   (general-define-key
    :states 'visual
@@ -196,7 +195,6 @@
    "N" 'ignore
    "C-c" 'evil-scroll-page-up
    "C-t" 'evil-scroll-page-down
-   "s" 'nil ;; Used for searching instead
    "U" 'evil-change-line
    "," 'narrow-to-region
    "gk" 'capitalize-region
@@ -204,11 +202,13 @@
 		  ;; Make micros more useful in visual mode
 		  ;; @TODO: Does not work in Visual Block Mode
 		  (evil-ex "'<,'>normal @"))
+   "s" 'nil ;; Used for searching instead
    "u" 'nil
+   "x" 'nil
    "l" 'nil
    "d" 'nil)
 
-
+  ;; Other
   (general-define-key
    :keymaps '(evil-ex-search-keymap
 			  evil-ex-completion-map
