@@ -56,6 +56,6 @@
 	"tool/shell" ;; needs improvements
 	"tool/git"
 	"tool/calculator"
-	"tool/license"
-	)
+	"tool/license")
+
 (do-modules-load t)

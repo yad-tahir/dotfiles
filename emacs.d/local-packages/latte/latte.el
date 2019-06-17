@@ -1,4 +1,4 @@
-;;;
+;;; -*- ;lexical-binding: t; -*-
 ;;;
 ;;;      __          __  __     
 ;;;     / /   ____ _/ /_/ /____ 
@@ -527,7 +527,10 @@ after the inserted text. This function is called automatically by Ivy, spawned i
   "Minor mode highlights notebook's keywords throughout the buffer.
 
 Initially, highlighting takes place after 'latte-scan-idle-delay'."
-  nil "Notebook" nil
+  nil
+  :lighter latte
+  :keymap nil
+  :require 'latte
   :group 'latte
 
   (if latte-mode

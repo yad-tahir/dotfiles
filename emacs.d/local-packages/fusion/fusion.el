@@ -1,4 +1,11 @@
-;; -*- ;lexical-binding: t; -*-
+;;; -*- ;lexical-binding: t; -*-
+;;;
+;;;      ______           _           
+;;;     / ____/_  _______(_)___  ____ 
+;;;    / /_  / / / / ___/ / __ \/ __ \
+;;;   / __/ / /_/ (__  ) / /_/ / / / /
+;;;  /_/    \__,_/____/_/\____/_/ /_/
+;;;
 ;;;
 ;;; package -- Summary
 ;;; Fusion - Add evil operators to split and join text lines.
@@ -23,6 +30,7 @@
 ;;; along with this program; if not, write to the Free Software
 ;;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;;; 02110-1301, USA.
+;;;
 
 (require 'evil)
 
@@ -32,7 +40,7 @@
   :type 'number)
 
 (defcustom fusion-indent-aware t
-  "If enabled (t), indent before join and split operations."
+  "If enabled (t), keep text indentation after join and split operations."
   :group 'fusion
   :type 'boolean)
 

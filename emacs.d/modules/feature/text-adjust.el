@@ -22,6 +22,7 @@
   :commands (fusion-join fusion-split fusion-resplit)
   :init
   (general-define-key
+   :keymaps 'override
    :states '(normal visual)
    "SPC lj" '(:ignore t :which-key "join")
    "SPC ljj" 'fusion-join
