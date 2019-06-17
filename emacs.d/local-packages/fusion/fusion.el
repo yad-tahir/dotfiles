@@ -44,12 +44,13 @@
 	(setq end (region-end)))
   (setq end (- end 1))
   (when (< beginning end)
-	(when fusion-indent-aware
-	  (evil-indent beginning end))
 	(let ((fill-column column))
-	  (fill-region-as-paragraph beginning end))
-	(when fusion-indent-aware
-	  (evil-indent beginning end))))
+	  (if fusion-indent-aware
+		  (progn
+			(back-to-indentation)
+			(let ((left-margin (current-column)))
+			  (fill-region-as-paragraph beginning end)))
+		(fill-region-as-paragraph beginning end)))))
 
 ;;;###autoload
 (evil-define-operator fusion-join (beginning end)
@@ -93,7 +94,9 @@ from (region-beginning).
 The third argument END indicates the starting position of the
 region. Passing nil makes the region starts from (region-end)."
   (save-restriction
-	(evil-narrow beginning end)
+	(goto-char beginning)
+	(beginning-of-line)
+	(evil-narrow (point) end)
 	(fusion-join (point-min) (point-max))
 	(fusion-split (point-min) (point-max))
 	(widen)))
