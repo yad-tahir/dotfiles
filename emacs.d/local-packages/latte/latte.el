@@ -11,9 +11,8 @@
 ;;; Latte - A light notebook manager built on top of beloved Org-mode.
 ;;;
 ;;;
-;;; Author: Dr. Yad Tahir <me (at) yad.email>
-;;; Keywords: note-taking with Org mode, organizing notes, auto-highlight.
-;;; Version: 1.2.1
+;;; Author: Dr. Yad Tahir <yad (at) ieee.org>
+;;; Keywords: note-taking with Org mode, organizing notes, auto-highlighting.
 ;;;
 ;;; Commentary:
 ;;; This file is an implementation of a simple note taking system. Notes
