@@ -120,8 +120,6 @@
    ";" 'evil-ex
    "j" 'evil-find-char-to
    "J" 'evil-find-char-to-backward
-   "li" 'do-evil-insert-to-motion
-   "la" 'do-evil-append-to-motion
    ;; Jumping motions
    "g:" 'goto-last-change-reverse
    "gj" 'evil-jump-backward
