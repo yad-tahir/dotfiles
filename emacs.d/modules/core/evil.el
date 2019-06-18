@@ -144,13 +144,13 @@
    "C-Z" 'redo
    "M-z" '(lambda () (interactive) (do-make-frame)(undo-tree-visualize))
    "Z" '(lambda () (interactive) (do-make-frame)(undo-tree-visualize))
-   "H" 'ignore
-   "N" 'ignore
    "C-c" 'evil-scroll-page-up
    "C-t" 'evil-scroll-page-down
-   "s" 'nil ;; Used for searching instead
    "U" 'evil-change-line
    "," 'widen ;; @TASK: To evil operator
+   "s" 'nil ;; Used for searching instead
+   "H" 'nil
+   "N" 'nil
    "l" 'nil
    "x" 'nil
    "u" 'evil-change
@@ -189,8 +189,6 @@
    "C-Z" 'redo
    "M-z" '(lambda () (interactive) (do-make-frame)(undo-tree-visualize))
    "Z" '(lambda () (interactive) (do-make-frame)(undo-tree-visualize))
-   "H" 'ignore
-   "N" 'ignore
    "C-c" 'evil-scroll-page-up
    "C-t" 'evil-scroll-page-down
    "U" 'evil-change-line
@@ -201,6 +199,8 @@
 		  ;; @TODO: Does not work in Visual Block Mode
 		  (evil-ex "'<,'>normal @"))
    "s" 'nil ;; Used for searching instead
+   "H" 'nil
+   "N" 'nil
    "u" 'nil
    "x" 'nil
    "l" 'nil

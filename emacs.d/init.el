@@ -39,6 +39,7 @@
 	"feature/lemon-bar"
 	"feature/tramp"
 	"feature/file-manager"
+	"feature/diff"
 
 	"lang/text"
 	"lang/org" ;; slow

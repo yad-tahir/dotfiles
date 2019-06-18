@@ -187,8 +187,8 @@
  `(mode-line-emphasis ((t (:foreground ,chocolate-theme-highlight+1 :weight bold))))
  `(mode-line-highlight ((t (:inherit (highlight)))))
  `(mode-line-inactive ((t (:background ,chocolate-theme-bg
- 									   :foreground ,chocolate-theme-shadow+3 :weight
- 									   light :inherit mode-line))))
+									   :foreground ,chocolate-theme-shadow+3 :weight
+									   light :inherit mode-line))))
 
  ;; isearch
  `(isearch ((t (:inherit region :foreground ,chocolate-theme-highlight+1))))
@@ -197,6 +197,7 @@
  ;; diff
  `(diff-header ((t (:background ,chocolate-theme-shadow+3))))
  `(diff-file-header ((t (:background nil :inherit diff-header))))
+ `(diff-index ((t (:background ,chocolate-theme-shadow+1 :inherit diff-header))))
  `(diff-context ((t (:foreground ,chocolate-theme-shadow+3))))
  `(diff-added ((t (:foreground ,chocolate-theme-element))))
  `(diff-changed ((t (:foreground ,chocolate-theme-highlight+2))))
@@ -207,12 +208,32 @@
 										:foreground ,chocolate-theme-bg))))
  `(diff-refine-removed ((t (:background ,chocolate-theme-highlight
 										:foreground ,chocolate-theme-bg))))
- `(diff-hl-change ((t (:background ,chocolate-theme-highlight+2 :foreground nil
-								   :inherit diff-changed))))
- `(diff-hl-insert ((t (:background ,chocolate-theme-element :foreground nil
-								   :inherit diff-added))))
- `(diff-hl-delete ((t (:background ,chocolate-theme-highlight :foreground nil
-								   :inherit diff-removed))))
+
+ `(ediff-even-diff-A ((t (:inherit diff-index))))
+ `(ediff-even-diff-B ((t (:inherit diff-index))))
+ `(ediff-even-diff-C ((t (:inherit diff-index))))
+ `(ediff-even-diff-Ancestor ((t (:inherit diff-index
+										  :background ,chocolate-theme-shadow+1))))
+ `(ediff-odd-diff-A ((t (:inherit diff-index))))
+ `(ediff-odd-diff-B ((t (:inherit diff-index))))
+ `(ediff-odd-diff-C ((t (:inherit diff-index))))
+ `(ediff-odd-diff-Ancestor ((t (:inherit diff-index
+										 :background ,chocolate-theme-shadow+1))))
+ `(ediff-fine-diff-A ((t (:inherit highlight :background nil))))
+ `(ediff-fine-diff-B ((t (:inherit highlight :background nil))))
+ `(ediff-fine-diff-C ((t (:inherit highlight :background nil))))
+ `(ediff-fine-diff-Ancestor ((t (:inherit isearch :background nil))))
+ `(ediff-current-diff-A ((t (:inherit diff-index :background nil))))
+ `(ediff-current-diff-B ((t (:inherit diff-index :background nil))))
+ `(ediff-current-diff-C ((t (:inherit diff-index :background nil))))
+ `(ediff-current-diff-Ancestor ((t (:inherit diff-index :background nil))))
+
+ `(smerge-refined-added ((t (:inherit diff-added))))
+ `(smerge-refined-removed ((t (:inherit diff-removed))))
+ `(smerge-refined-changed ((t (:inherit diff-changed))))
+ `(smerge-base ((t (:background ,chocolate-theme-white+1))))
+ `(smerge-markers ((t (:inherit lazy-highlight))))
+
 
  ;; dired-mode
  ;; `(dired-directory ((t (:inherit font-lock-constant-face))))

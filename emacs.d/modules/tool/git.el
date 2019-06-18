@@ -20,7 +20,6 @@
 (use-package magit
   :defer 20
   :ensure t
-  :after (evil)
   :functions evil-set-initial-state
   :commands (magit-status magit-file-dispatch magit-dispatch)
 
@@ -114,33 +113,41 @@
 			  magit-merge-preview-mode-map
 			  magit-staged-section-map
 			  magit-hunk-section-map)
+   [return] 'magit-visit-thing
+   [C-return] 'magit-jump-to-diffstat-or-diff
    "a" 'magit-apply
    "s" 'magit-stage
    "u" 'magit-unstage
-   "d" 'magit-discard
+   "k" 'magit-discard
    "i" 'magit-commit-add-log
-   "d" 'magit-diff-trace-definition
-   "e" 'magit-diff-edit-hunk-commit)
+   "la" 'magit-apply
+   "ls" 'magit-stage
+   "lu" 'magit-unstage
+   "lk" 'magit-discard
+   "li" 'magit-commit-add-log)
 
   (general-define-key
    :keymaps 'magit-diff-mode-map
    :states '(normal visual)
    "lj" 'magit-jump-to-diffstat-or-diff
+   "ld" 'magit-ediff-dwim
    "lc" 'magit-diff-while-committing)
 
   (general-define-key
    :keymaps 'magit-file-mode-map
-   :states 'normal
+   :states '(normal visual)
    "lg" 'magit-file-dispatch
    "lG" 'magit-dispatch
+   "SPC dg" 'magit-diff
+   "SPC dG" 'magit-ediff
    "N" 'magit-blob-next
    "H" 'magit-blob-previous)
 
 (general-define-key
    :keymaps 'magit-mode-map
-   :states 'normal
+   :states '(normal visual)
    [return] 'magit-visit-thing
-   [C-return] 'magit-dired-jump
+   [C-return] 'magit-jump-to-diffstat-or-diff
    "<tab>" 'magit-section-toggle
    [C-tab] 'magit-section-cycle
    [M-tab] 'magit-section-cycle-diffs
@@ -152,6 +159,8 @@
    "d" 'magit-delete-thing
    "z" 'magit-revert-no-commit
    "Q" 'magit-log-bury-buffer
+   "SPC dg" 'magit-diff
+   "SPC dG" 'magit-ediff
    "<f5>" 'magit-refresh)
 
   (general-define-key
@@ -268,18 +277,3 @@
   ;; (set-face-attribute 'magit-diffstat-added nil :foreground "#8ae234")
   )
 
-(use-package diff-hl
-  :ensure t
-  :defines (vc-git-diff-switches)
-  :hook ((find-file . diff-hl-mode)
-		 (dired-mode . diff-hl-dir-mode))
-  :config
-  (setq vc-git-diff-switches '("--histogram"))
-
-  (general-define-key
-   :kemaps 'diff-hl-mode-map
-   :states '(normal visual)
-   "T" 'diff-hl-next-hunk
-   "C" 'diff-hl-previous-hunk)
-
-  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
