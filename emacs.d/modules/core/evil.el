@@ -64,38 +64,6 @@
    "C-:" 'evil-ex
    "C-;" 'evil-ex)
 
-  ;; Motion
-  (general-define-key
-   :states 'motion
-   :keymaps 'override
-   "h" 'backward-char
-   "n" 'forward-char
-   "c" 'evil-previous-visual-line
-   "t" 'evil-next-visual-line
-   "gc" 'evil-previous-line
-   "gt" 'evil-next-line
-   "/" 'evil-ex-search-forward
-   "?" 'evil-ex-search-backward
-   "*" 'evil-ex-search-word-forward
-   "g*" 'evil-ex-search-unbounded-word-forward
-   "gj" 'evil-find-char-to-backward
-   "gn" 'evil-next-match
-   "gh" 'evil-previous-match)
-
-  (general-define-key
-   :states 'motion
-   "s" 'nil
-   "j" 'nil
-   "H" 'nil
-   "N" 'nil
-   "C" 'nil
-   "T" 'nil
-   "k" 'nil
-   "K" 'nil
-   "l" 'nil
-   "L" 'nil
-   "S" 'nil)
-
   ;; Normal
   (general-define-key
    :states 'normal
@@ -205,6 +173,59 @@
    "x" 'nil
    "l" 'nil
    "d" 'nil)
+
+  ;; Motion
+  (general-define-key
+   :states 'motion
+   :keymaps 'override
+   "h" 'backward-char
+   "n" 'forward-char
+   "c" 'evil-previous-visual-line
+   "t" 'evil-next-visual-line
+   "gc" 'evil-previous-line
+   "gt" 'evil-next-line
+   "/" 'evil-ex-search-forward
+   "?" 'evil-ex-search-backward
+   "*" 'evil-ex-search-word-forward
+   "g*" 'evil-ex-search-unbounded-word-forward
+   "gj" 'evil-find-char-to-backward
+   "gn" 'evil-next-match
+   "gh" 'evil-previous-match)
+
+  (general-define-key
+   :states 'motion
+   "s" 'nil
+   "j" 'nil
+   "H" 'nil
+   "N" 'nil
+   "C" 'nil
+   "T" 'nil
+   "k" 'nil
+   "K" 'nil
+   "l" 'nil
+   "L" 'nil
+   "S" 'nil)
+
+  (evil-define-text-object evil-a-section (count &optional beg end select-type)
+	"Select a function"
+	(save-excursion
+	  (evil-motion-loop (dir (or count 1))
+		(mark-defun dir))
+	  (setq beg (region-beginning)
+			end (region-end)))
+	(evil-range beg end select-type :expanded t))
+
+  (evil-define-text-object evil-inner-section (count &optional beg end select-type)
+	"Select inner function"
+	(evil-select-inner-object 'evil-defun beg end select-type count))
+
+  (general-define-key
+   :keymaps 'evil-inner-text-objects-map
+   "b" 'evil-inner-section)
+
+  (general-define-key
+   :keymaps 'evil-outer-text-objects-map
+   "b" 'evil-a-section)
 
   ;; Other
   (general-define-key
