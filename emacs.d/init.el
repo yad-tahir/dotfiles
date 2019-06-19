@@ -40,6 +40,7 @@
 	"feature/tramp"
 	"feature/file-manager"
 	"feature/diff"
+	"feature/motion"
 
 	"lang/text"
 	"lang/org" ;; slow

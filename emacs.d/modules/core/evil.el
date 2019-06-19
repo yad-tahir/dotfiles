@@ -117,7 +117,9 @@
    "l" 'nil
    "x" 'nil
    "u" 'evil-change
-   "d" 'evil-delete)
+   "d" 'evil-delete
+   "I" 'do-evil-insert
+   "A" 'do-evil-append)
 
   ;; Visual
   (general-define-key
@@ -137,9 +139,7 @@
    ":" 'evil-ex
    ";" 'evil-ex
    "j" 'evil-find-char-to
-   "J" 'evil-find-char-to-backward
-   "xi" 'do-evil-insert-to-motion
-   "xa" 'do-evil-append-to-motion)
+   "J" 'evil-find-char-to-backward)
 
   (general-define-key
    :states 'visual
@@ -162,7 +162,9 @@
    "u" 'nil
    "x" 'nil
    "l" 'nil
-   "d" 'nil)
+   "d" 'nil
+   "I" 'do-evil-insert
+   "A" 'do-evil-append)
 
   ;; Motion
   (general-define-key
@@ -184,6 +186,12 @@
 
   (general-define-key
    :states 'motion
+   "][" 'evil-forward-section-begin
+   "]]" 'evil-forward-section-end
+   "[[" 'evil-backward-section-begin
+   "[]" 'evil-backward-section-end
+   "]s" 'evil-forward-sentence-begin
+   "[s" 'evil-backward-sentence-begin
    "s" 'nil
    "j" 'nil
    "H" 'nil
@@ -195,27 +203,6 @@
    "l" 'nil
    "L" 'nil
    "S" 'nil)
-
-  (evil-define-text-object evil-a-section (count &optional beg end select-type)
-	"Select a function"
-	(save-excursion
-	  (evil-motion-loop (dir (or count 1))
-		(mark-defun dir))
-	  (setq beg (region-beginning)
-			end (region-end)))
-	(evil-range beg end select-type :expanded t))
-
-  (evil-define-text-object evil-inner-section (count &optional beg end select-type)
-	"Select inner function"
-	(evil-select-inner-object 'evil-defun beg end select-type count))
-
-  (general-define-key
-   :keymaps 'evil-inner-text-objects-map
-   "b" 'evil-inner-section)
-
-  (general-define-key
-   :keymaps 'evil-outer-text-objects-map
-   "b" 'evil-a-section)
 
   ;; Other
   (general-define-key
@@ -256,8 +243,22 @@
    "q" 'with-editor-finish
    "<escape>" 'with-editor-cancel)
 
-  (setq-default evil-symbol-word-search t) ;; make * and  more useful
+  ;; Minimize keymaps overriding
+  (setq evil-overriding-maps nil
+		evil-want-integration nil
+		evil-intercept-maps nil
+		evil-pending-intercept-maps nil
+		evil-pending-overriding-maps nil)
+  ;; Subvert evil-operation.el overrides (dired, ibuffer etc.)
+  (advice-add 'evil-make-overriding-map :override 'ignore)
+  (advice-add 'evil-make-intercept-map  :override 'ignore)
+  (advice-add 'evil-add-hjkl-bindings   :override 'ignore)
 
+  (dolist (mode '(text-mode help-mode debugger-mode))
+	(evil-set-initial-state mode 'normal))
+
+  ;; Variables
+  (setq-default evil-symbol-word-search t) ;; make * and  more useful
   (setq evil-want-C-u-scroll nil
 		evil-want-C-i-jump nil
 		evil-want-visual-char-semi-exclusive t
@@ -303,20 +304,37 @@
   (with-eval-after-load 'chocolate-theme-theme
 	(set-face-attribute 'evil-ex-substitute-replacement nil
 						:background nil :foreground chocolate-theme-element+6))
-  ;; Minimize keymaps overriding
-  (setq evil-overriding-maps nil
-		evil-want-integration nil
-		evil-intercept-maps nil
-		evil-pending-intercept-maps nil
-		evil-pending-overriding-maps nil)
-  ;; Subvert evil-operation.el overrides (dired, ibuffer etc.)
-  (advice-add 'evil-make-overriding-map :override 'ignore)
-  (advice-add 'evil-make-intercept-map  :override 'ignore)
-  (advice-add 'evil-add-hjkl-bindings   :override 'ignore)
 
-  (dolist (mode '(text-mode help-mode debugger-mode))
-	(evil-set-initial-state mode 'normal))
+  ;; Operators
+  (evil-define-operator do-evil-insert (beginning end)
+	"Ask for a motion and switch to the insert state"
+	(ignore end)
+	(goto-char beginning)
+	(call-interactively 'evil-insert))
 
+  (evil-define-operator do-evil-append (beginning end &optional type)
+	"Ask for a motion and switch to the insert state"
+	;; Go to the beginning of the region to repeat the operation correctly in
+	;; Visual Line and Visual Block.
+	(cond ((string= type "line")
+		   (goto-char beginning)
+		   (evil-end-of-line))
+		  ((string= type "block")
+		   (goto-char beginning))
+		  ((string= type "inclusive")
+		   (if (evil-visual-state-p)
+			   (goto-char end)
+			 (goto-char (- end 1))))
+		  (t
+		   (goto-char end)))
+	(call-interactively 'evil-append))
+
+  ;; Adjust some properties to make them more useful with the 'delete' and
+  ;; 'change' operators
+  (evil-put-command-property 'evil-previous-line-first-non-blank :type 'exclusive)
+  (evil-put-command-property 'evil-next-line-first-non-blank :type 'exclusive)
+
+  ;; Functions
   (defun do--evil-travel-state (org-func &rest args)
 	"Make default state normal when traveling between windows. This is useful to
 avoid navigating with the insert state."
@@ -333,21 +351,5 @@ avoid navigating with the insert state."
 						 (save-excursion (apply org-func args))))
 
 
-;;;###autoload
-  (evil-define-operator do-evil-insert-to-motion (beg end)
-	"Switch to Insert state at the beginning of the ongoing motion"
-	(interactive "<r>")
-	(ignore end)
-	(goto-char beg)
-	(evil-insert-state))
-
-;;;###autoload
-  (evil-define-operator do-evil-append-to-motion (beg end)
-	"Switch to Insert state at the end of ongoing motion"
-	(interactive "<r>")
-	(ignore beg)
-	(goto-char end)
-	(evil-insert-state))
-
-  ;; start Evil mode
-  (evil-mode))
+  ;; Start Evil mode
+  (evil-mode 1))
