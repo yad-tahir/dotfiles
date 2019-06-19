@@ -254,6 +254,10 @@
    "m" #'counsel-bookmark
    "g" #'(lambda () (interactive) (counsel-ag nil nil nil "grep " )))
 
+  (general-define-key
+   :states '(normal visual)
+   "gp" #'counsel-yank-pop)
+
   (general-def ivy-mode-map
 	[remap apropos]                   #'counsel-apropos
 	[remap describe-face]             #'counsel-describe-face

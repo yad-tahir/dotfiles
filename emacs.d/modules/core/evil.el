@@ -78,11 +78,6 @@
    "gt" 'evil-next-line
    "C-n" 'evil-ex-search-next
    "C-h" 'evil-ex-search-previous
-   "gp" '(lambda()(interactive)(evil-insert-newline-below)(yank))
-   "gP" '(lambda()(interactive)(evil-insert-newline-above)(yank))
-   "C-p" '(lambda ()(interactive)
-			(let ((evil-this-register ?0))
-			  (call-interactively 'evil-paste-after)))
    "'" 'evil-goto-mark
    ":" 'evil-ex
    ";" 'evil-ex
@@ -138,11 +133,6 @@
    "gt" 'evil-next-line
    "C-n" 'evil-ex-search-next
    "C-h" 'evil-ex-search-previous
-   "gp" '(lambda()(interactive)(evil-insert-newline-below)(yank))
-   "gP" '(lambda()(interactive)(evil-insert-newline-above)(yank))
-   "C-p" '(lambda ()(interactive)
-			(let ((evil-this-register ?0))
-			  (call-interactively 'evil-paste-after)))
    "'" 'evil-goto-mark
    ":" 'evil-ex
    ";" 'evil-ex

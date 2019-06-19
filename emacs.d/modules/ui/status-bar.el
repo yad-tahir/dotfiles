@@ -43,7 +43,7 @@
 					  :foreground chocolate-theme-bg :weight 'normal)
   (set-face-attribute 'telephone-line-accent-active nil
 					  :background chocolate-theme-shadow+1
-  					  :foreground chocolate-theme-white+3 :weight 'normal)
+					  :foreground chocolate-theme-white+3 :weight 'normal)
   (set-face-attribute 'telephone-line-accent-inactive nil
 					  :background chocolate-theme-bg
 					  :foreground chocolate-theme-shadow+3 :weight 'normal)
@@ -55,13 +55,23 @@
 
 	(lambda (face) (ignore face) " "))
 
+  (defun do--status-bar-register-segment ()
+	"A telephone line segment returns a single space."
+
+	(lambda (face)
+	  (ignore face)
+	  (if evil-this-register
+		  (telephone-line-raw (format " Register:%s "
+									  (char-to-string evil-this-register)) nil)
+		(telephone-line-raw nil nil))))
+
   (defun do--status-bar-total-length-segment ()
 	"A telephone line segment returns the total number of characters in the current
 buffer."
 
 	(lambda (face)
 	  (ignore face) 
-	  (telephone-line-raw (format " %s " (point-max)) nil) ) )
+	  (telephone-line-raw (format " %s " (point-max)) nil)))
 
   (defun do--status-bar-mode-line-segment ()
 	"A telephone line segment returns the mode line of the current buffer."
@@ -70,15 +80,16 @@ buffer."
 	  (ignore face) 
 	  (telephone-line-raw mode-line-buffer-identification t)))
 
-(defun do--status-bar-position-segment ()
-  "Position segment imitating vim-airline's appearance."
-  (lambda (face)
-	(ignore face) 
-	(concat (format "%2d%%"
-					(/ (line-number-at-pos) 0.01 (line-number-at-pos (point-max))))
-			"% %3l:%2c")))
+  (defun do--status-bar-position-segment ()
+	"Position segment imitating vim-airline's appearance."
+	(lambda (face)
+	  (ignore face) 
+	  (concat (format "%2d%%"
+					  (/ (line-number-at-pos) 0.01 (line-number-at-pos (point-max))))
+			  "% %3l:%2c")))
 
-  (setq telephone-line-lhs '((evil   . (telephone-line-evil-tag-segment))
+  (setq telephone-line-lhs '((evil   . (telephone-line-evil-tag-segment
+										do--status-bar-register-segment))
 							 (accent . (telephone-line-vc-segment
 										telephone-line-erc-modified-channels-segment
 										telephone-line-process-segment))
@@ -94,7 +105,7 @@ buffer."
 		mode-line-modified ""
 		telephone-line-primary-left-separator		'telephone-line-nil
 		telephone-line-primary-right-separator		'telephone-line-nil
-		telephone-line-secondary-left-separator	'telephone-line-nil
+		telephone-line-secondary-left-separator     'telephone-line-nil
 		telephone-line-secondary-right-separator	'telephone-line-nil
 		telephone-line-evil-use-short-tag nil)
 
