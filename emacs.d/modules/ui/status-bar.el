@@ -70,22 +70,32 @@
 buffer."
 
 	(lambda (face)
-	  (ignore face) 
+	  (ignore face)
 	  (telephone-line-raw (format " %s " (point-max)) nil)))
 
   (defun do--status-bar-mode-line-segment ()
 	"A telephone line segment returns the mode line of the current buffer."
 
 	(lambda (face)
-	  (ignore face) 
-	  (telephone-line-raw mode-line-buffer-identification t)))
+	  (ignore face)
+	  (telephone-line-raw (concat
+						   ;; Buffer name
+						   (telephone-line-raw mode-line-buffer-identification t)
+						   ;; Indicators for recursive edits
+						   (let ((result " ")
+								 (i (recursion-depth)))
+							 (while (> i 0)
+							   (setq i (- 1 i))
+							   (setq result (concat result "+")))
+							 result)))))
 
   (defun do--status-bar-position-segment ()
 	"Position segment imitating vim-airline's appearance."
 	(lambda (face)
-	  (ignore face) 
+	  (ignore face)
 	  (concat (format "%2d%%"
-					  (/ (line-number-at-pos) 0.01 (line-number-at-pos (point-max))))
+					  (/ (line-number-at-pos)
+						 0.01 (line-number-at-pos (point-max))))
 			  "% %3l:%2c")))
 
   (setq telephone-line-lhs '((evil   . (telephone-line-evil-tag-segment
