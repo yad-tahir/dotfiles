@@ -24,10 +24,8 @@
   (general-define-key
    :keymaps 'override
    :states '(normal visual)
-   "xj" '(:ignore t :which-key "join")
-   "xjj" 'fusion-join
-   "xjs" 'fusion-split
-   "xjr" 'fusion-resplit))
+   "xj" 'fusion-join
+   "xJ" 'fusion-split))
 
   (use-package evil-surround
 	:ensure t

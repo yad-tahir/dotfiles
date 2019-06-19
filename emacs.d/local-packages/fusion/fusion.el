@@ -44,7 +44,6 @@
   :group 'fusion
   :type 'boolean)
 
-;;;###autoload
 (defun fusion--fill-region (beginning end column)
   (unless beginning
 	(setq beginning (region-beginning)))
@@ -65,12 +64,11 @@
   "Replaces new line chars in region by single spaces while keeping the
   structure of the paragraphes as much as possible.
 
-The second argument BEGINNING indicates the starting position of the
-region. Passing nil makes the region starts
-from (region-beginning).
+The second argument BEGINNING indicates the starting position of the region.
+Passing nil makes the region starts from (region-beginning).
 
-The third argument END indicates the starting position of the
-region. Passing nil makes the region starts from (region-end).
+The third argument END indicates the starting position of the region. Passing
+nil makes the region starts from (region-end).
 
 	This evil operator is the reverse of 'do-wrap-region'"
 
@@ -81,33 +79,13 @@ region. Passing nil makes the region starts from (region-end).
 (evil-define-operator fusion-split (beginning end)
   "Fills the selected region and makes it indent.
 
-The second argument BEGINNING indicates the starting position of the
-region. Passing nil makes the region starts
-from (region-beginning).
+The second argument BEGINNING indicates the starting position of the region.
+Passing nil makes the region starts from (region-beginning).
 
-The third argument END indicates the starting position of the
-region. Passing nil makes the region starts from (region-end)."
+The third argument END indicates the starting position of the region. Passing
+nil makes the region starts from (region-end)."
 
   (fusion--fill-region beginning end fusion-split-column))
-
-;;;###autoload
-(evil-define-operator fusion-resplit (beginning end)
-  "Joins region then fills it again. This function is useful to re-wrap
-a badly fragmented region.
-
-The second argument BEGINNING indicates the starting position of the
-region. Passing nil makes the region starts
-from (region-beginning).
-
-The third argument END indicates the starting position of the
-region. Passing nil makes the region starts from (region-end)."
-  (save-restriction
-	(goto-char beginning)
-	(beginning-of-line)
-	(evil-narrow (point) end)
-	(fusion-join (point-min) (point-max))
-	(fusion-split (point-min) (point-max))
-	(widen)))
 
 (provide 'fusion)
 
