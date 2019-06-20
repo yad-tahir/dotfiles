@@ -17,7 +17,6 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
-
 (use-package diff-hl
   :ensure t
   :hook ((magit-file-mode . diff-hl-mode)
@@ -28,13 +27,6 @@
    :states '(normal visual)
    "T" 'diff-hl-next-hunk
    "C" 'diff-hl-previous-hunk)
-
- ;; `(diff-hl-change ((t (:background ,chocolate-theme-highlight+2 :foreground nil
- ;; 								   :inherit diff-changed))))
- ;; `(diff-hl-insert ((t (:background ,chocolate-theme-element :foreground nil
- ;; 								   :inherit diff-added))))
- ;; `(diff-hl-delete ((t (:background ,chocolate-theme-highlight :foreground nil
- ;; 								   :inherit diff-removed))))
 
   (set-face-attribute 'diff-hl-change nil
 					  :foreground nil

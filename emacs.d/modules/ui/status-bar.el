@@ -101,10 +101,12 @@ buffer."
 	"Position segment imitating vim-airline's appearance."
 	(lambda (face)
 	  (ignore face)
-	  (concat (format "%2d%%"
+	  (concat (format "%2d"
 					  (/ (line-number-at-pos)
 						 0.01 (line-number-at-pos (point-max))))
-			  "% %3l:%2c")))
+			  "%% "
+			  (format "%3d " (point))
+			  "%3l:%2c")))
 
   (setq telephone-line-lhs '((evil   . (telephone-line-evil-tag-segment
 										do--status-bar-macro-segment

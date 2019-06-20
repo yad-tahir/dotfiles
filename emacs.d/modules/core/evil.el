@@ -82,8 +82,6 @@
    "'" 'evil-goto-mark
    ":" 'evil-ex
    ";" 'evil-ex
-   "j" 'evil-find-char-to
-   "J" 'evil-find-char-to-backward
    ;; Jumping motions
    "g:" 'goto-last-change-reverse
    "gj" 'evil-jump-backward
@@ -106,11 +104,13 @@
    :states 'normal
    "z" 'undo
    "C-Z" 'redo
-   "M-z" '(lambda () (interactive) (do-make-frame)(undo-tree-visualize))
-   "Z" '(lambda () (interactive) (do-make-frame)(undo-tree-visualize))
+   "M-z" 'undo-tree-visualize
+   "Z" 'undo-tree-visualize
    "C-c" 'evil-scroll-page-up
    "C-t" 'evil-scroll-page-down
    "U" 'evil-change-line
+   "j" 'evil-find-char-to
+   "J" 'evil-find-char-to-backward
    "," 'widen ;; @TASK: To evil operator
    "s" 'nil ;; Used for searching instead
    "H" 'nil
@@ -138,9 +138,7 @@
    "C-h" 'evil-ex-search-previous
    "'" 'evil-goto-mark
    ":" 'evil-ex
-   ";" 'evil-ex
-   "j" 'evil-find-char-to
-   "J" 'evil-find-char-to-backward)
+   ";" 'evil-ex)
 
   (general-define-key
    :states 'visual
@@ -157,6 +155,8 @@
 		  ;; Make micros more useful in visual mode
 		  ;; @TODO: Does not work in Visual Block Mode
 		  (evil-ex "'<,'>normal @"))
+   "j" 'evil-find-char-to
+   "J" 'evil-find-char-to-backward
    "s" 'nil ;; Used for searching instead
    "H" 'nil
    "N" 'nil
@@ -193,6 +193,8 @@
    "[]" 'evil-backward-section-end
    "]s" 'evil-forward-sentence-begin
    "[s" 'evil-backward-sentence-begin
+   "]m" 'do-evil-forward
+   "[m" 'do-evil-backward
    "s" 'nil
    "j" 'nil
    "H" 'nil
@@ -302,13 +304,13 @@
 
   ;; Operators
   (evil-define-operator do-evil-insert (beginning end)
-	"Ask for a motion and switch to the insert state"
+	"Ask for a motion and switch to the insert state."
 	(ignore end)
 	(goto-char beginning)
 	(call-interactively 'evil-insert))
 
   (evil-define-operator do-evil-append (beginning end &optional type)
-	"Ask for a motion and switch to the insert state"
+	"Ask for a motion and switch to the insert state."
 	;; Go to the beginning of the region to repeat the operation correctly in
 	;; Visual Line and Visual Block.
 	(cond ((string= type "line")
@@ -323,6 +325,17 @@
 		  (t
 		   (goto-char end)))
 	(call-interactively 'evil-append))
+
+  (evil-define-operator do-evil-forward (beginning end)
+	"Ask for a motion and move forward."
+	(ignore beginning)
+	(goto-char end))
+
+
+  (evil-define-operator do-evil-backward (beginning end)
+	"Ask for a motion and move backward."
+	(ignore end)
+	(goto-char beginning))
 
   ;; Adjust some properties to make them more useful with the 'delete' and
   ;; 'change' operators

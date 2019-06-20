@@ -1,5 +1,21 @@
 ;;; -*- lexical-binding: t; -*-
 
+;; Copyright (C) 2019
+
+;; This program is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License
+;; as published by the Free Software Foundation; either version 2
+;; of the License, or (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program; if not, write to the Free Software
+;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+;; 02110-1301, USA.
 
 (defcustom chocolate-theme-bg "#0f0b0c"
   "Palette - default background"
@@ -132,11 +148,11 @@
  `(query-replace ((t (:inherit (isearch)))))
  `(shadow ((t (:foreground ,chocolate-theme-shadow+3))))
  `(fringe ((t (:foreground ,chocolate-theme-bg))))
+ `(variable-pitch ((t (:family "Sans Serif"))))
  `(tooltip ((t (:inherit variable-pitch
 						 :background ,chocolate-theme-white+1
 						 :foreground ,chocolate-theme-bg))))
  `(fixed-pitch ((t (:family "Monospace"))))
- `(variable-pitch ((t (:family "Sans Serif"))))
  `(hl-line ((t (:inherit nil :background ,chocolate-theme-shadow))))
  `(compilation-mode-line-exit ((t (:foreground nil))))
  `(compilation-mode-line-error ((t (:foreground nil))))

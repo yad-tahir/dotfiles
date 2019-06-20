@@ -265,6 +265,16 @@
 					  :foreground chocolate-theme-highlight+2)
   (set-face-attribute 'magit-branch-remote-head nil
 					  :foreground chocolate-theme-highlight+2)
+  (set-face-attribute 'magit-dimmed nil
+					  :inherit 'shadow
+					  :foreground chocolate-theme-shadow+3)
+  (set-face-attribute 'magit-hash nil
+					  :inherit 'shadow
+					  :foreground chocolate-theme-shadow+3)
+  (set-face-attribute 'magit-log-date nil
+					  :foreground chocolate-theme-white+3)
+  (set-face-attribute 'magit-log-graph nil
+					  :foreground chocolate-theme-white+3)
   ;; (set-face-attribute 'magit-diff-added-highlight nil
   ;; 					  :foreground chocolate-theme-bg
   ;; 					  :background chocolate-theme-element+3)
