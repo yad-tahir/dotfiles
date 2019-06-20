@@ -55,13 +55,21 @@
 
 	(lambda (face) (ignore face) " "))
 
+  (defun do--status-bar-macro-segment ()
+	"A telephone line segment for macro recording"
+
+	(lambda (face)
+	  (ignore face)
+	  (if defining-kbd-macro
+		  (telephone-line-raw  " REC" nil)
+		(telephone-line-raw nil nil))))
   (defun do--status-bar-register-segment ()
-	"A telephone line segment returns a single space."
+	"A telephone line segment for active register"
 
 	(lambda (face)
 	  (ignore face)
 	  (if evil-this-register
-		  (telephone-line-raw (format " Register:%s "
+		  (telephone-line-raw (format " Register:%s"
 									  (char-to-string evil-this-register)) nil)
 		(telephone-line-raw nil nil))))
 
@@ -99,6 +107,7 @@ buffer."
 			  "% %3l:%2c")))
 
   (setq telephone-line-lhs '((evil   . (telephone-line-evil-tag-segment
+										do--status-bar-macro-segment
 										do--status-bar-register-segment))
 							 (accent . (telephone-line-vc-segment
 										telephone-line-erc-modified-channels-segment

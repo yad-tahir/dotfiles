@@ -41,6 +41,7 @@
 	"feature/file-manager"
 	"feature/diff"
 	"feature/motion"
+	"feature/macro"
 
 	"lang/text"
 	"lang/org" ;; slow

@@ -49,6 +49,7 @@
    ;; Don't create another normal mode from the insert mode. Thus, we
    ;; will only allow basic navigation here.
    "<tab>" 'tab-to-tab-stop
+   "<C-escape>" 'evil-execute-in-normal-state
    "C-i" 'evil-beginning-of-line
    "C-0" 'evil-beginning-of-line
    "C-a" 'evil-end-of-line
@@ -219,14 +220,7 @@
    "C-w" 'forward-word
    "C-h" 'backward-word
    "C-b" 'backward-word
-   "<escape>" '(lambda ()
-				 (interactive)
-				 (ignore-errors
-				   (if (and delete-selection-mode transient-mark-mode mark-active)
-					   (setq deactivate-mark  t)
-					 (when (get-buffer "*Completions*")
-					   (delete-windows-on "*Completions*"))
-					 (abort-recursive-edit))))
+   "<escape>" 'do-evil-escape-abort
    "C-p" 'yank
    "C-4" 'move-end-of-line
    "C-0" 'move-beginning-of-line
@@ -275,6 +269,7 @@
 		evil-echo-state nil
 		evil-kbd-macro-suppress-motion-error t
 		evil-mode-line-format nil
+		evil-kbd-macro-suppress-motion-error t
 		;; evil-ex-substitute-global t
 		;; More vim-like behavior
 		evil-ex-search-vim-style-regexp t
@@ -350,6 +345,21 @@ avoid navigating with the insert state."
 			  :around '(lambda (org-func &rest args)
 						 (save-excursion (apply org-func args))))
 
+  (defun do-evil-escape-abort ()
+	(interactive)
+	(ignore-errors
+	  (if (and delete-selection-mode
+	  		   transient-mark-mode
+	  		   mark-active)
+	  	  (setq deactivate-mark  t))
+
+	  (when (get-buffer "*Completions*")
+		(delete-windows-on "*Completions*"))
+
+	  (unless defining-kbd-macro
+		(when evil-ex-current-buffer
+		  (evil-ex-search-abort))
+		(keyboard-escape-quit))))
 
   ;; Start Evil mode
   (evil-mode 1))

@@ -82,14 +82,7 @@
    "C-i" 'kill-word
    "C-u" 'kill-line
    "C-d" '(lambda()(interactive)(evil-ex))
-   "<escape>" '(lambda ()
-				 (interactive)
-				 (ignore-errors
-				   (if (and delete-selection-mode transient-mark-mode mark-active)
-					   (setq deactivate-mark  t)
-					 (when (get-buffer "*Completions*")
-					   (delete-windows-on "*Completions*"))
-					 (abort-recursive-edit))))
+   "<escape>" 'do-evil-escape-abort
    "C-p" 'yank
    "C-k" 'describe-key)
 
