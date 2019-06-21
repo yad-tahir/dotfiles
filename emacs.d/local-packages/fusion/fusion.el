@@ -1,7 +1,7 @@
 ;;; -*- ;lexical-binding: t; -*-
 ;;;
-;;;      ______           _           
-;;;     / ____/_  _______(_)___  ____ 
+;;;      ______           _
+;;;     / ____/_  _______(_)___  ____
 ;;;    / /_  / / / / ___/ / __ \/ __ \
 ;;;   / __/ / /_/ (__  ) / /_/ / / / /
 ;;;  /_/    \__,_/____/_/\____/_/ /_/
@@ -34,7 +34,7 @@
 
 (require 'evil)
 
-(defcustom fusion-split-column 80
+(defcustom fusion-split-column fill-column
   "Column beyond which fusion automatically splits line."
   :group 'fusion
   :type 'number)

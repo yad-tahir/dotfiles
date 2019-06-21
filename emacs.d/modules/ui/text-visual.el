@@ -20,13 +20,17 @@
 (use-package whitespace
   :hook ((find-file . whitespace-mode))
   :config
-  (setq fill-column 84
-		whitespace-line-column 84
-		whitespace-style (quote;; disable 'lines' style
-						  (face tabs spaces trailing
-								space-before-tab newline
-								indentation empty space-after-tab
-								space-mark newline-mark))))
+  (setq whitespace-line-column fill-column
+		whitespace-style (quote
+						  (face trailing indentation
+								spaces space-mark
+								space-before-tab space-after-tab)))
+		;; whitespace-style (quote;; disable 'lines' style
+		;;					  (face tabs spaces trailing
+		;;							space-before-tab newline
+		;;							indentation empty space-after-tab
+		;;							space-mark newline-mark)))
+  (add-hook 'before-save-hook 'whitespace-cleanup))
 
 (use-package simple
   :preface
@@ -80,7 +84,7 @@
   (global-evil-quickscope-mode 1))
 
 ;; (use-package evil-visual-mark-mode
-;; 	:hook ((prog-mode . evil-visual-mark-mode))
-;; 	:config
-;; 	(set-face-attribute 'evil-visual-mark-face nil :background nil :foreground
-;; 						nil :inherit 'isearch :underline nil))
+;;		:hook ((prog-mode . evil-visual-mark-mode))
+;;		:config
+;;		(set-face-attribute 'evil-visual-mark-face nil :background nil :foreground
+;;							nil :inherit 'isearch :underline nil))

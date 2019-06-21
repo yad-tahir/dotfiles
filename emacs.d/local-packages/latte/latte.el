@@ -1,10 +1,10 @@
 ;;; -*- ;lexical-binding: t; -*-
 ;;;
-;;;      __          __  __     
-;;;     / /   ____ _/ /_/ /____ 
+;;;      __          __  __
+;;;     / /   ____ _/ /_/ /____
 ;;;    / /   / __ `/ __/ __/ _ \
 ;;;   / /___/ /_/ / /_/ /_/  __/
-;;;  /_____/\__,_/\__/\__/\___/ 
+;;;  /_____/\__,_/\__/\__/\___/
 ;;;
 ;;;
 ;;; package -- Summary
@@ -247,11 +247,11 @@ after END. A value of nil means search from '(point-max)'."
 			;; text is already font-lock highlighted. However, this is not as
 			;; consistent as overlays.
 			;; (put-text-property (- (point) l)
-			;; 					 (point)
-			;; 					 'font-lock-face
-			;; 					 'latte-keyword-face)
+			;;					 (point)
+			;;					 'font-lock-face
+			;;					 'latte-keyword-face)
 			;; (font-lock-flush (- (point) l)
-			;; 					 (point))
+			;;					 (point))
 			;;
 			;; Solution 2: Use overlays.
 			;; The second solution has been selected since keywords have

@@ -265,7 +265,6 @@
 		evil-auto-indent t
 		evil-shift-width 4
 		evil-jumps-cross-buffers t
-		;; indent-tabs-mode t
 		evil-shift-round t
 		evil-insert-skip-empty-lines t
 		evil-echo-state nil
@@ -362,9 +361,9 @@ avoid navigating with the insert state."
 	(interactive)
 	(ignore-errors
 	  (if (and delete-selection-mode
-	  		   transient-mark-mode
-	  		   mark-active)
-	  	  (setq deactivate-mark  t))
+			   transient-mark-mode
+			   mark-active)
+		  (setq deactivate-mark  t))
 
 	  (when (get-buffer "*Completions*")
 		(delete-windows-on "*Completions*"))

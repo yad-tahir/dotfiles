@@ -73,7 +73,8 @@
 	  visible-bell nil)
 
 
-(setq-default tab-width 4
+(setq-default fill-column 80
+			  tab-width 4
 			  tooltip-delay 5
 			  indent-tabs-mode t)
 
