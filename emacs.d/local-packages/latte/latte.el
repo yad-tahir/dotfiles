@@ -7,20 +7,20 @@
 ;;;  /_____/\__,_/\__/\__/\___/
 ;;;
 ;;;
-;;; package -- Summary
-;;; Latte - A light notebook manager built on top of beloved Org-mode.
-;;;
+;;; Summary:
+;;; Latte - A simple notebook manager with auto highlighting built on top of the
+;;; beloved Org-mode.
 ;;;
 ;;; Author: Dr. Yad Tahir <yad (at) ieee.org>
-;;; Keywords: note-taking with Org mode, organizing notes, auto-highlighting.
+;;; Keywords: note-taking, auto-highlighting, org-mode.
 ;;;
 ;;; Commentary:
-;;; This file is an implementation of a simple note taking system. Notes
-;;; are stored in separate Org, plain-text files. This system scans these
-;;; files on a regular basis to collect 'keywords'. Latte automatically highlights
-;;; keywords in any Emacs buffer with latte-mode. The implementation is
-;;; optimized to be snappy and performs UI drawing as less as possible.
-;;;
+;;; This file is part of a simple note-taking system. Notes are stored in Org
+;;; files. This system scans these files on a regular basis to collect
+;;; 'keywords'. Latte, then, automatically highlights keywords when the
+;;; latte-mode is active. This implementation is designed to be snappy, and
+;;; performs UI drawing as less as possible.
+
 ;;; License:
 ;;; Copyright (C) 2019
 ;;; This program is free software; you can redistribute it and/or
@@ -37,8 +37,7 @@
 ;;; along with this program; if not, write to the Free Software
 ;;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;;; 02110-1301, USA.
-;;;
-;;;
+
 ;;; Road Map and Hopes:
 ;;; - Remove the needs for s.el.
 ;;; - Add support for Helm
@@ -58,7 +57,7 @@
 
 ;;; Code:
 (defgroup latte nil "A simple notebook manager with auto highlighting built on
-top of beloved Org- mode." :group 'latte)
+top of the beloved Org-mode." :group 'latte)
 
 (defcustom latte-directory user-emacs-directory
   "Directory in which note files are stored."
@@ -90,14 +89,14 @@ for all buffers."
 
 
 (defcustom latte-rehighlight-after-scan t
-  "If it is not nil, Latte re-highlights the current buffer after every scan.
+  "If it is not nil, Latte performs UI re-drawing after every scan.
 
-Setting this variable to nil avoids Latte deleting all the existing
-overlays. Thus, making the scanning process less computationally
-intensive. However, the primary trade off is syncing inconsistency
-between existing overlays and keywords. When a keyword becomes no
-longer exists,its overlays is not removed automatically. A manual
-refresh for the buffer is needed"
+Setting this variable to nil avoids Latte deleting all the existing overlays.
+Thus, making the scanning process less drawing intensive. However, the
+primary trade off is syncing inconsistency between overlays and backend
+keywords. For example, when a keyword is no longer exists, its overlays is not
+removed automatically from buffer. A manual refresh is needed then."
+
   :group 'latte
   :type 'boolean)
 
@@ -118,13 +117,12 @@ refresh for the buffer is needed"
 
 
 ;;; Internal variables
-
 (defvar latte--keywords (make-hash-table :test 'equal)
   "Holds list of keywords.
 
-This is an important global variable. This data structure is modified primarily by
-'latte--scan-keywords'. Both 'latte--highlight' and
-'latte--delete-overlays' use this list to update UI accordingly.")
+This global data structure is modified primarily by 'latte--scan-keywords'. Both
+'latte--highlight' and 'latte--delete-overlays' use this list to update UI
+accordingly.")
 
 (defvar latte--history nil
   "A history data type used when notebook.el calls Ivy.")
@@ -137,7 +135,8 @@ This is an important global variable. This data structure is modified primarily 
 (defvar latte--initialized nil
   "Holds t if notebook's timers are initialized and started. Otherwise, nil.
 
-This variable is used to ensure only one instance of the timers exists globally.")
+This variable is used to ensure only one instance of the timers exists
+globally.")
 
 (defconst latte--process-name "*latte-keyword-scanner*"
   "Holds the name of the process launched by 'latte--scan-keywords'.")
@@ -214,14 +213,14 @@ If it does not, this function returns nil. Otherwise, PHRASE is returned."
 	phrase))
 
 (defun latte--highlight (&optional start end)
-  "Highlights all the instances of KEYWORD in the current buffer. For each instance,
-  this function creates a clickable overlay.
+  "Highlights all the instances of KEYWORD in the current buffer. For each
+  instance, this function creates a clickable overlay.
 
-The optional second argument START indicates starting position. Highlighting must
-not occur before START. A value of nil means search from '(point-min)'.
+The optional second argument START indicates starting position. Highlighting
+must not occur before START. A value of nil means search from '(point-min)'.
 
-The optional third argument END indicates ending position. Highlight must not occur
-after END. A value of nil means search from '(point-max)'."
+The optional third argument END indicates ending position. Highlight must not
+occur after END. A value of nil means search from '(point-max)'."
 
   ;; Default values
   (setq start (or start (point-min)))
@@ -292,8 +291,8 @@ after END. A value of nil means search from '(point-max)'."
 				;; If we are chopping chars
 				(when (and found
 						   (< (length found) (length w)))
-				  ;; Use the word found the the buffer to avoid highlighting less
-				  ;; characters
+				  ;; Use the word found the the buffer to avoid highlighting
+				  ;; less characters
 				  (setq found w))
 
 				(when found
@@ -317,13 +316,13 @@ after END. A value of nil means search from '(point-max)'."
 
 						(overlay-put o 'keymap latte-keyword-map)
 						(overlay-put o 'mouse-face 'highlight)
-						;; The word under POINT may not exist in latte--keywords.
-						;; Use the founded phrase instead.
+						;; The word under POINT may not exist in
+						;; latte--keywords. Use the founded phrase instead.
 						(overlay-put o 'latte-keyword pure-w)
 
 						;; The priority is calculated based on the number of the
-						;; characters. Thus, the overlays of longer phrases are on
-						;; top.
+						;; characters. Thus, the overlays of longer phrases are
+						;; on top.
 						(overlay-put o 'priority l)))))))
 			(forward-word)))))))
 
@@ -368,8 +367,8 @@ after END. A value of nil means search from '(point-max)'."
   'latte--scan-keywords'. This method is called automatically when Emacs
   receives outputs from PROC.
 
-Emacs streams the output by calling this method multiple times. STR holds the output
-of each batch.
+Emacs streams the output by calling this method multiple times. STR holds the
+output of each batch.
 
 The main objective of this function is to process the output and finds the
 keywords."
@@ -414,8 +413,8 @@ keywords."
 
 (defun latte--async-sentinel (process str)
   "Sentinel function of PROCESS spawned by 'latte--scan-keywords'. This
-  function is called automatically when the process is finished or interrupted. STR
-  indicates the status of the process.
+  function is called automatically when the process is finished or interrupted.
+  STR indicates the status of the process.
 
 This function triggers UI updates in case 'latte--keywords' has been changed."
 
@@ -519,9 +518,9 @@ spawned in 'latte-insert-org-tag'."
 
 
 (defun latte--insert-keyword-handler (keyword)
-  "Insert KEYWORD at point. Point and after-insertion markers move forward to end up
-after the inserted text. This function is called automatically by Ivy, spawned in
-'latte-insert-keyword'."
+  "Insert KEYWORD at point. Point and after-insertion markers move forward to
+  end up after the inserted text. This function is called automatically by Ivy,
+  spawned in 'latte-insert-keyword'."
 
   (when (listp keyword)
 	(setq keyword (cdr keyword)))
@@ -605,8 +604,8 @@ simple Org file for the given topic."
 
 ;;;###autoload
 (defun latte-search (&optional init-input)
-  "Interactively search through the notes. INIT-INPUT can be passed as the initial
-search query."
+  "Interactively search through the notes. INIT-INPUT can be passed as the
+  initial search query."
 
   (interactive)
   ;; Pass a regex to ask ag to discard org metadata.
@@ -628,8 +627,8 @@ search query."
 
 ;;;###autoload
 (defun latte-grep-topic ()
-  "Search for the keyword at point in the notebook, and then show all the headings
-in which the keyword has been used."
+  "Search for the keyword at point in the notebook, and then show all the
+  headings in which the keyword has been used."
 
   (interactive)
   (latte-search

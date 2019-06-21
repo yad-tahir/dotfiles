@@ -93,50 +93,50 @@
    "xsj" 'sp-join-sexp))
 
 ;; (use-package evil-paredit
-;; 	:disabled t
-;; 	:ensure t
-;; 	:hook ((prog-mode . evil-paredit-mode)
-;; 		   (prog-mode . paredit-mode))
-;; 	:config
-;; 	;; Reset keymaps
-;; 	(setf (cdr evil-paredit-mode-map) nil)
+;;	:disabled t
+;;	:ensure t
+;;	:hook ((prog-mode . evil-paredit-mode)
+;;		   (prog-mode . paredit-mode))
+;;	:config
+;;	;; Reset keymaps
+;;	(setf (cdr evil-paredit-mode-map) nil)
 
-;; 	(general-define-key
-;; 	 :keymaps 'evil-paredit-mode-map
-;; 	 :states 'normal
-;; 	 ;; Bindings for basic movements
-;; 	 "xsn" 'paredit-forward-slurp-sexp
-;; 	 "xsN" 'paredit-forward-barf-sexp
-;; 	 "xsh" 'paredit-backward-slurp-sexp
-;; 	 "xsh" 'paredit-backward-barf-sexp
-;; 	 "M-n" 'paredit-forward-slurp-sexp
-;; 	 "M-h" 'paredit-forward-barf-sexp
-;; 	 "g M-h" 'paredit-backward-slurp-sexp
-;; 	 "g M-H" 'paredit-backward-barf-sexp
-;; 	 ;; Needed because we use 'u' instead of 'c'
-;; 	 "c" nil
-;; 	 "C" nil
-;; 	 "u" 'evil-paredit-change
-;; 	 "U" 'evil-paredit-change-line
-;; 	 "d" 'evil-paredit-delete
-;; 	 "D" 'evil-paredit-delete-line
-;; 	 "xsu" 'evil-change
-;; 	 "xsU" 'evil-change-line
-;; 	 "xsd" 'evil-delete
-;; 	 "xsD" 'evil-delete-line)
+;;	(general-define-key
+;;	 :keymaps 'evil-paredit-mode-map
+;;	 :states 'normal
+;;	 ;; Bindings for basic movements
+;;	 "xsn" 'paredit-forward-slurp-sexp
+;;	 "xsN" 'paredit-forward-barf-sexp
+;;	 "xsh" 'paredit-backward-slurp-sexp
+;;	 "xsh" 'paredit-backward-barf-sexp
+;;	 "M-n" 'paredit-forward-slurp-sexp
+;;	 "M-h" 'paredit-forward-barf-sexp
+;;	 "g M-h" 'paredit-backward-slurp-sexp
+;;	 "g M-H" 'paredit-backward-barf-sexp
+;;	 ;; Needed because we use 'u' instead of 'c'
+;;	 "c" nil
+;;	 "C" nil
+;;	 "u" 'evil-paredit-change
+;;	 "U" 'evil-paredit-change-line
+;;	 "d" 'evil-paredit-delete
+;;	 "D" 'evil-paredit-delete-line
+;;	 "xsu" 'evil-change
+;;	 "xsU" 'evil-change-line
+;;	 "xsd" 'evil-delete
+;;	 "xsD" 'evil-delete-line)
 
-;; 	(general-define-key
-;; 	 :keymaps 'evil-paredit-mode-map
-;; 	 :states 'visual
-;; 	 ;; Surrounding region
-;; 	 "xs(" 'paredit-wrap-round
-;; 	 "xs)" 'paredit-wrap-round
-;; 	 "xs]" 'paredit-wrap-square
-;; 	 "xs[" 'paredit-wrap-square
-;; 	 "xs{" 'paredit-wrap-curly
-;; 	 "xs}" 'paredit-wrap-curly
-;; 	 "xs>" 'paredit-wrap-angled
-;; 	 "xs<" 'paredit-wrap-angled))
+;;	(general-define-key
+;;	 :keymaps 'evil-paredit-mode-map
+;;	 :states 'visual
+;;	 ;; Surrounding region
+;;	 "xs(" 'paredit-wrap-round
+;;	 "xs)" 'paredit-wrap-round
+;;	 "xs]" 'paredit-wrap-square
+;;	 "xs[" 'paredit-wrap-square
+;;	 "xs{" 'paredit-wrap-curly
+;;	 "xs}" 'paredit-wrap-curly
+;;	 "xs>" 'paredit-wrap-angled
+;;	 "xs<" 'paredit-wrap-angled))
 
 (use-package expand-region
   :ensure t
@@ -156,12 +156,12 @@
 
 ;; As of June 14, evil-commentary is a bit buggy when the whitespace mode is on.
 ;; (use-package evil-commentary
-;; 	:ensure t
-;; 	:commands (evil-commentary)
-;; 	:init
-;; 	(general-define-key
-;; 	 :states '(normal visual)
-;; 	 "g/" 'evil-commentary))
+;;	:ensure t
+;;	:commands (evil-commentary)
+;;	:init
+;;	(general-define-key
+;;	 :states '(normal visual)
+;;	 "g/" 'evil-commentary))
 
 (use-package evil-lion
   :defer t
@@ -208,7 +208,7 @@
 
 ;; (use-package aggressive-indent
 ;;   :hook ((prog-mode . aggressive-indent-mode)
-;; 		 (text-mode . aggressive-indent-mode)))
+;;		 (text-mode . aggressive-indent-mode)))
 
 ;; (use-package fold-this
 ;;   :commands 'fold-active-region-all

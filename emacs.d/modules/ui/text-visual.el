@@ -86,5 +86,6 @@
 ;; (use-package evil-visual-mark-mode
 ;;		:hook ((prog-mode . evil-visual-mark-mode))
 ;;		:config
-;;		(set-face-attribute 'evil-visual-mark-face nil :background nil :foreground
+;;		(set-face-attribute 'evil-visual-mark-face nil
+;;							:background nil :foreground
 ;;							nil :inherit 'isearch :underline nil))

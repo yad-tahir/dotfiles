@@ -66,7 +66,8 @@
 	  scroll-conservatively 10000
 	  scroll-margin 0
 	  auto-window-vscroll nil
-	  ;; Disable multi-line echo messages. Annoying while jumping in the evil mode
+	  ;; Disable multi-line echo messages. They are really annoying when you
+	  ;; jump between lines.
 	  eldoc-echo-area-use-multiline-p nil
 	  ;; No beeping or blinking
 	  ring-bell-function #'ignore
