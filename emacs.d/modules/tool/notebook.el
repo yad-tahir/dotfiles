@@ -21,10 +21,7 @@
 (use-package latte
   :defer 5
   :load-path "~/.emacs.d/local-packages/latte"
-  :hook (
-		 ;; (find-file . latte-mode)
-		 (after-change-major-mode . latte-mode)
-		 )
+  :hook ((after-change-major-mode . latte-mode))
 
   :commands (latte-files latte-search
 							   latte-insert-keyword latte-insert-org-tag

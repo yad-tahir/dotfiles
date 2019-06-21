@@ -150,14 +150,23 @@ This variable is used to ensure only one instance of the timers exists globally.
 ;;; Helpers
 ;;;
 
+(defun latte--change-major-mode ()
+  "Called internally when the major mode has changed in the current buffer."
+
+  ;; Kill the scanning process if it exists to avoid creating new overlays.
+  (latte--kill-processes)
+  ;; Delete all old overlays to ensure that the 'latte-highlight-prog-comments'
+  ;; setting works.
+  (latte--delete-overlays t))
+
 (defun latte--delete-overlays (&optional force)
-  "Called internally to delete and flush the overlays that are no longer needed.
+  "Called internally to delete overlays that are no longer needed.
 
-When FORCE is nil, this function goes through each overlay existing in the current
-buffer. Then it checks whether its text is still a keyword in
-'latte--keywords'. If yes, nothing will happen. Otherwise, delete it.
+When FORCE is nil, this function goes through each overlay existing in the
+current buffer, and checks whether its underline text is still a keyword. If
+it is not, this function deletes the overlay.
 
-However setting FORCE to t makes this function to delete all overlays without
+However, setting FORCE to t makes this function to delete all overlays without
 checking."
 
   (ignore-errors
@@ -540,6 +549,7 @@ Initially, highlighting takes place after 'latte-scan-idle-delay'."
 		(add-hook 'after-change-functions 'latte--after-change-function t t)
 		(add-hook 'after-revert-hook 'latte--highlight-buffer t t)
 		(add-hook 'after-save-hook 'latte--highlight-buffer t t)
+		(add-hook 'change-major-mode-hook 'latte--change-major-mode nil t)
 		(add-hook 'edit-server-done-hook 'latte--highlight-buffer t t)
 
 		(latte--highlight-buffer)
@@ -559,6 +569,7 @@ Initially, highlighting takes place after 'latte-scan-idle-delay'."
 	  (remove-hook 'after-change-functions 'latte--after-change-function t)
 	  (remove-hook 'after-revert-hook 'latte--highlight-buffer t)
 	  (remove-hook 'after-save-hook 'latte--highlight-buffer t)
+	  (remove-hook 'change-major-mode-hook 'latte--change-major-mode)
 	  (remove-hook 'edit-server-done-hook 'latte--highlight-buffer t))))
 
 ;;;###autoload
