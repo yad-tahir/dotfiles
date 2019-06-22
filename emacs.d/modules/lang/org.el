@@ -53,60 +53,54 @@
    "M-n" 'org-metaright)
 
   (general-define-key
-	:keymaps 'org-mode-map
-	:states 'normal
-	"RET" 'org-cycle
-	"M-<return>" 'org-global-cycle
-	"C" 'org-shiftup
-	"T" 'org-shiftdown
-	"H" 'org-shiftleft
-	"N" 'org-shiftright
-	"M-C" 'org-shiftmetaup
-	"M-T" 'org-shiftmetadown
-	"M-H" 'org-shiftmetaleft
-	"M-N" 'org-shiftmetaright
-	"gC" 'org-up-element
-	"gN" 'org-forward-element
-	"gH" 'org-backward-element
-	"gT" 'org-down-element
-	"lt" '(:ignore t :which-key "time")
-	"ltt" '(lambda () (interactive) (org-time-stamp (current-time)))
-	"lti" 'org-clock-in
-	"lta" 'org-clock-in
-	"ltq" 'org-clock-out
-	"ltx" 'org-clock-cancel
-	"ltg" 'org-clock-goto
-	"lv" '(:ignore t :which-key "view")
-	"lvl" 'org-toggle-latex-fragment
-	"lvm" 'org-toggle-latex-fragment
-	"ls" 'org-schedule
-	"lS" 'org-deadline
-	"lu" 'org-add-note ;;progress
-	"la" 'org-attach
-	"lg" 'org-open-at-point
-	"lc" 'org-ctrl-c-ctrl-c
-	"li" 'org-id-get-create
-	"l@" 'org-toggle-ordered-property
-	"le" '(:ignore t :which-key "export")
-	"lel" 'org-export-dispatch
-	"lep" 'org-latex-export-to-pdf
-	"leb" 'org-beamer-export-to-pdf
-	"leh" 'org-html-export-to-html
-	"lq" 'org-kill-note-or-show-branches
-	"l'" '(lambda ()(interactive)(do-make-frame)(org-edit-src-code))
-	"lx" 'org-archive-subtree)
+   :keymaps 'org-mode-map
+   :states 'normal
+   "RET" 'org-cycle
+   "M-<return>" 'org-global-cycle
+   "C" 'org-shiftup
+   "T" 'org-shiftdown
+   "H" 'org-shiftleft
+   "N" 'org-shiftright
+   "M-C" 'org-shiftmetaup
+   "M-T" 'org-shiftmetadown
+   "M-H" 'org-shiftmetaleft
+   "M-N" 'org-shiftmetaright
+   "gC" 'org-up-element
+   "gN" 'org-forward-element
+   "gH" 'org-backward-element
+   "gT" 'org-down-element
+   "lt" '(:ignore t :which-key "time")
+   "ltt" '(:ignore t :which-key "insert timestamp")
+   "ltt" '(lambda () (interactive) (org-time-stamp (current-time)))
+   "lt(" 'org-clock-in
+   "lt)" 'org-clock-out
+   "ltq" 'org-clock-cancel
+   "ltg" 'org-clock-goto
+   "lv" '(:ignore t :which-key "view")
+   "lvl" 'org-toggle-latex-fragment
+   "ls" 'org-schedule
+   "lS" 'org-deadline
+   "lu" 'org-add-note ;;progress
+   "la" 'org-attach
+   "lg" 'org-open-at-point
+   "lc" 'org-ctrl-c-ctrl-c
+   "li" 'org-id-get-create
+   "l@" 'org-toggle-ordered-property
+   "le" '(:ignore t :which-key "export")
+   "lel" 'org-export-dispatch
+   "lep" 'org-latex-export-to-pdf
+   "leb" 'org-beamer-export-to-pdf
+   "leh" 'org-html-export-to-html
+   "lq"  'org-ctrl-c-ctrl-c
+   "l <escape>" 'org-kill-note-or-show-branches
+   "l'" 'org-edit-src-code
+   "lx" 'org-archive-subtree)
 
   (general-define-key
-	:keymaps 'org-mode-map
-	:states 'insert
-	"RET" 'org-return
-	"M-<return>" 'evil-open-below)
-
-  (general-define-key
-	:keymaps 'org-src-mode-map
-	:states 'normal
-	"lq" '(lambda ()(interactive) (org-edit-src-exit)(evil-quit))
-	"l <escape>" '(lambda ()(interactive) (org-edit-src-abort)(evil-quit)))
+   :keymaps 'org-src-mode-map
+   :states '(normal visual)
+   "lq" 'org-edit-src-exit
+   "l <escape>" 'org-edit-src-abort)
 
   (setq org-modules '(org-bbdb org-bibtex org-crypt org-docview
 							   org-gnus org-habit org-id
@@ -116,10 +110,11 @@
 							   org-w3m)
 		org-id-locations-file "~/notes/org-id-location"
 		org-id-track-globally t
+		org-startup-with-inline-images t
 		org-directory "~/notes"
 		org-startup-indented nil
-		org-startup-folded "OVERVIEW"
 		org-startup-with-latex-preview t
+		org-startup-folded "OVERVIEW"
 		org-log-into-drawer "LOGBOOK"
 		org-refile-allow-creating-parent-nodes 'confirm
 		org-default-notes-file (concat org-directory "/todo.org")
@@ -133,14 +128,6 @@
 		org-enforce-todo-dependencies t ;; Don't allow the super task to close
 										;; without closing its sub tasks
 		org-habit-graph-column 60)
-
-  ;; Auto generate org ids when the file is saved
-  ;;   (defun my/org-add-ids-to-headlines-in-file ()
-  ;;	"Add ID properties to all headlines in the current file which
-  ;; do not already have one."
-
-  ;;	(interactive)
-  ;;	(org-map-entries 'org-id-get-create))
 
   ;; (add-hook 'org-mode-hook
   ;;		  '(lambda ()
@@ -157,7 +144,8 @@
 		   :html-background "Transparent"
 		   :html-scale 1.0)))
 
-  (set-face-attribute 'org-special-keyword nil :inherit 'font-lock-comment-face)
+  (set-face-attribute 'org-special-keyword nil
+					  :inherit 'font-lock-comment-face)
   (set-face-attribute 'org-level-1 nil
 					  :foreground chocolate-theme-white+2 :weight 'bold)
   (set-face-attribute 'org-level-2 nil
@@ -174,20 +162,18 @@
 					  :foreground chocolate-theme-white+2 :weight 'bold)
   (set-face-attribute 'org-level-8 nil
 					  :foreground chocolate-theme-white+2 :weight 'bold)
-  (set-face-attribute 'org-block nil :foreground chocolate-theme-white+1)
-  (set-face-attribute 'org-done nil :foreground chocolate-theme-element+4)
-  (set-face-attribute 'org-todo nil :foreground chocolate-theme-element)
-  (set-face-attribute 'org-table nil :foreground chocolate-theme-element+9)
+  (set-face-attribute 'org-block nil
+					  :foreground chocolate-theme-white+1)
+  (set-face-attribute 'org-done nil
+					  :foreground chocolate-theme-element+4)
+  (set-face-attribute 'org-todo nil
+					  :foreground chocolate-theme-element)
+  (set-face-attribute 'org-table nil
+					  :foreground chocolate-theme-element+9)
   (set-face-attribute 'org-scheduled-today nil
 					  :foreground chocolate-theme-white)
-  (set-face-attribute 'org-scheduled nil :foreground chocolate-theme-white)
-
-  (defun evil-org-eol-call (fun)
-	"Go to end of line and call provided function.
-FUN function callback"
-	(end-of-line)
-	(funcall fun)
-	(evil-append 0)))
+  (set-face-attribute 'org-scheduled nil
+					  :foreground chocolate-theme-white))
 
 (use-package org-agenda
   :after (org)
