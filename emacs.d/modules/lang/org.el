@@ -176,7 +176,6 @@
 					  :foreground chocolate-theme-white))
 
 (use-package org-agenda
-  :after (org)
   :commands (org-agenda org-agenda-list)
   :init
   (general-define-key
@@ -189,7 +188,6 @@
   (defun do-agenda()
 	"Called externally from the OS to launch Emacs and switch to org-agenda."
 	(interactive)
-	(do-make-frame "agenda")
 	(org-agenda-list))
 
   :config
@@ -274,10 +272,18 @@
 		org-agenda-dim-blocked-tasks t
 		org-agenda-weekend-days '(5 6)
 		org-agenda-start-on-weekday 0
+		org-agenda-use-time-grid nil
 		;;a closing time stamp
 		org-agenda-files (append
 						  (file-expand-wildcards "~/notes/*.org")
 						  (file-expand-wildcards "~/notes/archive/*.org")))
+
+  ;; Open in a frame instead of a sub-window
+  ;; Source: https://bit.ly/2WX44mj
+  (define-advice org-agenda-list (:around (orig-fn &rest args))
+  (cl-letf (((symbol-function 'switch-to-buffer-other-window)
+			 (symbol-function 'switch-to-buffer-other-frame)))
+	(apply orig-fn args)))
 
   (set-face-attribute 'org-agenda-done nil :foreground chocolate-theme-white+2)
   (set-face-attribute 'org-agenda-date-today nil
@@ -334,15 +340,16 @@
   :ensure t
   :hook ((org-mode . org-bullets-mode)))
 
-;;   (use-package org-super-agenda
-;;	:hook ((org-mode . org-super-agenda-mode))
-;;	:config
-;;	(setq org-super-agenda-groups
-;;		  '((:name "Timeline" :time-grid t :todo "TODAY")
-;;			(:name "Important" :priority>= "B")
-;;			(:todo "WAITING" :order 8)
-;;			(:todo ("someday" "to-read" "check" "to-watch" "watching") :order 9)
-;;			(:name "Other" :priority<= "C" :order 1))))
+;; (use-package org-super-agenda
+;;   :ensure t
+;;   :hook ((org-mode . org-super-agenda-mode))
+;;   :config
+;;   (setq org-super-agenda-groups
+;;		'((:name "Timeline" :time-grid t :todo "TODAY")
+;;		  (:name "Important" :priority>= "B")
+;;		  (:todo "WAITING" :order 8)
+;;		  (:todo ("someday" "to-read" "check" "to-watch" "watching") :order 9)
+;;		  (:name "Other" :priority<= "C" :order 1))))
 
 ;; (use-package ox-reveal)
 ;; (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/")
