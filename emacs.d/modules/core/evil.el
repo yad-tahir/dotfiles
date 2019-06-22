@@ -111,12 +111,13 @@
    "U" 'evil-change-line
    "j" 'evil-find-char-to
    "J" 'evil-find-char-to-backward
-   "," 'widen ;; @TASK: To evil operator
    "s" 'nil ;; Used for searching instead
    "H" 'nil
    "N" 'nil
    "l" 'nil
    "x" 'nil
+   "x-" 'do-evil-narrow
+   "x+" 'widen
    "u" 'evil-change
    "d" 'evil-delete
    "I" 'do-evil-insert
@@ -149,7 +150,6 @@
    "C-c" 'evil-scroll-page-up
    "C-t" 'evil-scroll-page-down
    "U" 'evil-change-line
-   "," 'narrow-to-region
    "gk" 'capitalize-region
    "@" '(lambda ()  (interactive)
 		  ;; Make micros more useful in visual mode
@@ -164,6 +164,8 @@
    "x" 'nil
    "l" 'nil
    "d" 'nil
+   "x-" 'do-evil-narrow
+   "x+" 'widen
    "I" 'do-evil-insert
    "A" 'do-evil-append)
 
@@ -300,46 +302,6 @@
   (with-eval-after-load 'chocolate-theme-theme
 	(set-face-attribute 'evil-ex-substitute-replacement nil
 						:background nil :foreground chocolate-theme-element+6))
-
-  ;; Operators
-  (evil-define-operator do-evil-insert (beginning end)
-	"Ask for a motion and switch to the insert state."
-	(ignore end)
-	(goto-char beginning)
-	(call-interactively 'evil-insert))
-
-  (evil-define-operator do-evil-append (beginning end &optional type)
-	"Ask for a motion and switch to the insert state."
-	;; Go to the beginning of the region to repeat the operation correctly in
-	;; Visual Line and Visual Block.
-	(cond ((string= type "line")
-		   (goto-char beginning)
-		   (evil-end-of-line))
-		  ((string= type "block")
-		   (goto-char beginning))
-		  ((string= type "inclusive")
-		   (if (evil-visual-state-p)
-			   (goto-char end)
-			 (goto-char (- end 1))))
-		  (t
-		   (goto-char end)))
-	(call-interactively 'evil-append))
-
-  (evil-define-operator do-evil-forward (beginning end)
-	"Ask for a motion and move forward."
-	(ignore beginning)
-	(goto-char end))
-
-
-  (evil-define-operator do-evil-backward (beginning end)
-	"Ask for a motion and move backward."
-	(ignore end)
-	(goto-char beginning))
-
-  ;; Adjust some properties to make them more useful with the 'delete' and
-  ;; 'change' operators
-  (evil-put-command-property 'evil-previous-line-first-non-blank :type 'exclusive)
-  (evil-put-command-property 'evil-next-line-first-non-blank :type 'exclusive)
 
   ;; Functions
   (defun do--evil-travel-state (org-func &rest args)

@@ -41,6 +41,7 @@
 	"feature/file-manager"
 	"feature/diff"
 	"feature/motion"
+	"feature/operator"
 	"feature/macro"
 
 	"lang/text"
