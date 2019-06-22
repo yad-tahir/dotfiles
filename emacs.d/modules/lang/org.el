@@ -97,18 +97,16 @@
 	  "RET" #'org-return
 	  "M-<return>" #'evil-open-below)
 
-(general-def 'org-src-mode-map
+	(general-def 'org-src-mode-map
 	  :states 'normal
 	  "lq" '(lambda ()(interactive) (org-edit-src-exit)(evil-quit))
-	  "l <escape>" #'(lambda ()(interactive) (org-edit-src-abort)(evil-quit))
-	  )
+	  "l <escape>" #'(lambda ()(interactive) (org-edit-src-abort)(evil-quit)))
 
-(setq org-modules '(org-bbdb org-bibtex org-crypt org-docview
+	(setq org-modules '(org-bbdb org-bibtex org-crypt org-docview
 								 org-gnus org-habit org-id org-info org-irc org-mhe
 								 ;; org-rmail
-								 org-w3m
 								 ;; org-drill
-								 )
+								 org-w3m)
 		  org-id-locations-file "~/notes/org-id-location"
 		  org-clock-into-drawer "CLOCKING"
 		  org-directory "~/notes"
@@ -125,30 +123,29 @@
 		  org-track-ordered-property-with-tag t ;; Add :ORDER: tag to the ordered tasks
 		  org-enforce-todo-checkbox-dependencies t ;; Don't allow the super task to close without completing all the sub checklists
 		  org-enforce-todo-dependencies t ;; Don't allow the super task to close without closing its sub tasks
-		  org-habit-graph-column 60
-		  )
+		  org-habit-graph-column 60)
 
 	;; Auto generate org ids when the file is saved
 	;;   (defun my/org-add-ids-to-headlines-in-file ()
-	;; 	"Add ID properties to all headlines in the current file which
+	;;	"Add ID properties to all headlines in the current file which
 	;; do not already have one."
 
-	;; 	(interactive)
-	;; 	(org-map-entries 'org-id-get-create))
+	;;	(interactive)
+	;;	(org-map-entries 'org-id-get-create))
 
 	;; (add-hook 'org-mode-hook
-	;; 		  '(lambda ()
-	;; 			 (with-eval-after-load 'company
-	;; 			   (set (make-local-variable 'company-backends)
-	;; 					(append  company-backends
-	;; 							 '((company-ispell company-dabbrev)))))))
+	;;		  '(lambda ()
+	;;			 (with-eval-after-load 'company
+	;;			   (set (make-local-variable 'company-backends)
+	;;					(append  company-backends
+	;;							 '((company-ispell company-dabbrev)))))))
 
 	(custom-set-variables
 	 '(org-format-latex-options
 	   (list :foreground chocolate-theme-white :background chocolate-theme-bg
-						   :scale 1.0 :html-foreground chocolate-theme-white
-						   :html-background "Transparent"
-						   :html-scale 1.0)))
+			 :scale 1.0 :html-foreground chocolate-theme-white
+			 :html-background "Transparent"
+			 :html-scale 1.0)))
 
 	(set-face-attribute 'org-special-keyword nil :inherit 'font-lock-comment-face)
 	(set-face-attribute 'org-level-1 nil
@@ -338,8 +335,7 @@ FUN function callback"
 							  "* TODO %? %^g\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n  %i \n" )
 							 ("o" "Other TODO" entry
 							  (file+olp "~/notes/todo.org" "Other" "Inbox")
-							  "* TODO %? %^g\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n  %i \n" )))
-	)
+							  "* TODO %? %^g\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n  %i \n" ))))
 
   (use-package org-bullets
 	:after (org)
@@ -347,14 +343,14 @@ FUN function callback"
 	:hook ((org-mode . org-bullets-mode)))
 
   ;;   (use-package org-super-agenda
-  ;; 	:hook ((org-mode . org-super-agenda-mode))
-  ;; 	:config
-  ;; 	(setq org-super-agenda-groups
-  ;; 		  '((:name "Timeline" :time-grid t :todo "TODAY")
-  ;; 			(:name "Important" :priority>= "B")
-  ;; 			(:todo "WAITING" :order 8)
-  ;; 			(:todo ("someday" "to-read" "check" "to-watch" "watching") :order 9)
-  ;; 			(:name "Other" :priority<= "C" :order 1))))
+  ;;	:hook ((org-mode . org-super-agenda-mode))
+  ;;	:config
+  ;;	(setq org-super-agenda-groups
+  ;;		  '((:name "Timeline" :time-grid t :todo "TODAY")
+  ;;			(:name "Important" :priority>= "B")
+  ;;			(:todo "WAITING" :order 8)
+  ;;			(:todo ("someday" "to-read" "check" "to-watch" "watching") :order 9)
+  ;;			(:name "Other" :priority<= "C" :order 1))))
 
   ;; (use-package ox-reveal)
   ;; (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/")
@@ -364,17 +360,16 @@ FUN function callback"
   ;; (use-package org-tree-slide)
 
   ;; (use-package evil-org
-  ;; 	:ensure t
-  ;; 	:after (org)
-  ;; 	:hook ((org-mode . evil-org-mode))
-  ;; 	:config
-  ;; 	(add-hook 'evil-org-mode-hook
-  ;; 			  (lambda ()
-  ;; 				(evil-org-set-key-theme '(textobjects))
-  ;; 				(general-define-key
-  ;; 				 :keymaps 'evil-org-mode-map
-  ;; 				 :states '(normal)
-  ;; 				 "x" 'nil
-  ;; 				 "X" 'nil))))
-
+  ;;	:ensure t
+  ;;	:after (org)
+  ;;	:hook ((org-mode . evil-org-mode))
+  ;;	:config
+  ;;	(add-hook 'evil-org-mode-hook
+  ;;			  (lambda ()
+  ;;				(evil-org-set-key-theme '(textobjects))
+  ;;				(general-define-key
+  ;;				 :keymaps 'evil-org-mode-map
+  ;;				 :states '(normal)
+  ;;				 "x" 'nil
+  ;;				 "X" 'nil))))
   )
