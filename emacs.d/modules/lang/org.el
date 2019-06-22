@@ -286,9 +286,7 @@
 					  :foreground chocolate-theme-highlight+2))
 
 (use-package org-capture
-  :after (org)
   :commands (org-capture)
-  :defer t
   :init
   (general-define-key
    :keymaps 'override
@@ -303,31 +301,34 @@
 	(org-capture))
 
   :config
-  (general-def 'org-capture-mode-map
-	:states '(normal visual)
-	"lq" 'org-capture-kill
-	"lc" 'org-capture-finalize)
+  (general-define-key
+   :keymaps 'org-capture-mode-map
+   :states '(normal visual)
+   "l <escape>" 'org-capture-kill
+   "lq" 'org-capture-finalize)
 
   (setq
+   org-capture-templates
    ;; %? the initial position of the cursor
    ;; %^g prompt for tags
    ;; %^t prompt for a date
    ;; %^L prompt for a link
    ;; %i place the selected text in the other window
    ;; %^{something} prompt for string
-   ;; Further details can be found at https://orgmode.org/manual/Template-expansion.html#Template-expansion
-   org-capture-templates '(("p" "Personal TODO" entry
-							(file+olp "~/notes/todo.org" "Personal" "Inbox")
-							"* TODO %? %^g\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:%^{REFERENCE}p\n  %i \n" )
-						   ("a" "AUIS TODO" entry
-							(file+olp "~/notes/todo.org" "AUIS" "Inbox")
-							"* TODO %? %^g\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:%^{REFERENCE}p\n  %i \n" )
-						   ("h" "Home TODO" entry
-							(file+olp "~/notes/todo.org" "Home" "Inbox")
-							"* TODO %? %^g\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n  %i \n" )
-						   ("o" "Other TODO" entry
-							(file+olp "~/notes/todo.org" "Other" "Inbox")
-							"* TODO %? %^g\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n  %i \n" ))))
+   ;; Further details can be found at
+   ;; https://orgmode.org/manual/Template-expansion.html#Template-expansion
+   '(("p" "Personal TODO" entry
+	  (file+olp "~/notes/todo.org" "Personal" "Inbox")
+	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n")
+	 ("a" "AUIS TODO" entry
+	  (file+olp "~/notes/todo.org" "AUIS" "Inbox")
+	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n")
+	 ("h" "Home TODO" entry
+	  (file+olp "~/notes/todo.org" "Home" "Inbox")
+	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n")
+	 ("o" "Other TODO" entry
+	  (file+olp "~/notes/todo.org" "Other" "Inbox")
+	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n"))))
 
 (use-package org-bullets
   :ensure t
