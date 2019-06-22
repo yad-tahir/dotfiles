@@ -29,7 +29,8 @@
  "b" 'evil-prev-buffer
  "B" 'evil-next-buffer
  "l" 'ibuffer
- "s" 'evil-switch-to-windows-last-buffer)
+ "s" 'evil-switch-to-windows-last-buffer
+ "c" 'clone-indirect-buffer-other-window)
 
 (general-define-key
  :keymaps 'override

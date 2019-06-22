@@ -144,7 +144,7 @@
   :init
   (general-define-key
    :states 'visual
-   "r" 'er/expand-region))
+   "<return>" 'er/expand-region))
 
 (use-package evil-nerd-commenter
   :ensure t
