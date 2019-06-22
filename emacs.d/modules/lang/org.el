@@ -25,7 +25,6 @@
   (require 'org-capture))
 
 (use-package org
-  :ensure t
   :defer t
   :init
   (general-define-key
@@ -175,6 +174,51 @@
   (set-face-attribute 'org-scheduled nil
 					  :foreground chocolate-theme-white))
 
+(use-package org-capture
+  :commands (org-capture)
+  :init
+  (general-define-key
+   :keymaps 'override
+   :prefix "SPC g"
+   :states '(normal visual)
+   "c" #'org-capture)
+
+;;;###autoload
+  (defun do-capture ()
+	(interactive)
+	(do-make-frame "capture")
+	(org-capture))
+
+  :config
+  (general-define-key
+   :keymaps 'org-capture-mode-map
+   :states '(normal visual)
+   "l <escape>" 'org-capture-kill
+   "lq" 'org-capture-finalize)
+
+  (setq
+   org-capture-templates
+   ;; %? the initial position of the cursor
+   ;; %^g prompt for tags
+   ;; %^t prompt for a date
+   ;; %^L prompt for a link
+   ;; %i place the selected text in the other window
+   ;; %^{something} prompt for string
+   ;; Further details can be found at
+   ;; https://orgmode.org/manual/Template-expansion.html#Template-expansion
+   '(("p" "Personal TODO" entry
+	  (file+olp "~/notes/todo.org" "Personal" "Inbox")
+	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n")
+	 ("a" "AUIS TODO" entry
+	  (file+olp "~/notes/todo.org" "AUIS" "Inbox")
+	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n")
+	 ("h" "Home TODO" entry
+	  (file+olp "~/notes/todo.org" "Home" "Inbox")
+	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n")
+	 ("o" "Other TODO" entry
+	  (file+olp "~/notes/todo.org" "Other" "Inbox")
+	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n"))))
+
 (use-package org-agenda
   :commands (org-agenda org-agenda-list)
   :init
@@ -290,51 +334,6 @@
 					  :foreground chocolate-theme-element+4)
   (set-face-attribute 'org-agenda-structure nil
 					  :foreground chocolate-theme-highlight+2))
-
-(use-package org-capture
-  :commands (org-capture)
-  :init
-  (general-define-key
-   :keymaps 'override
-   :prefix "SPC g"
-   :states '(normal visual)
-   "c" #'org-capture)
-
-;;;###autoload
-  (defun do-capture ()
-	(interactive)
-	(do-make-frame "capture")
-	(org-capture))
-
-  :config
-  (general-define-key
-   :keymaps 'org-capture-mode-map
-   :states '(normal visual)
-   "l <escape>" 'org-capture-kill
-   "lq" 'org-capture-finalize)
-
-  (setq
-   org-capture-templates
-   ;; %? the initial position of the cursor
-   ;; %^g prompt for tags
-   ;; %^t prompt for a date
-   ;; %^L prompt for a link
-   ;; %i place the selected text in the other window
-   ;; %^{something} prompt for string
-   ;; Further details can be found at
-   ;; https://orgmode.org/manual/Template-expansion.html#Template-expansion
-   '(("p" "Personal TODO" entry
-	  (file+olp "~/notes/todo.org" "Personal" "Inbox")
-	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n")
-	 ("a" "AUIS TODO" entry
-	  (file+olp "~/notes/todo.org" "AUIS" "Inbox")
-	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n")
-	 ("h" "Home TODO" entry
-	  (file+olp "~/notes/todo.org" "Home" "Inbox")
-	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n")
-	 ("o" "Other TODO" entry
-	  (file+olp "~/notes/todo.org" "Other" "Inbox")
-	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n"))))
 
 (use-package org-bullets
   :ensure t

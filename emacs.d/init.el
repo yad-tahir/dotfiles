@@ -45,7 +45,7 @@
 	"feature/macro"
 
 	"lang/text"
-	"lang/org" ;; slow
+	"lang/org"
 	"lang/prog"
 	"lang/elisp"
 	"lang/go"
