@@ -330,7 +330,6 @@
 							"* TODO %? %^g\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n  %i \n" ))))
 
 (use-package org-bullets
-  :after (org)
   :ensure t
   :hook ((org-mode . org-bullets-mode)))
 
