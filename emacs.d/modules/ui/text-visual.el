@@ -26,11 +26,6 @@
 								newline newline-mark
 								spaces space-mark
 								space-before-tab space-after-tab)))
-		;; whitespace-style (quote;; disable 'lines' style
-		;;					  (face tabs spaces trailing
-		;;							space-before-tab newline
-		;;							indentation empty space-after-tab
-		;;							space-mark newline-mark)))
   (add-hook 'before-save-hook 'whitespace-cleanup))
 
 (use-package simple
@@ -69,18 +64,28 @@
 
 (use-package evil-quickscope
   :ensure t
-  :defer 5
+  :commands  (evil-quickscope-find-char
+			  evil-quickscope-find-char-backward
+			  evil-quickscope-find-char-to
+			  evil-quickscope-find-char-to-backward)
+  :init
+  (general-define-key
+   :states '(normal visual)
+   "f" 'evil-quickscope-find-char
+   "F" 'evil-quickscope-find-char-backward
+   "j" 'evil-quickscope-find-char-to
+   "J" 'evil-quickscope-find-char-to-backward)
+
   :config
-  (setq evil-quickscope-bidirectional t
+  (setq evil-quickscope-bidirectional nil
+		evil-quickscope-cross-lines t
 		evil-quickscope-disable-in-comments 'nil)
 
   (general-define-key
    :states '(normal visual)
    :keymaps 'evil-quickscope-mode-map
    "t" 'nil
-   "T" 'nil
-   "j" 'evil-quickscope-find-char-to
-   "J" 'evil-quickscope-find-char-to-backward)
+   "T" 'nil)
 
   (global-evil-quickscope-mode 1))
 

@@ -111,6 +111,8 @@
    "U" 'evil-change-line
    "j" 'evil-find-char-to
    "J" 'evil-find-char-to-backward
+   "," 'evil-repeat-find-char
+   "g," 'evil-repeat-find-char-reverse
    "s" 'nil ;; Used for searching instead
    "H" 'nil
    "N" 'nil
@@ -277,6 +279,7 @@
 		evil-kbd-macro-suppress-motion-error t
 		evil-mode-line-format nil
 		evil-kbd-macro-suppress-motion-error t
+		evil-cross-lines t
 		;; evil-ex-substitute-global t
 		;; More vim-like behavior
 		evil-ex-search-vim-style-regexp t

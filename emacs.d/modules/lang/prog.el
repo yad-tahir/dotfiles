@@ -25,7 +25,8 @@
   ;;   (defalias #'forward-evil-word #'forward-evil-symbol))
 
   (cl-eval-when (compile)
-	(require 'company))
+	(require 'company)
+	(require 'whitespace))
   (with-eval-after-load 'company
 	(set (make-local-variable 'company-backends)
 		 (add-to-list 'company-backends
@@ -34,9 +35,10 @@
 						company-dabbrev) t)))
 
   (eldoc-mode 1)
-  ;; Make long-tailing lines visible
-  (set (make-local-variable 'whitespace-style)
-     (add-to-list 'whitespace-style 'lines)))
+  (with-eval-after-load 'whitespace
+				   ;; Make long-tailing lines visible
+				   (set (make-local-variable 'whitespace-style)
+						(add-to-list 'whitespace-style 'lines-tail))))
 (add-hook 'prog-mode-hook  #'do--prog-mode-init)
 
 ;; (defun do--flycheck-init()
