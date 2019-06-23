@@ -71,3 +71,14 @@
 		;; @HACK: provide 't' as the second argument to ignore errors
 		(evil-line-move (1- (or count 1)) t)
 	  ((beginning-of-buffer end-of-buffer)))))
+
+(use-package evil-matchit
+  :ensure t
+  :commands (evilmi-jump-items)
+  :init
+  (general-define-key
+   :states '(normal visual)
+   "%" 'evilmi-jump-items)
+  :config
+  (global-evil-matchit-mode 1))
+
