@@ -38,7 +38,6 @@
   :jump nil
   (evil-select-inner-object 'evil-defun beg end type (or count 1)))
 
-
 (general-define-key
  :keymaps 'evil-inner-text-objects-map
  "b" 'do-evil-inner-section)
@@ -82,3 +81,29 @@
   :config
   (global-evil-matchit-mode 1))
 
+(use-package avy
+  :ensure t
+  :commands (avy-goto-char-2 avy-resume)
+  :init
+  (general-define-key
+   :states '(normal visual)
+   "g/" 'avy-goto-char-2
+   "g?" 'avy-resume)
+
+  :config
+  (set-face-attribute 'avy-lead-face nil
+					  :background nil
+					  :foreground nil
+					  :inherit 'diff-refine-removed)
+  (set-face-attribute 'avy-lead-face-0 nil
+					  :background nil
+					  :foreground nil
+					  :inherit 'diff-refine-added)
+  (set-face-attribute 'avy-lead-face-1 nil
+					  :background nil
+					  :foreground nil
+					  :inherit 'diff-refine-changed)
+  (set-face-attribute 'avy-lead-face-2 nil
+					  :background nil
+					  :foreground nil
+					  :inherit 'diff-nonexistent))
