@@ -22,7 +22,8 @@
   :config
   (setq whitespace-line-column fill-column
 		whitespace-style (quote
-						  (face trailing indentation
+						  (face trailing indentation empty
+								newline newline-mark
 								spaces space-mark
 								space-before-tab space-after-tab)))
 		;; whitespace-style (quote;; disable 'lines' style

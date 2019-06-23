@@ -194,9 +194,13 @@
    "[[" 'evil-backward-section-begin
    "[]" 'evil-backward-section-end
    "]s" 'evil-forward-sentence-begin
+   "]S" 'evil-forward-sentence-end
    "[s" 'evil-backward-sentence-begin
-   "]m" 'do-evil-forward
-   "[m" 'do-evil-backward
+   "[S" 'evil-backward-sentence-end
+   "]p" 'evil-forward-paragraph
+   "[p" 'evil-backward-paragraph
+   "]m" 'do-evil-forward-motion
+   "[m" 'do-evil-backward-motion
    "s" 'nil
    "j" 'nil
    "H" 'nil

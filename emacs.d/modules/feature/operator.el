@@ -22,14 +22,19 @@
   (require 'evil))
 
 ;; Operators
-(evil-define-operator do-evil-insert (beginning end)
-  "Ask for a motion and switch to the insert state."
-  (ignore end)
-  (goto-char beginning)
-  (call-interactively 'evil-insert))
+(evil-define-operator do-evil-insert (beginning end &optional type)
+  "Ask for a motion and switch to the insert state at BEGINNING."
+  (ignore end beginning)
+
+  (cond ((string= type "line")
+		 (if (evil-visual-state-p)
+			 (call-interactively 'evil-insert)
+		   (call-interactively 'evil-insert-line)))
+		(t
+		 (call-interactively 'evil-insert))))
 
 (evil-define-operator do-evil-append (beginning end &optional type)
-  "Ask for a motion and switch to the insert state."
+  "Ask for a motion and switch to the insert state at END."
   ;; Go to the beginning of the region to repeat the operation correctly in
   ;; Visual Line and Visual Block.
   (cond ((string= type "line")
@@ -40,18 +45,19 @@
 		((string= type "inclusive")
 		 (if (evil-visual-state-p)
 			 (goto-char end)
+		   ;; We shift one character because evil-append will add one
 		   (goto-char (- end 1))))
 		(t
 		 (goto-char end)))
   (call-interactively 'evil-append))
 
-(evil-define-operator do-evil-forward (beginning end)
+(evil-define-operator do-evil-forward-motion (beginning end)
   "Ask for a motion and move forward."
   (ignore beginning)
   (goto-char end))
 
 
-(evil-define-operator do-evil-backward (beginning end)
+(evil-define-operator do-evil-backward-motion (beginning end)
   "Ask for a motion and move backward."
   (ignore end)
   (goto-char beginning))
@@ -63,4 +69,3 @@
 ;; 'change' operators
 (evil-put-command-property 'evil-previous-line-first-non-blank :type 'exclusive)
 (evil-put-command-property 'evil-next-line-first-non-blank :type 'exclusive)
-

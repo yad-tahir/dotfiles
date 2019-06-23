@@ -152,7 +152,7 @@
   :init
   (general-define-key
    :states '(normal visual)
-   "g/" 'evilnc-comment-operator))
+   "x/" 'evilnc-comment-operator))
 
 ;; As of June 14, evil-commentary is a bit buggy when the whitespace mode is on.
 ;; (use-package evil-commentary
@@ -216,4 +216,3 @@
 ;;   (general-define-key
 ;;    :states 'visual
 ;;    "." #'fold-active-region-all))
-

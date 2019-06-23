@@ -22,23 +22,21 @@
   (require 'evil))
 
 (evil-define-text-object do-evil-a-section
-  (count &optional beg end select-type)
+  (count &optional beg end type)
   "Select a function"
-  :type exclusive
   :jump nil
   (save-excursion
 	(evil-motion-loop (dir (or count 1))
 	  (mark-defun dir))
 	(setq beg (region-beginning)
 		  end (region-end)))
-  (evil-range beg end select-type :expanded t))
+  (evil-range beg end type :expanded t))
 
 (evil-define-text-object do-evil-inner-section
-  (count &optional beg end select-type)
+  (count &optional beg end type)
   "Select inner function"
-  :type exclusive
   :jump nil
-  (evil-select-inner-object 'evil-defun beg end select-type count))
+  (evil-select-inner-object 'evil-defun beg end type (or count 1)))
 
 
 (general-define-key
@@ -59,3 +57,17 @@
   "Select inner paragraph."
   :type inclusive
   (evil-select-inner-object 'evil-paragraph beg end type count))
+
+;; The default 'evil-line' motion assumes that line navigation is done by
+;; calling 'evil-next-line' and 'evil-previous-line'. However, this is not the
+;; case in my settings as I use visual-line operations instead. Sadly, this
+;; makes the implementation buggy. The code below is simple workaround to
+;; address this issue.
+(evil-define-motion evil-line (count)
+  "Move COUNT - 1 lines down."
+  :type line
+  (let (line-move-visual)
+	(condition-case err
+		;; @HACK: provide 't' as the second argument to ignore errors
+		(evil-line-move (1- (or count 1)) t)
+	  ((beginning-of-buffer end-of-buffer)))))
