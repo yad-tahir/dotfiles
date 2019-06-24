@@ -70,7 +70,7 @@
 			  evil-quickscope-find-char-to-backward)
   :init
   (general-define-key
-   :states '(normal visual)
+   :states 'motion
    "f" 'evil-quickscope-find-char
    "F" 'evil-quickscope-find-char-backward
    "j" 'evil-quickscope-find-char-to
@@ -82,8 +82,8 @@
 		evil-quickscope-disable-in-comments 'nil)
 
   (general-define-key
-   :states '(normal visual)
    :keymaps 'evil-quickscope-mode-map
+   :states 'motion
    "t" 'nil
    "T" 'nil)
 

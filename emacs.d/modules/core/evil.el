@@ -65,134 +65,74 @@
    "C-:" 'evil-ex
    "C-;" 'evil-ex)
 
-  ;; Normal
+  ;; Normal and Visual
   (general-define-key
-   :states 'normal
+   ;; Don't but buffer modifier in the override keymap, e.g. evil-change
+   ;; In some modes, you need to override them, e.g. magit
    :keymaps 'override
+   :states '(normal visual)
    "<mouse-3>" 'ignore
    "<mouse-2>" 'ignore
+
+   ;; Navigation
    "h" 'backward-char
    "n" 'forward-char
    "c" 'evil-previous-visual-line
    "t" 'evil-next-visual-line
    "gc" 'evil-previous-line
    "gt" 'evil-next-line
-   "C-n" 'evil-ex-search-next
-   "C-h" 'evil-ex-search-previous
-   "'" 'evil-goto-mark
-   ":" 'evil-ex
-   ";" 'evil-ex
-   ;; Jumping motions
-   "g:" 'goto-last-change-reverse
-   "gj" 'evil-jump-backward
-   "gJ" 'evil-jump-forward
-   "gH" 'evil-window-top
-   "gM" 'evil-window-middle
-   "gL" 'evil-window-bottom
-   "xg" '(:ignore t :which-key "jump")
-   "xgh" 'evil-jump-backward
-   "xgn" 'evil-jump-forward
-   "xgH" 'goto-last-change
-   "xgN" 'goto-last-change-reverse
-   "xgt" 'evil-jump-to-tag
-   "xgc" 'evil-goto-column
-   "xgd" 'evil-goto-definition
-   "xgl" 'evil-show-jumps
-   "xgs" 'evil-jump-backward-swap)
 
-  (general-define-key
-   :states 'normal
-   "z" 'undo
-   "C-Z" 'redo
-   "M-z" 'undo-tree-visualize
-   "Z" 'undo-tree-visualize
-   "C-c" 'evil-scroll-page-up
-   "C-t" 'evil-scroll-page-down
-   "U" 'evil-change-line
-   "j" 'evil-find-char-to
-   "J" 'evil-find-char-to-backward
-   "," 'evil-repeat-find-char
-   "g," 'evil-repeat-find-char-reverse
-   "s" 'nil ;; Used for searching instead
-   "H" 'nil
-   "N" 'nil
-   "l" 'nil
-   "X" 'nil
-   "x" 'nil
-   "x-" 'do-evil-narrow
-   "x+" 'widen
-   "u" 'evil-change
-   "d" 'evil-delete
-   "I" 'do-evil-insert
-   "A" 'do-evil-append)
-
-  ;; Visual
-  (general-define-key
-   :states 'visual
-   :keymaps 'override
-   "<mouse-3>" 'ignore
-   "<mouse-2>" 'ignore
-   "h" 'backward-char
-   "n" 'forward-char
-   "c" 'evil-previous-visual-line
-   "t" 'evil-next-visual-line
-   "gc" 'evil-previous-line
-   "gt" 'evil-next-line
-   "C-n" 'evil-ex-search-next
-   "C-h" 'evil-ex-search-previous
-   "'" 'evil-goto-mark
-   ":" 'evil-ex
-   ";" 'evil-ex)
-
-  (general-define-key
-   :states 'visual
-   "z" 'undo
-   "C-Z" 'redo
-   "M-z" 'undo-tree-visualize
-   "Z" '(lambda () (interactive) (do-make-frame)(undo-tree-visualize))
-   "C-c" 'evil-scroll-page-up
-   "C-t" 'evil-scroll-page-down
-   "U" 'evil-change-line
-   "gk" 'capitalize-region
-   "@" '(lambda ()  (interactive)
-		  ;; Make micros more useful in visual mode
-		  ;; @TODO: Does not work in Visual Block Mode
-		  (evil-ex "'<,'>normal @"))
-   "j" 'evil-find-char-to
-   "J" 'evil-find-char-to-backward
-   "s" 'nil ;; Used for searching instead
-   "H" 'nil
-   "N" 'nil
-   "u" 'nil
-   "X" 'nil
-   "x" 'nil
-   "l" 'nil
-   "d" 'nil
-   "x-" 'do-evil-narrow
-   "x+" 'widen
-   "I" 'do-evil-insert
-   "A" 'do-evil-append)
-
-  ;; Motion
-  (general-define-key
-   :states 'motion
-   :keymaps 'override
-   "h" 'backward-char
-   "n" 'forward-char
-   "c" 'evil-previous-visual-line
-   "t" 'evil-next-visual-line
-   "gc" 'evil-previous-line
-   "gt" 'evil-next-line
+   ;; Searching
    "/" 'evil-ex-search-forward
    "?" 'evil-ex-search-backward
    "*" 'evil-ex-search-word-forward
    "g*" 'evil-ex-search-unbounded-word-forward
-   "gj" 'evil-find-char-to-backward
    "gn" 'evil-next-match
-   "gh" 'evil-previous-match)
+   "gh" 'evil-previous-match
+   "C-n" 'evil-ex-search-next
+   "C-h" 'evil-ex-search-previous
+
+   ;; Scrolling
+   "C-c" 'evil-scroll-page-up
+   "C-t" 'evil-scroll-page-down
+
+   ":" 'evil-ex
+   ";" 'evil-ex)
 
   (general-define-key
-   :states 'motion
+   :states '(normal visual)
+   "s" 'nil ;; Used for searching instead
+   "l" 'nil ;; Used as a prefix for mode-local keybindings
+   "x" 'nil ;; Used as a prefix for evil-local keybindings
+   "j" 'nil
+   "J" 'nil
+   "f" 'nil
+   "F" 'nil
+   "," 'nil
+   "g," 'nil
+   "gj" 'nil
+   "gJ" 'nil
+   "g:" 'nil
+   "'" 'nil
+
+   "X" 'ignore
+   "N" 'ignore
+   "C" 'ignore
+   "T" 'ignore
+   "H" 'ignore
+
+   ;; Primary operations
+   "d" 'evil-delete
+   "u" 'evil-change
+   "U" 'evil-change-line
+   "I" 'do-evil-insert
+   "A" 'do-evil-append
+
+   "z" 'undo
+   "C-Z" 'redo
+   "M-z" 'undo-tree-visualize
+   "Z" 'undo-tree-visualize
+
    "][" 'evil-forward-section-begin
    "]]" 'evil-forward-section-end
    "[[" 'evil-backward-section-begin
@@ -205,17 +145,59 @@
    "[p" 'evil-backward-paragraph
    "]m" 'do-evil-forward-motion
    "[m" 'do-evil-backward-motion
-   "s" 'nil
-   "j" 'nil
-   "H" 'nil
-   "N" 'nil
-   "C" 'nil
+
+   "xg" '(:ignore t :which-key "jump")
+   "xgh" 'evil-jump-backward
+   "xgn" 'evil-jump-forward
+   "xgH" 'goto-last-change
+   "xgN" 'goto-last-change-reverse
+   "xgt" 'evil-jump-to-tag
+   "xgc" 'evil-goto-column
+   "xgd" 'evil-goto-definition
+   "xgl" 'evil-show-jumps
+   "xgs" 'evil-jump-backward-swap
+   "x-" 'do-evil-narrow
+   "x+" 'widen)
+
+  (general-define-key
+   :states 'visual
+   "@" '(lambda ()
+		  (interactive)
+		  ;; Make micros more useful in visual mode
+		  ;; @TODO: Does not work in Visual Block Mode
+		  (evil-ex "'<,'>normal @")))
+
+  (general-define-key
+   :states 'motion
+   "t" 'nil
    "T" 'nil
    "k" 'nil
    "K" 'nil
    "l" 'nil
    "L" 'nil
-   "S" 'nil)
+   "x" 'nil
+   "X" 'nil
+   "N" 'nil
+   "C" 'nil
+   "T" 'nil
+   "H" 'nil
+   "M" 'nil
+   "L" 'nil
+   "'" 'nil
+   "\"" 'nil
+
+   "j" 'evil-find-char-to
+   "J" 'evil-find-char-to-backward
+   "f" 'evil-find-char
+   "F" 'evil-find-char-backward
+   "," 'evil-repeat-find-char
+   "g," 'evil-repeat-find-char-reverse
+
+   ;; Jumping
+   "gj" 'evil-jump-backward
+   "gJ" 'evil-jump-forward
+   "g:" 'goto-last-change-reverse
+   "'" 'evil-goto-mark)
 
   ;; Other
   (general-define-key

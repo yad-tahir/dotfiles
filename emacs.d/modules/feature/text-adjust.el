@@ -22,8 +22,9 @@
   :commands (fusion-join fusion-split fusion-resplit)
   :init
   (general-define-key
-   :keymaps 'override
    :states '(normal visual)
+   "k" 'fusion-join
+   "K" 'fusion-split
    "xj" 'fusion-join
    "xJ" 'fusion-split))
 
@@ -152,16 +153,8 @@
   :init
   (general-define-key
    :states '(normal visual)
+   "gk" 'evilnc-comment-operator
    "x;" 'evilnc-comment-operator))
-
-;; As of June 14, evil-commentary is a bit buggy when the whitespace mode is on.
-;; (use-package evil-commentary
-;;	:ensure t
-;;	:commands (evil-commentary)
-;;	:init
-;;	(general-define-key
-;;	 :states '(normal visual)
-;;	 "g/" 'evil-commentary))
 
 (use-package evil-lion
   :defer t
