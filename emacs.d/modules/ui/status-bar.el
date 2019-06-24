@@ -144,4 +144,20 @@ buffer."
 					  :foreground chocolate-theme-highlight
 					  :background chocolate-theme-bg ))
 
+;; make the color of the mode line dynamic
+(defun do--status-bar-change-mode-line-color()
+  (let ((color (cond (buffer-read-only
+					  `(,chocolate-theme-bg . ,chocolate-theme-highlight+1))
+					 ((minibufferp)
+					  `(,chocolate-theme-bg . ,chocolate-theme-shadow+3))
+					 ((buffer-modified-p)
+					  `(,chocolate-theme-bg . ,chocolate-theme-highlight+2))
+					 (t
+					  `(,chocolate-theme-bg . ,chocolate-theme-white)))))
+	(set-face-background 'mode-line (car color))
+	(set-face-foreground 'mode-line (cdr color))))
+(add-hook 'post-command-hook 'do--status-bar-change-mode-line-color)
+(add-hook 'windmove-do-window-select 'do--status-bar-change-mode-line-color)
+(add-hook 'find-file-hook 'do--status-bar-change-mode-line-color)
+
 ;;; status-bar.el ends here
