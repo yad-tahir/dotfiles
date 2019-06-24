@@ -53,7 +53,8 @@
 	  ;; Keyword
 	  scroll-step 1
 	  scroll-conservatively 10000
-	  scroll-margin 0
+	  scroll-margin 100
+	  maximum-scroll-margin 0.5
 
 	  ;; Performance
 	  ;; Defer jit font locking slightly to [try to] improve Emacs performance
