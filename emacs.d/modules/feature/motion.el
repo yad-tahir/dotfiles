@@ -36,13 +36,20 @@
   :jump nil
   (evil-select-inner-object 'evil-defun beg end type (or count 1)))
 
+(evil-define-text-object do-evil-whole-buffer (count &optional beg end type)
+  :type line
+  "Select the whole buffer."
+  (evil-range (point-min) (point-max) type))
+
 (general-define-key
  :keymaps 'evil-inner-text-objects-map
- "b" 'do-evil-inner-section)
+ "b" 'do-evil-inner-section
+ "B" 'do-evil-whole-buffer)
 
 (general-define-key
  :keymaps 'evil-outer-text-objects-map
- "b" 'do-evil-a-section)
+ "b" 'do-evil-a-section
+ "B" 'do-evil-whole-buffer)
 
 ;; There is no reason why paragraph text objects are selected as lines
 (evil-define-text-object evil-a-paragraph (count &optional beg end type)
