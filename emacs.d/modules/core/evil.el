@@ -69,8 +69,8 @@
   (general-define-key
    :states 'normal
    :keymaps 'override
-   "<mouse-3>" '(lambda () (interactive) (message "no mouse please!"))
-   "<mouse-2>" '(lambda () (interactive) (message "no mouse please!"))
+   "<mouse-3>" 'ignore
+   "<mouse-2>" 'ignore
    "h" 'backward-char
    "n" 'forward-char
    "c" 'evil-previous-visual-line
@@ -117,6 +117,7 @@
    "H" 'nil
    "N" 'nil
    "l" 'nil
+   "X" 'nil
    "x" 'nil
    "x-" 'do-evil-narrow
    "x+" 'widen
@@ -129,8 +130,8 @@
   (general-define-key
    :states 'visual
    :keymaps 'override
-   "<mouse-3>" '(lambda () (interactive) (message "no mouse please!"))
-   "<mouse-2>" '(lambda () (interactive) (message "no mouse please!"))
+   "<mouse-3>" 'ignore
+   "<mouse-2>" 'ignore
    "h" 'backward-char
    "n" 'forward-char
    "c" 'evil-previous-visual-line
@@ -147,7 +148,7 @@
    :states 'visual
    "z" 'undo
    "C-Z" 'redo
-   "M-z" '(lambda () (interactive) (do-make-frame)(undo-tree-visualize))
+   "M-z" 'undo-tree-visualize
    "Z" '(lambda () (interactive) (do-make-frame)(undo-tree-visualize))
    "C-c" 'evil-scroll-page-up
    "C-t" 'evil-scroll-page-down
@@ -163,6 +164,7 @@
    "H" 'nil
    "N" 'nil
    "u" 'nil
+   "X" 'nil
    "x" 'nil
    "l" 'nil
    "d" 'nil
@@ -262,7 +264,7 @@
 	(evil-set-initial-state mode 'normal))
 
   ;; Variables
-  (setq-default evil-symbol-word-search t) ;; make * and  more useful
+  (setq-default evil-symbol-word-search t) ;; make '*' more useful
   (setq evil-want-C-u-scroll nil
 		evil-want-C-i-jump nil
 		evil-want-visual-char-semi-exclusive t
@@ -278,13 +280,12 @@
 		evil-echo-state nil
 		evil-kbd-macro-suppress-motion-error t
 		evil-mode-line-format nil
-		evil-kbd-macro-suppress-motion-error t
 		evil-cross-lines t
 		;; evil-ex-substitute-global t
 		;; More vim-like behavior
 		evil-ex-search-vim-style-regexp t
 		;; evil-search-wrap nil ;; Can be problematic with macros
-		shift-select-mode t ;; Don't activate mark on shift-click
+		shift-select-mode t
 		;; Setup the initial state for major modes should be normal
 		evil-emacs-state-modes nil
 		evil-motion-state-modes nil)

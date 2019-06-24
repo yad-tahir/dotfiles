@@ -144,7 +144,7 @@ buffer."
 					  :foreground chocolate-theme-highlight
 					  :background chocolate-theme-bg ))
 
-;; make the color of the mode line dynamic
+;; Make the color of the mode line dynamic
 (defun do--status-bar-change-mode-line-color()
   (let ((color (cond (buffer-read-only
 					  `(,chocolate-theme-bg . ,chocolate-theme-highlight+1))

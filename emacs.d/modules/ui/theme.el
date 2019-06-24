@@ -89,15 +89,12 @@
 (defcustom chocolate-theme-element+8 "salmon1"
   "Palette - element class 8"
   :type 'string :group 'chocolate-theme)
-
 (defcustom chocolate-theme-element+9 "salmon2"
   "Palette - element class 9"
   :type 'string :group 'chocolate-theme)
-
 (defcustom chocolate-theme-element+10 "#db7093"
   "Palette - element class 10"
   :type 'string :group 'chocolate-theme)
-
 (defcustom chocolate-theme-element+11 "#da70d6"
   "Palette - element class 11"
   :type 'string :group 'chocolate-theme)
@@ -106,8 +103,8 @@
 (deftheme chocolate-theme
   "Chocolate - A delicious brown theme!")
 
-;; NOTE: set the faces of Emacs built in features only
-;; The faces of third-party packages should be set in their corresponding files.
+;; NOTE: This files only contains the faces of Emacs built-in. The faces of
+;; third-party packages should be handled in their corresponding files.
 
 (custom-theme-set-faces
  'chocolate-theme
@@ -115,9 +112,9 @@
  ;; basic
  `(cursor ((t (:background ,chocolate-theme-white
 						   :foreground ,chocolate-theme-white))))
- ;; Avoid setting the height property as it can cause font-scalling,
- ;; hence adding delay to the startup time. Set the font size in the
- ;; .Xresource file instead.
+
+ ;; Avoid setting the height property as it can cause font-scaling, hence adding
+ ;; delay to startup time. Set the font size in the .Xresource file instead.
  `(default ((t (:foreground ,chocolate-theme-white :background ,chocolate-theme-bg
 							:weight normal :slant normal
 							:underline nil :overline nil
@@ -200,11 +197,12 @@
  `(mode-line ((t (:background ,chocolate-theme-bg
 							  :foreground ,chocolate-theme-white))))
  `(mode-line-buffer-id ((t (:weight bold))))
- `(mode-line-emphasis ((t (:foreground ,chocolate-theme-highlight+1 :weight bold))))
+ `(mode-line-emphasis ((t (:foreground ,chocolate-theme-highlight+1
+									   :weight bold))))
  `(mode-line-highlight ((t (:inherit (highlight)))))
  `(mode-line-inactive ((t (:background ,chocolate-theme-bg
-									   :foreground ,chocolate-theme-shadow+3 :weight
-									   light :inherit mode-line))))
+									   :foreground ,chocolate-theme-shadow+3
+									   :weight light :inherit mode-line))))
 
  ;; isearch
  `(isearch ((t (:inherit region :foreground ,chocolate-theme-highlight+1))))

@@ -66,9 +66,10 @@
 	  gc-cons-threshold 20000000
 	  uniquify-buffer-name-style 'forward
 	  uniquify-strip-common-suffix nil
+	  inhibit-compacting-font-caches t
 
 	  ;; Other
-	  blink-matching-paren nil    ; don't blink--too distracting
+	  blink-matching-paren nil ;; don't blink--too distracting
 	  confirm-kill-processes nil ;; Kill all pprocesses without confirmation
 	  sentence-end-double-space nil
 	  ;; debug-on-error t
@@ -80,7 +81,7 @@
 	  ;; jump between lines.
 	  eldoc-echo-area-use-multiline-p nil
 	  ;; No beeping or blinking
-	  ring-bell-function #'ignore
+	  ring-bell-function 'ignore
 	  visible-bell nil)
 
 (setq-default fill-column 80

@@ -322,7 +322,7 @@
 
 
 (use-package swiper
-  :after(ivy)
+  :disabled t
   :commands (swiper)
   :init
   (general-define-key

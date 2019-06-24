@@ -18,7 +18,7 @@
 ;; 02110-1301, USA.
 
 (use-package magit
-  :defer 20
+  :defer 10
   :ensure t
   :functions evil-set-initial-state
   :commands (magit-status magit-file-dispatch magit-dispatch)
@@ -227,7 +227,8 @@
   (add-hook 'magit-file-mode-hook 'magit-blob-mode)
 
   (evil-set-initial-state 'magit-popup-mode 'emacs)
-  (setq magit-status-show-hashes-in-headers t)
+  (setq magit-status-show-hashes-in-headers t
+		magit-blame-echo-style 'margin)
 
   (set-face-attribute 'magit-section-heading nil
 					  :background nil
@@ -276,14 +277,13 @@
   (set-face-attribute 'magit-log-graph nil
 					  :foreground chocolate-theme-white+3)
   ;; (set-face-attribute 'magit-diff-added-highlight nil
-  ;; 					  :foreground chocolate-theme-bg
-  ;; 					  :background chocolate-theme-element+3)
+  ;;					  :foreground chocolate-theme-bg
+  ;;					  :background chocolate-theme-element+3)
   ;; (set-face-attribute 'magit-diff-removed-highlight nil
-  ;; 					  :background chocolate-theme-highlight)
+  ;;					  :background chocolate-theme-highlight)
   ;; (set-face-attribute 'magit-diffstat-removed nil
   ;;:foreground chocolate-theme-highlight)
   ;; (set-face-attribute 'magit-diffstat-removed nil
   ;; :foreground chocolate-theme-highlight)
   ;; (set-face-attribute 'magit-diffstat-added nil :foreground "#8ae234")
   )
-

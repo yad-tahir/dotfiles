@@ -19,17 +19,18 @@
 
 (do-modules
 	"core/evil"
+
 	"ui/general"
-	"ui/theme" ;; don't put it on top; it increases the startup time somehow!
+	"ui/theme"
 	"ui/status-bar"
 	"ui/windows"
 	"ui/buffers"
 	"ui/line-numbering"
 	"ui/text-visual"
 
-	"completion/ivy" ;; slow
+	"completion/ivy"
 	"completion/company"
-	"completion/commands" ;; slow
+	"completion/commands"
 	"completion/snippets"
 
 	"feature/scratches"
@@ -55,9 +56,9 @@
 	;; "lang/php"
 
 	"tool/notebook"
-	"tool/music" ;; needs improvements
+	"tool/music"
 	"tool/english"
-	"tool/shell" ;; needs improvements
+	"tool/shell"
 	"tool/git"
 	"tool/calculator"
 	"tool/license")

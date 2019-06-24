@@ -21,9 +21,8 @@
 (cl-eval-when (compile)
   (require 'evil))
 
-(evil-define-text-object do-evil-a-section
-  (count &optional beg end type)
-  "Select a function"
+(evil-define-text-object do-evil-a-section (count &optional beg end type)
+  "Select a function."
   :jump nil
   (save-excursion
 	(evil-motion-loop (dir (or count 1))
@@ -32,9 +31,8 @@
 		  end (region-end)))
   (evil-range beg end type :expanded t))
 
-(evil-define-text-object do-evil-inner-section
-  (count &optional beg end type)
-  "Select inner function"
+(evil-define-text-object do-evil-inner-section (count &optional beg end type)
+  "Select inner function."
   :jump nil
   (evil-select-inner-object 'evil-defun beg end type (or count 1)))
 
