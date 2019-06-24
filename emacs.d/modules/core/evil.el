@@ -341,6 +341,7 @@ avoid navigating with the insert state."
 	  (unless defining-kbd-macro
 		(when evil-ex-current-buffer
 		  (evil-ex-search-abort))
+		(abort-recursive-edit)
 		(keyboard-escape-quit))))
 
   ;; Start Evil mode
