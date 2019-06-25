@@ -34,7 +34,7 @@
 
 (require 'evil)
 
-(defcustom fusion-split-column fill-column
+(defcustom fusion-fill-column fill-column
   "Column beyond which fusion automatically splits line."
   :group 'fusion
   :type 'number)
@@ -44,25 +44,8 @@
   :group 'fusion
   :type 'boolean)
 
-(defun fusion--fill-region (beginning end column type)
-  "Called internally by `fusion-join' and `fusion-split' to fill the region
-  between BEGINNING and END.
-
-The third argument COLUMN sets the column beyond which line splits occur.
-
-The fourth argument TYPE indicates the type of the motion."
-
-  (when (< beginning end)
-	(let ((fill-column column))
-	  (if fusion-indent-aware
-		  (progn
-			(back-to-indentation)
-			(let ((left-margin (current-column)))
-			  (fill-region-as-paragraph beginning end)))
-		(fill-region-as-paragraph beginning end)))))
-
 ;;;###autoload
-(evil-define-operator fusion-join (beginning end &optional type)
+(evil-define-operator fusion-join (beginning end)
   "Replaces newline chars in region by single spaces.
 
 The first argument BEGINNING indicates the starting position of the region.
@@ -73,11 +56,19 @@ The third argument TYPE indicates the type of the evil motion.
 
 This evil operator is the reverse of `fusion-split'."
 
+  :move-point nil
+  :type line
   ;; Joining a region is just a fill region operation with a large fill column
-  (fusion--fill-region beginning end most-positive-fixnum type))
+  (let ((fill-column most-positive-fixnum))
+	(if fusion-indent-aware
+		(progn
+		  (back-to-indentation)
+		  (let ((left-margin (current-column)))
+			(fill-region-as-paragraph beginning end)))
+	  (fill-region-as-paragraph beginning end))))
 
 ;;;###autoload
-(evil-define-operator fusion-split (beginning end &optional type)
+(evil-define-operator fusion-split (beginning end)
   "Fills the selected region and makes it indent.
 
 The first argument BEGINNING indicates the starting position of the region.
@@ -88,7 +79,15 @@ The third argument TYPE indicates the evil motion type.
 
 This evil operator is the reverse of `fusion-join'."
 
-  (fusion--fill-region beginning end fusion-split-column type))
+  :move-point nil
+  :type line
+  (let ((fill-column fusion-fill-column))
+	(if fusion-indent-aware
+		(progn
+		  (back-to-indentation)
+		  (let ((left-margin (current-column)))
+			(fill-region beginning end)))
+	  (fill-region beginning end))))
 
 (provide 'fusion)
 
