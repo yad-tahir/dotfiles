@@ -213,7 +213,7 @@
 					  counsel-find-library counsel-describe-function
 					  counsel-info-lookup-symbol
 					  counsel-unicode-char counsel-semantic-or-imenu
-					  counsel-fzf counsel-ag counsel-apropos
+					  counsel-fzf counsel-ag counsel-apropos counsel-rg
 					  counsel-describe-face counsel-find-file
 					  counsel-recentf counsel-imenu counsel-bookmark
 					  counsel-M-x counsel-org-capture
@@ -221,8 +221,7 @@
   :defer 5
   :ensure t
   :preface
-  (declare-function counsel--async-command nil)
-  (declare-function do--counsel-fzf-function nil)
+  (declare-function counsel-cmd-to-dired nil)
   :init
   ;; Keybindings
   (general-define-key
@@ -236,16 +235,15 @@
    :states '(normal visual)
    ;; make a prefix-command and add description
    "" '(:ignore t :which-key "search")
-   "f" #'(lambda () (interactive) (counsel-fzf nil nil "file " ))
-   "j" #'counsel-dired-jump
-   "G" #'counsel-git-grep
-   "v" #'counsel-describe-variable
-   "l" #'counsel-find-library
-   "x" #'counsel-describe-function
-   "i" #'counsel-info-lookup-symbol
-   "u" #'counsel-unicode-char
-   "m" #'counsel-bookmark
-   "g" #'(lambda () (interactive) (counsel-ag nil nil nil "grep " )))
+   "f" '(lambda () (interactive) (counsel-fzf nil nil "file " ))
+   "j" 'counsel-dired-jump
+   "v" 'counsel-describe-variable
+   "l" 'counsel-find-library
+   "x" 'counsel-describe-function
+   "i" 'counsel-info-lookup-symbol
+   "u" 'counsel-unicode-char
+   "m" 'counsel-bookmark
+   "g" 'counsel-rg)
 
   (general-define-key
    :states '(normal visual)
@@ -278,20 +276,23 @@
   (projectile-mode 1)
 
   (setq counsel-ag-base-command "ag --hidden --nocolor --nogroup %s"
-		;; Configure counsel-fzf to use Ag instead. Currently,
-		;; counsel-ag does not support occur-mode.
+		;; Add the '-uu' option to include hidden files
+		counsel-rg-base-command "rg -S --no-heading -uu --line-number --color never %s "
+		;; Configure counsel-fzf to use rg instead.
 		counsel-fzf-dir-function 'counsel-fzf-dir-function-projectile
-		counsel-fzf-cmd "ag -l --hidden --nocolor --noheading --nogroup -g %s")
+		counsel-fzf-cmd "rg --color never --files -g \"*%s*\" ")
 
-	;;; To ignore counsel's internal processing
-  (defun do--counsel-fzf-function (org-func &rest string)
-	(ignore org-func)
-	(let ((default-directory counsel--fzf-dir))
-	  (setq string (car string))
-	  (setq ivy--old-re (ivy--regex-fuzzy string))
-	  (counsel--async-command (format counsel-fzf-cmd string)))
-	nil)
-  (advice-add 'counsel-fzf-function :around #'do--counsel-fzf-function))
+	;;; Enable rg export by ignoring counsel's fzf internal processing.
+  (defun do--counsel-fzf-occur ()
+  "Occur function for `counsel-fzf' to use 'ag' instead "
+  (cd counsel--fzf-dir)
+  (counsel-cmd-to-dired
+   (concat
+	(format counsel-fzf-cmd ivy-text)
+	;; The sed is required to change ' to \'. Otherwise, xargs will throw
+	;; exceptions when file names contain single quotes.
+	"| sed -e \"s/'/\\\\\\\\'/g\" | xargs -I {} ls -l ./{}")))
+  (ivy-set-occur 'counsel-fzf 'do--counsel-fzf-occur))
 
 
 (use-package counsel-projectile

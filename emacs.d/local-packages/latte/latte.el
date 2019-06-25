@@ -448,15 +448,15 @@ This function launches an shell process to go through the note files in the
 		  ;; Reset and reconstruct
 		  latte--keywords (make-hash-table :test 'equal))
 
-	(let ((c (concat "ag --nocolor --nogroup --only-matching -s %s "
-					 latte-directory
-					 " --nofilename -G \".org$\"")))
-	  (let ((proc (start-process-shell-command
-				   latte--process-name
-				   (get-buffer-create "*Messages*")
-				   (format c (shell-quote-argument "^[\\*].+[:].+[:]$")))))
-		(set-process-filter proc 'latte--async-filter)
-		(set-process-sentinel proc 'latte--async-sentinel)))))
+	(let* ((cmd (concat "rg --no-trim --no-messages --no-filename --only-matching "
+					  " -t org '^[\\*].+[:].+[:]$' "
+					  latte-directory))
+		   (proc (start-process-shell-command
+				  latte--process-name
+				  (get-buffer-create "*Messages*")
+				  cmd)))
+	  (set-process-filter proc 'latte--async-filter)
+	  (set-process-sentinel proc 'latte--async-sentinel))))
 
 (defun latte--keyword-at-point()
   "Return the highlighted keyword at point."
@@ -616,7 +616,7 @@ simple Org file for the given topic."
   (unless (fboundp 'counsel)
 	(require 'counsel))
   (setq init-input (or init-input "^[*]+.*"))
-  (counsel-ag init-input latte-directory "--nomultiline -G \".org$\""
+  (counsel-rg init-input latte-directory "-t org"
 			  "Search "))
 
 ;;;###autoload
