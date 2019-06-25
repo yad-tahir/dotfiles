@@ -23,10 +23,9 @@
   :commands (lice)
   :init
   (general-define-key
-   :prefix "x"
+   :prefix "l"
    :keymaps 'override
    :states 'normal
    "l" 'lice)
   :config
   (setq lice:default-license "gpl-2.0"))
-

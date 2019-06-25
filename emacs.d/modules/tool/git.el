@@ -46,8 +46,8 @@
   (general-define-key
    :keymaps 'magit-log-select-mode-map
    :states '(normal visual)
-   "lq" 'magit-log-select-pick
-   "l <escape>" 'magit-log-select-quit)
+   "xq" 'magit-log-select-pick
+   "x <escape>" 'magit-log-select-quit)
 
   (general-define-key
    :keymaps 'magit-log-mode-map
@@ -59,14 +59,14 @@
    "r"  'magit-rebase
    "m"  'magit-merge
    "x"  'magit-reset
-   "l"  'nil
-   "lp" 'magit-log-move-to-parent
-   "ls" 'magit-log-toggle-commit-limit
-   "lr" 'magit-rebase
-   "lm"  'magit-merge
-   "lx"  'magit-reset
-   "l+" 'magit-log-double-commit-limit
-   "l-" 'magit-log-half-commit-limit)
+   "x"  'nil
+   "xp" 'magit-log-move-to-parent
+   "xs" 'magit-log-toggle-commit-limit
+   "xr" 'magit-rebase
+   "xm"  'magit-merge
+   "xx"  'magit-reset
+   "x+" 'magit-log-double-commit-limit
+   "x-" 'magit-log-half-commit-limit)
 
   (general-define-key
    :keymaps 'git-rebase-mode-map
@@ -85,20 +85,20 @@
    "!"        'git-rebase-exec
    "i"        'git-rebase-insert
    "x"        'git-rebase-noop
-   "lp"       'git-rebase-pick
-   "l,"       'git-rebase-kill-line
-   "lb"       'git-rebase-break
-   "le"       'git-rebase-edit
-   "ll"       'git-rebase-label
-   "lm"       'git-rebase-merge
-   "lM"       'git-rebase-merge-toggle-editmsg
-   "lf"       'git-rebase-fixup
-   "lw"       'git-rebase-reword
-   "ls"       'git-rebase-squash
-   "lt"       'git-rebase-reset
-   "lx"       'git-rebase-exec
-   "li"       'git-rebase-insert
-   "lz"       'git-rebase-noop
+   "xp"       'git-rebase-pick
+   "x,"       'git-rebase-kill-line
+   "xb"       'git-rebase-break
+   "xe"       'git-rebase-edit
+   "xl"       'git-rebase-label
+   "xm"       'git-rebase-merge
+   "xM"       'git-rebase-merge-toggle-editmsg
+   "xf"       'git-rebase-fixup
+   "xw"       'git-rebase-reword
+   "xs"       'git-rebase-squash
+   "xt"       'git-rebase-reset
+   "xx"       'git-rebase-exec
+   "xi"       'git-rebase-insert
+   "xz"       'git-rebase-noop
    "<space>"  'git-rebase-show-or-scroll-up
    "DEL"      'git-rebase-show-or-scroll-down
    "M-c"      'git-rebase-move-line-up
@@ -120,24 +120,24 @@
    "u" 'magit-unstage
    "k" 'magit-discard
    "i" 'magit-commit-add-log
-   "la" 'magit-apply
-   "ls" 'magit-stage
-   "lu" 'magit-unstage
-   "lk" 'magit-discard
-   "li" 'magit-commit-add-log)
+   "xa" 'magit-apply
+   "xs" 'magit-stage
+   "xu" 'magit-unstage
+   "xk" 'magit-discard
+   "xi" 'magit-commit-add-log)
 
   (general-define-key
    :keymaps 'magit-diff-mode-map
    :states '(normal visual)
-   "lj" 'magit-jump-to-diffstat-or-diff
-   "ld" 'magit-ediff-dwim
-   "lc" 'magit-diff-while-committing)
+   "xj" 'magit-jump-to-diffstat-or-diff
+   "xd" 'magit-ediff-dwim
+   "xc" 'magit-diff-while-committing)
 
   (general-define-key
    :keymaps 'magit-file-mode-map
    :states '(normal visual)
-   "lg" 'magit-file-dispatch
-   "lG" 'magit-dispatch
+   "xg" 'magit-file-dispatch
+   "xG" 'magit-dispatch
    "SPC dg" 'magit-diff
    "SPC dG" 'magit-ediff
    "N" 'magit-blob-next
@@ -172,52 +172,52 @@
    "F" 'magit-pull
    "a" 'magit-log
 
-   "l"  '(:ignore t :which-key "go")
-   "l$" 'magit-process-buffer
-   "lA" 'magit-cherry-pick
-   "lb" 'magit-branch
-   "lB" 'magit-bisect
-   "lc" 'magit-commit
-   "lC" 'magit-clone
-   "ld" 'magit-diff
-   "lD" 'magit-diff-refresh
-   "le" 'magit-ediff-dwim
-   "lE" 'magit-ediff
-   "lf" 'magit-fetch
-   "lF" 'magit-pull
-   "lg" 'magit-refresh
-   "lG" 'magit-refresh-all
-   "lh" 'magit-dispatch
-   "lk" 'magit-delete-thing
-   "l?" 'magit-dispatch
-   "ll" 'magit-log
-   "lL" 'magit-log-refresh
-   "lm" 'magit-merge
-   "lM" 'magit-remote
-   "lo" 'magit-submodule
-   "lO" 'magit-subtree
-   "lq" 'magit-mode-bury-buffer
-   "lp" 'magit-push
-   "lr" 'magit-rebase
-   "lR" 'magit-file-rename
-   "lt" 'magit-tag
-   "lT" 'magit-notes
-   "ls" 'magit-stage-file
-   "lS" 'magit-stage-modified
-   "lu" 'magit-unstage-file
-   "lU" 'magit-unstage-all
-   "lv" 'magit-revert-no-commit
-   "lV" 'magit-revert
-   "lw" 'magit-am
-   "lW" 'magit-patch
-   "lx" 'magit-reset-quickly
-   "lX" 'magit-reset
-   "ly" 'magit-show-refs
-   "lY" 'magit-cherry
-   "lz" 'magit-stash
-   "lZ" 'magit-stash
-   "l:" 'magit-git-command
-   "l!" 'magit-run)
+   "x"  '(:ignore t :which-key "go")
+   "x$" 'magit-process-buffer
+   "xA" 'magit-cherry-pick
+   "xb" 'magit-branch
+   "xB" 'magit-bisect
+   "xc" 'magit-commit
+   "xC" 'magit-clone
+   "xd" 'magit-diff
+   "xD" 'magit-diff-refresh
+   "xe" 'magit-ediff-dwim
+   "xE" 'magit-ediff
+   "xf" 'magit-fetch
+   "xF" 'magit-pull
+   "xg" 'magit-refresh
+   "xG" 'magit-refresh-all
+   "xh" 'magit-dispatch
+   "xk" 'magit-delete-thing
+   "x?" 'magit-dispatch
+   "xl" 'magit-log
+   "xL" 'magit-log-refresh
+   "xm" 'magit-merge
+   "xM" 'magit-remote
+   "xo" 'magit-submodule
+   "xO" 'magit-subtree
+   "xq" 'magit-mode-bury-buffer
+   "xp" 'magit-push
+   "xr" 'magit-rebase
+   "xR" 'magit-file-rename
+   "xt" 'magit-tag
+   "xT" 'magit-notes
+   "xs" 'magit-stage-file
+   "xS" 'magit-stage-modified
+   "xu" 'magit-unstage-file
+   "xU" 'magit-unstage-all
+   "xv" 'magit-revert-no-commit
+   "xV" 'magit-revert
+   "xw" 'magit-am
+   "xW" 'magit-patch
+   "xx" 'magit-reset-quickly
+   "xX" 'magit-reset
+   "xy" 'magit-show-refs
+   "xY" 'magit-cherry
+   "xz" 'magit-stash
+   "xZ" 'magit-stash
+   "x:" 'magit-git-command
+   "x!" 'magit-run)
 
   ;; Make sure all environment variables are set
   (unless (fboundp 'exec-path-from-shell)

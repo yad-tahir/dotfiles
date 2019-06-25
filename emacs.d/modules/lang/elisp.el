@@ -30,15 +30,12 @@
 (use-package macrostep
   :ensure t
   :commands (macrostep-expand macrostep-collapse)
-  :after (evil)
   :init
   (general-define-key
    :keymaps 'emacs-lisp-mode-map
    :states 'normal
-   :prefix "l"
-   "m" '(:ignore t :which-key "micro")
-   "me" 'macrostep-expand
-   "mc" 'macrostep-collapse)
+   "xme" 'macrostep-expand
+   "xmc" 'macrostep-collapse)
 
   :config
   (set-face-attribute 'macrostep-expansion-highlight-face nil

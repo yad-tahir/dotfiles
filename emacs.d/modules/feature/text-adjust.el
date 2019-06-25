@@ -25,8 +25,8 @@
    :states '(normal visual)
    "k" 'fusion-join
    "K" 'fusion-split
-   "xj" 'fusion-join
-   "xJ" 'fusion-split))
+   "lj" 'fusion-join
+   "lJ" 'fusion-split))
 
 (use-package evil-surround
   :ensure t
@@ -83,15 +83,15 @@
    "M-h" 'sp-forward-barf-sexp
    "g M-n" 'sp-backward-slurp-sexp
    "g M-h" 'sp-backward-barf-sexp
-   "xs" '(:ignore t :which-key "smart parens")
-   "xsn" 'sp-forward-slurp-sexp
-   "xsN" 'sp-forward-barf-sexp
-   "xsh" 'sp-backward-slurp-sexp
-   "xsH" 'sp-backward-barf-sexp
-   "xsc" 'sp-up-sexp
-   "xst" 'sp-down-sexp
-   "xsu" 'sp-splice-sexp
-   "xsj" 'sp-join-sexp))
+   "ls" '(:ignore t :which-key "smart parens")
+   "lsn" 'sp-forward-slurp-sexp
+   "lsN" 'sp-forward-barf-sexp
+   "lsh" 'sp-backward-slurp-sexp
+   "lsH" 'sp-backward-barf-sexp
+   "lsc" 'sp-up-sexp
+   "lst" 'sp-down-sexp
+   "lsu" 'sp-splice-sexp
+   "lsj" 'sp-join-sexp))
 
 ;; (use-package evil-paredit
 ;;	:disabled t
@@ -106,10 +106,10 @@
 ;;	 :keymaps 'evil-paredit-mode-map
 ;;	 :states 'normal
 ;;	 ;; Bindings for basic movements
-;;	 "xsn" 'paredit-forward-slurp-sexp
-;;	 "xsN" 'paredit-forward-barf-sexp
-;;	 "xsh" 'paredit-backward-slurp-sexp
-;;	 "xsh" 'paredit-backward-barf-sexp
+;;	 "lsn" 'paredit-forward-slurp-sexp
+;;	 "lsN" 'paredit-forward-barf-sexp
+;;	 "lsh" 'paredit-backward-slurp-sexp
+;;	 "lsh" 'paredit-backward-barf-sexp
 ;;	 "M-n" 'paredit-forward-slurp-sexp
 ;;	 "M-h" 'paredit-forward-barf-sexp
 ;;	 "g M-h" 'paredit-backward-slurp-sexp
@@ -121,23 +121,23 @@
 ;;	 "U" 'evil-paredit-change-line
 ;;	 "d" 'evil-paredit-delete
 ;;	 "D" 'evil-paredit-delete-line
-;;	 "xsu" 'evil-change
-;;	 "xsU" 'evil-change-line
-;;	 "xsd" 'evil-delete
-;;	 "xsD" 'evil-delete-line)
+;;	 "lsu" 'evil-change
+;;	 "lsU" 'evil-change-line
+;;	 "lsd" 'evil-delete
+;;	 "lsD" 'evil-delete-line)
 
 ;;	(general-define-key
 ;;	 :keymaps 'evil-paredit-mode-map
 ;;	 :states 'visual
 ;;	 ;; Surrounding region
-;;	 "xs(" 'paredit-wrap-round
-;;	 "xs)" 'paredit-wrap-round
-;;	 "xs]" 'paredit-wrap-square
-;;	 "xs[" 'paredit-wrap-square
-;;	 "xs{" 'paredit-wrap-curly
-;;	 "xs}" 'paredit-wrap-curly
-;;	 "xs>" 'paredit-wrap-angled
-;;	 "xs<" 'paredit-wrap-angled))
+;;	 "ls(" 'paredit-wrap-round
+;;	 "ls)" 'paredit-wrap-round
+;;	 "ls]" 'paredit-wrap-square
+;;	 "ls[" 'paredit-wrap-square
+;;	 "ls{" 'paredit-wrap-curly
+;;	 "ls}" 'paredit-wrap-curly
+;;	 "ls>" 'paredit-wrap-angled
+;;	 "ls<" 'paredit-wrap-angled))
 
 (use-package expand-region
   :ensure t
@@ -154,7 +154,7 @@
   (general-define-key
    :states '(normal visual)
    "gk" 'evilnc-comment-operator
-   "x;" 'evilnc-comment-operator))
+   "l;" 'evilnc-comment-operator))
 
 (use-package evil-lion
   :defer t
@@ -163,8 +163,8 @@
   :init
   (general-define-key
    :states '(normal visual)
-   "x<" #'evil-lion-left
-   "x>" #'evil-lion-right)
+   "l<" #'evil-lion-left
+   "l>" #'evil-lion-right)
   :config
   (setq evil-lion-left-align-key (kbd "l <")
 		evil-lion-right-align-key (kbd "l >"))

@@ -102,8 +102,8 @@
   (general-define-key
    :states '(normal visual)
    "s" 'nil ;; Used for searching instead
-   "l" 'nil ;; Used as a prefix for mode-local keybindings
-   "x" 'nil ;; Used as a prefix for evil-local keybindings
+   "l" 'nil ;; Used as a prefix for evil-local keybindings
+   "x" 'nil ;; Used as a prefix for mode-local keybindings
    "j" 'nil
    "J" 'nil
    "f" 'nil
@@ -146,18 +146,18 @@
    "]m" 'do-evil-forward-motion
    "[m" 'do-evil-backward-motion
 
-   "xg" '(:ignore t :which-key "jump")
-   "xgh" 'evil-jump-backward
-   "xgn" 'evil-jump-forward
-   "xgH" 'goto-last-change
-   "xgN" 'goto-last-change-reverse
-   "xgt" 'evil-jump-to-tag
-   "xgc" 'evil-goto-column
-   "xgd" 'evil-goto-definition
-   "xgl" 'evil-show-jumps
-   "xgs" 'evil-jump-backward-swap
-   "x-" 'do-evil-narrow
-   "x+" 'widen)
+   "lg" '(:ignore t :which-key "jump")
+   "lgh" 'evil-jump-backward
+   "lgn" 'evil-jump-forward
+   "lgH" 'goto-last-change
+   "lgN" 'goto-last-change-reverse
+   "lgt" 'evil-jump-to-tag
+   "lgc" 'evil-goto-column
+   "lgd" 'evil-goto-definition
+   "lgl" 'evil-show-jumps
+   "lgs" 'evil-jump-backward-swap
+   "l-" 'do-evil-narrow
+   "l+" 'widen)
 
   (general-define-key
    :states 'visual
@@ -226,7 +226,7 @@
 
   (general-define-key
    :keymaps 'with-editor-mode-map
-   :prefix "l"
+   :prefix "x"
    :states 'normal
    "q" 'with-editor-finish
    "<escape>" 'with-editor-cancel)

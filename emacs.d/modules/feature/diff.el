@@ -51,13 +51,13 @@
   :config
   (general-define-key
    :keymaps 'smerge-mode-map
-   "l<" 'smerge-keep-upper
-   "l>" 'smerge-keep-lower
-   "l SPC" 'smerge-keep-current
-   "la" 'smerge-keep-all
-   "lr" 'smerge-refine
-   "ld" 'smerge-ediff
-   "lb" 'smerge-keep-base))
+   "x<" 'smerge-keep-upper
+   "x>" 'smerge-keep-lower
+   "x SPC" 'smerge-keep-current
+   "xa" 'smerge-keep-all
+   "xr" 'smerge-refine
+   "xd" 'smerge-ediff
+   "xb" 'smerge-keep-base))
 
 (use-package ediff
   :defer t
@@ -83,4 +83,3 @@
   (setq ediff-highlight-all-diffs t)
   (setq ediff-use-long-help-message t)
   (setq ediff-auto-refine t))
-

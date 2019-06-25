@@ -41,95 +41,95 @@
   (general-define-key
    :keymaps 'cider-repl-mode-map
    :states 'normal
-   "ls" 'cider-toggle-trace-var
-   "lS" 'cider-toggle-trace-ns
-   "la" 'cider-apropos-select
-   "lA" 'cider-apropos-documentation-select
-   "lh" 'cider-doc
-   "lr" 'cider-grimoire
-   "lw" 'cider-grimoire-web
-   "lj" 'cider-javadoc)
+   "xs" 'cider-toggle-trace-var
+   "xS" 'cider-toggle-trace-ns
+   "xa" 'cider-apropos-select
+   "xA" 'cider-apropos-documentation-select
+   "xh" 'cider-doc
+   "xr" 'cider-grimoire
+   "xw" 'cider-grimoire-web
+   "xj" 'cider-javadoc)
 
   (general-define-key
    :keymaps 'clojure-mode-map
    :states 'normal
-   "le" '(:ignore t :which-key "eval")
-   "les" 'cider-jack-in
-   "leS" 'cider-connect
-   "leb" 'cider-eval-buffer
-   "lef" 'cider-eval-defun-at-point
-   "ler" 'cider-eval-region
-   "lee" 'cider-eval-sexp-at-point
-   "leE" 'cider-eval-last-sexp
-   "lel" 'cider-eval-file
-   "leL" 'cider-eval-all-files
+   "xe" '(:ignore t :which-key "eval")
+   "xes" 'cider-jack-in
+   "xeS" 'cider-connect
+   "xeb" 'cider-eval-buffer
+   "xef" 'cider-eval-defun-at-point
+   "xer" 'cider-eval-region
+   "xee" 'cider-eval-sexp-at-point
+   "xeE" 'cider-eval-last-sexp
+   "xel" 'cider-eval-file
+   "xeL" 'cider-eval-all-files
 
-   "ll" '(:ignore t :which-key "load")
-   "lln" 'cider-ns-reload
-   "llN" 'cider-load-all-project-ns
-   "llb" 'cider-load-buffer
-   "llf" 'cider-load-file
-   "llF" 'cider-load-all-files
+   "xl" '(:ignore t :which-key "load")
+   "xln" 'cider-ns-reload
+   "xlN" 'cider-load-all-project-ns
+   "xlb" 'cider-load-buffer
+   "xlf" 'cider-load-file
+   "xlF" 'cider-load-all-files
 
-   "lh" '(:ignore t :which-key "help")
-   "lha" 'cider-apropos
-   "lhA" 'cider-apropos-documentation
-   "lhh" 'cider-doc
-   "lhg" 'cider-grimoire
-   "lhG" 'cider-grimoire-web
-   "lhj" 'cider-javadoc
-   "lhn" 'cider-browse-ns
+   "xh" '(:ignore t :which-key "help")
+   "xha" 'cider-apropos
+   "xhA" 'cider-apropos-documentation
+   "xhh" 'cider-doc
+   "xhg" 'cider-grimoire
+   "xhG" 'cider-grimoire-web
+   "xhj" 'cider-javadoc
+   "xhn" 'cider-browse-ns
 
-   "ld" '(:ignore t :which-key "debug")
-   "ldf" 'cider-debug-defun-at-point
-   "lde" 'cider-enlighten-mode
-   "ldi" 'cider-inspect-defun-at-point
-   ;; "ldI" 'cider-inspect
+   "xd" '(:ignore t :which-key "debug")
+   "xdf" 'cider-debug-defun-at-point
+   "xde" 'cider-enlighten-mode
+   "xdi" 'cider-inspect-defun-at-point
+   ;; "xdI" 'cider-inspect
 
-   "lr" 'cider-refresh
-   ;; "lq" 'cider-quit
+   "xr" 'cider-refresh
+   ;; "xq" 'cider-quit
    ;; "=" 'cider-format-buffer ;; it is not that great!
 
-   "lg" '(:ignore t :which-key "go")
-   "lge" 'cider-jump-to-compilation-error
-   "lgs" 'cider-stacktrace-jump
-   "lgv" 'cider-find-var
+   "xg" '(:ignore t :which-key "go")
+   "xge" 'cider-jump-to-compilation-error
+   "xgs" 'cider-stacktrace-jump
+   "xgv" 'cider-find-var
    "gd" 'cider-find-var
-   "lgn" 'cider-find-ns
-   "lgk" 'cider-find-keyword
-   "lgd" 'cider-find-dwim
-   "lg:" 'cider-find-property
+   "xgn" 'cider-find-ns
+   "xgk" 'cider-find-keyword
+   "xgd" 'cider-find-dwim
+   "xg:" 'cider-find-property
 
-   "lm" '(:ignore t :which-key "macro")
-   "lme" 'cider-macroexpand-1
-   "lma" 'cider-macroexpand-all
-   "lmz" 'cider-macroexpand-undo
-   "lmr" 'cider-macroexpand-again
-   "lmm" 'cider-macroexpand-mode)
+   "xm" '(:ignore t :which-key "macro")
+   "xme" 'cider-macroexpand-1
+   "xma" 'cider-macroexpand-all
+   "xmz" 'cider-macroexpand-undo
+   "xmr" 'cider-macroexpand-again
+   "xmm" 'cider-macroexpand-mode)
 
   (general-define-key
    :keymaps 'cider-inspector-mode-map
-   "l"   'nil
-   "lf" 'cider-inspect-defun-at-point
-   "le" 'cider-inspect-expr
-   "ll" 'cider-inspect-last-sexp
-   "lp" 'cider-inspector-pop
-   "ln" 'cider-inspector-next-page
-   "lh" 'cider-inspector-prev-page
-   "lr" 'cider-inspector-refresh)
+   "x"   'nil
+   "xf" 'cider-inspect-defun-at-point
+   "xe" 'cider-inspect-expr
+   "xl" 'cider-inspect-last-sexp
+   "xp" 'cider-inspector-pop
+   "xn" 'cider-inspector-next-page
+   "xh" 'cider-inspector-prev-page
+   "xr" 'cider-inspector-refresh)
 
   (general-define-key
    :keymaps 'cider-test-report-mode-map
-   "l"   'nil
-   "ln" 'cider-test-next-result
-   "lh" 'cider-test-previous-result
-   "lj" 'cider-test-jump
-   "ld" 'cider-test-ediff
-   "ls" 'cider-test-stacktrace
-   "lq" 'cider-popup-buffer-quit
-   "lR" 'cider-test-rerun-tests
-   "lr" 'cider-test-run-test
-   "ln" 'cider-test-run-ns-tests)
+   "x"   'nil
+   "xn" 'cider-test-next-result
+   "xh" 'cider-test-previous-result
+   "xj" 'cider-test-jump
+   "xd" 'cider-test-ediff
+   "xs" 'cider-test-stacktrace
+   "xq" 'cider-popup-buffer-quit
+   "xR" 'cider-test-rerun-tests
+   "xr" 'cider-test-run-test
+   "xn" 'cider-test-run-ns-tests)
 
   (set-face-attribute 'cider-fringe-good-face
 					  nil :foreground chocolate-theme-shadow+3

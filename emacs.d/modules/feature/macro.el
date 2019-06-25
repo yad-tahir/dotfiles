@@ -37,5 +37,5 @@
 
 (general-define-key
    :keymaps 'edmacro-mode-map
-   "lq" 'edmacro-finish-edit
-   "l <escape>" 'kill-buffer)
+   "xq" 'edmacro-finish-edit
+   "x <escape>" 'kill-buffer)

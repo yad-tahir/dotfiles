@@ -64,17 +64,17 @@
   :config
 
   ;; (set-face-attribute 'latte-keyword-face nil
-  ;; 					  :foreground chocolate-theme-element+8)
+  ;;					  :foreground chocolate-theme-element+8)
 
   (with-eval-after-load 'org
 	(general-def org-mode-map
 	  :states '(normal visual)
-	  "ln" #'(:ignore t :which-key "notes")
-	  "lnk" #'latte-insert-keyword
-	  "ln#" #'latte-insert-org-tag
-	  "l#" #'latte-insert-org-tag
-	  "lng" #'latte-grep-topic
-	  "lg" #'latte-grep-topic
-	  "lnG" #'latte-grep-all)))
+	  "xn" #'(:ignore t :which-key "notes")
+	  "xnk" #'latte-insert-keyword
+	  "xn#" #'latte-insert-org-tag
+	  "x#" #'latte-insert-org-tag
+	  "xng" #'latte-grep-topic
+	  "xg" #'latte-grep-topic
+	  "xnG" #'latte-grep-all)))
 
 (provide 'notebook)

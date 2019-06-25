@@ -327,7 +327,7 @@
   :init
   (general-define-key
    :states '(visual normal)
-   "x/" 'swiper)
+   "l/" 'swiper)
   :config
   (general-define-key
    :keymaps 'swiper-map
@@ -344,18 +344,20 @@
 
 (use-package wgrep
   :ensure t
-  :hook ((ivy-occur-grep-mode . ivy-wgrep-change-to-wgrep-mode))
+  :commands (wgrep-change-to-wgrep-mode)
+  :init
+  (general-define-key
+   :keymaps 'ivy-occur-grep-mode-map
+   :states 'normal
+   "x" 'nil
+   "xw" 'wgrep-change-to-wgrep-mode)
+
   :config
   (general-define-key
    :keymaps 'wgrep-mode-map
    :states 'normal
-   "lq" 'wgrep-finish-edit
-   "<escape>" 'wgrep-abort-changes
-   "lz" 'wgrep-remove-all-change)
-
-  (general-define-key
-   :keymaps 'wgrep-mode-map
-   :states 'visual
-   "lz" 'wgrep-remove-change)
+   "xq" 'wgrep-finish-edit
+   "x <escape>" 'wgrep-abort-changes
+   "xz" 'wgrep-remove-all-change)
 
   (setq wgrep-auto-save-buffer t))

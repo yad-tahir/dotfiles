@@ -96,12 +96,12 @@ separate frame."
   (general-define-key
    :keymaps 'wdired-mode-map
    :states 'normal
-   "lq" 'wdired-finish-edit
+   "xq" 'wdired-finish-edit
    "w" 'evil-forward-word-begin
    "W" 'evil-forward-WORD-begin
    "b" 'evil-backward-word-begin
    "B" 'evil-backward-WORD-begin
-   "l<escape>" 'wdired-abort-changes)
+   "x <escape>" 'wdired-abort-changes)
 
   (general-define-key
    :keymaps 'dired-mode-map
@@ -118,10 +118,9 @@ separate frame."
    ">" 'dired-next-dirline
    ";" 'nil
    "q" 'nil
-   "l" 'nil
-   "ls" 'dired-sort-toggle-or-edit
-   ;; "f" 'counsel-dired-jump
-   ;; "lf" 'counsel-dired-jump
+   "x" 'nil
+   "s" 'nil
+   "xs" 'dired-sort-toggle-or-edit
    [remap next-line] 'dired-next-line
    [remap previous-line] 'dired-previous-line
 
@@ -129,34 +128,31 @@ separate frame."
    ;; "x" 'dired-do-flagged-delete
    ;; "d" 'dired-flag-file-deletion
    "Y" 'dired-do-copy
+   "xy" 'dired-do-copy
    "D" 'dired-do-delete
+   "xd" 'dired-do-delete
    "R" 'dired-do-rename
-   "M" 'dired-do-rename
+   "xr" 'dired-do-rename
    "F" 'find-file
+   "xf" 'find-file
    "+" 'dired-create-directory
-   "O" 'dired-do-chown
+   "x+" 'dired-create-directory
    "L" 'dired-do-symlink
-   "M-l" 'dired-do-hardlink
-   "ld" 'dired-do-delete
-   "ly" 'dired-do-copy
-   "lr" 'dired-do-rename
-   "lm" 'dired-do-rename
-   "lf" 'find-file
-   "l+" 'dired-create-directory
-   "lw" 'dired-do-chown
-   "ll" 'dired-do-symlink
-   "lL" 'dired-do-hardlink
+   "xl" 'dired-do-symlink
+   "xL" 'dired-do-hardlink
+   "O" 'dired-do-chown
+   "xO" 'dired-do-chown
    "!" 'dired-do-shell-command
-   "l!" 'dired-do-shell-command
+   "x!" 'dired-do-shell-command
    "&" 'dired-do-async-shell-command
-   "l&" 'dired-do-async-shell-command
+   "x&" 'dired-do-async-shell-command
    ;; [tab] 'dired-summary
-   "l=" 'dired-diff
-   "lz" 'dired-do-compress
-   "lZ" 'dired-do-compress-to
-   "lt" 'dired-do-touch
-   "lu" 'dired-downcase
-   "lU" 'dired-upcase
+   "x=" 'dired-diff
+   "xz" 'dired-do-compress
+   "xZ" 'dired-do-compress-to
+   "xt" 'dired-do-touch
+   "xu" 'dired-downcase
+   "xU" 'dired-upcase
    "z" 'dired-undo
    [remap undo] 'dired-undo
    [remap advertised-undo] 'dired-undo
@@ -165,21 +161,27 @@ separate frame."
    "m" 'dired-mark
    "u" 'dired-unmark
    "U" 'dired-unmark-all-marks
-   "*" nil
-   "**" 'dired-mark-executables
-   "*d" 'dired-mark-directories
-   "*@" 'dired-mark-symlinks
-   "*f" 'dired-mark-files-regexp
-   "*s" 'dired-mark-subdir-files
-   "*?" 'dired-unmark-all-files
-   "*!" 'dired-unmark-all-marks
-   "*t" 'dired-toggle-marks
-   "*g" 'dired-mark-files-containing-regexp
-   "*~" 'dired-flag-garbage-files
-   "lo" 'do-dired-find-marked-files
-   "lO" 'do-dired-find-marked-files-noframe
-   "*o" 'do-dired-find-marked-files
-   "*O" 'do-dired-find-marked-files-noframe
+
+   "x/" 'nil
+   "x/f" 'find-grep-dired
+   "x/g" 'dired-do-find-regexp
+   "x/r" 'dired-do-find-regexp-and-replace
+   ;; Press SPACE replace and 'n' to skip
+
+   "x*" 'nil
+   "x**" 'dired-mark-executables
+   "x*d" 'dired-mark-directories
+   "x*@" 'dired-mark-symlinks
+   "x*f" 'dired-mark-files-regexp
+   "x*s" 'dired-mark-subdir-files
+   "x*?" 'dired-unmark-all-files
+   "x*!" 'dired-unmark-all-marks
+   "x*t" 'dired-toggle-marks
+   "x*g" 'dired-mark-files-containing-regexp
+   "x*G" 'dired-do-find-regexp
+   "x*~" 'dired-flag-garbage-files
+   "x*o" 'do-dired-find-marked-files
+   "x*O" 'do-dired-find-marked-files-noframe
 
    "a" 'dired-toggle-read-only
    "A" 'dired-toggle-read-only
@@ -188,8 +190,8 @@ separate frame."
 
 (use-package dired-open
   :ensure t
-  :after (dired)
-  :config
+  :commands (dired-open-xdg)
+  :init
   (general-define-key
    :keymaps 'dired-mode-map
    :states 'normal
@@ -216,7 +218,7 @@ separate frame."
   (general-define-key
    :keymaps 'dired-mode-map
    :states 'normal
-   "lc" 'dired-collapse-mode))
+   "xc" 'dired-collapse-mode))
 
 (use-package dired-subtree
   :disabled t
@@ -233,7 +235,7 @@ separate frame."
    "<M-tab>" 'dired-subtree-remove
    "[" 'dired-subtree-beginning
    "]" 'dired-subtree-end
-   "*}" 'dired-subtree-mark-subtree)
+   "x*}" 'dired-subtree-mark-subtree)
   :config
   (set-face-attribute 'dired-subtree-depth-1-face nil
 					  :background chocolate-theme-shadow)

@@ -43,9 +43,9 @@
    :states '(normal visual)
    "<tab>" 'org-cycle
    "M-<tab>" 'org-cycle-level
-   "ll" 'org-insert-link
-   "lp" 'org-todo
-   "l#" 'org-set-tags
+   "xl" 'org-insert-link
+   "xp" 'org-todo
+   "x#" 'org-set-tags
    "M-c" 'org-metaup
    "M-t" 'org-metadown
    "M-h" 'org-metaleft
@@ -68,38 +68,38 @@
    "gN" 'org-forward-element
    "gH" 'org-backward-element
    "gT" 'org-down-element
-   "lt" '(:ignore t :which-key "time")
-   "ltt" '(:ignore t :which-key "insert timestamp")
-   "ltt" '(lambda () (interactive) (org-time-stamp (current-time)))
-   "lt(" 'org-clock-in
-   "lt)" 'org-clock-out
-   "ltq" 'org-clock-cancel
-   "ltg" 'org-clock-goto
-   "lv" '(:ignore t :which-key "view")
-   "lvl" 'org-toggle-latex-fragment
-   "ls" 'org-schedule
-   "lS" 'org-deadline
-   "lu" 'org-add-note ;;progress
-   "la" 'org-attach
-   "lg" 'org-open-at-point
-   "lc" 'org-ctrl-c-ctrl-c
-   "li" 'org-id-get-create
-   "l@" 'org-toggle-ordered-property
-   "le" '(:ignore t :which-key "export")
-   "lel" 'org-export-dispatch
-   "lep" 'org-latex-export-to-pdf
-   "leb" 'org-beamer-export-to-pdf
-   "leh" 'org-html-export-to-html
-   "lq"  'org-ctrl-c-ctrl-c
-   "l <escape>" 'org-kill-note-or-show-branches
-   "l'" 'org-edit-src-code
-   "lx" 'org-archive-subtree)
+   "xt" '(:ignore t :which-key "time")
+   "xtt" '(:ignore t :which-key "insert timestamp")
+   "xtt" '(lambda () (interactive) (org-time-stamp (current-time)))
+   "xt(" 'org-clock-in
+   "xt)" 'org-clock-out
+   "xtq" 'org-clock-cancel
+   "xtg" 'org-clock-goto
+   "xv" '(:ignore t :which-key "view")
+   "xvl" 'org-toggle-latex-fragment
+   "xs" 'org-schedule
+   "xS" 'org-deadline
+   "xu" 'org-add-note ;;progress
+   "xa" 'org-attach
+   "xg" 'org-open-at-point
+   "xc" 'org-ctrl-c-ctrl-c
+   "xi" 'org-id-get-create
+   "x@" 'org-toggle-ordered-property
+   "xe" '(:ignore t :which-key "export")
+   "xel" 'org-export-dispatch
+   "xep" 'org-latex-export-to-pdf
+   "xeb" 'org-beamer-export-to-pdf
+   "xeh" 'org-html-export-to-html
+   "xq"  'org-ctrl-c-ctrl-c
+   "x <escape>" 'org-kill-note-or-show-branches
+   "x'" 'org-edit-src-code
+   "xx" 'org-archive-subtree)
 
   (general-define-key
    :keymaps 'org-src-mode-map
    :states '(normal visual)
-   "lq" 'org-edit-src-exit
-   "l <escape>" 'org-edit-src-abort)
+   "xq" 'org-edit-src-exit
+   "x <escape>" 'org-edit-src-abort)
 
   (setq org-modules '(org-bbdb org-bibtex org-crypt org-docview
 							   org-gnus org-habit org-id
@@ -193,8 +193,8 @@
   (general-define-key
    :keymaps 'org-capture-mode-map
    :states '(normal visual)
-   "l <escape>" 'org-capture-kill
-   "lq" 'org-capture-finalize)
+   "x <escape>" 'org-capture-kill
+   "xq" 'org-capture-finalize)
 
   (setq
    org-capture-templates
@@ -294,22 +294,22 @@
 	"*%" 'org-agenda-bulk-mark-regexp
 	"*a" 'org-agenda-bulk-action
 	"*A" 'org-agenda-bulk-action
-	"lp" 'org-agenda-todo
-	"lk" 'org-agenda-kill
-	"l#" 'org-agenda-set-tags
-	"lu" 'org-agenda-add-note
-	"la" 'org-attach
-	"ls" 'org-agenda-schedule
-	"lS" 'org-agenda-deadline
-	"ld" 'org-agenda-date-prompt
-	"lg" 'org-agenda-open-link
-	"lt" 'nil
-	"lta" 'org-agenda-clock-in
-	"lti" 'org-agenda-clock-in
-	"ltq" 'org-agenda-clock-out
-	"ltx" 'org-agenda-clock-cancel
-	"ltg" 'org-agenda-clock-goto
-	"lx" 'org-agenda-archive)
+	"xp" 'org-agenda-todo
+	"xk" 'org-agenda-kill
+	"x#" 'org-agenda-set-tags
+	"xu" 'org-agenda-add-note
+	"xa" 'org-attach
+	"xs" 'org-agenda-schedule
+	"xS" 'org-agenda-deadline
+	"xd" 'org-agenda-date-prompt
+	"xg" 'org-agenda-open-link
+	"xt" 'nil
+	"xta" 'org-agenda-clock-in
+	"xti" 'org-agenda-clock-in
+	"xtq" 'org-agenda-clock-out
+	"xtx" 'org-agenda-clock-cancel
+	"xtg" 'org-agenda-clock-goto
+	"xx" 'org-agenda-archive)
 
   (setq org-agenda-skip-deadline-if-done t
 		org-agenda-tags-column 0
