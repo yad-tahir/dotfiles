@@ -62,6 +62,7 @@
 	"tool/git"
 	"tool/calculator"
 	"tool/search"
+	"tool/browser"
 	"tool/license")
 
 (do-modules-load t)

@@ -54,66 +54,15 @@
    :states '(normal visual)
    "l <return>" 'google-this))
 
-(use-package eww
-  :defer t
-  :commands (eww-browse-url)
-  :init
-  (general-define-key
+(general-define-key
    :states '(normal visual)
    "lw" 'define-wiki)
 
-  (evil-define-operator define-wiki (beginning end)
+(evil-define-operator define-wiki (beginning end)
 	"Get Wiki summary for the words between BEGINNING END."
 	:move-point nil
+	(require 'eww)
 	(eww-browse-url
 	 (format
 	  "https://en.wikipedia.org/wiki/Special:Search/?search=%s&sourceid=emacs"
 	  (buffer-substring-no-properties beginning end))))
-
-  :config
-  (general-define-key
-   :states '(normal visual)
-   :maps 'eww-mode-map
-   "xo" 'eww-browse-with-external-browser
-   "<f5>" 'eww-reload)
-
-  (set-face-attribute 'eww-valid-certificate nil
-					  :inherit 'diff-added
-					  :background 'nil
-					  :foreground 'nil
-					  :box 'nil)
-  (set-face-attribute 'eww-invalid-certificate nil
-					  :inherit 'diff-refine-removed
-					  :background 'nil
-					  :foreground 'nil
-					  :box 'nil)
-  (set-face-attribute 'eww-form-submit nil
-					  :inherit 'widget-button
-					  :background 'nil
-					  :foreground 'nil
-					  :box 'nil)
-  (set-face-attribute 'eww-form-checkbox nil
-					  :inherit 'widget-button
-					  :background 'nil
-					  :foreground 'nil
-					  :box 'nil)
-  (set-face-attribute 'eww-form-select nil
-					  :inherit 'widget-button
-					  :background 'nil
-					  :foreground 'nil
-					  :box 'nil)
-  (set-face-attribute 'eww-form-file nil
-					  :inherit 'widget-button
-					  :background 'nil
-					  :foreground 'nil
-					  :box 'nil)
-  (set-face-attribute 'eww-form-text nil
-					  :inherit 'widget-single-line-field
-					  :background 'nil
-					  :foreground 'nil
-					  :box 'nil)
-  (set-face-attribute 'eww-form-textarea nil
-					  :inherit 'widget-field
-					  :background 'nil
-					  :foreground 'nil
-					  :box 'nil))
