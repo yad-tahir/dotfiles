@@ -231,6 +231,12 @@
    "q" 'with-editor-finish
    "<escape>" 'with-editor-cancel)
 
+  (general-define-key
+   :keymaps 'button-map
+   "<return>" 'push-button
+   "<space>" 'push-button
+   "<mouse-1>" 'push-button)
+
   ;; Minimize keymaps overriding
   (setq evil-overriding-maps nil
 		evil-want-integration nil

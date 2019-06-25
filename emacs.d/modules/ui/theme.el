@@ -136,7 +136,7 @@
  `(header-line ((t (:inherit lazy-highlight))))
  `(link ((t (:inherit highlight :underline nil))))
  `(link-visited ((t (:foreground ,chocolate-theme-element+8))))
- `(button ((t (:inherit (link)))))
+ `(button ((t (:inherit (link) :underline t))))
  `(match ((t (:foreground ,chocolate-theme-bg
 						  :background ,chocolate-theme-highlight))))
  `(minibuffer-prompt ((t (:foreground ,chocolate-theme-highlight+1))))
@@ -158,6 +158,7 @@
  `(widget-documentation ((t (:foreground ,chocolate-theme-white+1))))
  `(widget-field ((t (:background ,chocolate-theme-shadow+3
 								 :foreground ,chocolate-theme-white+2))))
+ `(widget-button ((t (:inherit button))))
  `(widget-single-line-field ((t (:inherit widget-field))))
 
  ;; font-lock

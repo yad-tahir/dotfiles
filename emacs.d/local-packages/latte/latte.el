@@ -41,8 +41,6 @@
 ;;; Road Map and Hopes:
 ;;; - Remove the needs for s.el.
 ;;; - Add support for Helm
-;;; - Add Wikipedia integration; it would be cool if the user hover over the
-;;; keyword, notebook.el shows the wikipedia definition as a tool tip.
 ;;;
 
 ;; Load cl
