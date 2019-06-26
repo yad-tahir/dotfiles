@@ -171,8 +171,6 @@
    "f" 'magit-fetch
    "F" 'magit-pull
    "a" 'magit-log
-
-   "x"  '(:ignore t :which-key "go")
    "x$" 'magit-process-buffer
    "xA" 'magit-cherry-pick
    "xb" 'magit-branch

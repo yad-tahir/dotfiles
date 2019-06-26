@@ -44,11 +44,11 @@
   :hook ((prog-mode . flycheck-mode))
   :config
   (set-face-attribute 'flycheck-warning nil
-            :underline (list :color chocolate-theme-shadow+3 :style 'wave)))
+			:underline (list :color chocolate-theme-shadow+3 :style 'wave)))
 
   ;; display tips in popups
   ;;   (use-package flycheck-pos-tip
-  ;;   	:hook ((flycheck-mode . flycheck-pos-tip-mode)))
+  ;;	:hook ((flycheck-mode . flycheck-pos-tip-mode)))
 
 
 ;; (add-hook 'prog-mode-hook #'do--flycheck-init)

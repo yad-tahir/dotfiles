@@ -17,16 +17,13 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
+;; Remove compile warnings
+(cl-eval-when (compile)
+  (require 'ivy))
+
 (use-package ivy
-  ;; :hook ((after-init . ivy-mode))
-  :commands (ivy-mode)
   :demand t
   :ensure t
-  :preface
-  (declare-function ivy-switch-buffer nil)
-  (declare-function ivy-set-actions nil)
-  (declare-function ivy--regex-fuzzy nil)
-  (declare-function ivy-set-occur nil)
   :config
   ;; Basic settings
   (setq ivy-height 15
@@ -44,6 +41,7 @@
    :keymaps 'ivy-mode-map
    [remap ibuffer]          #'ivy-switch-buffer
    [remap switch-to-buffer]          #'ivy-switch-buffer)
+
   (general-define-key
    :keymaps 'ivy-switch-buffer-map
    "C-c " 'nil
@@ -62,7 +60,6 @@
    "<tab>" 'ivy-partial
    "M-<tab>" 'ivy-next-line-and-call
    "M-<return>" 'ivy-immediate-done
-   "S-<return>" 'ivy-immediate-done
    "C-<return>" 'ivy-dispatching-call
    "C-t" 'ivy-next-line
    "C-c" 'ivy-previous-line
@@ -80,7 +77,7 @@
    "C-a" 'backward-kill-word
    "C-i" 'kill-word
    "C-u" 'kill-line
-   "C-d" '(lambda()(interactive)(evil-ex))
+   "C-d" 'evil-ex
    "<escape>" 'do-evil-escape-abort
    "C-p" 'yank
    "C-k" 'describe-key)
@@ -226,21 +223,21 @@
 
   (setq counsel-ag-base-command "ag --hidden --nocolor --nogroup %s"
 		;; Add the '-uu' option to include hidden files
-		counsel-rg-base-command "rg -S --no-heading -uu --line-number --color never %s "
+		counsel-rg-base-command "rg -S --no-heading --line-number --color never %s "
 		;; Configure counsel-fzf to use rg instead.
 		counsel-fzf-dir-function 'counsel-fzf-dir-function-projectile
-		counsel-fzf-cmd "rg --color never --files -g \"*%s*\" ")
+		counsel-fzf-cmd "rg --color never --files -g *%s* ")
 
 	;;; Enable rg export by ignoring counsel's fzf internal processing.
   (defun do--counsel-fzf-occur ()
-  "Occur function for `counsel-fzf' to use 'ag' instead "
-  (cd counsel--fzf-dir)
-  (counsel-cmd-to-dired
-   (concat
-	(format counsel-fzf-cmd ivy-text)
-	;; The sed is required to change ' to \'. Otherwise, xargs will throw
-	;; exceptions when file names contain single quotes.
-	"| sed -e \"s/'/\\\\\\\\'/g\" | xargs -I {} ls -l ./{}")))
+	"Occur function for `counsel-fzf' to use 'ag' instead "
+	(cd counsel--fzf-dir)
+	(counsel-cmd-to-dired
+	 (concat
+	  (format counsel-fzf-cmd ivy-text)
+	  ;; The sed is required to change ' to \'. Otherwise, xargs will throw
+	  ;; exceptions when file names contain single quotes.
+	  "| sed -e \"s/'/\\\\\\\\'/g\" | xargs -I {} ls -l ./{}")))
   (ivy-set-occur 'counsel-fzf 'do--counsel-fzf-occur))
 
 

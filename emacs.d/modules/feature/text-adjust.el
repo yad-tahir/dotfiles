@@ -93,52 +93,6 @@
    "lsu" 'sp-splice-sexp
    "lsj" 'sp-join-sexp))
 
-;; (use-package evil-paredit
-;;	:disabled t
-;;	:ensure t
-;;	:hook ((prog-mode . evil-paredit-mode)
-;;		   (prog-mode . paredit-mode))
-;;	:config
-;;	;; Reset keymaps
-;;	(setf (cdr evil-paredit-mode-map) nil)
-
-;;	(general-define-key
-;;	 :keymaps 'evil-paredit-mode-map
-;;	 :states 'normal
-;;	 ;; Bindings for basic movements
-;;	 "lsn" 'paredit-forward-slurp-sexp
-;;	 "lsN" 'paredit-forward-barf-sexp
-;;	 "lsh" 'paredit-backward-slurp-sexp
-;;	 "lsh" 'paredit-backward-barf-sexp
-;;	 "M-n" 'paredit-forward-slurp-sexp
-;;	 "M-h" 'paredit-forward-barf-sexp
-;;	 "g M-h" 'paredit-backward-slurp-sexp
-;;	 "g M-H" 'paredit-backward-barf-sexp
-;;	 ;; Needed because we use 'u' instead of 'c'
-;;	 "c" nil
-;;	 "C" nil
-;;	 "u" 'evil-paredit-change
-;;	 "U" 'evil-paredit-change-line
-;;	 "d" 'evil-paredit-delete
-;;	 "D" 'evil-paredit-delete-line
-;;	 "lsu" 'evil-change
-;;	 "lsU" 'evil-change-line
-;;	 "lsd" 'evil-delete
-;;	 "lsD" 'evil-delete-line)
-
-;;	(general-define-key
-;;	 :keymaps 'evil-paredit-mode-map
-;;	 :states 'visual
-;;	 ;; Surrounding region
-;;	 "ls(" 'paredit-wrap-round
-;;	 "ls)" 'paredit-wrap-round
-;;	 "ls]" 'paredit-wrap-square
-;;	 "ls[" 'paredit-wrap-square
-;;	 "ls{" 'paredit-wrap-curly
-;;	 "ls}" 'paredit-wrap-curly
-;;	 "ls>" 'paredit-wrap-angled
-;;	 "ls<" 'paredit-wrap-angled))
-
 (use-package expand-region
   :ensure t
   :commands (er/expand-region)
@@ -153,8 +107,7 @@
   :init
   (general-define-key
    :states '(normal visual)
-   "gk" 'evilnc-comment-operator
-   "l;" 'evilnc-comment-operator))
+   "lc" 'evilnc-comment-operator))
 
 (use-package evil-lion
   :defer t

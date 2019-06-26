@@ -51,8 +51,8 @@
 
   :config
   (set-face-attribute 'macrostep-expansion-highlight-face nil
-					  :background "#2f0a0a")
-  )
+					  :background "#2f0a0a"))
+
 
 (with-eval-after-load 'flycheck
   (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc)))

@@ -136,6 +136,12 @@
    "=" 'do-evil-indent
    "g=" 'evil-indent
 
+   "SPC l" '(:ignore t :which-key "local")
+   ;; Redirect SPC l to x keybindings
+   "SPC l" '(lambda ()
+			  (interactive)
+			  (setq unread-command-events (listify-key-sequence "x")))
+
    "][" 'evil-forward-section-begin
    "]]" 'evil-forward-section-end
    "[[" 'evil-backward-section-begin
