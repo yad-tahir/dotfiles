@@ -15,3 +15,4 @@ emacs.d/transient
 emacs.d/auto-save-list
 emacs.d/eshell
 emacs.d/recentf
+emacs.d/url
