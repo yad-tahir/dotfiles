@@ -17,18 +17,17 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
+;; To silent warnings
+(cl-eval-when (compile)
+  (require 'company-dabbrev)
+  (require 'company-dabbrev-code))
+
 (use-package company
   :ensure t
   :defer 10
   :hook ((find-file . company-mode))
-  :preface
-  (declare-function do--company-load nil)
-  :config
-  ;; To silent warnings
-  (cl-eval-when (compile)
-	(require 'company-dabbrev)
-	(require 'company-dabbrev-code))
 
+  :config
   ;; Key bindings
   (general-define-key
    :keymaps 'company-active-map
@@ -52,8 +51,10 @@
 
   (setq company-idle-delay nil
 		company-minimum-prefix-length 1
+		company-prefix nil
+		company-auto-complete nil ;; To avoid selecting an item using SPC
 		company-search-filtering t
-		company-tooltip-limit 12
+		company-tooltip-limit 15
 		company-dabbrev-downcase nil
 		company-dabbrev-ignore-case t
 		company-dabbrev-code-other-buffers t
@@ -61,19 +62,17 @@
 		company-require-match 'never
 		company-global-modes '(not eshell-mode shell-mode term-mode erc-mode
 								   message-mode help-mode gud-mode)
-		company-frontends '(
-							;; company-tng-frontend
-							;; company-preview-frontend
+		company-frontends '(;; company-tng-frontend
 							company-preview-if-just-one-frontend
 							company-pseudo-tooltip-frontend
 							company-echo-metadata-frontend))
 
-  ;; The order is important. Here are the lowest
+  ;; Default backends
   (setq company-backends
-  		'(company-files
-  		  company-capf ;; provides a bridge to the standard
-  						;; completion at point facility
-   	  ))
+		'((company-capf company-files company-dabbrev company-ispell)
+		  (company-dabbrev-code company-gtags company-etags company-keywords)
+		  company-oddmuse
+		  company-dabbrev))
 
   (set-face-attribute 'company-scrollbar-bg nil
 					  :background chocolate-theme-shadow+1)
@@ -118,26 +117,15 @@
 					  :foreground chocolate-theme-bg
 					  :background chocolate-theme-highlight+2))
 
-;; (use-package company-box
-;; 	:hook ((company-mode . company-box-mode))
-;; 	:init
-;; 	(company-box-mode 1)
-;; 	:config
-;; 	(setq company-box-max-candidates 20)
-;; 	(set-face-attribute 'company-box-candidate nil
-;; 						:foreground chocolate-theme-highlight+2)
-;; 	;; no scrollbar please
-;; 	(advice-add 'company-box--update-scrollbar :around #'ignore))
-
 (use-package company-flx
-  :after (company)
   :ensure t
+  :after (company)
   :config
-  (company-flx-mode +1))
+  (company-flx-mode 1))
 
 (use-package company-statistics
-  :after (company)
   :ensure t
+  :after (company)
   :config
   (setq company-statistics-file
 		(concat "~/.emacs.d/.cache/" "company-stats-cache.el")))
@@ -149,6 +137,7 @@
   (setq company-quickhelp-delay nil
 		company-quickhelp-color-foreground chocolate-theme-white+2
 		company-quickhelp-color-background chocolate-theme-shadow+3)
+
   (general-define-key
    :keymaps 'company-active-map
    "C-h" 'company-quickhelp-manual-begin))

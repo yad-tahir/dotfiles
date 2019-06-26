@@ -23,7 +23,19 @@
 	(require 'company))
   (with-eval-after-load 'company
 	(set (make-local-variable 'company-backends)
-		 (add-to-list 'company-backends 'company-elisp t))))
+		 (add-to-list 'company-backends
+					  '(;; Highest priority
+						company-semantic
+						company-capf
+						company-files
+						;; Current mode
+						company-elisp
+						;; Lowest priority - keep the ordering
+						company-keywords
+						company-dabbrev-code
+						company-dabbrev
+						company-ispell)
+					  nil))))
 
 (add-hook 'emacs-lisp-mode-hook #'do--elisp-init())
 

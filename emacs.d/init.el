@@ -46,7 +46,7 @@
 	"feature/operator"
 	"feature/macro"
 
-	"lang/text"
+	;; "lang/text" - no need to load as it is currently empty
 	"lang/org"
 	"lang/prog"
 	"lang/elisp"

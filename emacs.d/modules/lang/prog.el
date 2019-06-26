@@ -27,12 +27,6 @@
   (cl-eval-when (compile)
 	(require 'company)
 	(require 'whitespace))
-  (with-eval-after-load 'company
-	(set (make-local-variable 'company-backends)
-		 (add-to-list 'company-backends
-					  '(company-keywords
-						company-dabbrev-code
-						company-dabbrev) t)))
 
   (eldoc-mode 1)
   (with-eval-after-load 'whitespace
