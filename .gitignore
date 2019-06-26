@@ -7,6 +7,7 @@
 *.lsp-session-*
 
 emacs.d/%backup%*~
+emacs.d/bookmarks
 emacs.d/projectile-bookmarks.eld
 emacs.d/smex-items
 emacs.d/packages
