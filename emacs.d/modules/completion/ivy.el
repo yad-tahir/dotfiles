@@ -17,7 +17,6 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
-
 (use-package ivy
   ;; :hook ((after-init . ivy-mode))
   :commands (ivy-mode)
@@ -155,56 +154,6 @@
 ;;; Third-party packages
 ;;;
 
-(use-package projectile
-  :ensure t
-  :after (counsel)
-  :commands (projectile-mode)
-  :config
-  ;; Basic settings
-  (setq projectile-enable-caching nil ;; no caching please. It is too slow!
-		projectile-indexing-method 'alien
-		projectile-completion-system 'ivy
-		;; projectile-require-project-root nil ;; will be selected later by git
-		)
-  ;; Key bindings
-  (general-define-key
-   :keymaps 'projectile-mode-map
-   :states 'normal
-   "SPC sr" 'projectile-replace)
-
-  (general-define-key
-   :keymaps 'projectile-mode-map
-   :states 'normal
-   :prefix "SPC p"
-   "" '(:ignore t :which-key "project")
-   "g" '(:ignore t :which-key "go")
-   "gf" 'projectile-find-file-other-window
-   "gd" 'projectile-find-dir-other-window
-   "gw" 'projectile-find-file-dwim-other-window
-   "gp" 'projectile-find-file-in-known-projects
-   "g@" 'projectile-find-tag
-   "!" '(:ignore t :which-key "shell")
-   "!e" 'projectile-run-eshell
-   "!t" 'projectile-run-term
-   "!s" 'projectile-run-shell
-   "!~" 'projectile-run-shell-command-in-root
-   "!!" 'projectile-run-async-shell-command-in-root
-   "<left>" 'projectile-previous-project-buffer
-   "<right>" 'projectile-next-project-buffer
-   "q" 'projectile-kill-buffers
-   "w" 'projectile-save-project-buffers
-   "r" 'projectile-replace
-   "l" 'projectile-recentf
-   "p" 'projectile-switch-project
-   "@" 'projectile-regenerate-tags
-   "u" 'projectile-run-project
-   "U" 'projectile-compile-project
-   "t" 'projectile-test-project
-   "T" 'projectile-toggle-between-implementation-and-test
-   "v" 'projectile-vc
-   "V" 'projectile-browse-dirty-projects
-   "c" 'projectile-cache-current-file
-   "C" 'projectile-invalidate-cache))
 
 (use-package counsel
   ;; @SPEED: Un-comment to improve startup time

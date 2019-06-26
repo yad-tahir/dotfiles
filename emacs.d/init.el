@@ -34,6 +34,7 @@
 	"completion/snippets"
 
 	"feature/scratches"
+	"feature/project"
 	"feature/text-adjust"
 	"feature/spell-checker"
 	"feature/string"
