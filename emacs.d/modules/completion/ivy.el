@@ -222,11 +222,10 @@
   (projectile-mode 1)
 
   (setq counsel-ag-base-command "ag --hidden --nocolor --nogroup %s"
-		;; Add the '-uu' option to include hidden files
-		counsel-rg-base-command "rg -S --no-heading --line-number --color never %s "
+		counsel-rg-base-command "rg -S --no-binary --no-heading --line-number -uu --color never %s "
 		;; Configure counsel-fzf to use rg instead.
 		counsel-fzf-dir-function 'counsel-fzf-dir-function-projectile
-		counsel-fzf-cmd "rg --color never --files -g *%s* ")
+		counsel-fzf-cmd "rg --color never -uu --files -g '*%s*' ")
 
 	;;; Enable rg export by ignoring counsel's fzf internal processing.
   (defun do--counsel-fzf-occur ()
