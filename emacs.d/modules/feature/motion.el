@@ -112,3 +112,8 @@
 					  :background nil
 					  :foreground nil
 					  :inherit 'diff-nonexistent))
+
+;; Adjust some properties to make them more useful with the 'delete' and
+;; 'change' operators
+(evil-put-command-property 'evil-previous-line-first-non-blank :type 'exclusive)
+(evil-put-command-property 'evil-next-line-first-non-blank :type 'exclusive)

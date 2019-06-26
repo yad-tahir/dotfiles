@@ -65,7 +65,9 @@
 (evil-define-operator do-evil-narrow (beginning end)
   "Ask for a motion and move backward."
   (narrow-to-region beginning end))
-;; Adjust some properties to make them more useful with the 'delete' and
-;; 'change' operators
-(evil-put-command-property 'evil-previous-line-first-non-blank :type 'exclusive)
-(evil-put-command-property 'evil-next-line-first-non-blank :type 'exclusive)
+
+(evil-define-operator do-evil-indent (beginning end)
+  "Indent current defun."
+  :motion do-evil-a-section
+  :move-point nil
+  (evil-indent beginning end))

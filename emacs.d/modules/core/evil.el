@@ -133,6 +133,9 @@
    "M-z" 'undo-tree-visualize
    "Z" 'undo-tree-visualize
 
+   "=" 'do-evil-indent
+   "g=" 'evil-indent
+
    "][" 'evil-forward-section-begin
    "]]" 'evil-forward-section-end
    "[[" 'evil-backward-section-begin
