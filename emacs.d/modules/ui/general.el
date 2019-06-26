@@ -24,10 +24,10 @@
 	  ;; Windows/Frames
 	  frame-inhibit-implied-resize t
 	  highlight-nonselected-windows nil
-	  max-mini-window-height 0.3
-	  resize-mini-windows 'fit  ; Minibuffer resizing
-	  use-dialog-box nil ; always avoid GUI
+	  use-dialog-box nil ;; avoid GUI
 	  auto-window-vscroll nil
+	  max-mini-window-height 0.35
+	  resize-mini-windows t
 
 	  ;; Files
 	  delete-old-versions -1

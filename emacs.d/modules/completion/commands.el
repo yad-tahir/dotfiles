@@ -20,8 +20,25 @@
 
 (use-package which-key
   :ensure t
-  :defer 3
   :config
-  (which-key-mode 1)
-  (setq which-key-allow-evil-operators t))
+  (general-define-key
+   :keymaps 'override
+   :states '(normal visual)
+   "<f1> B" 'which-key-show-top-level ;; current active keybindings
+   "<f1> \\" 'which-key-show-keymap ;; any keymaps
+   )
 
+  (general-define-key
+   :keymaps 'which-key-C-h-map
+   "<escape>" 'which-key-abort
+   "d" 'which-key-toggle-docstrings
+   "<tab>" 'which-key-show-next-page-cycle
+   "n" 'which-key-show-next-page-cycle
+   "h" 'which-key-show-previous-page-cycle
+   "z" 'which-key-undo-key)
+
+  (setq which-key-allow-evil-operators t
+		which-key-popup-type 'side-window
+		which-key-side-window-max-height max-mini-window-height)
+
+  (which-key-mode 1))
