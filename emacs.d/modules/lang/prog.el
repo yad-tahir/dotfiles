@@ -57,3 +57,12 @@
 ;;   :hook ((prog-mode . highlight-indent-guides-mode))
 ;;   :config
 ;;   (setq highlight-indent-guides-method 'character))
+
+(use-package lsp-mode
+  :commands (lsp lsp-deferred lsp-mode)
+  :ensure t)
+
+(use-package lsp-ui
+  :disabled t
+  :ensure t
+  :hook ((lsp-mode . lsp-ui-mode)))

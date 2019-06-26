@@ -18,6 +18,7 @@
 ;; 02110-1301, USA.
 
 (use-package eclim
+  :disabled t
   :hook ((java-mode-hook . eclim-mode))
   :init
   (custom-set-variables '(eclim-eclipse-dirs '("/usr/lib/eclipse"))
@@ -26,8 +27,14 @@
   :config
   (setq eclim-autostart t))
 
-  (use-package company-emacs-eclim
+(use-package company-emacs-eclim
+	:disabled t
 	:after (:all company eclim)
 	:ensure t
 	:config
 	(company-emacs-eclim-setup))
+
+
+(use-package lsp-java
+  :after (lsp-mode)
+  :ensure t)

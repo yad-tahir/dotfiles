@@ -141,3 +141,10 @@
   (general-define-key
    :keymaps 'company-active-map
    "C-h" 'company-quickhelp-manual-begin))
+
+;; Language server client as a company-backend
+(use-package company-lsp
+  :ensure t
+  :commands (company-lsp)
+  :config
+  (setq company-lsp-enable-snippet nil))

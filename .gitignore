@@ -4,6 +4,7 @@
 *.el~
 *#*#
 *shadow
+*.lsp-session-*
 
 emacs.d/%backup%*~
 emacs.d/projectile-bookmarks.eld
@@ -16,3 +17,5 @@ emacs.d/auto-save-list
 emacs.d/eshell
 emacs.d/recentf
 emacs.d/url
+emacs.d/workspace
+emacs.d/eclipse.jdt.*
