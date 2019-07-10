@@ -17,29 +17,15 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
+# A small script shows the number of hours left in my life. This script is handy
+# to keep me focus and boost my productivity on a daily basis! Thus, ideally you
+# want to run this script once a day.
 
-# Place environment settings, since it gets executed
-# automatically by the DisplayManager during the start-up process
-# desktop session as well as by the login shell when one logs in from
-# the textual console
+target=$(date -d "2049-11-06" +%s)
+current=$(date +%s)
+diff=$(($target-$current))
+# Remove minutes and seconds
+hours=$(($diff/(60*60)))
 
-
-# Shortcut commands
-alias ls='ls -ali'
-alias s="sudo su"
-alias e="emacs"
-alias ec="emacsclient -cn"
-alias firefox="firefox-developer-edition"
-alias pacman-history="expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -n 100"
-alias pacman-unused='pacman -Qtdq'
-alias kweb='sudo -u yad -g no_net KeeWeb'
-alias cleaor='clear'
-
-# Other variables
-source ~/bin/settings.sh
-
-# Adjust the path
-PATH="~/bin:${PATH}"
-
-life
-echo ''
+#Print with a fancy font
+/usr/bin/figlet $hours -f bubble
