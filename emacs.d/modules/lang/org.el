@@ -122,10 +122,7 @@
 		;; Ordered tasks
 		org-track-ordered-property-with-tag t ;; Add :ORDER:
 		org-enforce-todo-checkbox-dependencies t ;; Don't allow the super task
-												 ;; to close without completing
-												 ;; all the sub checklists
 		org-enforce-todo-dependencies t ;; Don't allow the super task to close
-										;; without closing its sub tasks
 		org-habit-graph-column 60)
 
   ;; (add-hook 'org-mode-hook
@@ -168,11 +165,38 @@
   (set-face-attribute 'org-todo nil
 					  :foreground chocolate-theme-element)
   (set-face-attribute 'org-table nil
-					  :foreground chocolate-theme-element+9)
+					  :foreground chocolate-theme-element+11)
+  (set-face-attribute 'org-priority nil
+					  :foreground chocolate-theme-element+10)
   (set-face-attribute 'org-scheduled-today nil
 					  :foreground chocolate-theme-white)
   (set-face-attribute 'org-scheduled nil
-					  :foreground chocolate-theme-white))
+					  :foreground chocolate-theme-white)
+  (with-eval-after-load 'org-habit
+	(set-face-attribute 'org-habit-alert-face nil
+						:foreground chocolate-theme-bg
+						:background chocolate-theme-highlight+2)
+	(set-face-attribute 'org-habit-alert-future-face nil
+						:foreground chocolate-theme-bg
+						:background chocolate-theme-highlight+3)
+	(set-face-attribute 'org-habit-clear-face nil
+						:foreground chocolate-theme-white
+						:background chocolate-theme-shadow+3)
+	(set-face-attribute 'org-habit-clear-future-face nil
+						:foreground chocolate-theme-white
+						:background chocolate-theme-shadow)
+	(set-face-attribute 'org-habit-overdue-face nil
+						:foreground chocolate-theme-bg
+						:background chocolate-theme-highlight)
+	(set-face-attribute 'org-habit-overdue-future-face nil
+						:foreground chocolate-theme-bg
+						:background chocolate-theme-highlight+1)
+	(set-face-attribute 'org-habit-ready-face nil
+						:foreground chocolate-theme-bg
+						:background chocolate-theme-element)
+	(set-face-attribute 'org-habit-ready-future-face nil
+						:foreground chocolate-theme-bg
+						:background chocolate-theme-element+1)))
 
 (use-package org-capture
   :commands (org-capture)
@@ -332,6 +356,8 @@
   (set-face-attribute 'org-agenda-done nil :foreground chocolate-theme-white+2)
   (set-face-attribute 'org-agenda-date-today nil
 					  :foreground chocolate-theme-element+4)
+  (set-face-attribute 'org-agenda-date nil
+					  :foreground chocolate-theme-white+1)
   (set-face-attribute 'org-agenda-structure nil
 					  :foreground chocolate-theme-highlight+2))
 

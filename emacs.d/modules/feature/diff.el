@@ -29,17 +29,17 @@
    "C" 'diff-hl-previous-hunk)
 
   (set-face-attribute 'diff-hl-change nil
-					  :foreground nil
+					  :foreground 'nil
 					  :inherit 'diff-changed
 					  :background chocolate-theme-highlight+2)
 
   (set-face-attribute 'diff-hl-insert nil
-					  :foreground nil
+					  :foreground 'nil
 					  :inherit 'diff-added
 					  :background chocolate-theme-element)
 
   (set-face-attribute 'diff-hl-delete nil
-					  :foreground nil
+					  :foreground 'nil
 					  :inherit 'diff-removed
 					  :background chocolate-theme-highlight)
 

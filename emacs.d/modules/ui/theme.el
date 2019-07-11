@@ -34,7 +34,7 @@
   "Palette - foreground class 4"
   :type 'string :group 'chocolate-theme)
 
-(defcustom chocolate-theme-shadow "#39250f"
+(defcustom chocolate-theme-shadow "#403333"
   "Palette - default shadow"
   :type 'string :group 'chocolate-theme)
 (defcustom chocolate-theme-shadow+1 "#392626"
@@ -129,10 +129,11 @@
  `(error ((t (:background nil :foreground ,chocolate-theme-highlight
 						  :weight bold))))
  `(highlight ((t (:foreground ,chocolate-theme-element+4 :underline t))))
- `(region ((t (:background ,chocolate-theme-shadow))))
+ `(region ((t (:background ,chocolate-theme-shadow :foreground nil))))
  `(secondary-selection ((t (:background ,chocolate-theme-shadow))))
  `(lazy-highlight ((t (:inherit secondary-selection
-								:foreground ,chocolate-theme-highlight+2))))
+								:background ,chocolate-theme-shadow+3
+								:foreground ,chocolate-theme-white))))
  `(header-line ((t (:inherit lazy-highlight))))
  `(link ((t (:inherit highlight :underline nil))))
  `(link-visited ((t (:foreground ,chocolate-theme-element+8))))
@@ -206,7 +207,7 @@
 									   :weight light :inherit mode-line))))
 
  ;; isearch
- `(isearch ((t (:inherit region :foreground ,chocolate-theme-highlight+1))))
+ `(isearch ((t (:inherit lazy-highlight :foreground ,chocolate-theme-highlight))))
  `(isearch-fail ((t (:background ,chocolate-theme-highlight))))
 
  ;; diff
