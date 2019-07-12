@@ -233,7 +233,7 @@ occur after END. A value of nil means search from '(point-max)'."
 		(let ((w nil)
 			  (old-w nil)
 			  (older-w nil)
-			  (pure-w nil))
+			  (pure-pharse nil))
 		  ;; For each word
 		  (forward-word)
 		  (while (< (point) (point-max))
@@ -269,37 +269,50 @@ occur after END. A value of nil means search from '(point-max)'."
 						 (not (nth 4 (syntax-ppss))))
 
 			  (let* ((meta-end 0)
-					 (found nil))
+					 (keyword nil)
+					 (w-choped-s nil)
+					 (w-choped-es nil))
 
 				(setq older-w old-w
 					  old-w w
-					  w (s-downcase(format "%s" (word-at-point))))
+					  w (s-downcase(format "%s" (word-at-point)))
+					  w-chopped-s (s-chop-suffix "s" w)
+					  w-chopped-es (s-chop-suffix "es" w))
 
 				;; Search for a keyword, which can be either:
 				;; - A phrase that consists of two or three words.
 				;; - A single word (may be even in a plural form)
-				(setq pure-w (or (latte--phrase-checker
-								  (concat older-w " " old-w " " w))
-								 (latte--phrase-checker (concat old-w " " w))
-								 (latte--phrase-checker (s-chop-suffix "es" w))
-								 (latte--phrase-checker (s-chop-suffix "s" w))
-								 (latte--phrase-checker w))
-					  found pure-w)
+				(cond
+				 ((setq pure-pharse (or
+									 (latte--phrase-checker
+									  (concat older-w " " old-w " " w-chopped-es))
+									 (latte--phrase-checker
+									  (concat older-w " " old-w " " w-chopped-s))
+									 (latte--phrase-checker
+									  (concat older-w " " old-w " " w))))
+				  (setq keyword (concat older-w " " old-w " " w)))
 
-				;; If we are chopping chars
-				(when (and found
-						   (< (length found) (length w)))
-				  ;; Use the word found the the buffer to avoid highlighting
-				  ;; less characters
-				  (setq found w))
+				 ((setq pure-pharse (or
+									 (latte--phrase-checker
+									  (concat " " old-w " " w-chopped-es))
+									 (latte--phrase-checker
+									  (concat old-w " " w-chopped-s))
+									 (latte--phrase-checker
+									  (concat old-w " " w))))
+				  (setq keyword (concat old-w " " w)))
 
-				(when found
-				  (let* ((keyword found)
-						 (l (length keyword))
+				 ((setq pure-pharse (or
+									 (latte--phrase-checker w-chopped-es)
+									 (latte--phrase-checker w-chopped-s)
+									 (latte--phrase-checker w)))
+				  (setq keyword w)))
+
+				(when keyword
+				  (let* ((l (length keyword))
 						 (beginning (- (point) l))
 						 (end  (point)))
 
-					(unless (latte--overlay-exists pure-w beginning end)
+					(unless (latte--overlay-exists pure-pharse beginning end)
 					  (let ((o (make-overlay beginning end)))
 						(overlay-put o 'face 'latte-keyword-face)
 						;; On text modification under the overlay
@@ -316,7 +329,7 @@ occur after END. A value of nil means search from '(point-max)'."
 						(overlay-put o 'mouse-face 'highlight)
 						;; The word under POINT may not exist in
 						;; latte--keywords. Use the founded phrase instead.
-						(overlay-put o 'latte-keyword pure-w)
+						(overlay-put o 'latte-keyword pure-pharse)
 
 						;; The priority is calculated based on the number of the
 						;; characters. Thus, the overlays of longer phrases are
@@ -446,7 +459,7 @@ This function launches an shell process to go through the note files in the
 		  ;; Reset and reconstruct
 		  latte--keywords (make-hash-table :test 'equal))
 
-	(let* ((cmd (concat "rg --no-trim --no-messages --no-filename --only-matching "
+	(let* ((cmd (concat "rg --no-trim --no-line-number --color never --no-line-buffered --no-messages --no-filename --only-matching "
 					  " -t org '^[\\*].+[:].+[:]$' "
 					  latte-directory))
 		   (proc (start-process-shell-command
