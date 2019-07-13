@@ -40,7 +40,7 @@
   :config
   (general-define-key
    :keymaps 'hs-minor-mode-map
-   :states '(normal visual)
+   :states 'normal
    "<tab>" 'hs-toggle-hiding))
 
 (use-package rainbow-mode

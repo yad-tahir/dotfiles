@@ -30,42 +30,35 @@
 
 (use-package evil-surround
   :ensure t
-  :commands (evil-surround-edit
+  :commands (evil-surround-region
 			 evil-surround-change
-			 evil-surround-region
 			 evil-surround-delete)
   :init
   (general-define-key
-   :states 'normal
-   "s" '(:ignore t :which-key "surround")
-   "ss" 'evil-surround-edit
-   "su" 'evil-surround-change
-   "sd" 'evil-surround-delete)
-
-  (general-define-key
-   :states 'visual
+   :states '(normal visual)
    "s" '(:ignore t :which-key "surround")
    "ss" 'evil-surround-region
+   "sS" 'evil-Surround-region
    "su" 'evil-surround-change
    "sd" 'evil-surround-delete)
   :config
   ;; Eliminate extra space between pairs
-  (setq evil-surround-pairs-alist
-		'((?\( . ("(" . ")"))
-		  (?\[ . ("[" . "]"))
-		  (?\{ . ("{" . "}"))
+  (setq-default evil-surround-pairs-alist
+				'((?\( . ("(" . ")"))
+				  (?\[ . ("[" . "]"))
+				  (?\{ . ("{" . "}"))
 
-		  (?\) . ("(" . ")"))
-		  (?\] . ("[" . "]"))
-		  (?\} . ("{" . "}"))
+				  (?\) . ("(" . ")"))
+				  (?\] . ("[" . "]"))
+				  (?\} . ("{" . "}"))
 
-		  (?# . ("#{" . "}"))
-		  (?b . ("(" . ")"))
-		  (?B . ("{" . "}"))
-		  (?> . ("<" . ">"))
-		  (?t . evil-surround-read-tag)
-		  (?< . evil-surround-read-tag)
-		  (?f . evil-surround-function))))
+				  (?# . ("#{" . "}"))
+				  (?b . ("(" . ")"))
+				  (?B . ("{" . "}"))
+				  (?> . ("<" . ">"))
+				  (?t . evil-surround-read-tag)
+				  (?< . evil-surround-read-tag)
+				  (?f . evil-surround-function))))
 
 (use-package smartparens
   :ensure t
@@ -99,7 +92,7 @@
   :init
   (general-define-key
    :states 'visual
-   "<return>" 'er/expand-region))
+   "<tab>" 'er/expand-region))
 
 (use-package evil-nerd-commenter
   :ensure t
@@ -107,7 +100,8 @@
   :init
   (general-define-key
    :states '(normal visual)
-   "lc" 'evilnc-comment-operator))
+   "lc" 'evilnc-comment-operator
+   "x" 'evilnc-comment-operator))
 
 (use-package evil-lion
   :defer t
@@ -155,10 +149,3 @@
 ;; (use-package aggressive-indent
 ;;   :hook ((prog-mode . aggressive-indent-mode)
 ;;		 (text-mode . aggressive-indent-mode)))
-
-;; (use-package fold-this
-;;   :commands 'fold-active-region-all
-;;   :init
-;;   (general-define-key
-;;    :states 'visual
-;;    "." #'fold-active-region-all))
