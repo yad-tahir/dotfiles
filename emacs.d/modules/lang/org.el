@@ -125,12 +125,11 @@
 		org-enforce-todo-dependencies t ;; Don't allow the super task to close
 		org-habit-graph-column 60)
 
-  ;; (add-hook 'org-mode-hook
-  ;;		  '(lambda ()
-  ;;			 (with-eval-after-load 'company
-  ;;			   (set (make-local-variable 'company-backends)
-  ;;					(append  company-backends
-  ;;							 '((company-ispell company-dabbrev)))))))
+  ;; Open in a current window instead of a new frame
+  ;; Source: https://bit.ly/2WX44mj
+  (define-advice org-attach (:around (org-fn &rest args))
+	(let ((display-buffer-overriding-action '(display-buffer-same-window)))
+	  (apply org-fn args)))
 
   ;; Theme
   (custom-set-variables
@@ -341,17 +340,15 @@
 		org-agenda-weekend-days '(5 6)
 		org-agenda-start-on-weekday 0
 		org-agenda-use-time-grid nil
-		;;a closing time stamp
 		org-agenda-files (append
 						  (file-expand-wildcards "~/notes/*.org")
 						  (file-expand-wildcards "~/notes/archive/*.org")))
 
   ;; Open in a frame instead of a sub-window
   ;; Source: https://bit.ly/2WX44mj
-  (define-advice org-agenda-list (:around (orig-fn &rest args))
-  (cl-letf (((symbol-function 'switch-to-buffer-other-window)
-			 (symbol-function 'switch-to-buffer-other-frame)))
-	(apply orig-fn args)))
+  (define-advice org-agenda-list (:around (org-fn &rest args))
+	(let ((display-buffer-overriding-action '(display-buffer-pop-up-frame)))
+	  (apply org-fn args)))
 
   (set-face-attribute 'org-agenda-done nil :foreground chocolate-theme-white+2)
   (set-face-attribute 'org-agenda-date-today nil
