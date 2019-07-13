@@ -115,7 +115,8 @@
 
  ;; Avoid setting the height property as it can cause font-scaling, hence adding
  ;; delay to startup time. Set the font size in the .Xresource file instead.
- `(default ((t (:foreground ,chocolate-theme-white :background ,chocolate-theme-bg
+ `(default ((t (:foreground ,chocolate-theme-white
+							:background ,chocolate-theme-bg
 							:weight normal :slant normal
 							:underline nil :overline nil
 							:strike-through nil :box nil

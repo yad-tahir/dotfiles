@@ -42,4 +42,5 @@ source ~/bin/settings.sh
 PATH="~/bin:${PATH}"
 
 life
+
 echo ''

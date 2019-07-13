@@ -28,10 +28,9 @@
 [[ $DISPLAY ]] && shopt -s checkwinsize
 
 # start bash completion
-[ -r /usr/share/bash-completion/bash_completion   ] &&
+[ -r /usr/share/bash-completion/bash_completion ] &&
 	. /usr/share/bash-completion/bash_completion
 
-
-# welcome screen
-# neofetch
 systemctl list-units -t service --failed --quiet --no-pager
+
+echo ''

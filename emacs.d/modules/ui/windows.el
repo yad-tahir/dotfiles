@@ -83,14 +83,16 @@ The third optional argument PROPS indicates the properties of the frame"
 
 (setq-default frame-title-format
 			  '(:eval (format "%s %s - %3d%%%%" (buffer-name)
-									   (cond
-										(buffer-file-truename
-										 (concat "(" buffer-file-truename ")"))
-										(dired-directory
-										 (concat "(" dired-directory ")"))
-										(t ""))
-									   (/ (line-number-at-pos) 0.01 (line-number-at-pos (point-max)))
-									   ))
+							  (cond
+							   (buffer-file-truename
+								(concat "(" buffer-file-truename ")"))
+							   (dired-directory
+								(concat "(" dired-directory ")"))
+							   (t ""))
+							  (/ (line-number-at-pos)
+								 0.01
+								 (line-number-at-pos (point-max)))))
+			  ;; Use new frames as much as possible
 			  pop-up-frames t)
 
 (provide 'do-windows)
