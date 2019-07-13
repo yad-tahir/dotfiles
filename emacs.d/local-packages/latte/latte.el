@@ -200,7 +200,7 @@ checking."
 
 			  ;; Region mismatch; e.g. an old overlay that does not
 			  ;; accommodate the extra length. Clean it and continue searching.
-			  (delete-overlay co)) ))))
+			  (delete-overlay co))))))
 
 (defun latte--phrase-checker (phrase)
   "Checks whether PHRASE exists in latte--keywords
@@ -237,7 +237,7 @@ occur after END. A value of nil means search from '(point-max)'."
 		  ;; For each word
 		  (forward-word)
 		  (while (< (point) (point-max))
-			;; We can't use text property face as it is overruled by font-lock
+			;; We can't use text property face as it is over-ruled by font-lock
 			;; highlighting. To solve this problem we have two solutions:
 			;;
 			;; Solution 1: As shown below, fool lock-face into thinking that the
@@ -473,11 +473,15 @@ This function launches an shell process to go through the note files in the
   "Return the highlighted keyword at point."
 
   (let ((p (overlays-at (point) t)))
-	(if p
-		(progn (when (listp p)
-				 (setq p (car p)))
-			   (downcase (overlay-get p 'latte-keyword)))
-	  (word-at-point))))
+	(cond (p
+		   (loop for o in p
+				 do
+				 (when-let (k (overlay-get o 'latte-keyword))
+				   (return (downcase k)))))
+		  ((use-region-p)
+		   (buffer-substring-no-properties (region-beginning) (region-end)))
+		  (t
+		   (word-at-point)))))
 
 (defun latte--after-change-function (beginning end &optional old-len)
   "Highlight new keywords text modification events occur."

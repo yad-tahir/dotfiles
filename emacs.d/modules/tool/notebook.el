@@ -35,7 +35,7 @@
   :init
   (setq latte-directory "~/notes/notebook"
 		latte-scan-idle-delay 30
-		latte-rehighlight-after-scan nil
+		latte-rehighlight-after-scan t
 		latte-ignore-words '("attach"))
   (general-define-key
    :prefix "SPC n"
@@ -66,15 +66,20 @@
   ;; (set-face-attribute 'latte-keyword-face nil
   ;;					  :foreground chocolate-theme-element+8)
 
+  (general-define-key
+   :states '(normal visual)
+   "ln" 'latte-grep-topic
+   "lN" 'latte-grep-all)
+
   (with-eval-after-load 'org
 	(general-def org-mode-map
 	  :states '(normal visual)
-	  "xn" #'(:ignore t :which-key "notes")
-	  "xnk" #'latte-insert-keyword
-	  "xn#" #'latte-insert-org-tag
-	  "x#" #'latte-insert-org-tag
-	  "xng" #'latte-grep-topic
-	  "xg" #'latte-grep-topic
-	  "xnG" #'latte-grep-all)))
+	  "xn" '(:ignore t :which-key "notes")
+	  "xnk" 'latte-insert-keyword
+	  "xn#" 'latte-insert-org-tag
+	  "x#" 'latte-insert-org-tag
+	  "xng" 'latte-grep-topic
+	  "xg" 'latte-grep-topic
+	  "xnG" 'latte-grep-all)))
 
 (provide 'notebook)
