@@ -18,12 +18,10 @@
 ;; 02110-1301, USA.
 
 (defconst emacs-start-time (current-time))
-(setq package--init-file-ensured t)
 
 ;; GC optimizations
 (defvar original-gc-cons-threshold gc-cons-threshold)
 (defvar original-gc-cons-percentage gc-cons-percentage)
-
 (setq gc-cons-threshold 402653184
 	  gc-cons-percentage 0.6)
 (add-hook 'emacs-startup-hook
@@ -32,7 +30,8 @@
 
 
 (require 'package)
-(setq package-enable-at-startup nil
+(setq package--init-file-ensured t
+	  package-enable-at-startup nil
 	  package-user-dir (concat user-emacs-directory "/packages"))
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
@@ -47,21 +46,7 @@
   (setq use-package-compute-statistics t
 		use-package-verbose nil))
 
-(use-package auto-package-update
-  :disabled t
-  :ensure t
-  :config
-  (setq auto-package-update-delete-old-versions t)
-  (setq auto-package-update-hide-results t)
-  (auto-package-update-maybe))
-
-(use-package benchmark-init
-  :ensure t
-  :disabled t
-  :config
-  ;; To disable collection of benchmark data after init is done.
-  (add-hook 'after-init-hook 'benchmark-init/deactivate))
-
+;; Module manager
 (defvar do-modules-list '())
 
 (defun do-modules (&rest modules)
@@ -84,8 +69,7 @@
 	  ;; (insert ")")
 	  (save-buffer)
 	  (kill-buffer))
-	(byte-recompile-file "~/.emacs.d/modules-bootstrap.el" t)
-	))
+	(byte-recompile-file "~/.emacs.d/modules-bootstrap.el" t)))
 
 (defun do-modules-bootstrap-load (&optional new-bootstrap)
   (when new-bootstrap
@@ -111,13 +95,29 @@ The first argument, compile, indicates whether to recompile the modules."
 		;; @TODO: Change to require
 		(load (concat d m))))))
 
-(use-package general
-  :ensure t
-  :demand t)
-
 (defun display-startup-echo-area-message ()
   (message "Loading done in %.3fs"
 		   (float-time
 			(time-subtract (current-time) emacs-start-time))))
+
+;; Core packages
+(use-package general
+  :ensure t
+  :demand t)
+
+(use-package auto-package-update
+  :disabled t
+  :ensure t
+  :config
+  (setq auto-package-update-delete-old-versions t)
+  (setq auto-package-update-hide-results t)
+  (auto-package-update-maybe))
+
+(use-package benchmark-init
+  :disabled t
+  :ensure t
+  :config
+  ;; To disable collection of benchmark data after init is done.
+  (add-hook 'after-init-hook 'benchmark-init/deactivate))
 
 (provide 'core)
