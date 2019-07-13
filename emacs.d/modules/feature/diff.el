@@ -51,13 +51,13 @@
   :config
   (general-define-key
    :keymaps 'smerge-mode-map
-   "x<" 'smerge-keep-upper
-   "x>" 'smerge-keep-lower
-   "x SPC" 'smerge-keep-current
-   "xa" 'smerge-keep-all
-   "xr" 'smerge-refine
-   "xd" 'smerge-ediff
-   "xb" 'smerge-keep-base))
+   "SPC l<" 'smerge-keep-upper
+   "SPC l>" 'smerge-keep-lower
+   "SPC l SPC" 'smerge-keep-current
+   "SPC la" 'smerge-keep-all
+   "SPC lr" 'smerge-refine
+   "SPC ld" 'smerge-ediff
+   "SPC lb" 'smerge-keep-base))
 
 (use-package ediff
   :defer t
@@ -65,6 +65,7 @@
   (general-define-key
    :keymaps 'override
    :states '(normal visual)
+   "SPC d" '(:ignore t :which-key "diff")
    "SPC db" 'ediff-buffers
    "SPC dB" 'ediff-buffers3
    "SPC dd" 'ediff-directories

@@ -96,12 +96,12 @@ separate frame."
   (general-define-key
    :keymaps 'wdired-mode-map
    :states 'normal
-   "xq" 'wdired-finish-edit
+   "SPC lq" 'wdired-finish-edit
    "w" 'evil-forward-word-begin
    "W" 'evil-forward-WORD-begin
    "b" 'evil-backward-word-begin
    "B" 'evil-backward-WORD-begin
-   "x <escape>" 'wdired-abort-changes)
+   "SPC l <escape>" 'wdired-abort-changes)
 
   (general-define-key
    :keymaps 'dired-mode-map
@@ -118,41 +118,41 @@ separate frame."
    ">" 'dired-next-dirline
    ";" 'nil
    "q" 'nil
-   "x" 'nil
+   "SPC l" 'nil
    "s" 'nil
-   "xs" 'dired-sort-toggle-or-edit
+   "SPC ls" 'dired-sort-toggle-or-edit
    [remap next-line] 'dired-next-line
    [remap previous-line] 'dired-previous-line
 
    ;; operations
-   ;; "x" 'dired-do-flagged-delete
+   ;; "SPC l" 'dired-do-flagged-delete
    ;; "d" 'dired-flag-file-deletion
    "Y" 'dired-do-copy
-   "xy" 'dired-do-copy
+   "SPC ly" 'dired-do-copy
    "D" 'dired-do-delete
-   "xd" 'dired-do-delete
+   "SPC ld" 'dired-do-delete
    "R" 'dired-do-rename
-   "xr" 'dired-do-rename
+   "SPC lr" 'dired-do-rename
    "F" 'find-file
-   "xf" 'find-file
+   "SPC lf" 'find-file
    "+" 'dired-create-directory
-   "x+" 'dired-create-directory
+   "SPC l+" 'dired-create-directory
    "L" 'dired-do-symlink
-   "xl" 'dired-do-symlink
-   "xL" 'dired-do-hardlink
+   "SPC ll" 'dired-do-symlink
+   "SPC lL" 'dired-do-hardlink
    "O" 'dired-do-chown
-   "xO" 'dired-do-chown
+   "SPC lO" 'dired-do-chown
    "!" 'dired-do-shell-command
-   "x!" 'dired-do-shell-command
+   "SPC l!" 'dired-do-shell-command
    "&" 'dired-do-async-shell-command
-   "x&" 'dired-do-async-shell-command
+   "SPC l&" 'dired-do-async-shell-command
    ;; [tab] 'dired-summary
-   "x=" 'dired-diff
-   "xz" 'dired-do-compress
-   "xZ" 'dired-do-compress-to
-   "xt" 'dired-do-touch
-   "xu" 'dired-downcase
-   "xU" 'dired-upcase
+   "SPC l=" 'dired-diff
+   "SPC lz" 'dired-do-compress
+   "SPC lZ" 'dired-do-compress-to
+   "SPC lt" 'dired-do-touch
+   "SPC lu" 'dired-downcase
+   "SPC lU" 'dired-upcase
    "z" 'dired-undo
    [remap undo] 'dired-undo
    [remap advertised-undo] 'dired-undo
@@ -162,26 +162,26 @@ separate frame."
    "u" 'dired-unmark
    "U" 'dired-unmark-all-marks
 
-   "x/" 'nil
-   "x/f" 'find-grep-dired
-   "x/g" 'dired-do-find-regexp
-   "x/r" 'dired-do-find-regexp-and-replace
+   "SPC l/" 'nil
+   "SPC l/f" 'find-grep-dired
+   "SPC l/g" 'dired-do-find-regexp
+   "SPC l/r" 'dired-do-find-regexp-and-replace
    ;; Press SPACE replace and 'n' to skip
 
-   "x*" 'nil
-   "x**" 'dired-mark-executables
-   "x*d" 'dired-mark-directories
-   "x*@" 'dired-mark-symlinks
-   "x*f" 'dired-mark-files-regexp
-   "x*s" 'dired-mark-subdir-files
-   "x*?" 'dired-unmark-all-files
-   "x*!" 'dired-unmark-all-marks
-   "x*t" 'dired-toggle-marks
-   "x*g" 'dired-mark-files-containing-regexp
-   "x*G" 'dired-do-find-regexp
-   "x*~" 'dired-flag-garbage-files
-   "x*o" 'do-dired-find-marked-files
-   "x*O" 'do-dired-find-marked-files-noframe
+   "SPC l*" 'nil
+   "SPC l**" 'dired-mark-executables
+   "SPC l*d" 'dired-mark-directories
+   "SPC l*@" 'dired-mark-symlinks
+   "SPC l*f" 'dired-mark-files-regexp
+   "SPC l*s" 'dired-mark-subdir-files
+   "SPC l*?" 'dired-unmark-all-files
+   "SPC l*!" 'dired-unmark-all-marks
+   "SPC l*t" 'dired-toggle-marks
+   "SPC l*g" 'dired-mark-files-containing-regexp
+   "SPC l*G" 'dired-do-find-regexp
+   "SPC l*~" 'dired-flag-garbage-files
+   "SPC l*o" 'do-dired-find-marked-files
+   "SPC l*O" 'do-dired-find-marked-files-noframe
 
    "a" 'dired-toggle-read-only
    "A" 'dired-toggle-read-only
@@ -218,7 +218,7 @@ separate frame."
   (general-define-key
    :keymaps 'dired-mode-map
    :states 'normal
-   "xc" 'dired-collapse-mode))
+   "SPC lc" 'dired-collapse-mode))
 
 (use-package dired-subtree
   :disabled t
@@ -235,7 +235,7 @@ separate frame."
    "<M-tab>" 'dired-subtree-remove
    "[" 'dired-subtree-beginning
    "]" 'dired-subtree-end
-   "x*}" 'dired-subtree-mark-subtree)
+   "SPC l*}" 'dired-subtree-mark-subtree)
   :config
   (set-face-attribute 'dired-subtree-depth-1-face nil
 					  :background chocolate-theme-shadow)

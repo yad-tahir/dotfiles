@@ -185,7 +185,7 @@
    "j" 'counsel-dired-jump
    "v" 'counsel-describe-variable
    "l" 'counsel-find-library
-   "x" 'counsel-describe-function
+   "SPC l" 'counsel-describe-function
    "i" 'counsel-info-lookup-symbol
    "u" 'counsel-unicode-char
    "m" 'counsel-bookmark
@@ -295,15 +295,15 @@
   (general-define-key
    :keymaps 'ivy-occur-grep-mode-map
    :states 'normal
-   "x" 'nil
-   "xw" 'wgrep-change-to-wgrep-mode)
+   "SPC l" 'nil
+   "SPC lw" 'wgrep-change-to-wgrep-mode)
 
   :config
   (general-define-key
    :keymaps 'wgrep-mode-map
    :states 'normal
-   "xq" 'wgrep-finish-edit
-   "x <escape>" 'wgrep-abort-changes
-   "xz" 'wgrep-remove-all-change)
+   "SPC lq" 'wgrep-finish-edit
+   "SPC l <escape>" 'wgrep-abort-changes
+   "SPC lz" 'wgrep-remove-all-change)
 
   (setq wgrep-auto-save-buffer t))

@@ -18,24 +18,24 @@
 ;; 02110-1301, USA.
 
 (general-define-key
-   :prefix "q"
-   :states '(normal visual)
-   "" nil
-   "(" 'start-kbd-macro
-   ")" 'end-kbd-macro
-   "@" 'evil-record-macro
-   "u" 'kmacro-edit-macro
-   "q" 'call-last-kbd-macro
-   "n" 'name-last-kbd-macro
-   "i" 'insert-kbd-macro
-   ";" 'counsel-M-x)
+ :prefix "q"
+ :states '(normal visual)
+ "" nil
+ "(" 'start-kbd-macro
+ ")" 'end-kbd-macro
+ "@" 'evil-record-macro
+ "u" 'kmacro-edit-macro
+ "q" 'call-last-kbd-macro
+ "n" 'name-last-kbd-macro
+ "i" 'insert-kbd-macro
+ ";" 'counsel-M-x)
 
 (general-define-key
-   :prefix "q"
-   :states 'visual
-   "q" 'apply-macro-to-region-lines)
+ :prefix "q"
+ :states 'visual
+ "q" 'apply-macro-to-region-lines)
 
 (general-define-key
-   :keymaps 'edmacro-mode-map
-   "xq" 'edmacro-finish-edit
-   "x <escape>" 'kill-buffer)
+ :keymaps 'edmacro-mode-map
+ "SPC lq" 'edmacro-finish-edit
+ "SPC l <escape>" 'kill-buffer)

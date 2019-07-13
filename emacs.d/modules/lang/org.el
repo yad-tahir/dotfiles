@@ -43,9 +43,9 @@
    :states '(normal visual)
    "<tab>" 'org-cycle
    "M-<tab>" 'org-cycle-level
-   "xl" 'org-insert-link
-   "xp" 'org-todo
-   "x#" 'org-set-tags
+   "SPC ll" 'org-insert-link
+   "SPC lp" 'org-todo
+   "SPC l#" 'org-set-tags
    "M-c" 'org-metaup
    "M-t" 'org-metadown
    "M-h" 'org-metaleft
@@ -68,38 +68,38 @@
    "gN" 'org-forward-element
    "gH" 'org-backward-element
    "gT" 'org-down-element
-   "xt" '(:ignore t :which-key "time")
-   "xtt" '(:ignore t :which-key "insert timestamp")
-   "xtt" '(lambda () (interactive) (org-time-stamp (current-time)))
-   "xt(" 'org-clock-in
-   "xt)" 'org-clock-out
-   "xtq" 'org-clock-cancel
-   "xtg" 'org-clock-goto
-   "xv" '(:ignore t :which-key "view")
-   "xvl" 'org-toggle-latex-fragment
-   "xs" 'org-schedule
-   "xS" 'org-deadline
-   "xu" 'org-add-note ;;progress
-   "xa" 'org-attach
-   "xg" 'org-open-at-point
-   "xc" 'org-ctrl-c-ctrl-c
-   "xi" 'org-id-get-create
-   "x@" 'org-toggle-ordered-property
-   "xe" '(:ignore t :which-key "export")
-   "xel" 'org-export-dispatch
-   "xep" 'org-latex-export-to-pdf
-   "xeb" 'org-beamer-export-to-pdf
-   "xeh" 'org-html-export-to-html
-   "xq"  'org-ctrl-c-ctrl-c
-   "x <escape>" 'org-kill-note-or-show-branches
-   "x'" 'org-edit-src-code
-   "xx" 'org-archive-subtree)
+   "SPC lt" '(:ignore t :which-key "time")
+   "SPC ltt" '(:ignore t :which-key "insert timestamp")
+   "SPC ltt" '(lambda () (interactive) (org-time-stamp (current-time)))
+   "SPC lt(" 'org-clock-in
+   "SPC lt)" 'org-clock-out
+   "SPC ltq" 'org-clock-cancel
+   "SPC ltg" 'org-clock-goto
+   "SPC lv" '(:ignore t :which-key "view")
+   "SPC lvl" 'org-toggle-latex-fragment
+   "SPC ls" 'org-schedule
+   "SPC lS" 'org-deadline
+   "SPC lu" 'org-add-note ;;progress
+   "SPC la" 'org-attach
+   "SPC lg" 'org-open-at-point
+   "SPC lc" 'org-ctrl-c-ctrl-c
+   "SPC li" 'org-id-get-create
+   "SPC l@" 'org-toggle-ordered-property
+   "SPC le" '(:ignore t :which-key "export")
+   "SPC lel" 'org-export-dispatch
+   "SPC lep" 'org-latex-export-to-pdf
+   "SPC leb" 'org-beamer-export-to-pdf
+   "SPC leh" 'org-html-export-to-html
+   "SPC lq"  'org-ctrl-c-ctrl-c
+   "SPC l <escape>" 'org-kill-note-or-show-branches
+   "SPC l'" 'org-edit-src-code
+   "SPC ld" 'org-archive-subtree)
 
   (general-define-key
    :keymaps 'org-src-mode-map
    :states '(normal visual)
-   "xq" 'org-edit-src-exit
-   "x <escape>" 'org-edit-src-abort)
+   "SPC lq" 'org-edit-src-exit
+   "SPC l <escape>" 'org-edit-src-abort)
 
   (setq org-modules '(org-bbdb org-bibtex org-crypt org-docview
 							   org-gnus org-habit org-id
@@ -216,8 +216,8 @@
   (general-define-key
    :keymaps 'org-capture-mode-map
    :states '(normal visual)
-   "x <escape>" 'org-capture-kill
-   "xq" 'org-capture-finalize)
+   "SPC l <escape>" 'org-capture-kill
+   "SPC lq" 'org-capture-finalize)
 
   (setq
    org-capture-templates
@@ -317,22 +317,22 @@
 	"*%" 'org-agenda-bulk-mark-regexp
 	"*a" 'org-agenda-bulk-action
 	"*A" 'org-agenda-bulk-action
-	"xp" 'org-agenda-todo
-	"xk" 'org-agenda-kill
-	"x#" 'org-agenda-set-tags
-	"xu" 'org-agenda-add-note
-	"xa" 'org-attach
-	"xs" 'org-agenda-schedule
-	"xS" 'org-agenda-deadline
-	"xd" 'org-agenda-date-prompt
-	"xg" 'org-agenda-open-link
-	"xt" 'nil
-	"xta" 'org-agenda-clock-in
-	"xti" 'org-agenda-clock-in
-	"xtq" 'org-agenda-clock-out
-	"xtx" 'org-agenda-clock-cancel
-	"xtg" 'org-agenda-clock-goto
-	"xx" 'org-agenda-archive)
+	"SPC lp" 'org-agenda-todo
+	"SPC lk" 'org-agenda-kill
+	"SPC l#" 'org-agenda-set-tags
+	"SPC lu" 'org-agenda-add-note
+	"SPC la" 'org-attach
+	"SPC ls" 'org-agenda-schedule
+	"SPC lS" 'org-agenda-deadline
+	"SPC ld" 'org-agenda-date-prompt
+	"SPC lg" 'org-agenda-open-link
+	"SPC lt" 'nil
+	"SPC lta" 'org-agenda-clock-in
+	"SPC lti" 'org-agenda-clock-in
+	"SPC ltq" 'org-agenda-clock-out
+	"SPC ltx" 'org-agenda-clock-cancel
+	"SPC ltg" 'org-agenda-clock-goto
+	"SPC lx" 'org-agenda-archive)
 
   (setq org-agenda-skip-deadline-if-done t
 		org-agenda-tags-column 0
@@ -391,5 +391,5 @@
 ;;				(general-define-key
 ;;				 :keymaps 'evil-org-mode-map
 ;;				 :states '(normal)
-;;				 "x" 'nil
-;;				 "X" 'nil))))
+;;				 "SPC l" 'nil
+;;				 "SPC l" 'nil))))

@@ -145,7 +145,7 @@
    "q" 'do-music-stop
    "r" 'simple-mpc-shuffle-current-playlist
    "p" 'simple-mpc-toggle
-   "x" 'simple-mpc-clear-current-playlist)
+   "SPC l" 'simple-mpc-clear-current-playlist)
 
   (general-define-key
    :keymaps 'simple-mpc-mode-map
@@ -163,7 +163,7 @@
 	 "r" #'simple-mpc-shuffle-current-playlist
 	 "N" #'do-music-next
 	 "H" #'do-music-previous
-	 "x" #'simple-mpc-clear-current-playlist
+	 "SPC l" #'simple-mpc-clear-current-playlist
 	 "C" #'simple-mpc-clear-current-playlist
 	 "d" #'simple-mpc-delete))
   (add-hook 'simple-mpc-current-playlist-mode-hook #'do--music-playlist-init)

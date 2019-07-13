@@ -46,8 +46,8 @@
   (general-define-key
    :keymaps 'emacs-lisp-mode-map
    :states 'normal
-   "xme" 'macrostep-expand
-   "xmc" 'macrostep-collapse)
+   "SPC lme" 'macrostep-expand
+   "SPC lmc" 'macrostep-collapse)
 
   :config
   (set-face-attribute 'macrostep-expansion-highlight-face nil

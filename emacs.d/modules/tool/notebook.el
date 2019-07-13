@@ -74,12 +74,12 @@
   (with-eval-after-load 'org
 	(general-def org-mode-map
 	  :states '(normal visual)
-	  "xn" '(:ignore t :which-key "notes")
-	  "xnk" 'latte-insert-keyword
-	  "xn#" 'latte-insert-org-tag
-	  "x#" 'latte-insert-org-tag
-	  "xng" 'latte-grep-topic
-	  "xg" 'latte-grep-topic
-	  "xnG" 'latte-grep-all)))
+	  "SPC ln" '(:ignore t :which-key "notes")
+	  "SPC lnk" 'latte-insert-keyword
+	  "SPC ln#" 'latte-insert-org-tag
+	  "SPC l#" 'latte-insert-org-tag
+	  "SPC lng" 'latte-grep-topic
+	  "SPC lg" 'latte-grep-topic
+	  "SPC lnG" 'latte-grep-all)))
 
 (provide 'notebook)

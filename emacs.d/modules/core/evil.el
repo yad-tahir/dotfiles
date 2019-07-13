@@ -103,8 +103,9 @@
    :states '(normal visual)
    "s" 'nil ;; Used for searching instead
    "l" 'nil ;; Used as a prefix for evil-local keybindings
-   "x" 'nil ;; Used as a prefix for mode-local keybindings
+   "SPC l" 'nil ;; Used as a prefix for mode-local keybindings
    "j" 'nil
+   "x" 'nil
    "J" 'nil
    "f" 'nil
    "F" 'nil
@@ -137,10 +138,6 @@
    "g=" 'evil-indent
 
    "SPC l" '(:ignore t :which-key "local")
-   ;; Redirect SPC l to x keybindings
-   "SPC l" '(lambda ()
-			  (interactive)
-			  (setq unread-command-events (listify-key-sequence "x")))
 
    "][" 'evil-forward-section-begin
    "]]" 'evil-forward-section-end

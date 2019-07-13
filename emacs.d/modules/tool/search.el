@@ -36,9 +36,9 @@
    "<tab>" 'deadgrep-toggle-file-results
    "N" 'deadgrep-forward
    "H" 'deadgrep-backward
-   "xo" 'deadgrep-visit-result-other-window
-   "x <escape>" 'deadgrep-kill-process
-   "xe" 'deadgrep-edit-mode
+   "SPC lo" 'deadgrep-visit-result-other-window
+   "SPC l <escape>" 'deadgrep-kill-process
+   "SPC le" 'deadgrep-edit-mode
    "<f5>" 'deadgrep-restart)
 
   (general-define-key
