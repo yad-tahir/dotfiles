@@ -146,6 +146,15 @@
    "g-" 'evil-numbers/dec-at-pt
    "g+" 'evil-numbers/inc-at-pt))
 
+(use-package evil-exchange
+  :ensure t
+  :commands (evil-exchange evil-exchange-cancel)
+  :config
+  (general-define-key
+   :states '(normal visual)
+   "lx" 'evil-exchange
+   "lX" 'evil-exchange-cancel))
+
 ;; (use-package aggressive-indent
 ;;   :hook ((prog-mode . aggressive-indent-mode)
 ;;		 (text-mode . aggressive-indent-mode)))
