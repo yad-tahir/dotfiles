@@ -47,8 +47,21 @@
   (set-face-attribute 'telephone-line-accent-inactive nil
 					  :background chocolate-theme-bg
 					  :foreground chocolate-theme-shadow+3 :weight 'normal)
-  (set-face-attribute 'telephone-line-error nil :background 'nil
-					  :foreground "orangered1" :weight 'bold)
+  (set-face-attribute 'telephone-line-error nil
+					  :background 'nil
+					  :foreground chocolate-theme-highlight :weight 'bold)
+  (set-face-attribute 'telephone-line-unimportant nil
+					  :background 'nil
+					  :foreground chocolate-theme-shadow+3)
+  (set-face-attribute 'telephone-line-warning nil
+					  :background 'nil
+					  :foreground chocolate-theme-element+10 :weight 'bold)
+
+  (setq telephone-line-faces
+		'((evil . telephone-line-modal-face)
+		  (alert . (telephone-line-warning . telephone-line-warning))
+		  (accent . (telephone-line-accent-active . telephone-line-accent-inactive))
+		  (nil . (mode-line . mode-line-inactive))))
 
   (defun do--status-bar-space-segment ()
 	"A telephone line segment returns a single space."
@@ -61,7 +74,10 @@
 	(lambda (face)
 	  (ignore face)
 	  (if defining-kbd-macro
-		  (telephone-line-raw  " REC" nil)
+		  (if evil-this-macro
+			  (telephone-line-raw
+			   (format " REC:%s" (char-to-string evil-this-macro)) nil)
+			(telephone-line-raw  " REC" nil))
 		(telephone-line-raw nil nil))))
   (defun do--status-bar-register-segment ()
 	"A telephone line segment for active register"
@@ -69,8 +85,8 @@
 	(lambda (face)
 	  (ignore face)
 	  (if evil-this-register
-		  (telephone-line-raw (format " Register:%s"
-									  (char-to-string evil-this-register)) nil)
+		  (telephone-line-raw
+		   (format " REG:%s" (char-to-string evil-this-register)) nil)
 		(telephone-line-raw nil nil))))
 
   (defun do--status-bar-total-length-segment ()
@@ -105,12 +121,12 @@ buffer."
 					  (/ (line-number-at-pos)
 						 0.01 (line-number-at-pos (point-max))))
 			  "%% "
-			  (format "%3d " (point))
+			  ;; Row and column
 			  "%3l:%2c")))
 
-  (setq telephone-line-lhs '((evil   . (telephone-line-evil-tag-segment
-										do--status-bar-macro-segment
-										do--status-bar-register-segment))
+  (setq telephone-line-lhs '((alert . (do--status-bar-macro-segment
+									   do--status-bar-register-segment))
+							 (evil . (telephone-line-evil-tag-segment))
 							 (accent . (telephone-line-vc-segment
 										telephone-line-erc-modified-channels-segment
 										telephone-line-process-segment))
