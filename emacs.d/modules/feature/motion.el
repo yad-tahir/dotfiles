@@ -21,6 +21,45 @@
 (cl-eval-when (compile)
   (require 'evil))
 
+
+;; Custom motions
+
+(evil-define-motion do-evil-forward-whitespace (count)
+  "Moves point COUNT whitespaces forward."
+  :jump nil
+  (evil-signal-at-bob-or-eob count)
+  (evil-forward-beginning 'whitespace (or count 1))
+  (beginning-of-thing 'whitespace))
+
+(evil-define-motion do-evil-backward-whitespace (count)
+  "Moves point COUNT whitespaces backward."
+  :jump nil
+  (evil-signal-at-bob-or-eob count)
+  (evil-backward-beginning 'whitespace (or count 1))
+  (beginning-of-thing 'whitespace))
+
+;; Adjust some properties to make them more useful with the 'delete' and
+;; 'change' operators
+(evil-put-command-property 'evil-previous-line-first-non-blank :type 'exclusive)
+(evil-put-command-property 'evil-next-line-first-non-blank :type 'exclusive)
+
+;; The default 'evil-line' motion assumes that line navigation is done by
+;; calling 'evil-next-line' and 'evil-previous-line'. However, this is not the
+;; case in my settings as I use visual-line operations instead. Sadly, this
+;; makes the implementation buggy. The code below is simple workaround to
+;; address this issue.
+(evil-define-motion evil-line (count)
+  "Move COUNT - 1 lines down."
+  :type line
+  (let (line-move-visual)
+	(condition-case err
+		;; @HACK: provide 't' as the second argument to ignore errors
+		(evil-line-move (1- (or count 1)) t)
+	  ((beginning-of-buffer end-of-buffer)))))
+
+
+;; Custom text objects
+
 (evil-define-text-object do-evil-a-section (count &optional beg end type)
   "Select a function."
   :jump nil
@@ -41,16 +80,6 @@
   "Select the whole buffer."
   (evil-range (point-min) (point-max) type))
 
-(general-define-key
- :keymaps 'evil-inner-text-objects-map
- "b" 'do-evil-inner-section
- "B" 'do-evil-whole-buffer)
-
-(general-define-key
- :keymaps 'evil-outer-text-objects-map
- "b" 'do-evil-a-section
- "B" 'do-evil-whole-buffer)
-
 ;; There is no reason why paragraph text objects are selected as lines
 (evil-define-text-object evil-a-paragraph (count &optional beg end type)
   "Select a paragraph."
@@ -62,19 +91,38 @@
   :type inclusive
   (evil-select-inner-object 'evil-paragraph beg end type count))
 
-;; The default 'evil-line' motion assumes that line navigation is done by
-;; calling 'evil-next-line' and 'evil-previous-line'. However, this is not the
-;; case in my settings as I use visual-line operations instead. Sadly, this
-;; makes the implementation buggy. The code below is simple workaround to
-;; address this issue.
-(evil-define-motion evil-line (count)
-  "Move COUNT - 1 lines down."
-  :type line
-  (let (line-move-visual)
-	(condition-case err
-		;; @HACK: provide 't' as the second argument to ignore errors
-		(evil-line-move (1- (or count 1)) t)
-	  ((beginning-of-buffer end-of-buffer)))))
+(evil-define-text-object do-evil-a-whitespace (count &optional beg end type)
+  "Select a whitespace."
+  :type inclusive
+  (ignore beg end count)
+  (let ((bounds (bounds-of-thing-at-point 'whitespace)))
+	;; When there is no whites pace
+	(unless bounds
+	  (error "No whitespace found"))
+	(evil-range (car bounds) (cdr bounds) type :expanded t)))
+
+
+;; Keymaps
+
+(general-define-key
+ :keymaps 'evil-inner-text-objects-map
+ "b" 'do-evil-inner-section
+ "B" 'do-evil-whole-buffer
+ "<SPC>" 'do-evil-whitespace)
+
+(general-define-key
+ :keymaps 'evil-outer-text-objects-map
+ "b" 'do-evil-a-section
+ "B" 'do-evil-whole-buffer
+ "<SPC>" 'do-evil-whitespace)
+
+(general-define-key
+ :keymaps 'motion
+ "] <SPC>" 'do-evil-forward-whitespace
+ "[ <SPC>" 'do-evil-backward-whitespace)
+
+
+;; Third-party packages
 
 (use-package evil-matchit
   :ensure t
@@ -112,8 +160,3 @@
 					  :background nil
 					  :foreground nil
 					  :inherit 'diff-nonexistent))
-
-;; Adjust some properties to make them more useful with the 'delete' and
-;; 'change' operators
-(evil-put-command-property 'evil-previous-line-first-non-blank :type 'exclusive)
-(evil-put-command-property 'evil-next-line-first-non-blank :type 'exclusive)

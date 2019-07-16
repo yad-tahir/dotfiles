@@ -56,7 +56,6 @@
   (ignore beginning)
   (goto-char end))
 
-
 (evil-define-operator do-evil-backward-motion (beginning end)
   "Ask for a motion and move backward."
   (ignore end)
@@ -71,3 +70,52 @@
   :motion do-evil-a-section
   :move-point nil
   (evil-indent beginning end))
+
+(evil-define-operator do-evil-fixup-whitespace (beginning end)
+  "Fixes white space in the surrounded area between BEGINNING and END."
+  :move-point nil
+  (save-excursion
+	;; Create two markers to track beginning and end after deleting white spaces
+	(let* ((e (copy-marker end))
+		   (b (copy-marker beginning))
+		   (avoid-regex "^\\|$\\|\\s\"")
+		   (start-regex (concat avoid-regex "\\|\\s(")) ;; open delimiter
+		   (end-regex (concat avoid-regex "\\|\\s)")) ;; close delimiter
+		   )
+
+	  ;; Fix Beginning
+	  (goto-char b)
+	  ;; If there is a white-space around BEGINNING
+	  (when (or (looking-at "\\s-") ;; at beginning
+				;; one char before it
+				(save-excursion (forward-char 1)
+								(looking-at "\\s-"))
+				;; or even one char after it
+				(save-excursion (forward-char -1)
+								(looking-at "\\s-")))
+
+		(delete-horizontal-space)
+
+		(unless (or (looking-at start-regex)
+					(save-excursion (forward-char -1)
+									(looking-at start-regex)))
+		  (insert ?\s)))
+
+	  ;; Fix End
+	  (goto-char e)
+	  (when (or (looking-at "\\s-")
+				(save-excursion (forward-char -1)
+								(looking-at "\\s-"))
+				(save-excursion (forward-char 1)
+								(looking-at "\\s-")))
+
+		(delete-horizontal-space)
+
+		(unless (or (looking-at end-regex)
+					(save-excursion (forward-char -1)
+									(looking-at end-regex)))
+		  (insert ?\s)))
+
+	  ;; Assure GC
+	  (set-marker b nil)
+	  (set-marker e nil))))

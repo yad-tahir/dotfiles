@@ -116,7 +116,7 @@
    "g:" 'nil
    "'" 'nil
 
-   "X" 'ignore
+   "X" 'do-evil-fixup-whitespace
    "N" 'ignore
    "C" 'ignore
    "T" 'ignore
