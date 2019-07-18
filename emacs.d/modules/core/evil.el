@@ -199,6 +199,14 @@
    "," 'evil-repeat-find-char
    "g," 'evil-repeat-find-char-reverse
 
+   ;; Navigation
+   "h" 'backward-char
+   "n" 'forward-char
+   "c" 'evil-previous-visual-line
+   "t" 'evil-next-visual-line
+   "gc" 'evil-previous-line
+   "gt" 'evil-next-line
+
    ;; Jumping
    "gj" 'evil-jump-backward
    "gJ" 'evil-jump-forward
