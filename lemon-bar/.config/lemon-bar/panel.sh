@@ -179,7 +179,7 @@ function panel_bar {
 						t="%{U$UG}%{F$FG}%{B$BG}"
 						t="${t}"$($PWD/blocks/progress.sh " $title_text" $progress)
 						titles[$selected_monitor]="${t}%{B-}%{F-}%{U-}"
-					elif [ "$w_class" = "Firefox" ]; then
+					elif [ "$w_class" = "firefoxdeveloperedition" ]; then
 						case "$title" in
 							*%*)
 								meta=" - Firefox Developer Edition"
