@@ -42,3 +42,5 @@
 		which-key-side-window-max-height max-mini-window-height)
 
   (which-key-mode 1))
+
+(provide 'do-commands)

@@ -20,3 +20,6 @@
 ;;; Code:
 
 ;; Empty file; it will be used in the future
+
+
+(provide 'do-text)

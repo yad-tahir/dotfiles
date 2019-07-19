@@ -39,3 +39,6 @@
  :keymaps 'edmacro-mode-map
  "SPC lq" 'edmacro-finish-edit
  "SPC l <escape>" 'kill-buffer)
+
+
+(provide 'do-macro)

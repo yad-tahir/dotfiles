@@ -130,3 +130,6 @@
 		(add-to-list 'exec-path-from-shell-variables "SSH_AUTH_SOCK")
 
 		(exec-path-from-shell-initialize))
+
+
+(provide 'do-shell)

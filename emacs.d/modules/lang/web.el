@@ -52,3 +52,6 @@
 	(httpd-start)
 	(add-hook 'html-mode-hook #'impatient-mode)
 	(add-hook 'web-mode-hook #'impatient-mode)))
+
+
+(provide 'do-web)

@@ -55,3 +55,5 @@ display the number of open buffers in Emacs."
 	  (setq list (cdr list)))
 	result))
 
+
+(provide 'do-lemon-bar)

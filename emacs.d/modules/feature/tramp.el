@@ -62,3 +62,6 @@
 		(do--sudo-find-file name))))
 
   (add-hook 'eshell-mode-hook #'(lambda () (require 'em-tramp))))
+
+
+(provide 'do-tramp)

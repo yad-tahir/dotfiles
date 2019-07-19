@@ -15,7 +15,7 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
-(require 'core (concat user-emacs-directory "modules/core/core"))
+(require 'do-core (concat user-emacs-directory "modules/core/core"))
 
 (do-modules-load "core/evil"
 

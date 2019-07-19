@@ -307,3 +307,6 @@
    "SPC lz" 'wgrep-remove-all-change)
 
   (setq wgrep-auto-save-buffer t))
+
+
+(provide 'do-ivy)

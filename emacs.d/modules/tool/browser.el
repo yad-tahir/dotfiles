@@ -81,3 +81,6 @@
 					  :background 'nil
 					  :foreground 'nil
 					  :box 'nil))
+
+
+(provide 'do-browser)

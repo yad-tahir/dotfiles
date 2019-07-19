@@ -95,3 +95,6 @@
 ;;		(set-face-attribute 'evil-visual-mark-face nil
 ;;							:background nil :foreground
 ;;							nil :inherit 'isearch :underline nil))
+
+
+(provide 'do-text-visual)

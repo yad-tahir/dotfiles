@@ -148,3 +148,5 @@
   :commands (company-lsp)
   :config
   (setq company-lsp-enable-snippet nil))
+
+(provide 'do-company)

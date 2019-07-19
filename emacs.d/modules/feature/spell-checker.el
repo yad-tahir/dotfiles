@@ -47,3 +47,6 @@
   (general-define-key
    :keymaps 'flyspell-mouse-map
    "C-<return>" 'flyspell-correct-at-point))
+
+
+(provide 'do-spell-checker)

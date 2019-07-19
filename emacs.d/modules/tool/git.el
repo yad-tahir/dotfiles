@@ -285,3 +285,6 @@
   ;; :foreground chocolate-theme-highlight)
   ;; (set-face-attribute 'magit-diffstat-added nil :foreground "#8ae234")
   )
+
+
+(provide 'do-git)

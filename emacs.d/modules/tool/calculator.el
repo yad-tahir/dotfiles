@@ -1,4 +1,3 @@
-
 ;; Copyright (C) 2019
 
 ;; This program is free software; you can redistribute it and/or
@@ -35,3 +34,6 @@
 	  (full-calc)
 	  (calc-trail-display 1)
 	  (calc-alg-entry))))
+
+
+(provide 'do-calculator)

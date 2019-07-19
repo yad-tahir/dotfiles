@@ -176,4 +176,5 @@ buffer."
 (add-hook 'windmove-do-window-select 'do--status-bar-change-mode-line-color)
 (add-hook 'find-file-hook 'do--status-bar-change-mode-line-color)
 
-;;; status-bar.el ends here
+
+(provide 'do-status-bar)

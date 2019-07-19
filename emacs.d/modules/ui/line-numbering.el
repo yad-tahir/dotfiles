@@ -40,3 +40,6 @@
 
   ;; Start line numbering
   (add-hook 'change-major-mode-after-body-hook #'display-line-numbers-mode))
+
+
+(provide 'do-line-numbering)

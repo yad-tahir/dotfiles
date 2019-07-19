@@ -270,5 +270,5 @@
  `(whitespace-space-before-tab ((t (:inherit (whitespace-empty)))))
  `(whitespace-tab ((t (:inherit (whitespace-empty))))))
 
+
 (provide 'chocolate-theme)
-;;; theme.el ends here

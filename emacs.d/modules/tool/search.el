@@ -66,3 +66,5 @@
 	 (format
 	  "https://en.wikipedia.org/wiki/Special:Search/?search=%s&sourceid=emacs"
 	  (buffer-substring-no-properties beginning end))))
+
+(provide 'do-search)

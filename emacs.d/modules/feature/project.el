@@ -66,3 +66,6 @@
    "V" 'projectile-browse-dirty-projects
    "c" 'projectile-cache-current-file
    "C" 'projectile-invalidate-cache))
+
+
+(provide 'do-project)

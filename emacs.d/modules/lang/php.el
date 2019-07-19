@@ -42,3 +42,5 @@
 									   :with company-keywords
 									   ))))))
   (add-hook 'php-mode-hook #'do--php-init()))
+
+(provide 'do-php)

@@ -192,3 +192,6 @@
 	;; Volume will be controlled by pulse.
 	;; We don't need another volume controller for mpc.
 	(simple-mpc-modify-volume-internal 100)))
+
+
+(provide 'do-music)

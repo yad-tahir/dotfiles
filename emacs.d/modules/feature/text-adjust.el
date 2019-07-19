@@ -158,3 +158,6 @@
 ;; (use-package aggressive-indent
 ;;   :hook ((prog-mode . aggressive-indent-mode)
 ;;		 (text-mode . aggressive-indent-mode)))
+
+
+(provide 'do-text-adjust)

@@ -26,3 +26,6 @@
    :states 'normal
    "w" #'define-word-at-point
    "W" #'define-word))
+
+
+(provide 'do-english)

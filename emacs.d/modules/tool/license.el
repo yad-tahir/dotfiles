@@ -29,3 +29,6 @@
    "l" 'lice)
   :config
   (setq lice:default-license "gpl-2.0"))
+
+
+(provide 'do-license)

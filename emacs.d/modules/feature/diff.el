@@ -84,3 +84,6 @@
   (setq ediff-highlight-all-diffs t)
   (setq ediff-use-long-help-message t)
   (setq ediff-auto-refine t))
+
+
+(provide 'do-diff)

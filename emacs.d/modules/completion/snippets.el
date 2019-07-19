@@ -82,3 +82,6 @@
 	 :states 'insert
 	 "C-l ~" #'aya-create
 	 "C-l <tab>" #'aya-expand))
+
+
+(provide 'do-snippets)

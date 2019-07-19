@@ -267,4 +267,5 @@ separate frame."
   :config
   (require 'vlf-setup))
 
-(provide 'file-manager)
+
+(provide 'do-file-manager)

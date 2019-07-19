@@ -78,3 +78,5 @@ The aim of this function is to minimize duplicated windows as much as possible."
 (with-eval-after-load 'ivy
   (advice-add 'ivy--switch-buffer-action :around #'do--switch-to-buffer))
 
+
+(provide 'do-buffers)

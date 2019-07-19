@@ -38,3 +38,6 @@
 (use-package lsp-java
   :after (lsp-mode)
   :ensure t)
+
+
+(provide 'do-java)

@@ -25,3 +25,6 @@
   (interactive)
   (do-make-frame "scratch-buffer")
   (switch-to-buffer (get-buffer-create "*scratch*")))
+
+
+(provide 'do-scratches)

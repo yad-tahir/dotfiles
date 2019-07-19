@@ -160,3 +160,6 @@
 					  :background nil
 					  :foreground nil
 					  :inherit 'diff-nonexistent))
+
+
+(provide 'do-mation)

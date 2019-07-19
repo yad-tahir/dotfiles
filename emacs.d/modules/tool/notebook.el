@@ -82,4 +82,5 @@
 	  "SPC lg" 'latte-grep-topic
 	  "SPC lnG" 'latte-grep-all)))
 
-(provide 'notebook)
+
+(provide 'do-notebook)

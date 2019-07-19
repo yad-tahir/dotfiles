@@ -119,3 +119,6 @@
 	  ;; Assure GC
 	  (set-marker b nil)
 	  (set-marker e nil))))
+
+
+(provide 'do-operator)

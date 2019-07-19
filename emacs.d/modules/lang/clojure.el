@@ -156,3 +156,6 @@
   :ensure t
   :after (:all flyceck clojure-mode)
   :hook ((flycheck-mode . flycheck-clojure-setup)))
+
+
+(provide 'do-clojure)

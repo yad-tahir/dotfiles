@@ -348,3 +348,6 @@ avoid navigating with the insert state."
 
   ;; Start Evil mode
   (evil-mode 1))
+
+
+(provide 'do-evil)

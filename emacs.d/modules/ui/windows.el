@@ -95,5 +95,5 @@ The third optional argument PROPS indicates the properties of the frame"
 			  ;; Use new frames as much as possible
 			  pop-up-frames t)
 
+
 (provide 'do-windows)
-;;; windows.el ends here
