@@ -40,9 +40,14 @@
   :config
   (general-define-key
    :keymaps 'org-mode-map
+   :states 'insert
+   "M-<tab>" 'org-cycle)
+
+  (general-define-key
+   :keymaps 'org-mode-map
    :states '(normal visual)
    "<tab>" 'org-cycle
-   "M-<tab>" 'org-cycle-level
+   "M-<tab>" 'org-cycle
    "SPC ll" 'org-insert-link
    "SPC lp" 'org-todo
    "SPC l#" 'org-set-tags

@@ -24,8 +24,24 @@
 
 (use-package company
   :ensure t
-  :defer 10
   :hook ((find-file . company-mode))
+  :commands (company-complete-common)
+  :init
+  (defun do--tab-complete ()
+	(interactive)
+	(if (or (save-excursion (looking-at "\\_>")) ;; end of symbol
+			(save-excursion (looking-at "\\."))  ;; ends with dot
+			(save-excursion (looking-at "->")))  ;; ends with ->
+		(company-complete-common)
+	  ;; Otherwise, the company completion list is most likely useless
+	  (tab-to-tab-stop)))
+
+  (general-define-key
+   :states 'insert
+   ;; make TAB smarter a bit!
+   "<tab>" 'do--tab-complete
+
+   "M-<tab>" 'tab-to-tab-stop)
 
   :config
   ;; Key bindings
