@@ -30,7 +30,8 @@
   :config
   (general-define-key
    "C-c" 'nil
-   "<f1>" 'help-command)
+   "<f1>" 'help-command
+   "M-ESC" 'do-evil-escape-abort)
 
   (general-define-key
    :states 'emacs
@@ -331,20 +332,21 @@ avoid navigating with the insert state."
 
   (defun do-evil-escape-abort ()
 	(interactive)
-	(ignore-errors
-	  (if (and delete-selection-mode
+	(when (and delete-selection-mode
 			   transient-mark-mode
 			   mark-active)
-		  (setq deactivate-mark  t))
+	  (setq deactivate-mark  t))
 
-	  (when (get-buffer "*Completions*")
-		(delete-windows-on "*Completions*"))
+	;; Terminate evil-search aggressively
+	(unless defining-kbd-macro
+	  (ignore-errors
+		(evil-ex-search-abort))
+	  (ignore-errors
+		(evil-ex-delete-hl 'evil-ex-search))
 
-	  (unless defining-kbd-macro
-		(when evil-ex-current-buffer
-		  (evil-ex-search-abort))
-		(abort-recursive-edit)
-		(keyboard-escape-quit))))
+	  ;; Abort other on-going edits if any
+	  (ignore-errors
+		(abort-recursive-edit))))
 
   ;; Start Evil mode
   (evil-mode 1))
