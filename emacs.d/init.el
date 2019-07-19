@@ -32,7 +32,6 @@
 				 "completion/commands"
 				 "completion/snippets"
 
-				 "feature/scratches"
 				 "feature/project"
 				 "feature/text-adjust"
 				 "feature/spell-checker"
@@ -54,6 +53,7 @@
 				 ;; "lang/web"
 				 ;; "lang/php"
 
+				 "tool/scratch"
 				 "tool/notebook"
 				 "tool/music"
 				 "tool/english"

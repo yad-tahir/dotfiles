@@ -27,4 +27,4 @@
   (switch-to-buffer (get-buffer-create "*scratch*")))
 
 
-(provide 'do-scratches)
+(provide 'do-scratch)
