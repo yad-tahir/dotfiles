@@ -1,5 +1,3 @@
-;;; -*- lexical-binding: t; -*-
-
 ;; Copyright (C) 2019
 
 ;; This program is free software; you can redistribute it and/or
@@ -17,8 +15,6 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
-(use-package chocolate-theme
-  :demand t
-  :load-path "~/.emacs.d/local-packages/chocolate")
-
-(provide 'do-theme)
+(define-package "chocolate-theme" "1.0.0"
+  "Chocolate - A delicious brown theme!"
+  '((emacs "26.1")))
