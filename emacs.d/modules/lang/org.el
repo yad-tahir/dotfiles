@@ -61,10 +61,10 @@
    :states 'normal
    "RET" 'org-cycle
    "M-<return>" 'org-global-cycle
-   "C" 'org-shiftup
-   "T" 'org-shiftdown
-   "H" 'org-shiftleft
-   "N" 'org-shiftright
+   "C-c" 'org-shiftup
+   "C-t" 'org-shiftdown
+   "C-h" 'org-shiftleft
+   "C-n" 'org-shiftright
    "M-C" 'org-shiftmetaup
    "M-T" 'org-shiftmetadown
    "M-H" 'org-shiftmetaleft

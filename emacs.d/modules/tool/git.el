@@ -140,8 +140,8 @@
    "SPC lG" 'magit-dispatch
    "SPC dg" 'magit-diff
    "SPC dG" 'magit-ediff
-   "N" 'magit-blob-next
-   "H" 'magit-blob-previous)
+   "C-n" 'magit-blob-next
+   "C-h" 'magit-blob-previous)
 
   (general-define-key
    :keymaps 'magit-mode-map

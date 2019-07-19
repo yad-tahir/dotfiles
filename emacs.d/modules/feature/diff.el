@@ -25,8 +25,8 @@
   (general-define-key
    :kemaps 'diff-hl-mode-map
    :states '(normal visual)
-   "T" 'diff-hl-next-hunk
-   "C" 'diff-hl-previous-hunk)
+   "C-t" 'diff-hl-next-hunk
+   "C-c" 'diff-hl-previous-hunk)
 
   (set-face-attribute 'diff-hl-change nil
 					  :foreground 'nil

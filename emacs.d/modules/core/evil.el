@@ -90,12 +90,12 @@
    "g*" 'evil-ex-search-unbounded-word-forward
    "gn" 'evil-next-match
    "gh" 'evil-previous-match
-   "C-n" 'evil-ex-search-next
-   "C-h" 'evil-ex-search-previous
+   "N" 'evil-ex-search-next
+   "H" 'evil-ex-search-previous
 
    ;; Scrolling
-   "C-c" 'evil-scroll-page-up
-   "C-t" 'evil-scroll-page-down
+   "C" 'evil-scroll-page-up
+   "T" 'evil-scroll-page-down
 
    ":" 'evil-ex
    ";" 'evil-ex)
@@ -117,11 +117,12 @@
    "g:" 'nil
    "'" 'nil
 
+   "C-c" 'ignore
+   "C-t" 'ignore
+   "C-n" 'ignore
+   "C-h" 'ignore
+
    "X" 'do-evil-fixup-whitespace
-   "N" 'ignore
-   "C" 'ignore
-   "T" 'ignore
-   "H" 'ignore
 
    ;; Primary operations
    "d" 'evil-delete
