@@ -33,8 +33,9 @@
 (setq package--init-file-ensured t
 	  package-enable-at-startup nil
 	  package-user-dir (concat user-emacs-directory "/packages"))
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(add-to-list 'package-archives '("gnu-plain" . "http://elpa.gnu.org/packages/"))
 ;; (package-refresh-contents)
 
 (eval-and-compile
@@ -47,53 +48,24 @@
 		use-package-verbose nil))
 
 ;; Module manager
-(defvar do-modules-list '())
+(defun do-modules-load (&rest modules)
+  "Goes through each module in the list MODULES, one by one, and loads it to Emacs.
 
-(defun do-modules (&rest modules)
-  "Load the given modules"
-  (setq do-modules-list modules))
+A module is a regular elisp file that exists in the 'modules' directory.
 
-(defun do-modules-update-bootstrap ()
-  (interactive)
-  (cd "~/.emacs.d")
-  (let ((generated-bootstrap-file
-		 (expand-file-name "modules-bootstrap.el")))
-	(with-current-buffer (find-file-noselect
-						  generated-bootstrap-file)
-	  (erase-buffer)
-	  (insert ";;; -*- lexical-binding: t; -*-")
-	  ;; (insert "\n(eval-and-compile ")
-	  (dolist (m do-modules-list)
-		(insert-file-contents (concat "~/.emacs.d/modules/" m ".el"))
-		(goto-char (point-max)))
-	  ;; (insert ")")
-	  (save-buffer)
-	  (kill-buffer))
-	(byte-recompile-file "~/.emacs.d/modules-bootstrap.el" t)))
+MODULES must hold module paths. Each path must be relative to
+the 'modules' directory and without the '.el' extension.
 
-(defun do-modules-bootstrap-load (&optional new-bootstrap)
-  (when new-bootstrap
-	(do-modules-update-bootstrap))
-  (load "~/.emacs.d/modules-bootstrap"))
-
-(defun do-modules-load (&optional compile)
-  "Load modules in 'do-modules-list'.
-
-The first argument, compile, indicates whether to recompile the modules."
+This function automatically byte compiles module files as necessary. Modules are
+ compiled and loaded based on their order in MODULES."
 
   (let* ((d (concat user-emacs-directory "modules/"))
 		 (default-directory d))
 	;; Add to load path
 	(normal-top-level-add-subdirs-to-load-path)
-	;; Recompile if it is needed it
-	;; (when compile
-	;;   (byte-recompile-directory d 0))
-	;; Go through the modules and load them one by one
-	(dolist (m do-modules-list)
-	  (if compile
-		  (byte-recompile-file (concat d m ".el") nil 0 t)
-		;; @TODO: Change to require
-		(load (concat d m))))))
+
+	(dolist (m modules)
+	  (byte-recompile-file (concat d m ".el") nil 0 t))))
 
 (defun display-startup-echo-area-message ()
   (message "Loading done in %.3fs"

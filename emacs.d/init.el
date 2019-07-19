@@ -15,54 +15,51 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
-(require 'core "~/.emacs.d/modules/core/core")
+(require 'core (concat user-emacs-directory "modules/core/core"))
 
-(do-modules
-	"core/evil"
+(do-modules-load "core/evil"
 
-	"ui/general"
-	"ui/theme"
-	"ui/status-bar"
-	"ui/windows"
-	"ui/buffers"
-	"ui/line-numbering"
-	"ui/text-visual"
+				 "ui/general"
+				 "ui/theme"
+				 "ui/status-bar"
+				 "ui/windows"
+				 "ui/buffers"
+				 "ui/line-numbering"
+				 "ui/text-visual"
 
-	"completion/ivy"
-	"completion/company"
-	"completion/commands"
-	"completion/snippets"
+				 "completion/ivy"
+				 "completion/company"
+				 "completion/commands"
+				 "completion/snippets"
 
-	"feature/scratches"
-	"feature/project"
-	"feature/text-adjust"
-	"feature/spell-checker"
-	"feature/lemon-bar"
-	"feature/tramp"
-	"feature/file-manager"
-	"feature/diff"
-	"feature/motion"
-	"feature/operator"
-	"feature/macro"
+				 "feature/scratches"
+				 "feature/project"
+				 "feature/text-adjust"
+				 "feature/spell-checker"
+				 "feature/lemon-bar"
+				 "feature/tramp"
+				 "feature/file-manager"
+				 "feature/diff"
+				 "feature/motion"
+				 "feature/operator"
+				 "feature/macro"
 
-	;; "lang/text" - no need to load as it is currently empty
-	"lang/org"
-	"lang/prog"
-	"lang/elisp"
-	"lang/go"
-	"lang/clojure"
-	;; "lang/java"
-	;; "lang/web"
-	;; "lang/php"
+				 ;; "lang/text" - no need to load as it is currently empty
+				 "lang/org"
+				 "lang/prog"
+				 "lang/elisp"
+				 "lang/go"
+				 "lang/clojure"
+				 ;; "lang/java"
+				 ;; "lang/web"
+				 ;; "lang/php"
 
-	"tool/notebook"
-	"tool/music"
-	"tool/english"
-	"tool/shell"
-	"tool/git"
-	"tool/calculator"
-	"tool/search"
-	"tool/browser"
-	"tool/license")
-
-(do-modules-load t)
+				 "tool/notebook"
+				 "tool/music"
+				 "tool/english"
+				 "tool/shell"
+				 "tool/git"
+				 "tool/calculator"
+				 "tool/search"
+				 "tool/browser"
+				 "tool/license")
