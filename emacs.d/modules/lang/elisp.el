@@ -17,7 +17,9 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
+;; Custom functions/operators
 (defun do--elisp-init()
+  "Called whenever the emacs-lisp mode is loaded."
 
   (cl-eval-when (compile)
 	(require 'company))
@@ -39,23 +41,35 @@
 
 (add-hook 'emacs-lisp-mode-hook #'do--elisp-init())
 
+(with-eval-after-load 'flycheck
+  (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
+
+(evil-define-operator do-elisp-eval (beginning end)
+  "Ask for a motion, and then evaluate the selected region accordingly."
+  :move-point nil
+  :motion do-evil-a-section
+  (eval-region beginning end t))
+
+;; Keybindings
+(general-define-key
+ :keymaps 'emacs-lisp-mode-map
+ :states '(normal visual)
+ "SPC le" 'do-elisp-eval)
+
+;; Third-party packages
 (use-package macrostep
   :ensure t
   :commands (macrostep-expand macrostep-collapse)
   :init
   (general-define-key
    :keymaps 'emacs-lisp-mode-map
-   :states 'normal
-   "SPC lme" 'macrostep-expand
-   "SPC lmc" 'macrostep-collapse)
+   :states '(normal visual)
+   "SPC lm" 'macrostep-expand
+   "SPC lM" 'macrostep-collapse)
 
   :config
   (set-face-attribute 'macrostep-expansion-highlight-face nil
 					  :background "#2f0a0a"))
-
-
-(with-eval-after-load 'flycheck
-  (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
 
 
 (provide 'do-elisp)
