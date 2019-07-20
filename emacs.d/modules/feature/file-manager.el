@@ -105,8 +105,13 @@ separate frame."
 
   (general-define-key
    :keymaps 'dired-mode-map
-   :states 'normal
-   ;; general
+   :states '(normal visual)
+   ";" 'nil
+   "q" 'nil
+   "s" 'nil
+   "SPC l" 'nil
+
+   ;; Navigation
    "t" 'dired-next-line
    "c" 'dired-previous-line
    "<return>" 'do-dired-find-file
@@ -116,57 +121,24 @@ separate frame."
    "}" 'dired-next-dirline
    "<" 'dired-prev-dirline
    ">" 'dired-next-dirline
-   ";" 'nil
-   "q" 'nil
-   "SPC l" 'nil
-   "s" 'nil
-   "SPC ls" 'dired-sort-toggle-or-edit
    [remap next-line] 'dired-next-line
    [remap previous-line] 'dired-previous-line
 
-   ;; operations
-   ;; "SPC l" 'dired-do-flagged-delete
-   ;; "d" 'dired-flag-file-deletion
-   "Y" 'dired-do-copy
-   "SPC ly" 'dired-do-copy
-   "D" 'dired-do-delete
-   "SPC ld" 'dired-do-delete
-   "R" 'dired-do-rename
-   "SPC lr" 'dired-do-rename
-   "F" 'find-file
-   "SPC lf" 'find-file
-   "+" 'dired-create-directory
-   "SPC l+" 'dired-create-directory
-   "L" 'dired-do-symlink
-   "SPC ll" 'dired-do-symlink
-   "SPC lL" 'dired-do-hardlink
-   "O" 'dired-do-chown
-   "SPC lO" 'dired-do-chown
-   "!" 'dired-do-shell-command
-   "SPC l!" 'dired-do-shell-command
-   "&" 'dired-do-async-shell-command
-   "SPC l&" 'dired-do-async-shell-command
-   ;; [tab] 'dired-summary
-   "SPC l=" 'dired-diff
-   "SPC lz" 'dired-do-compress
-   "SPC lZ" 'dired-do-compress-to
-   "SPC lt" 'dired-do-touch
-   "SPC lu" 'dired-downcase
-   "SPC lU" 'dired-upcase
+   ;; Undo
    "z" 'dired-undo
    [remap undo] 'dired-undo
    [remap advertised-undo] 'dired-undo
 
-   ;; mark
-   "m" 'dired-mark
-   "u" 'dired-unmark
-   "U" 'dired-unmark-all-marks
-
+   ;; Search
    "SPC l/" 'nil
    "SPC l/f" 'find-grep-dired
    "SPC l/g" 'dired-do-find-regexp
    "SPC l/r" 'dired-do-find-regexp-and-replace
-   ;; Press SPACE replace and 'n' to skip
+
+   ;; Mark
+   "m" 'dired-mark
+   "u" 'dired-unmark
+   "U" 'dired-unmark-all-marks
 
    "SPC l*" 'nil
    "SPC l**" 'dired-mark-executables
@@ -183,10 +155,72 @@ separate frame."
    "SPC l*o" 'do-dired-find-marked-files
    "SPC l*O" 'do-dired-find-marked-files-noframe
 
+   ;; Operations
+   "SPC ls" 'dired-sort-toggle-or-edit
+   "SPC le" 'wdired-change-to-wdired-mode
+   "SPC lf" 'find-file
+   "SPC l+" 'dired-create-directory
+   "SPC l=" 'dired-diff
+
+   "+" 'dired-create-directory
+   "F" 'find-file
    "a" 'dired-toggle-read-only
    "A" 'dired-toggle-read-only
    "i" 'dired-toggle-read-only
-   "I" 'dired-toggle-read-only))
+   "I" 'dired-toggle-read-only)
+
+  (general-define-key
+   :keymaps 'dired-mode-map
+   :states 'normal
+   "Y" 'dired-do-copy
+   "D" 'dired-do-delete
+   "M" 'dired-do-rename
+   "L" 'dired-do-symlink
+   "O" 'dired-do-chown
+   "!" 'dired-do-shell-command
+   "&" 'dired-do-async-shell-command
+
+   "SPC ly" 'dired-do-copy
+   "SPC ld" 'dired-do-delete
+   "SPC lm" 'dired-do-rename
+   "SPC ll" 'dired-do-symlink
+   "SPC lL" 'dired-do-hardlink
+   "SPC lO" 'dired-do-chown
+   "SPC l!" 'dired-do-shell-command
+   "SPC l&" 'dired-do-async-shell-command
+   "SPC lz" 'dired-do-compress
+   "SPC lZ" 'dired-do-compress-to
+   "SPC lt" 'dired-do-touch)
+
+
+  (defmacro do--dired-visual-marking (func)
+	"Marks the selected region before executing FUNC."
+
+	(call-interactively 'dired-mark)
+	(call-interactively func))
+
+  (general-define-key
+   :keymaps 'dired-mode-map
+   :states 'visual
+   "Y" '(lambda ()(interactive)(do--dired-visual-marking dired-do-copy))
+   "D" '(lambda ()(interactive)(do--dired-visual-marking dired-do-delete))
+   "M" '(lambda ()(interactive)(do--dired-visual-marking dired-do-rename))
+   "L" '(lambda ()(interactive)(do--dired-visual-marking dired-do-symlink))
+   "O" '(lambda ()(interactive)(do--dired-visual-marking dired-do-chown))
+   "!" '(lambda ()(interactive)(do--dired-visual-marking dired-do-shell-command))
+   "&" '(lambda ()(interactive)(do--dired-visual-marking dired-do-async-shell-command))
+
+   "SPC ly" '(lambda ()(interactive)(do--dired-visual-marking dired-do-copy))
+   "SPC ld" '(lambda ()(interactive)(do--dired-visual-marking dired-do-delete))
+   "SPC lm" '(lambda ()(interactive)(do--dired-visual-marking dired-do-rename))
+   "SPC ll" '(lambda ()(interactive)(do--dired-visual-marking dired-do-symlink))
+   "SPC lL" '(lambda ()(interactive)(do--dired-visual-marking dired-do-hardlink))
+   "SPC lO" '(lambda ()(interactive)(do--dired-visual-marking dired-do-chown))
+   "SPC l!" '(lambda ()(interactive)(do--dired-visual-marking dired-do-shell-command))
+   "SPC l&" '(lambda ()(interactive)(do--dired-visual-marking dired-do-async-shell-command))
+   "SPC lz" '(lambda ()(interactive)(do--dired-visual-marking dired-do-compress))
+   "SPC lZ" '(lambda ()(interactive)(do--dired-visual-marking dired-do-compress-to))
+   "SPC lt" '(lambda ()(interactive)(do--dired-visual-marking dired-do-touch))))
 
 (use-package dired-open
   :ensure t
