@@ -137,6 +137,17 @@
 	(let ((display-buffer-overriding-action '(display-buffer-same-window)))
 	  (apply org-fn args)))
 
+  ;; Bug-Fix: Remove keybinding conflicts
+  (define-advice org-completing-read (:around (org-fn &rest args))
+	(let ((minibuffer-local-completion-map
+		   (copy-keymap minibuffer-local-completion-map)))
+	  ;; The keybinding 'C-c !' is hard coded in org.el.gz. Thus, the C-c prefix
+	  ;; needs to be free. As far as I see, this has no effect on Ivy.
+	  (general-define-key
+	   :keymaps 'minibuffer-local-completion-map
+	   "C-c" 'nil)
+	  (apply org-fn args)))
+
   ;; Theme
   (custom-set-variables
    '(org-format-latex-options
