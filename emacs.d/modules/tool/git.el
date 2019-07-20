@@ -114,7 +114,7 @@
 			  magit-staged-section-map
 			  magit-hunk-section-map)
    [return] 'magit-visit-thing
-   [C-return] 'magit-jump-to-diffstat-or-diff
+   [S-return] 'magit-jump-to-diffstat-or-diff
    "a" 'magit-apply
    "s" 'magit-stage
    "u" 'magit-unstage
@@ -147,7 +147,7 @@
    :keymaps 'magit-mode-map
    :states '(normal visual)
    [return] 'magit-visit-thing
-   [C-return] 'magit-jump-to-diffstat-or-diff
+   [S-return] 'magit-jump-to-diffstat-or-diff
    "<tab>" 'magit-section-toggle
    [C-tab] 'magit-section-cycle
    [M-tab] 'magit-section-cycle-diffs

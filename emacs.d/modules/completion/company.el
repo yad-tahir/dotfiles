@@ -40,7 +40,6 @@
    :states 'insert
    ;; make TAB smarter a bit!
    "<tab>" 'do--tab-complete
-
    "M-<tab>" 'tab-to-tab-stop)
 
   :config

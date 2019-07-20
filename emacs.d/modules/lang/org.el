@@ -59,8 +59,9 @@
   (general-define-key
    :keymaps 'org-mode-map
    :states 'normal
-   "RET" 'org-cycle
-   "M-<return>" 'org-global-cycle
+   "<return>" 'org-cycle
+   "<S-return>" 'org-global-cycle
+   "<C-return>" 'org-open-line
    "C-c" 'org-shiftup
    "C-t" 'org-shiftdown
    "C-h" 'org-shiftleft

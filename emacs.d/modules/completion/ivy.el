@@ -59,8 +59,8 @@
    "C-." 'ivy-resume
    "<tab>" 'ivy-partial
    "M-<tab>" 'ivy-next-line-and-call
-   "M-<return>" 'ivy-immediate-done
-   "C-<return>" 'ivy-dispatching-call
+   "<S-return>" 'ivy-dispatching-call
+   "<C-return>" 'ivy-immediate-done
    "C-t" 'ivy-next-line
    "C-c" 'ivy-previous-line
    "C-h" 'left-char

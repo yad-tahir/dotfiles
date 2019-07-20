@@ -100,10 +100,9 @@ removed automatically from buffer. A manual refresh is needed then."
 
 (defvar latte-keyword-map
   (let ((map (make-sparse-keymap)))
-	(define-key map (kbd "C-<return>") 'latte-grep-topic)
-	;; Add click support
 	(define-key map (kbd "<mouse-1>") 'latte-grep-topic)
-	(define-key map (kbd "M-<return>") 'latte-grep-all)
+	(define-key map (kbd "<M-return>") 'latte-grep-topic)
+	(define-key map (kbd "<M-S-return>") 'latte-grep-all)
 	map)
 
   "Keymap for highlighted keywords.")

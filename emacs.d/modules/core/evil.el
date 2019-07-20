@@ -63,6 +63,8 @@
    "C-t" 'evil-next-visual-line
    "C-f" 'evil-find-char
    "C-j" 'evil-find-char-to
+   "C-d" 'evil-delete
+   "C-u" 'evil-change
    "C-:" 'evil-ex
    "C-;" 'evil-ex)
 
@@ -139,21 +141,23 @@
    "=" 'do-evil-indent
    "g=" 'evil-indent
 
-   "SPC l" '(:ignore t :which-key "local")
-
+   "]" '(:ignore t :which-key "move-forward")
    "][" 'evil-forward-section-begin
    "]]" 'evil-forward-section-end
-   "[[" 'evil-backward-section-begin
-   "[]" 'evil-backward-section-end
    "]s" 'evil-forward-sentence-begin
    "]S" 'evil-forward-sentence-end
+   "]p" 'evil-forward-paragraph
+   "]m" 'do-evil-forward-motion
+
+   "[" '(:ignore t :which-key "move-backward")
+   "[[" 'evil-backward-section-begin
+   "[]" 'evil-backward-section-end
    "[s" 'evil-backward-sentence-begin
    "[S" 'evil-backward-sentence-end
-   "]p" 'evil-forward-paragraph
    "[p" 'evil-backward-paragraph
-   "]m" 'do-evil-forward-motion
    "[m" 'do-evil-backward-motion
 
+   "SPC l" '(:ignore t :which-key "local")
    "lg" '(:ignore t :which-key "jump")
    "lgh" 'evil-jump-backward
    "lgn" 'evil-jump-forward
@@ -201,7 +205,7 @@
    "," 'evil-repeat-find-char
    "g," 'evil-repeat-find-char-reverse
 
-   ;; Navigation
+   ;; Make sure basic navigation matches the normal state
    "h" 'backward-char
    "n" 'forward-char
    "c" 'evil-previous-visual-line
@@ -242,10 +246,9 @@
 
   (general-define-key
    :keymaps 'with-editor-mode-map
-   :prefix "x"
    :states 'normal
-   "q" 'with-editor-finish
-   "<escape>" 'with-editor-cancel)
+   "SPC lq" 'with-editor-finish
+   "SPC l <escape>" 'with-editor-cancel)
 
   (general-define-key
    :keymaps 'button-map
@@ -295,12 +298,12 @@
 		evil-motion-state-modes nil)
 
   ;; Theme
-  (evil-put-property 'evil-state-properties 'insert   :tag " INSERT ")
-  (evil-put-property 'evil-state-properties 'visual   :tag " VISUAL ")
-  (evil-put-property 'evil-state-properties 'motion   :tag " MOTION ")
-  (evil-put-property 'evil-state-properties 'emacs    :tag " EMACS ")
-  (evil-put-property 'evil-state-properties 'replace  :tag " REPLACE ")
-  (evil-put-property 'evil-state-properties 'operator :tag " OPERATOR ")
+  (evil-put-property 'evil-state-properties 'insert   :tag "INSERT")
+  (evil-put-property 'evil-state-properties 'visual   :tag "VISUAL")
+  (evil-put-property 'evil-state-properties 'motion   :tag "MOTION")
+  (evil-put-property 'evil-state-properties 'emacs    :tag "EMACS")
+  (evil-put-property 'evil-state-properties 'replace  :tag "REPLACE")
+  (evil-put-property 'evil-state-properties 'operator :tag "OPERATOR")
 
   (setq evil-default-cursor `(box)
 		evil-insert-state-cursor `((bar . 5))

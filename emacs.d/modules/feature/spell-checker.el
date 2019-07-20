@@ -24,13 +24,12 @@
   :config
   (general-define-key
    :keymaps 'flyspell-mode-map
-   "M-]" 'evil-next-flyspell-error
-   "M-[" 'evil-prev-flyspell-error)
+   "]y" 'evil-next-flyspell-error
+   "[y" 'evil-prev-flyspell-error)
 
   (general-define-key
    :keymaps 'flyspell-mouse-map
-   "C-<return>" 'ispell-word
-   "M-<return>" 'ispell-word)
+   "<M-return>" 'ispell-word)
 
   (setq ispell-personal-dictionary "~/notes/personal.aspell.en.pws"
 		flyspell-issue-message-flag nil
@@ -46,7 +45,7 @@
   :init
   (general-define-key
    :keymaps 'flyspell-mouse-map
-   "C-<return>" 'flyspell-correct-at-point))
+   "<M-S-return>" 'flyspell-correct-at-point))
 
 
 (provide 'do-spell-checker)

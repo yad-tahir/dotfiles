@@ -110,7 +110,7 @@ separate frame."
    "t" 'dired-next-line
    "c" 'dired-previous-line
    "<return>" 'do-dired-find-file
-   "C-<return>" 'dired-find-file-other-window
+   "<S-return>" 'dired-find-file-other-window
    "DEL" 'do-dired-up-directory
    "{" 'dired-prev-dirline
    "}" 'dired-next-dirline
@@ -195,7 +195,7 @@ separate frame."
   (general-define-key
    :keymaps 'dired-mode-map
    :states 'normal
-   "M-<return>" 'dired-open-xdg))
+   "<C-return>" 'dired-open-xdg))
 
 (use-package dired-ranger
   :disabled t

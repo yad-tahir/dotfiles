@@ -7,14 +7,6 @@ set statusbar-home-tilde "true"
 set selection-clipboard clipboard
 
 map gg goto top
-# map c scroll up
-# map t scroll down
-# map h scroll left
-# map n scroll right
-# map C scroll half-up
-# map T scroll half-down
-# map <PageUp> scroll half-up
-# map <PageDown> scroll half-down
 map C scroll page-top
 map T scroll page-bottom
 map <A-c> scroll full-up
@@ -39,22 +31,22 @@ map l toggle_index
 
 set default-bg					"#000000"
 set default-fg					"#e6beae"
-set inputbar-fg				"#ffa500"
-set inputbar-bg				"#0f0b0c"
+set inputbar-fg                 "#ffa500"
+set inputbar-bg                 "#0f0b0c"
 set statusbar-bg				"#000000"
 set statusbar-fg				"#e6beae"
 set notification-error-bg		"#ff4422"
 set notification-error-fg		"#000000"
-set notification-warning-bg	"#be85ff"
-set notification-warning-fg	"#000000"
-set highlight-color			"#ffc05c"
+set notification-warning-bg     "#da70d6"
+set notification-warning-fg     "#000000"
+set highlight-color             "#ffc05c"
 set highlight-active-color		"#a7e23e"
-set completion-highlight-fg	"#ffa500"
-set completion-highlight-bg	"#000000"
+set completion-highlight-fg     "#ffa500"
+set completion-highlight-bg     "#000000"
 set completion-bg				"#0f0b0c"
 set completion-fg				"#6fd8ff"
-set notification-bg			"#ffa500"
-set notification-fg			"#000000"
+set notification-bg             "#ffa500"
+set notification-fg             "#000000"
 set recolor-lightcolor			"#000000"
 set recolor-darkcolor			"#e6beae"
 

@@ -32,7 +32,7 @@
    :keymaps 'deadgrep-mode-map
    :states '(normal visual)
    "<return>" 'deadgrep-visit-result
-   "C-<return>" 'deadgrep-visit-result-other-window
+   "<S-return>" 'deadgrep-visit-result-other-window
    "<tab>" 'deadgrep-toggle-file-results
    "N" 'deadgrep-forward
    "H" 'deadgrep-backward
@@ -58,13 +58,15 @@
    :states '(normal visual)
    "lw" 'define-wiki)
 
-(evil-define-operator define-wiki (beginning end)
+(with-eval-after-load 'evil
+  (evil-define-operator define-wiki (beginning end)
 	"Get Wiki summary for the words between BEGINNING END."
 	:move-point nil
 	(require 'eww)
 	(eww-browse-url
 	 (format
 	  "https://en.wikipedia.org/wiki/Special:Search/?search=%s&sourceid=emacs"
-	  (buffer-substring-no-properties beginning end))))
+	  (buffer-substring-no-properties beginning end)))))
+
 
 (provide 'do-search)

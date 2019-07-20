@@ -29,9 +29,9 @@
 		 )
 
   :commands (latte-files latte-search
-							   latte-insert-keyword latte-insert-org-tag
-							   latte-grep-topic latte-new-entry
-							   latte-grep-all)
+						 latte-insert-keyword latte-insert-org-tag
+						 latte-grep-topic latte-new-entry
+						 latte-grep-all)
   :init
   (setq latte-directory "~/notes/notebook"
 		latte-scan-idle-delay 30
@@ -42,34 +42,31 @@
    :keymaps 'override
    :states '(normal visual)
    "" '(:ignore t :which-key "notes")
-   "f" #'latte-files
-   "s" #'latte-search
-   "k" #'latte-insert-keyword
-   "#" #'latte-insert-org-tag
-   "g" #'latte-grep-topic
-   "c" #'latte-new-entry)
+   "f" 'latte-files
+   "s" 'latte-search
+   "k" 'latte-insert-keyword
+   "#" 'latte-insert-org-tag
+   "g" 'latte-grep-topic
+   "c" 'latte-new-entry)
 
   (general-define-key
    :prefix "SPC s"
    :keymaps 'override
    :states '(normal visual)
-   "n" #'latte-search)
+   "n" 'latte-search)
 
-;;;###autoload
   (defun latte()
 	(interactive)
 	(do-make-frame "notebook")
 	(latte-search))
 
   :config
-
-  ;; (set-face-attribute 'latte-keyword-face nil
-  ;;					  :foreground chocolate-theme-element+8)
-
   (general-define-key
    :states '(normal visual)
    "ln" 'latte-grep-topic
-   "lN" 'latte-grep-all)
+   "lN" 'latte-grep-all
+   "<M-return>" 'latte-grep-topic
+   "<M-S-return>" 'latte-grep-all)
 
   (with-eval-after-load 'org
 	(general-def org-mode-map

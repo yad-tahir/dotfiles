@@ -189,7 +189,7 @@ function panel_bar {
 								# Get the progress as a number and trim whitespaces
 								progress=$(echo "${title_text:(-3)}" |
 											   sed -e 's/-//' | awk '{$1=$1};1')
-								title_text="${title_text:0:${#title_text}-${#progress}-3}${meta}"
+								title_text="${title_text:0:${#title_text}-${#progress}-3}"
 
 								t="%{U$UG}%{F$FG}%{B$BG}"
 								t="${t}"$($PWD/blocks/progress.sh \
