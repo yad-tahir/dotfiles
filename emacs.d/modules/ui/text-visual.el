@@ -35,13 +35,23 @@
   :config
   (global-visual-line-mode 1))
 
-(use-package hideshow
+(use-package evil-commands
   :hook ((prog-mode . hs-minor-mode))
   :config
+  (defvar do--fold-global-toggle t)
+
+  (defun do--fold-toggle-all ()
+	(interactive)
+	(setq do--fold-global-toggle (not do--fold-global-toggle))
+	(if do--fold-global-toggle
+		(call-interactively 'evil-open-folds)
+	  (call-interactively 'evil-close-folds)))
+
   (general-define-key
    :keymaps 'hs-minor-mode-map
    :states 'normal
-   "<tab>" 'hs-toggle-hiding))
+   "<tab>" 'evil-toggle-fold
+   "M-<tab>" 'do--fold-toggle-all))
 
 (use-package rainbow-mode
   :ensure t
