@@ -21,11 +21,14 @@
   :ensure t
   :commands (define-word define-word-at-point)
   :init
+  (evil-define-operator do-define-word (beg end)
+	:motion evil-inner-word
+	(define-word (buffer-substring-no-properties beg end) nil))
+
   (general-define-key
    :prefix "l"
    :states 'normal
-   "w" #'define-word-at-point
-   "W" #'define-word))
+   "W" 'do-define-word))
 
 
 (provide 'do-english)
