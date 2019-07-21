@@ -46,8 +46,8 @@
   (general-define-key
    :keymaps 'magit-log-select-mode-map
    :states '(normal visual)
-   "SPC lq" 'magit-log-select-pick
-   "SPC l <escape>" 'magit-log-select-quit)
+   [remap evil-save-and-quit] 'magit-log-select-pick
+   [remap evil-quit] 'magit-log-select-quit)
 
   (general-define-key
    :keymaps 'magit-log-mode-map
@@ -58,8 +58,7 @@
    "-"  'magit-log-half-commit-limit
    "r"  'magit-rebase
    "m"  'magit-merge
-   "SPC l"  'magit-reset
-   "SPC l"  'nil
+
    "SPC lp" 'magit-log-move-to-parent
    "SPC ls" 'magit-log-toggle-commit-limit
    "SPC lr" 'magit-rebase
@@ -194,7 +193,7 @@
    "SPC lM" 'magit-remote
    "SPC lo" 'magit-submodule
    "SPC lO" 'magit-subtree
-   "SPC lq" 'magit-mode-bury-buffer
+   [remap evil-quit] 'magit-mode-bury-buffer
    "SPC lp" 'magit-push
    "SPC lr" 'magit-rebase
    "SPC lR" 'magit-file-rename

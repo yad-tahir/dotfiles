@@ -96,16 +96,16 @@
    "SPC lep" 'org-latex-export-to-pdf
    "SPC leb" 'org-beamer-export-to-pdf
    "SPC leh" 'org-html-export-to-html
-   "SPC lq"  'org-ctrl-c-ctrl-c
-   "SPC l <escape>" 'org-kill-note-or-show-branches
+   [remap evil-save-and-quit] 'org-ctrl-c-ctrl-c
+   [remap evil-quit] 'org-kill-note-or-show-branches
    "SPC l'" 'org-edit-src-code
    "SPC ld" 'org-archive-subtree)
 
   (general-define-key
    :keymaps 'org-src-mode-map
    :states '(normal visual)
-   "SPC lq" 'org-edit-src-exit
-   "SPC l <escape>" 'org-edit-src-abort)
+   [remap evil-save-and-quit] 'org-edit-src-exit
+   [remap evil-quit] 'org-edit-src-abort)
 
   (setq org-modules '(org-bbdb org-bibtex org-crypt org-docview
 							   org-gnus org-habit org-id
@@ -233,8 +233,8 @@
   (general-define-key
    :keymaps 'org-capture-mode-map
    :states '(normal visual)
-   "SPC l <escape>" 'org-capture-kill
-   "SPC lq" 'org-capture-finalize)
+   [remap evil-quit] 'org-capture-kill
+   [remap evil-save-and-quit] 'org-capture-finalize)
 
   (setq
    org-capture-templates

@@ -37,23 +37,18 @@
 		latte-scan-idle-delay 30
 		latte-rehighlight-after-scan t
 		latte-ignore-words '("attach"))
-  (general-define-key
-   :prefix "SPC n"
-   :keymaps 'override
-   :states '(normal visual)
-   "" '(:ignore t :which-key "notes")
-   "f" 'latte-files
-   "s" 'latte-search
-   "k" 'latte-insert-keyword
-   "#" 'latte-insert-org-tag
-   "g" 'latte-grep-topic
-   "c" 'latte-new-entry)
 
   (general-define-key
-   :prefix "SPC s"
    :keymaps 'override
    :states '(normal visual)
-   "n" 'latte-search)
+   "SPC n" '(:ignore t :which-key "notes")
+   "SPC nf" 'latte-files
+   "SPC ns" 'latte-search
+   "SPC nk" 'latte-insert-keyword
+   "SPC ng" 'latte-grep-topic
+   "SPC nG" 'latte-grep-all
+   "SPC nc" 'latte-new-entry
+   "SPC sn" 'latte-search)
 
   (defun latte()
 	(interactive)
@@ -69,15 +64,10 @@
    "<M-S-return>" 'latte-grep-all)
 
   (with-eval-after-load 'org
-	(general-def org-mode-map
-	  :states '(normal visual)
-	  "SPC ln" '(:ignore t :which-key "notes")
-	  "SPC lnk" 'latte-insert-keyword
-	  "SPC ln#" 'latte-insert-org-tag
-	  "SPC l#" 'latte-insert-org-tag
-	  "SPC lng" 'latte-grep-topic
-	  "SPC lg" 'latte-grep-topic
-	  "SPC lnG" 'latte-grep-all)))
+	(general-define-key
+	 :keymaps 'org-mode-map
+	 :states '(normal visual)
+	 "SPC l#" 'latte-insert-org-tag)))
 
 
 (provide 'do-notebook)

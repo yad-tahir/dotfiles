@@ -96,12 +96,12 @@ separate frame."
   (general-define-key
    :keymaps 'wdired-mode-map
    :states 'normal
-   "SPC lq" 'wdired-finish-edit
    "w" 'evil-forward-word-begin
    "W" 'evil-forward-WORD-begin
    "b" 'evil-backward-word-begin
    "B" 'evil-backward-WORD-begin
-   "SPC l <escape>" 'wdired-abort-changes)
+   [remap evil-save-and-quit] 'wdired-finish-edit
+   [remap evil-quit] 'wdired-abort-changes)
 
   (general-define-key
    :keymaps 'dired-mode-map
@@ -109,7 +109,6 @@ separate frame."
    ";" 'nil
    "q" 'nil
    "s" 'nil
-   "SPC l" 'nil
 
    ;; Navigation
    "t" 'dired-next-line

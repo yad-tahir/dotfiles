@@ -69,7 +69,11 @@
 
   :config
   (set-face-attribute 'macrostep-expansion-highlight-face nil
-					  :background "#2f0a0a"))
+					  :background chocolate-theme-shadow+1)
+  (general-define-key
+   :keymaps 'macrostep-keymap
+   [remap evil-save-and-quit] 'macrostep-collapse-all
+   [remap evil-quit] 'macrostep-collapse-all))
 
 
 (provide 'do-elisp)

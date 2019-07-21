@@ -109,7 +109,7 @@
 
   (general-define-key
    :keymaps 'cider-inspector-mode-map
-   "SPC l"   'nil
+   ;; "SPC l"   'nil
    "SPC lf" 'cider-inspect-defun-at-point
    "SPC le" 'cider-inspect-expr
    "SPC ll" 'cider-inspect-last-sexp
@@ -120,13 +120,13 @@
 
   (general-define-key
    :keymaps 'cider-test-report-mode-map
-   "SPC l"   'nil
+   ;; "SPC l"   'nil
    "SPC ln" 'cider-test-next-result
    "SPC lh" 'cider-test-previous-result
    "SPC lj" 'cider-test-jump
    "SPC ld" 'cider-test-ediff
    "SPC ls" 'cider-test-stacktrace
-   "SPC lq" 'cider-popup-buffer-quit
+   [remap evil-quit] 'cider-popup-buffer-quit
    "SPC lR" 'cider-test-rerun-tests
    "SPC lr" 'cider-test-run-test
    "SPC ln" 'cider-test-run-ns-tests)

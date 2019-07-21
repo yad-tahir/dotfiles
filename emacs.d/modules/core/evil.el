@@ -158,6 +158,11 @@
    "[m" 'do-evil-backward-motion
 
    "SPC l" '(:ignore t :which-key "local")
+   "SPC lq" 'evil-quit
+   "SPC lw" 'evil-save-and-quit
+
+   "SPC g" '(:ignore t :which-key "go")
+
    "lg" '(:ignore t :which-key "jump")
    "lgh" 'evil-jump-backward
    "lgn" 'evil-jump-forward
@@ -247,8 +252,8 @@
   (general-define-key
    :keymaps 'with-editor-mode-map
    :states 'normal
-   "SPC lq" 'with-editor-finish
-   "SPC l <escape>" 'with-editor-cancel)
+   [remap evil-save-and-quit] 'with-editor-finish
+   [remap evil-quit] 'with-editor-cancel)
 
   (general-define-key
    :keymaps 'button-map

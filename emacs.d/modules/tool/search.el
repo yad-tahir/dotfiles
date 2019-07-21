@@ -37,7 +37,7 @@
    "N" 'deadgrep-forward
    "H" 'deadgrep-backward
    "SPC lo" 'deadgrep-visit-result-other-window
-   "SPC l <escape>" 'deadgrep-kill-process
+   [remap evil-quit] 'deadgrep-kill-process
    "SPC le" 'deadgrep-edit-mode
    "<f5>" 'deadgrep-restart)
 

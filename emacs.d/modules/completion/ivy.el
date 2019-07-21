@@ -302,7 +302,7 @@
   (general-define-key
    :keymaps 'wgrep-mode-map
    :states 'normal
-   "SPC lq" 'wgrep-finish-edit
+   [remap evil-save-and-quit] 'wgrep-finish-edit
    "SPC l <escape>" 'wgrep-abort-changes
    "SPC lz" 'wgrep-remove-all-change)
 

@@ -24,6 +24,7 @@
   :config
   (general-define-key
    :keymaps 'flyspell-mode-map
+   :states '(normal visual)
    "]y" 'evil-next-flyspell-error
    "[y" 'evil-prev-flyspell-error)
 

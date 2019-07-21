@@ -37,8 +37,8 @@
 
 (general-define-key
  :keymaps 'edmacro-mode-map
- "SPC lq" 'edmacro-finish-edit
- "SPC l <escape>" 'kill-buffer)
+ [remap evil-save-and-quit] 'edmacro-finish-edit
+ [remap evil-quit] 'kill-buffer)
 
 
 (provide 'do-macro)
