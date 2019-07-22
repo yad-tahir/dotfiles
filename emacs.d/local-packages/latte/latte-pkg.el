@@ -15,9 +15,9 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
-(define-package "latte" "1.2.2"
+(define-package "latte" "1.2.3"
   "A note taking system inside Emacs."
   #'((emacs "26.1")
-    (s)
-    (ivy)
-    (counsel)))
+	(s)
+	(ivy)
+	(counsel)))

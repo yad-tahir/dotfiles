@@ -39,17 +39,14 @@
 ;;; 02110-1301, USA.
 
 ;;; Road Map and Hopes:
+;;; - Make Latte less aggressive towards finding plural nouns.
 ;;; - Remove the needs for s.el.
-;;; - Add support for Helm
+;;; - Add support for Helm.
 ;;;
 
-;; Load cl
 (eval-and-compile
   (unless (fboundp 'cl)
-	(require 'cl)))
-
-;; Load s.el
-(eval-and-compile
+	(require 'cl))
   (unless (fboundp 's)
 	(require 's)))
 
@@ -94,6 +91,17 @@ Thus, making the scanning process less drawing intensive. However, the
 primary trade off is syncing inconsistency between overlays and backend
 keywords. For example, when a keyword is no longer exists, its overlays is not
 removed automatically from buffer. A manual refresh is needed then."
+
+  :group 'latte
+  :type 'boolean)
+
+(defcustom  latte-predict-other-forms t
+  "If t, Latte guesses other forms associated with a keyword.
+
+Setting this option allows Latte to add other possible word forms, such as
+predicting singular and/or plural forms. For instance, Latte adds the words
+'table' and 'symbol' when it finds the keywords 'tables' and 'symbols',
+respectively."
 
   :group 'latte
   :type 'boolean)
@@ -202,12 +210,9 @@ checking."
 			  (delete-overlay co))))))
 
 (defun latte--phrase-checker (phrase)
-  "Checks whether PHRASE exists in latte--keywords
+  "Returns t if PHRASE is a keyword."
 
-If it does not, this function returns nil. Otherwise, PHRASE is returned."
-
-  (when (gethash phrase latte--keywords)
-	phrase))
+  (gethash (latte--chop-keyword phrase) latte--keywords))
 
 (defun latte--highlight (&optional start end)
   "Highlights all the instances of KEYWORD in the current buffer. For each
@@ -227,113 +232,80 @@ occur after END. A value of nil means search from '(point-max)'."
 	(narrow-to-region start end)
 	(save-excursion
 	  (with-silent-modifications
+		;; Go to starting point
 		(goto-char (point-min))
 
-		(let ((w nil)
-			  (old-w nil)
-			  (older-w nil)
-			  (pure-pharse nil))
+		(let (w ;; Will hold the word found in the current search iteration
+			  old-w ;; Will hold the word found in the previous search iteration
+			  older-w ;; Will hold the word found in two iterations ago
+			  phrase ;; Will hold the keyword existing in the buffer
+			  chopped-phrase) ;; Used to hold the chopped version of PHRASE
 		  ;; For each word
 		  (forward-word)
 		  (while (< (point) (point-max))
 			;; We can't use text property face as it is over-ruled by font-lock
-			;; highlighting. To solve this problem we have two solutions:
-			;;
-			;; Solution 1: As shown below, fool lock-face into thinking that the
-			;; text is already font-lock highlighted. However, this is not as
-			;; consistent as overlays.
-			;; (put-text-property (- (point) l)
-			;;					 (point)
-			;;					 'font-lock-face
-			;;					 'latte-keyword-face)
-			;; (font-lock-flush (- (point) l)
-			;;					 (point))
-			;;
-			;; Solution 2: Use overlays.
-			;; The second solution has been selected since keywords have
-			;; to be regularly updated, and a keyword can be part of
-			;; other phrases. The last is supported by having multiple
-			;; overlays on top of the keyword. The overlay with the
-			;; highest priority overshadows the reset. This also
-			;; simplifies the needs to re-highlight the nested keywords
-			;; in case the phrase is destroyed.
+			;; highlighting. To solve this problem, we utilize overlays since
+			;; keywords have to be updated regularly, and a keyword can even be
+			;; part of multiple phrases. Having multiple overlays on top of the
+			;; keyword addresses these problems, given the fact that the overlay
+			;; that has the highest priority overshadows the reset. Utilizing
+			;; overlays also code complexity for re-highlighting nested keywords
+			;; when the parent phrase is destroyed.
 
-			;; When latte-highlight-prog-comments is on,
-			;; overlays in prog-mode must be inside comment
-			;; sections only
+			;; When latte-highlight-prog-comments is on, overlays in prog-mode
+			;; must be inside comment sections only
 			(unless (and latte-highlight-prog-comments
 						 (derived-mode-p 'prog-mode)
 						 ;; Comment section?
 						 ;; from https://github.com/blorbx/evil-quickscope
 						 (not (nth 4 (syntax-ppss))))
 
-			  (let* ((meta-end 0)
-					 (keyword nil)
-					 (w-choped-s nil)
-					 (w-choped-es nil))
+			  (setq older-w old-w
+					old-w w
+					w (s-downcase(format "%s" (word-at-point)))
+					phrase nil)
 
-				(setq older-w old-w
-					  old-w w
-					  w (s-downcase(format "%s" (word-at-point)))
-					  w-chopped-s (s-chop-suffix "s" w)
-					  w-chopped-es (s-chop-suffix "es" w))
+			  ;; Search for a keyword, which can be either: a phrase that
+			  ;; consists of two or three words, or a single word.
+			  (cond
+			   ((setq chopped-phrase (latte--phrase-checker
+								   (concat older-w " " old-w " " w)))
+				(setq phrase (concat older-w " " old-w " " w)))
 
-				;; Search for a keyword, which can be either:
-				;; - A phrase that consists of two or three words.
-				;; - A single word (may be even in a plural form)
-				(cond
-				 ((setq pure-pharse (or
-									 (latte--phrase-checker
-									  (concat older-w " " old-w " " w-chopped-es))
-									 (latte--phrase-checker
-									  (concat older-w " " old-w " " w-chopped-s))
-									 (latte--phrase-checker
-									  (concat older-w " " old-w " " w))))
-				  (setq keyword (concat older-w " " old-w " " w)))
+			   ((setq chopped-phrase (latte--phrase-checker
+								   (concat old-w " " w)))
+				(setq phrase (concat old-w " " w)))
 
-				 ((setq pure-pharse (or
-									 (latte--phrase-checker
-									  (concat " " old-w " " w-chopped-es))
-									 (latte--phrase-checker
-									  (concat old-w " " w-chopped-s))
-									 (latte--phrase-checker
-									  (concat old-w " " w))))
-				  (setq keyword (concat old-w " " w)))
+			   ((setq chopped-phrase (latte--phrase-checker w))
+				(setq phrase w)))
 
-				 ((setq pure-pharse (or
-									 (latte--phrase-checker w-chopped-es)
-									 (latte--phrase-checker w-chopped-s)
-									 (latte--phrase-checker w)))
-				  (setq keyword w)))
+			  (when phrase
+				(let* ((l (length phrase))
+					   (beginning (- (point) l))
+					   (end  (point)))
 
-				(when keyword
-				  (let* ((l (length keyword))
-						 (beginning (- (point) l))
-						 (end  (point)))
+				  (unless (latte--overlay-exists chopped-phrase beginning end)
+					(let ((o (make-overlay beginning end)))
+					  (overlay-put o 'face 'latte-keyword-face)
+					  ;; On text modification under the overlay
+					  (overlay-put o
+								   'modification-hooks
+								   '((lambda (overlay &rest args)
+									   ;; delete the overlay.  Re-drawing will
+									   ;; occur later if the new text is still a
+									   ;; member of 'latte--keywords'
+									   (delete-overlay overlay))))
 
-					(unless (latte--overlay-exists pure-pharse beginning end)
-					  (let ((o (make-overlay beginning end)))
-						(overlay-put o 'face 'latte-keyword-face)
-						;; On text modification under the overlay
-						(overlay-put o
-									 'modification-hooks
-									 '((lambda (overlay &rest args)
-										 ;; delete the overlay.
-										 ;; Re-drawing will occur later
-										 ;; if the new text is a member
-										 ;; of 'latte--keywords'
-										 (delete-overlay overlay))))
+					  (overlay-put o 'keymap latte-keyword-map)
+					  (overlay-put o 'mouse-face 'highlight)
+					  ;; Use the pure form to improve the quality of the search
+					  ;; when requsted.
+					  (overlay-put o 'latte-keyword chopped-phrase)
 
-						(overlay-put o 'keymap latte-keyword-map)
-						(overlay-put o 'mouse-face 'highlight)
-						;; The word under POINT may not exist in
-						;; latte--keywords. Use the founded phrase instead.
-						(overlay-put o 'latte-keyword pure-pharse)
-
-						;; The priority is calculated based on the number of the
-						;; characters. Thus, the overlays of longer phrases are
-						;; on top.
-						(overlay-put o 'priority l)))))))
+					  ;; The priority is calculated based on the number of the
+					  ;; characters. Thus, overlays with longer phrases are on
+					  ;; top.
+					  (overlay-put o 'priority l))))))
 			(forward-word)))))))
 
 (defun latte--highlight-buffer ()
@@ -341,29 +313,82 @@ occur after END. A value of nil means search from '(point-max)'."
 
   (latte--highlight))
 
+(defun latte--chop-keyword (keyword)
+  "Removes meta characters from KEYWORD such as 'ies', 'es' and 's', which are
+  commonly found in plural nouns."
+
+  (or (when (s-suffix? "ies" keyword)
+		;; Use the chopped version as the value to improve the results
+		;; on-the-fly latte searches.
+		(s-chop-suffix "ies" keyword))
+	  (when (s-suffix? "es" keyword)
+		(s-chop-suffix "es" keyword))
+	  (when (s-suffix? "s" keyword)
+		(s-chop-suffix "s" keyword))
+	  (when (and latte-predict-other-forms
+				 (s-suffix? "y" keyword))
+		(s-chop-suffix "y" keyword))
+	  keyword))
+
 (defun latte--add-keyword (keyword)
   "Called internally to add KEYWORD to 'latte--keywords'.
 
    This functions makes sure that there is no duplicated
    keywords in latte--keywords."
 
-  ;; If it is a new keyword and not black listed!
+  ;; If it is a new keyword and not blacklisted!
   (unless (or (gethash keyword latte--keywords)
 			  (member keyword latte-ignore-words))
+	;; Add KEYWORD along with all possible chopped forms
+	(loop for k in (list keyword
+						 ;; Play with '-' to address cases such as well-done and
+						 ;; well done
+						 (s-replace "-" " " keyword)
+						 ;; '_' makes the keyword org-tag friendly. Add the
+						 ;; non-friendly forms as they are mostly likely used in
+						 ;; normal English writing.
+						 (s-replace "_" " " keyword)
+						 (s-replace "_" "-" keyword))
+		  do
+		  ;; Add the non-chopped version
+		  (puthash k k
+				   latte--keywords)
 
-	(puthash keyword keyword latte--keywords)
-	;; It is a good idea replace '-' with space and add it as another keyword.
-	(when (s-contains? "-" keyword)
-	  (let ((k (s-replace "-" " " keyword)))
-		(puthash k k latte--keywords)))
+		  ;; Also include the chopped form, which is more useful. During
+		  ;; highlighting, the chopped form is strongly preferred as it allows
+		  ;; Latte to abstract meta characters from plural nouns. For instance,
+		  ;; if the original keyword is 'symbols', the chopped form allows Latte
+		  ;; to highlight the word 'symbol' (singular) as well. The same can be
+		  ;; said for the words 'boxes' and 'box'.
+		  (puthash (latte--chop-keyword k)
+				   (latte--chop-keyword k)
+				   latte--keywords)
 
-	;; Similarly, replace '_'.
-	(when (s-contains? "_" keyword)
-	  (let ((k (s-replace "_" " " keyword)))
-		(puthash k k latte--keywords)
-		;; Needed to address 'part1-part2' adjectives.
-		(setq k (s-replace "_" "-" keyword))
-		(puthash k k latte--keywords)))))
+		  (when latte-predict-other-forms
+			;; Handle a few well-known, special cases:
+			(cond ((s-suffix? "ies" k)
+				   ;; Address cases like 'baby' and 'babies'.
+				   (puthash (concat (latte--chop-keyword k) "y")
+							(latte--chop-keyword k)
+							latte--keywords))
+
+				  ((s-suffix? "es" k)
+				   ;; Normally, 'es' should be chopped. However, there are a
+				   ;; considerable amount of cases in which you need to keep the 'e',
+				   ;; e.g. 'tables' and 'table'.
+				   (puthash (concat (latte--chop-keyword k) "e")
+							(latte--chop-keyword k)
+							latte--keywords)))
+
+			;; Include possible plural forms in case k is in its
+			;; singular form.
+			(unless (s-suffix? "s" k)
+			  (puthash (concat k "es")
+					   (latte--chop-keyword k)
+					   latte--keywords)
+			  (puthash (concat k "s")
+					   (latte--chop-keyword k)
+					   latte--keywords))))))
 
 (defun latte--kill-processes ()
   "Terminate the process launched by 'latte--keywords-check'."
