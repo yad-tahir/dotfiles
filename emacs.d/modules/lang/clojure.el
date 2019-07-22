@@ -109,7 +109,7 @@
 
   (general-define-key
    :keymaps 'cider-inspector-mode-map
-   ;; "SPC l"   'nil
+   "SPC"   'nil
    "SPC lf" 'cider-inspect-defun-at-point
    "SPC le" 'cider-inspect-expr
    "SPC ll" 'cider-inspect-last-sexp
