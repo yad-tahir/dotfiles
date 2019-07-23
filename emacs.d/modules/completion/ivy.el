@@ -25,13 +25,6 @@
   :demand t
   :ensure t
   :config
-  ;; Basic settings
-  (setq ivy-height 15
-		ivy-use-virtual-buffers t
-		enable-recursive-minibuffers t
-		ivy-wrap t
-		ivy-fixed-height-minibuffer t)
-
   ;; Keybinding
   (general-define-key
    :keymaps 'evil-ex-completion-map
@@ -39,47 +32,42 @@
 
   (general-define-key
    :keymaps 'ivy-mode-map
-   [remap ibuffer]          #'ivy-switch-buffer
-   [remap switch-to-buffer]          #'ivy-switch-buffer)
+   [remap ibuffer] #'ivy-switch-buffer
+   [remap switch-to-buffer] #'ivy-switch-buffer)
 
   (general-define-key
    :keymaps 'ivy-switch-buffer-map
-   "C-c " 'nil
    "C-c C-k" 'nil
    "C-c" 'ivy-previous-line
-   "C-k" 'ivy-switch-buffer-kill
    "C-q" 'ivy-switch-buffer-kill)
 
   (general-define-key
-   :keymaps 'ivy-switch-buffer-kill
-   "C-c C-k" 'nil)
-
-  (general-define-key
    :keymaps 'ivy-minibuffer-map
-   "C-." 'ivy-resume
-   "<tab>" 'ivy-partial
-   "M-<tab>" 'ivy-next-line-and-call
-   "<S-return>" 'ivy-dispatching-call
-   "<C-return>" 'ivy-immediate-done
+   ;; Navigation
    "C-t" 'ivy-next-line
    "C-c" 'ivy-previous-line
    "C-h" 'left-char
    "C-n" 'right-char
    "M-c" 'ivy-beginning-of-buffer
    "M-t" 'ivy-end-of-buffer
-   "C-M-c" 'ivy-beginning-of-buffer
-   "C-M-t" 'ivy-end-of-buffer
+   ;; Special commands
+   "C-e" 'ivy-occur
+   "C-." 'ivy-resume
+   "<tab>" 'ivy-partial
+   "M-<tab>" 'ivy-next-line-and-call
+   "<S-return>" 'ivy-dispatching-call
+   "<C-return>" 'ivy-immediate-done
+   ;; Other commons
+   "C-p" 'yank
    "C-w" 'forward-word
    "C-b" 'backward-word
    "C-$" 'move-end-of-line
    "C-0" 'move-beginning-of-line
-   "C-e" 'ivy-occur
-   "C-a" 'backward-kill-word
-   "C-i" 'kill-word
+   "C-i" 'backward-kill-word
+   "C-a" 'kill-word
    "C-u" 'kill-line
-   "C-d" 'evil-ex
+   "C-d" 'kill-whole-line
    "<escape>" 'do-evil-escape-abort
-   "C-p" 'yank
    "C-k" 'describe-key)
 
   (general-define-key
@@ -92,6 +80,13 @@
 
   (defalias 'ibuffer 'ivy-switch-buffer)
   (defalias 'imenu-anywhere 'ivy-imenu-anywhere)
+
+  ;; Basic settings
+  (setq ivy-height 15
+		ivy-use-virtual-buffers t
+		enable-recursive-minibuffers t
+		ivy-wrap t
+		ivy-fixed-height-minibuffer t)
 
   ;; Theme
   (set-face-attribute 'ivy-cursor nil
@@ -151,8 +146,9 @@
 ;;; Third-party packages
 ;;;
 
-
 (use-package counsel
+  :ensure t
+  :defer 5
   ;; @SPEED: Un-comment to improve startup time
   :commands
   (counsel-dired-jump counsel-git-grep counsel-describe-variable
@@ -164,8 +160,6 @@
 					  counsel-recentf counsel-imenu counsel-bookmark
 					  counsel-M-x counsel-org-capture
 					  counsel-yank-pop counsel-describe-face)
-  :defer 5
-  :ensure t
   :preface
   (declare-function counsel-cmd-to-dired nil)
   :init
@@ -173,51 +167,43 @@
   (general-define-key
    :states '(normal visual)
    ;; make a prefix-command and add description
-   "g@" #'counsel-semantic-or-imenu)
-
-  (general-define-key
-   :prefix "SPC s"
-   :keymaps 'override
-   :states '(normal visual)
-   ;; make a prefix-command and add description
-   "" '(:ignore t :which-key "search")
-   "f" '(lambda () (interactive) (counsel-fzf nil nil "file " ))
-   "j" 'counsel-dired-jump
-   "v" 'counsel-describe-variable
-   "l" 'counsel-find-library
-   "SPC l" 'counsel-describe-function
-   "i" 'counsel-info-lookup-symbol
-   "u" 'counsel-unicode-char
-   "m" 'counsel-bookmark
-   "g" 'counsel-rg)
-
-  (general-define-key
-   :states '(normal visual)
+   "g@" #'counsel-semantic-or-imenu
    "gp" #'counsel-yank-pop)
 
-  (general-def ivy-mode-map
-	[remap apropos]                   #'counsel-apropos
-	[remap describe-face]             #'counsel-describe-face
-	[remap find-file]                 #'counsel-find-file
-	[remap recentf-open-files]        #'counsel-recentf
-	[remap imenu]                     #'counsel-imenu
-	[remap bookmark-jump]             #'counsel-bookmark
-	[remap execute-extended-command]  #'counsel-M-x
-	[remap org-capture]               #'counsel-org-capture
-	[remap describe-face]             #'counsel-describe-face)
-
-
   (general-define-key
    :keymaps 'override
-   :states '(visual normal)
-   "M-p" 'counsel-yank-pop)
+   :states '(normal visual)
+   "M-p" 'counsel-yank-pop
+   ;; make a prefix-command and add description
+   "SPC s" '(:ignore t :which-key "search")
+   "SPC sf" '(lambda () (interactive) (counsel-fzf nil nil "file " ))
+   "SPC sj" 'counsel-dired-jump
+   "SPC sv" 'counsel-describe-variable
+   "SPC sl" 'counsel-find-library
+   "SPC sSPC l" 'counsel-describe-function
+   "SPC si" 'counsel-info-lookup-symbol
+   "SPC su" 'counsel-unicode-char
+   "SPC sm" 'counsel-bookmark
+   "SPC sg" 'counsel-rg)
+
+  (general-define-key
+   :keymaps 'ivy-mode-map
+   [remap apropos]                   #'counsel-apropos
+   [remap describe-face]             #'counsel-describe-face
+   [remap find-file]                 #'counsel-find-file
+   [remap recentf-open-files]        #'counsel-recentf
+   [remap imenu]                     #'counsel-imenu
+   [remap bookmark-jump]             #'counsel-bookmark
+   [remap execute-extended-command]  #'counsel-M-x
+   [remap org-capture]               #'counsel-org-capture
+   [remap describe-face]             #'counsel-describe-face)
 
   :config
   ;; It is useful to have a delete option on files in counsel.
   ;; Although I don't use this option that much.
   (ivy-set-actions 'counsel-find-file '(("d" delete-file "delete")))
 
-  ;; Start projectile since we need it for counsel-ag commands
+  ;; Start projectile since we need it for counsel-ag and counsel-rg commands
   (require 'projectile)
   (projectile-mode 1)
 

@@ -162,7 +162,6 @@
    "SPC lw" 'evil-save-and-quit
 
    "SPC g" '(:ignore t :which-key "go")
-
    "lg" '(:ignore t :which-key "jump")
    "lgh" 'evil-jump-backward
    "lgn" 'evil-jump-forward
@@ -235,18 +234,21 @@
 			  minibuffer-local-map)
    "C-c" 'previous-history-element
    "C-t" 'next-history-element
-   "C-n" 'forward-word
-   "C-w" 'forward-word
-   "C-h" 'backward-word
-   "C-b" 'backward-word
-   "<escape>" 'do-evil-escape-abort
+   "C-h" 'left-char
+   "C-n" 'right-char
+   "M-c" 'beginning-of-buffer
+   "M-t" 'end-of-buffer
+
    "C-p" 'yank
-   "C-4" 'move-end-of-line
+   "C-w" 'forward-word
+   "C-b" 'backward-word
+   "C-$" 'move-end-of-line
    "C-0" 'move-beginning-of-line
-   "C-a" 'backward-kill-word
-   "C-i" 'kill-word
+   "C-i" 'backward-kill-word
+   "C-a" 'kill-word
    "C-u" 'kill-line
    "C-d" 'kill-whole-line
+   "<escape>" 'do-evil-escape-abort
    "C-k" 'describe-key)
 
   (general-define-key
