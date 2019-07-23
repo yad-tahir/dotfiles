@@ -8,7 +8,7 @@
 ;;;
 ;;;
 ;;; package -- Summary
-;;; Fusion - Add evil operators to split and join text lines.
+;;; Fusion - Provides evil operators to split and join text lines.
 ;;;
 ;;; Author: Dr. Yad Tahir <yad (at) ieee.org>
 ;;; Keywords: join text lines, wrap lines
@@ -35,59 +35,53 @@
 (require 'evil)
 
 (defcustom fusion-fill-column fill-column
-  "Column beyond which fusion automatically splits line."
+  "Column beyond which Fusion splits line."
   :group 'fusion
   :type 'number)
 
 (defcustom fusion-indent-aware t
-  "If enabled (t), keep text indentation after join and split operations."
+  "If enabled (t), keep text indentation after applying join and split
+  operations."
   :group 'fusion
   :type 'boolean)
 
 ;;;###autoload
 (evil-define-operator fusion-join (beginning end)
-  "Replaces newline chars in region by single spaces.
-
-The first argument BEGINNING indicates the starting position of the region.
-
-The second argument END indicates the end position of the region.
-
-The third argument TYPE indicates the type of the evil motion.
+  "Replaces newline chars in the region, defined between BEGINNING and END, by
+  single spaces.
 
 This evil operator is the reverse of `fusion-split'."
 
-  :move-point nil
+  :move-point nil ;; don't move the cursor position to BEGINNING
   :type line
-  ;; Joining a region is just a fill region operation with a large fill column
+  ;; A join operation can be seen as a fill operation with an extremely large
+  ;; fill column
   (let ((fill-column most-positive-fixnum))
-	(if fusion-indent-aware
-		(progn
-		  (back-to-indentation)
-		  (let ((left-margin (current-column)))
-			(fill-region-as-paragraph beginning end)))
-	  (fill-region-as-paragraph beginning end))))
+	(save-excursion
+	  (if fusion-indent-aware
+		  (progn
+			(back-to-indentation)
+			(let ((left-margin (current-column)))
+			  (fill-region-as-paragraph beginning end)))
+		(fill-region-as-paragraph beginning end)))))
 
 ;;;###autoload
 (evil-define-operator fusion-split (beginning end)
-  "Fills the selected region and makes it indent.
-
-The first argument BEGINNING indicates the starting position of the region.
-
-The second argument END indicates the end position of the region.
-
-The third argument TYPE indicates the evil motion type.
+  "Fills the region defined between BEGINNING and END, and indents it as
+necessary.
 
 This evil operator is the reverse of `fusion-join'."
 
-  :move-point nil
+  :move-point nil ;; don't move the cursor position to BEGINNING
   :type line
   (let ((fill-column fusion-fill-column))
-	(if fusion-indent-aware
-		(progn
-		  (back-to-indentation)
-		  (let ((left-margin (current-column)))
-			(fill-region beginning end)))
-	  (fill-region beginning end))))
+	(save-excursion
+	  (if fusion-indent-aware
+		  (progn
+			(back-to-indentation)
+			(let ((left-margin (current-column)))
+			  (fill-region beginning end)))
+		(fill-region beginning end)))))
 
 (provide 'fusion)
 
