@@ -27,7 +27,6 @@
 
   :config
   (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
-
   (yas-global-mode 1)
   (yas-reload-all)
   (advice-add 'do--tab-complete
@@ -51,7 +50,6 @@
 	(general-define-key
 	 :states 'normal
 	 "l <tab>" #'(lambda () (interactive) (evil-insert-state)(aya-expand)))
-
 	(general-define-key
 	 :states 'insert
 	 "C-l ~" #'aya-create

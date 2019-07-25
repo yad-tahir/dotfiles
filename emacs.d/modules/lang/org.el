@@ -32,10 +32,10 @@
    :prefix "SPC g"
    :states '(normal visual)
    ;; make a prefix-command and add description
-   "" '(:ignore t :which-key "go")
-   ;;shortcut to open my todo list
-   "t" '(:ignore t :which-key "todo.org")
-   "t" '(lambda()(interactive)(find-file "~/notes/todo.org")))
+   "t" '((lambda()
+		   (interactive)
+		   (find-file "~/notes/todo.org"))
+		 :which-key "todo.org"))
 
   :config
   (general-define-key
@@ -91,7 +91,6 @@
    "SPC lc" 'org-ctrl-c-ctrl-c
    "SPC li" 'org-id-get-create
    "SPC l@" 'org-toggle-ordered-property
-   "SPC le" '(:ignore t :which-key "export")
    "SPC lel" 'org-export-dispatch
    "SPC lep" 'org-latex-export-to-pdf
    "SPC leb" 'org-beamer-export-to-pdf

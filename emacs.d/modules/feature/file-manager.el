@@ -195,8 +195,8 @@ separate frame."
   (defmacro do--dired-visual-marking (func)
 	"Marks the selected region before executing FUNC."
 
-	(call-interactively 'dired-mark)
-	(call-interactively func))
+	`(call-interactively (quote dired-mark))
+	`(call-interactively (quote ,func)))
 
   (general-define-key
    :keymaps 'dired-mode-map

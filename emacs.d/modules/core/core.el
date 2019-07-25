@@ -28,18 +28,17 @@
 		  '(lambda () (setq gc-cons-threshold original-gc-cons-threshold
 							gc-cons-percentage original-gc-cons-percentage)) t)
 
-
-(require 'package)
-(setq package--init-file-ensured t
-	  package-enable-at-startup nil
-	  package-user-dir (concat user-emacs-directory "/packages"))
-(package-initialize)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(add-to-list 'package-archives '("gnu-plain" . "http://elpa.gnu.org/packages/"))
-;; (package-refresh-contents)
-
+;; Bootstrap 'use-package'
 (eval-and-compile
-  ;; Bootstrap 'use-package'
+  (require 'package)
+  (setq package--init-file-ensured t
+		package-enable-at-startup nil
+		package-user-dir (concat user-emacs-directory "/packages"))
+  (package-initialize)
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+  (add-to-list 'package-archives '("gnu-plain" . "http://elpa.gnu.org/packages/"))
+  ;; (package-refresh-contents)
+
   (unless (package-installed-p 'use-package)
 	(package-refresh-contents)
 	(package-install 'use-package))

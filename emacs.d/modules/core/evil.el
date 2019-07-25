@@ -36,8 +36,8 @@
   (general-define-key
    :states 'emacs
    ;; Basic Navigation
-   "C-h" 'backward-char
-   "C-n" 'forward-char
+   "C-h" 'evil-backward-char
+   "C-n" 'evil-forward-char
    "C-c" 'evil-previous-line
    "C-t" 'evil-next-line
    ":" 'evil-ex
@@ -78,8 +78,8 @@
    "<mouse-2>" 'ignore
 
    ;; Navigation
-   "h" 'backward-char
-   "n" 'forward-char
+   "h" 'evil-backward-char
+   "n" 'evil-forward-char
    "c" 'evil-previous-visual-line
    "t" 'evil-next-visual-line
    "gc" 'evil-previous-line
@@ -210,8 +210,8 @@
    "g," 'evil-repeat-find-char-reverse
 
    ;; Make sure basic navigation matches the normal state
-   "h" 'backward-char
-   "n" 'forward-char
+   "h" 'evil-backward-char
+   "n" 'evil-forward-char
    "c" 'evil-previous-visual-line
    "t" 'evil-next-visual-line
    "gc" 'evil-previous-line
@@ -281,8 +281,13 @@
   (setq-default evil-symbol-word-search t) ;; make '*' more useful
   (setq evil-want-C-u-scroll nil
 		evil-want-C-i-jump nil
-		evil-want-visual-char-semi-exclusive t
 		evil-want-Y-yank-to-eol t
+		;; If I want to select \n, then keep it \n in visual state instead of
+		;; selecting the first character in the next line
+		evil-want-visual-char-semi-exclusive nil
+		;; No need for t if the cursor has a box shap
+		evil-move-beyond-eol nil
+		evil-ex-search-persistent-highlight t
 		evil-move-cursor-back t
 		evil-magic t
 		evil-indent-convert-tabs t
