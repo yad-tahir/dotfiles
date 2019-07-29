@@ -109,7 +109,7 @@ buffer."
 						   (let ((result " ")
 								 (i (recursion-depth)))
 							 (while (> i 0)
-							   (setq i (- 1 i))
+							   (setq i (- i 1))
 							   (setq result (concat result "+")))
 							 result)))))
 
