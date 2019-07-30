@@ -35,6 +35,8 @@
   (setq ispell-personal-dictionary "~/notes/personal.aspell.en.pws"
 		flyspell-issue-message-flag nil
 		flyspell-delay 5
+		;; Switch to the large mode as much as possible to avoid UI glitching
+		flyspell-large-region 25
 		ispell-help-in-bufferp nil)
 
   (add-hook 'text-mode-hook 'flyspell-buffer)
