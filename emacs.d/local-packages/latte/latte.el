@@ -230,8 +230,8 @@ occur after END. A value of nil means search from '(point-max)'."
 
   (save-restriction
 	(narrow-to-region start end)
-	(save-excursion
-	  (with-silent-modifications
+	(with-silent-modifications
+	  (save-mark-and-excursion
 		;; Go to starting point
 		(goto-char (point-min))
 
@@ -241,8 +241,9 @@ occur after END. A value of nil means search from '(point-max)'."
 			  phrase ;; Will hold the keyword existing in the buffer
 			  chopped-phrase) ;; Used to hold the chopped version of PHRASE
 		  ;; For each word
-		  (forward-word)
-		  (while (< (point) (point-max))
+		  (while (and (< (point) (point-max))
+					  (forward-word))
+
 			;; We can't use text property face as it is over-ruled by font-lock
 			;; highlighting. To solve this problem, we utilize overlays since
 			;; keywords have to be updated regularly, and a keyword can even be
@@ -262,18 +263,18 @@ occur after END. A value of nil means search from '(point-max)'."
 
 			  (setq older-w old-w
 					old-w w
-					w (s-downcase(format "%s" (word-at-point)))
+					w (downcase (substring-no-properties (or (word-at-point) "")))
 					phrase nil)
 
 			  ;; Search for a keyword, which can be either: a phrase that
 			  ;; consists of two or three words, or a single word.
 			  (cond
 			   ((setq chopped-phrase (latte--phrase-checker
-								   (concat older-w " " old-w " " w)))
+									  (concat older-w " " old-w " " w)))
 				(setq phrase (concat older-w " " old-w " " w)))
 
 			   ((setq chopped-phrase (latte--phrase-checker
-								   (concat old-w " " w)))
+									  (concat old-w " " w)))
 				(setq phrase (concat old-w " " w)))
 
 			   ((setq chopped-phrase (latte--phrase-checker w))
@@ -305,8 +306,7 @@ occur after END. A value of nil means search from '(point-max)'."
 					  ;; The priority is calculated based on the number of the
 					  ;; characters. Thus, overlays with longer phrases are on
 					  ;; top.
-					  (overlay-put o 'priority l))))))
-			(forward-word)))))))
+					  (overlay-put o 'priority l))))))))))))
 
 (defun latte--highlight-buffer ()
   "Check the current buffer and highlight all the keywords."
@@ -351,7 +351,8 @@ occur after END. A value of nil means search from '(point-max)'."
 						 (s-replace "_" "-" keyword))
 		  do
 		  ;; Add the non-chopped version
-		  (puthash k k
+		  (puthash k
+				   k
 				   latte--keywords)
 
 		  ;; Also include the chopped form, which is more useful. During
