@@ -220,7 +220,6 @@ function panel_bar {
 				while [ $# -gt 0 ] ; do
 					item=$1
 					name=${item#?}
-					# echo $item
 					case $item in
 						[mM]*)
 							case $item in
@@ -282,7 +281,7 @@ function panel_bar {
 										UL=$BG
 									else
 										# active occupied desktop
-										FG=$COLOR_DESKTOP_ACTIVE_FG
+										FG=$COLOR_DESKTOP_URGENT_BG
 										BG=$COLOR_DESKTOP_ACTIVE_BG
 										UL=$BG
 									fi
