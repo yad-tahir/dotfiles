@@ -121,9 +121,10 @@ super + quoteright
 #	bspc wm -h on
 
 # Focus or send to the given desktop.
-super + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '{1-9,10}'
-
+super + {1-9,0}
+	bspc desktop -f '{1-9,10}'
+super + shift + {1-9,0}
+	bspc  node -d '{1-9,10}' --follow
 
 
 ##
@@ -132,7 +133,7 @@ super + {_,shift + }{1-9,0}
 
 # Preselect the direction.
 super + minus
-	bspc node -p {south,north,west,east}
+	bspc node -p {south,east}
 
 # Cancel the preselection for the focused node.
 super + shift + minus
