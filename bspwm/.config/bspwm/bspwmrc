@@ -63,3 +63,5 @@ systemctl --user start lemon-bar.service &
 
 # Startup commands
 gpg-connect-agent /bye
+# Disable key repeat
+xset r off
