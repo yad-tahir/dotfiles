@@ -34,8 +34,7 @@
 						 latte-grep-all)
   :init
   (setq latte-directory "~/notes/notebook"
-		latte-scan-idle-delay 30
-		latte-rehighlight-after-scan t
+		latte-scan-idle-delay 20
 		latte-ignore-words '("attach"))
 
   (general-define-key

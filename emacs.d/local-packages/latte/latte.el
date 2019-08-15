@@ -77,11 +77,9 @@ top of the beloved Org-mode." :group 'latte)
   "Number of seconds of idle time before re-scanning note files. If this
   variable is set to 0; no idle time is taken.
 
-Changing the value does not take effect until 'latte-mode' has been disabled
-for all buffers."
+Changing the value does not take effect until next Emacs reboot."
   :group 'latte
   :type 'number)
-
 
 (defcustom latte-rehighlight-after-scan t
   "If it is not nil, Latte performs UI re-drawing after every scan.
@@ -114,6 +112,12 @@ respectively."
 	map)
 
   "Keymap for highlighted keywords.")
+
+(defvar-local latte--prev-start-win 0
+  "Holds window start position before scrolling.")
+
+(defvar-local latte--prev-end-win 0
+  "Holds window end position before scrolling.")
 
 (defface latte-keyword-face
   '((t :inherit 'font-lock-keyword-face))
@@ -178,7 +182,7 @@ checking."
 		   (append (car (overlay-lists))
 				   (cdr (overlay-lists)))))
 	  ;; For each overlay
-	  (while (not(null latte--overlays))
+	  (while (not (null latte--overlays))
 		(let* ((o (car latte--overlays))
 			   (min (overlay-start o))
 			   (end (overlay-end o))
@@ -188,8 +192,7 @@ checking."
 		  (when (or force
 					(and (equal f 'latte-keyword-face)
 						 ;; Check if it still points at a keyword
-						 (not (member-ignore-case
-							   keyword latte--keywords))))
+						 (not (gethash keyword latte--keywords))))
 			;; If not
 			(delete-overlay o))
 
@@ -226,12 +229,12 @@ occur after END. A value of nil means search from '(point-max)'."
 
   ;; Default values
   (setq start (or start (point-min)))
-  (setq end (or end (point-max)))
+  (setq end (min (or end (point-max)) (point-max)))
 
-  (save-restriction
-	(narrow-to-region start end)
-	(with-silent-modifications
-	  (save-mark-and-excursion
+  (save-excursion
+	(save-restriction
+	  (narrow-to-region start end)
+	  (with-silent-modifications
 		;; Go to starting point
 		(goto-char (point-min))
 
@@ -307,11 +310,6 @@ occur after END. A value of nil means search from '(point-max)'."
 					  ;; characters. Thus, overlays with longer phrases are on
 					  ;; top.
 					  (overlay-put o 'priority l))))))))))))
-
-(defun latte--highlight-buffer ()
-  "Check the current buffer and highlight all the keywords."
-
-  (latte--highlight))
 
 (defun latte--chop-keyword (keyword)
   "Removes meta characters from KEYWORD such as 'ies', 'es' and 's', which are
@@ -467,7 +465,7 @@ This function triggers UI updates in case 'latte--keywords' has been changed."
 		  ;; buffer must be reconstructed.
 		  (latte--delete-overlays))
 
-		(latte--highlight-buffer)))))
+		(latte--highlight (window-start) (window-end nil t))))))
 
 (defun latte--scan-keywords ()
   "Scan note files and update 'latte--keywords' asynchronously.
@@ -567,6 +565,28 @@ spawned in 'latte-insert-org-tag'."
 	(setq keyword (cdr keyword)))
   (insert keyword))
 
+(defun latte--scroll-handler (win start)
+  "Called when scroll events occur."
+  (let ((diff (- start latte--prev-start-win ))
+		(end (window-end win t)))
+	(if (> diff 0)
+		;; Going down
+		(progn
+		  ;; Full window highlight if it is a large jump
+		  (if (>= start latte--prev-end-win)
+			  (latte--highlight start end)
+			;; Otherwise, highlight partially
+			(latte--highlight latte--prev-end-win end)))
+	  ;; Going up
+	  (progn
+		;; Full window highlight if it is a large jump
+		(if (< end latte--prev-start-win)
+			(latte--highlight start end)
+		  ;; Otherwise, highlight partially
+		  (latte--highlight start latte--prev-start-win))))
+	(setq latte--prev-start-win start
+		  latte--prev-end-win end)))
+
 ;;;
 ;;; Minor mode
 ;;;
@@ -585,32 +605,30 @@ Initially, highlighting takes place after 'latte-scan-idle-delay'."
   (if latte-mode
 	  ;; on
 	  (progn
-		;; Add local hooks
+		;; Bound Latte highlighting to after-revert, window-scroll and after-change hooks
+		(add-hook 'after-revert-hook 'latte--highlight t t)
 		(add-hook 'after-change-functions 'latte--after-change-function t t)
-		(add-hook 'after-revert-hook 'latte--highlight-buffer t t)
-		(add-hook 'after-save-hook 'latte--highlight-buffer t t)
-		(add-hook 'change-major-mode-hook 'latte--change-major-mode nil t)
-		(add-hook 'edit-server-done-hook 'latte--highlight-buffer t t)
+		(add-hook 'window-scroll-functions 'latte--scroll-handler t t)
+		;; On major change
+		(add-hook 'change-major-mode-hook 'latte--change-major-mode t t)
 
-		(latte--highlight-buffer)
 		;; Check if the global timer has started
 		(unless latte--initialized
 		  (latte--scan-keywords)
 		  (run-with-idle-timer latte-scan-idle-delay t
-							   #'latte--scan-keywords)
+							   'latte--scan-keywords)
 		  (setq latte--initialized t)))
 
 	;; off
 	(progn
-	  ;; Un-highlight
+	  ;; Remove our overlays
 	  (latte--delete-overlays t)
 
 	  ;; Remove local hooks
+	  (remove-hook 'after-revert-hook 'latte--highlight t)
 	  (remove-hook 'after-change-functions 'latte--after-change-function t)
-	  (remove-hook 'after-revert-hook 'latte--highlight-buffer t)
-	  (remove-hook 'after-save-hook 'latte--highlight-buffer t)
-	  (remove-hook 'change-major-mode-hook 'latte--change-major-mode)
-	  (remove-hook 'edit-server-done-hook 'latte--highlight-buffer t))))
+	  (remove-hook 'window-scroll-functions 'latte--scroll-handler t)
+	  (remove-hook 'change-major-mode-hook 'latte--change-major-mode t))))
 
 ;;;###autoload
 (defun latte-new-entry ()
