@@ -17,6 +17,41 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
+
+(use-package ispell
+  :defer t
+  :config
+
+  (general-define-key
+   :states 'normal
+   "lS" 'ispell-buffer)
+
+  (general-define-key
+   :states 'visual
+   "lS" 'ispell-region)
+
+  ;; Prog-mode overrides
+  (general-define-key
+   :keymaps 'prog-mode-map
+   :states 'normal
+   "lS" 'ispell-comments-and-strings)
+
+  (setq ispell-personal-dictionary "~/notes/personal.aspell.en.pws"
+		ispell-dictionary "en_US"
+		ispell-help-in-bufferp nil)
+
+  ;; Use aspell or hunspell if it is possible
+  (cond
+   ;; Try hunspell at first
+   ((executable-find "hunspell")
+	(setq ispell-program-name "hunspell"
+		  ispell-really-hunspell t))
+
+   ((executable-find "aspell")
+	(setq ispell-program-name "aspell"
+		  ispell-really-aspell t
+		  ispell-extra-args '("--sug-mode=ultra" "--lang=en_US" "--run-together")))))
+
 (use-package flyspell
   :ensure t
   :hook ((text-mode . flyspell-mode)
@@ -32,15 +67,29 @@
    :keymaps 'flyspell-mouse-map
    "<M-return>" 'ispell-word)
 
-  (setq ispell-personal-dictionary "~/notes/personal.aspell.en.pws"
-		flyspell-issue-message-flag nil
+  (general-define-key
+   :states 'normal
+   "ls" 'flyspell-buffer)
+
+  (general-define-key
+   :states 'visual
+   "ls" 'flyspell-region)
+
+  (setq flyspell-issue-message-flag nil
 		flyspell-delay 5
 		;; Switch to the large mode as much as possible to avoid UI glitching
-		flyspell-large-region 25
-		ispell-help-in-bufferp nil)
+		flyspell-large-region 25)
 
-  (add-hook 'text-mode-hook 'flyspell-buffer)
-  (add-hook 'prog-mode-hook 'flyspell-buffer))
+  (defun do--spell-checker-timer ()
+	"Called on a regular basis to highlight typos in the current window."
+	;; When the backend is a file
+	(when (buffer-file-name)
+	  (save-excursion
+		(with-local-quit
+		  (flyspell-region (window-start)
+						   (window-end nil t))))))
+
+  (run-with-idle-timer 5 t 'do--spell-checker-timer))
 
 (use-package flyspell-correct
   :ensure t
@@ -49,6 +98,7 @@
   (general-define-key
    :keymaps 'flyspell-mouse-map
    "<M-S-return>" 'flyspell-correct-at-point))
+
 
 
 (provide 'do-spell-checker)

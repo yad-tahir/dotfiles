@@ -75,16 +75,7 @@
    "M-n" 'sp-forward-slurp-sexp
    "M-h" 'sp-forward-barf-sexp
    "g M-n" 'sp-backward-slurp-sexp
-   "g M-h" 'sp-backward-barf-sexp
-   "ls" '(:ignore t :which-key "smart parens")
-   "lsn" 'sp-forward-slurp-sexp
-   "lsN" 'sp-forward-barf-sexp
-   "lsh" 'sp-backward-slurp-sexp
-   "lsH" 'sp-backward-barf-sexp
-   "lsc" 'sp-up-sexp
-   "lst" 'sp-down-sexp
-   "lsu" 'sp-splice-sexp
-   "lsj" 'sp-join-sexp))
+   "g M-h" 'sp-backward-barf-sexp))
 
 (use-package expand-region
   :ensure t
