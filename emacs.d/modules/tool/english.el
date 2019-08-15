@@ -26,9 +26,38 @@
 	(define-word (buffer-substring-no-properties beg end) nil))
 
   (general-define-key
-   :prefix "l"
    :states 'normal
-   "W" 'do-define-word))
+   "lW" 'do-define-word))
 
+
+(use-package speed-type
+  :ensure t
+  :commands (speed-type-top-x speed-type-top-100 speed-type-top-1000)
+  :init
+  (defun speed-type-top-200 ()
+	(interactive)
+	(speed-type-top-x 200))
+
+  (general-define-key
+   :keymaps 'override
+   :states 'normal
+   "SPC gt" 'speed-type-top-200
+   "SPC gT" 'speed-type-top-1000)
+
+  :config
+  (setq speed-type-default-lang 'English)
+
+  ;; Refresh speed-type's generated buffers using F5
+  (advice-add 'speed-type--setup :after
+			  '(lambda (&rest args)
+				 (interactive)
+				 (general-define-key
+				  :keymaps 'local
+				  "<f5>" 'speed-type--play-next)))
+
+  (set-face-attribute 'speed-type-correct nil
+					  :foreground chocolate-theme-element+2)
+  (set-face-attribute 'speed-type-mistake nil
+					  :foreground chocolate-theme-highlight))
 
 (provide 'do-english)
