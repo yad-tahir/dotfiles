@@ -187,7 +187,7 @@ checking."
 			   (min (overlay-start o))
 			   (end (overlay-end o))
 			   (f (overlay-get o 'face))
-			   (keyword (buffer-substring-no-properties min end)))
+			   (keyword (s-downcase (buffer-substring-no-properties min end))))
 		  ;; Make sure it belongs to latte.el.
 		  (when (or force
 					(and (equal f 'latte-keyword-face)
@@ -512,7 +512,7 @@ This function launches an shell process to go through the note files in the
 
   ;; The different between BIGINNING and END can be as small as one character.
   (when (< (- end beginning) 3)
-	;; Scan the hole line instead
+	;; Scan the whole line instead
 	(setq beginning (line-beginning-position)
 		  end (line-end-position)))
   (latte--highlight beginning end))
