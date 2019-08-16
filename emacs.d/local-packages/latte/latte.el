@@ -81,18 +81,6 @@ Changing the value does not take effect until next Emacs reboot."
   :group 'latte
   :type 'number)
 
-(defcustom latte-rehighlight-after-scan t
-  "If it is not nil, Latte performs UI re-drawing after every scan.
-
-Setting this variable to nil avoids Latte deleting all the existing overlays.
-Thus, making the scanning process less drawing intensive. However, the
-primary trade off is syncing inconsistency between overlays and backend
-keywords. For example, when a keyword is no longer exists, its overlays is not
-removed automatically from buffer. A manual refresh is needed then."
-
-  :group 'latte
-  :type 'boolean)
-
 (defcustom  latte-predict-other-forms t
   "If t, Latte guesses other forms associated with a keyword.
 
@@ -150,6 +138,12 @@ globally.")
 (defconst latte--process-name "*latte-keyword-scanner*"
   "Holds the name of the process launched by 'latte--scan-keywords'.")
 
+(defconst latte--text-change-line-margin 10
+  "This threshold is used by `latte--after-change-function', which is a text
+  change listener. On text-changed events, Latte normally re-highlights the
+  modified text only. However, when the number of characters is less than this
+  threhold, Latte re-highlights the whole line instead.")
+
 (defvar-local latte--async-line ""
   "Local variable is used during keyword scanning in 'latte--async-filter'.")
 
@@ -167,20 +161,20 @@ globally.")
   ;; setting works.
   (latte--delete-overlays t))
 
-(defun latte--delete-overlays (&optional force)
+(defun latte--delete-overlays (&optional force start end)
   "Called internally to delete overlays that are no longer needed.
 
 When FORCE is nil, this function goes through each overlay existing in the
-current buffer, and checks whether its underline text is still a keyword. If
-it is not, this function deletes the overlay.
+current buffer, and performs some checking such as whether its underline text is
+still a keyword. If it is not, this function deletes the overlay.
 
 However, setting FORCE to t makes this function to delete all overlays without
 checking."
 
+  (setq start (or start (point-min))
+		end (or end (point-max)))
   (ignore-errors
-	(let ((latte--overlays
-		   (append (car (overlay-lists))
-				   (cdr (overlay-lists)))))
+	(let ((latte--overlays (overlays-in start end)))
 	  ;; For each overlay
 	  (while (not (null latte--overlays))
 		(let* ((o (car latte--overlays))
@@ -192,7 +186,14 @@ checking."
 		  (when (or force
 					(and (equal f 'latte-keyword-face)
 						 ;; Check if it still points at a keyword
-						 (not (gethash keyword latte--keywords))))
+						 (not (gethash keyword latte--keywords)))
+					;; Check if it is truly the end of a word
+					(save-excursion
+					  (ignore-errors
+						(goto-char end)
+						(end-of-thing 'word)
+						(not (equal end (point))))))
+
 			;; If not
 			(delete-overlay o))
 
@@ -200,17 +201,17 @@ checking."
 
 (defun latte--overlay-exists (keyword start end)
   "Return t if an overlay for KEYWORD exists between START and END."
+
   (loop for co in (overlays-in start end)
 		do
-		(progn
-		  (when (equal keyword (overlay-get co 'latte-keyword))
-			(if (and (equal (overlay-start co) start)
-					 (equal (overlay-end co) end))
-				(return t)
+		(when (equal keyword (overlay-get co 'latte-keyword))
+		  (if (and (equal (overlay-start co) start)
+				   (equal (overlay-end co) end))
+			  (return t)
 
-			  ;; Region mismatch; e.g. an old overlay that does not
-			  ;; accommodate the extra length. Clean it and continue searching.
-			  (delete-overlay co))))))
+			;; Region mismatch; e.g. an old overlay that does not
+			;; accommodate the extra length. Clean it and continue searching.
+			(delete-overlay co)))))
 
 (defun latte--phrase-checker (phrase)
   "Returns t if PHRASE is a keyword."
@@ -234,82 +235,82 @@ occur after END. A value of nil means search from '(point-max)'."
   (save-excursion
 	(save-restriction
 	  (narrow-to-region start end)
-	  (with-silent-modifications
-		;; Go to starting point
-		(goto-char (point-min))
+	  ;; Go to starting point
+	  (goto-char (point-min))
+	  (latte--delete-overlays nil start end)
 
-		(let (w ;; Will hold the word found in the current search iteration
-			  old-w ;; Will hold the word found in the previous search iteration
-			  older-w ;; Will hold the word found in two iterations ago
-			  phrase ;; Will hold the keyword existing in the buffer
-			  chopped-phrase) ;; Used to hold the chopped version of PHRASE
-		  ;; For each word
-		  (while (and (< (point) (point-max))
-					  (forward-word))
+	  (let (w ;; Will hold the word found in the current search iteration
+			old-w ;; Will hold the word found in the previous search iteration
+			older-w ;; Will hold the word found in two iterations ago
+			phrase ;; Will hold the keyword existing in the buffer
+			chopped-phrase) ;; Used to hold the chopped version of PHRASE
+		;; For each word
+		(while (and (< (point) (point-max))
+					(forward-word))
 
-			;; We can't use text property face as it is over-ruled by font-lock
-			;; highlighting. To solve this problem, we utilize overlays since
-			;; keywords have to be updated regularly, and a keyword can even be
-			;; part of multiple phrases. Having multiple overlays on top of the
-			;; keyword addresses these problems, given the fact that the overlay
-			;; that has the highest priority overshadows the reset. Utilizing
-			;; overlays also code complexity for re-highlighting nested keywords
-			;; when the parent phrase is destroyed.
+		  ;; We can't use text property face as it is over-ruled by font-lock
+		  ;; highlighting. To solve this problem, we utilize overlays since
+		  ;; keywords have to be updated regularly, and a keyword can even be
+		  ;; part of multiple phrases. Having multiple overlays on top of the
+		  ;; keyword addresses these problems, given the fact that the overlay
+		  ;; that has the highest priority overshadows the reset. Utilizing
+		  ;; overlays also code complexity for re-highlighting nested keywords
+		  ;; when the parent phrase is destroyed.
 
-			;; When latte-highlight-prog-comments is on, overlays in prog-mode
-			;; must be inside comment sections only
-			(unless (and latte-highlight-prog-comments
-						 (derived-mode-p 'prog-mode)
-						 ;; Comment section?
-						 ;; from https://github.com/blorbx/evil-quickscope
-						 (not (nth 4 (syntax-ppss))))
+		  ;; When latte-highlight-prog-comments is on, overlays in prog-mode
+		  ;; must be inside comment sections only
+		  (unless (and latte-highlight-prog-comments
+					   (derived-mode-p 'prog-mode)
+					   ;; Comment section?
+					   ;; from https://github.com/blorbx/evil-quickscope
+					   (not (nth 4 (syntax-ppss))))
 
-			  (setq older-w old-w
-					old-w w
-					w (downcase (substring-no-properties (or (word-at-point) "")))
-					phrase nil)
+			(setq older-w old-w
+				  old-w w
+				  w (downcase (substring-no-properties (or (word-at-point) "")))
+				  phrase nil)
 
-			  ;; Search for a keyword, which can be either: a phrase that
-			  ;; consists of two or three words, or a single word.
-			  (cond
-			   ((setq chopped-phrase (latte--phrase-checker
-									  (concat older-w " " old-w " " w)))
-				(setq phrase (concat older-w " " old-w " " w)))
+			;; Search for a keyword, which can be either: a phrase that
+			;; consists of two or three words, or a single word.
+			(cond
+			 ((setq chopped-phrase (latte--phrase-checker
+									(concat older-w " " old-w " " w)))
+			  (setq phrase (concat older-w " " old-w " " w)))
 
-			   ((setq chopped-phrase (latte--phrase-checker
-									  (concat old-w " " w)))
-				(setq phrase (concat old-w " " w)))
+			 ((setq chopped-phrase (latte--phrase-checker
+									(concat old-w " " w)))
+			  (setq phrase (concat old-w " " w)))
 
-			   ((setq chopped-phrase (latte--phrase-checker w))
-				(setq phrase w)))
+			 ((setq chopped-phrase (latte--phrase-checker w))
+			  (setq phrase w)))
 
-			  (when phrase
-				(let* ((l (length phrase))
-					   (beginning (- (point) l))
-					   (end  (point)))
+			(when phrase
+			  (let* ((l (length phrase))
+					 (beginning (- (point) l))
+					 (end  (point)))
 
-				  (unless (latte--overlay-exists chopped-phrase beginning end)
-					(let ((o (make-overlay beginning end)))
-					  (overlay-put o 'face 'latte-keyword-face)
-					  ;; On text modification under the overlay
-					  (overlay-put o
-								   'modification-hooks
-								   '((lambda (overlay &rest args)
-									   ;; delete the overlay.  Re-drawing will
-									   ;; occur later if the new text is still a
-									   ;; member of 'latte--keywords'
-									   (delete-overlay overlay))))
+				(unless (latte--overlay-exists chopped-phrase beginning end)
+				  (let ((o (make-overlay beginning end)))
+					(overlay-put o 'face 'latte-keyword-face)
+					;; On text modification under the overlay
+					(overlay-put o
+								 'modification-hooks
+								 '((lambda (overlay &rest args)
+									 ;; delete the overlay.  Re-drawing will
+									 ;; occur later if the new text is still a
+									 ;; member of 'latte--keywords'
+									 (delete-overlay overlay))))
 
-					  (overlay-put o 'keymap latte-keyword-map)
-					  (overlay-put o 'mouse-face 'highlight)
-					  ;; Use the pure form to improve the quality of the search
-					  ;; when requsted.
-					  (overlay-put o 'latte-keyword chopped-phrase)
+					(overlay-put o 'keymap latte-keyword-map)
+					(overlay-put o 'mouse-face 'highlight)
+					;; Use the pure form to improve the quality of the search
+					;; when requsted.
+					(overlay-put o 'latte-keyword chopped-phrase)
 
-					  ;; The priority is calculated based on the number of the
-					  ;; characters. Thus, overlays with longer phrases are on
-					  ;; top.
-					  (overlay-put o 'priority l))))))))))))
+					;; The priority is calculated based on the number of the
+					;; characters. Thus, overlays with longer phrases are on
+					;; top.
+					(overlay-put o 'priority l)))))))))))
 
 (defun latte--chop-keyword (keyword)
   "Removes meta characters from KEYWORD such as 'ies', 'es' and 's', which are
@@ -458,13 +459,6 @@ This function triggers UI updates in case 'latte--keywords' has been changed."
 	  (setq latte--keywords-lock nil)
 	  ;; Check if latte-mode is active on the current buffer
 	  (when latte-mode
-		(when latte-rehighlight-after-scan
-		  ;; The notebook can be updated from another buffer or even
-		  ;; externally. There is a possibility that a keyword
-		  ;; is removed. To address this case, all overlays of this
-		  ;; buffer must be reconstructed.
-		  (latte--delete-overlays))
-
 		(latte--highlight (window-start) (window-end nil t))))))
 
 (defun latte--scan-keywords ()
@@ -511,7 +505,7 @@ This function launches an shell process to go through the note files in the
   "Highlight new keywords text modification events occur."
 
   ;; The different between BIGINNING and END can be as small as one character.
-  (when (< (- end beginning) 3)
+  (when (< (- end beginning) latte--text-change-line-margin)
 	;; Scan the whole line instead
 	(setq beginning (line-beginning-position)
 		  end (line-end-position)))
