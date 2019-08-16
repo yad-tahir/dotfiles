@@ -17,33 +17,28 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
+(cl-eval-when (compile)
+  (require 'simple-mpc))
+
 (use-package simple-mpc
   :ensure t
   :commands (simple-mpc-next
 			 simple-mpc-prev
-			 do-music-toggle
-			 simple-mpc-view-current-playlist
-			 simple-mpc-query)
+			 simple-mpc-view-current-playlist)
   :preface
   (declare-function do-music-next nil)
   (declare-function do-music-previous nil)
   (declare-function do--music-playlist-init nil)
   (declare-function do--music-query-init nil)
+  (declare-function do--music-setup-process nil)
+  (defvar do--music-process-update nil)
+  (defvar do--music-toggle-state nil)
+
   :init
-
-  (setq do--music-process-update nil
-		do--music-toggle-state nil)
-
   (general-define-key
-   :prefix "SPC m"
    :keymaps 'override
    :states '(normal visual)
-   "" '(:ignore t :which-key "music player")
-   "n" 'do-music-next
-   "h" 'do-music-previous
-   "m" 'do-music-toggle
-   "s" 'simple-mpc-query
-   "l" 'do-music-playlist)
+   "SPC am" 'do-music-playlist)
 
   (defun do--music-setup-process ()
 	(ignore-errors
@@ -55,23 +50,28 @@
 			   "music-notify-process"
 			   nil
 			   "while [ 1 ]; do emacsclient -nqe '(do--music-refresh-buffer)' && mpc current --wait; done"))))
-	(do--music-notify-external)
+
+	;; Setup external notifier
+	(ignore-errors
+	  (start-process-shell-command
+	   "music-notify-external-process"
+	   nil
+	   "killall music.sh; ~/.config/lemon-bar/blocks/music.sh 1 > /tmp/lemon-panel-fifo"))
 	nil)
 
   (defun do--music-refresh-buffer()
-	;; This method can be called external by shell; check the init function in this file.
-	;; Thus, we need to encapsulate runtime errors if any.
+	;; This method can be called external by shell; check the init function in
+	;; this file. Thus, we need to encapsulate runtime errors if any.
 	(ignore-errors
 	  (let ((b (get-buffer "*simple-mpc-current-playlist*"))
 			(cb (window-buffer (selected-window))))
-		;; To avoid i3 notifications, we refresh when the selected window is the music playlist
-		;; otherwise there is no need to refresh. Most likely, the buffer is invisible.
-		;; (when (equal b cb)
-		;; This temporary switch is needed because the current buffer can be 'server buffer'.
-		;; This usually occurs when you have a fresh emacsclient that has not selected any buffer yet.
-		;; For instance, emacsclient -cqe '(do--music-refresh-buffer)'.
-		(with-current-buffer b
-		  (call-interactively 'revert-buffer)))))
+		;; Refresh when the selected window is the music playlist otherwise
+		;; there is no need to refresh. Most likely, the buffer is invisible.
+		(when (equal b cb)
+		  ;; This temporary switch is needed because the current buffer can be a
+		  ;; 'server' buffer.
+		  (with-current-buffer b
+			(call-interactively 'revert-buffer))))))
 
   (defun do-music-next ()
 	(interactive)
@@ -88,7 +88,6 @@
   (defun do-music-toggle ()
 	(interactive)
 	(require 'simple-mpc)
-	;; (simple-mpc-toggle)
 	(if do--music-toggle-state
 		(progn
 		  (start-process-shell-command "mpc" 'nil "/usr/bin/mpc pause")
@@ -114,6 +113,7 @@
   (defun do-music-playlist ()
 	(interactive)
 	(let ((music-playlist-frame-found nil))
+	  ;; Search for the window if it exists
 	  (dolist (m (frame-list))
 		(when (equal (frame-parameter m 'name) "music-playlist" )
 		  (with-current-buffer (window-buffer (frame-selected-window m))
@@ -124,9 +124,7 @@
 				(start-process-shell-command
 				 "notify-bspc-process"
 				 nil
-				 "bspc node $(xdo id -a 'music-playlist') -f &> /dev/null"))
-
-			  ))))
+				 "bspc node $(xdo id -a 'music-playlist') -f &> /dev/null"))))))
 	  (when (not music-playlist-frame-found)
 		(do-make-frame "music-playlist")
 		(simple-mpc-view-current-playlist))))
@@ -136,62 +134,47 @@
 		simple-mpc-query-mode-map (make-sparse-keymap)
 		simple-mpc-current-playlist-mode-map (make-sparse-keymap))
 
-
-  (general-define-key
-   :prefix "SPC m"
-   :keymaps 'override
-   :states '(normal visual)
-   "" '(:ignore t :which-key "music player")
-   "q" 'do-music-stop
-   "r" 'simple-mpc-shuffle-current-playlist
-   "p" 'simple-mpc-toggle
-   "SPC l" 'simple-mpc-clear-current-playlist)
-
   (general-define-key
    :keymaps 'simple-mpc-mode-map
-   :states 'normal
+   :states '(normal visual)
    "<return>" 'nil
-   "s" #'simple-mpc-query
-   "w" #'simple-mpc-seek-forward
-   "b" #'simple-mpc-seek-backward)
+   "SPC lq" 'do-music-stop
+   "SPC lp" 'simple-mpc-toggle
+   "SPC l/" 'simple-mpc-query
+   "SPC lr" 'simple-mpc-shuffle-current-playlist
+   "SPC ln" 'do-music-next
+   "SPC lh" 'do-music-previous
+   "SPC lN" 'simple-mpc-seek-forward
+   "SPC lH" 'simple-mpc-seek-backward
+   "SPC ld" 'simple-mpc-clear-current-playlist)
 
   (defun do--music-playlist-init ()
 	(general-define-key
 	 :keymaps 'local
 	 :states '(normal visual)
 	 "<return>" 'do-music-play-selected
-	 "r" #'simple-mpc-shuffle-current-playlist
-	 "N" #'do-music-next
-	 "H" #'do-music-previous
-	 "SPC l" #'simple-mpc-clear-current-playlist
-	 "C" #'simple-mpc-clear-current-playlist
-	 "d" #'simple-mpc-delete))
+	 "C-n" 'do-music-next
+	 "C-h" 'do-music-previous
+	 "M-n" 'simple-mpc-seek-forward
+	 "M-h" 'simple-mpc-seek-backward))
   (add-hook 'simple-mpc-current-playlist-mode-hook #'do--music-playlist-init)
-
-  (defun do--music-notify-external ()
-	(ignore-errors
-	  (start-process-shell-command
-	   "music-notify-external-process"
-	   nil
-	   "killall music.sh; ~/.config/lemon-bar/blocks/music.sh 1 > /tmp/lemon-panel-fifo")))
 
   (defun do--music-query-init ()
 	(general-define-key
 	 :keymaps 'local
 	 :states '(normal visual)
+	 "<return>" 'simple-mpc-query-add-and-play
 	 "a" 'simple-mpc-query-add
-	 "i" 'simple-mpc-query-add
-	 "<return>" 'simple-mpc-query-add-and-play))
+	 "SPC ls" 'simple-mpc-query-sort
+	 [remap evil-quit] 'simple-mpc-query-quit))
   (add-hook 'simple-mpc-query-mode-hook #'do--music-query-init)
 
+  ;; Start MPD
   (ignore-errors
-	;; start mpd and mpc
-
-	(shell-command "mpd" (get-buffer "*Messages*") (get-buffer "*Messages*"))
-
-	;; Volume will be controlled by pulse.
-	;; We don't need another volume controller for mpc.
-	(simple-mpc-modify-volume-internal 100)))
-
+	(let ((b (get-buffer "*Messages*")))
+	  (shell-command "mpd" b b)
+	  ;; Volume is primarily controlled by PulseAudio. We don't need another
+	  ;; volume controller in Emacs
+	  (simple-mpc-modify-volume-internal 100))))
 
 (provide 'do-music)
