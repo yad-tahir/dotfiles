@@ -41,8 +41,8 @@
   (general-define-key
    :keymaps 'override
    :states 'normal
-   "SPC gt" 'speed-type-top-200
-   "SPC gT" 'speed-type-top-1000)
+   "SPC at" 'speed-type-top-200
+   "SPC aT" 'speed-type-top-1000)
 
   :config
   (setq speed-type-default-lang 'English)

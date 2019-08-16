@@ -29,10 +29,9 @@
   :init
   (general-define-key
    :keymaps 'override
-   :prefix "SPC g"
    :states '(normal visual)
    ;; make a prefix-command and add description
-   "t" '((lambda()
+   "SPC aA" '((lambda()
 		   (interactive)
 		   (find-file "~/notes/todo.org"))
 		 :which-key "todo.org"))
@@ -218,9 +217,8 @@
   :init
   (general-define-key
    :keymaps 'override
-   :prefix "SPC g"
    :states '(normal visual)
-   "c" #'org-capture)
+   "SPC ac" #'org-capture)
 
 ;;;###autoload
   (defun do-capture ()
@@ -263,9 +261,8 @@
   :init
   (general-define-key
    :keymaps 'override
-   :prefix "SPC g"
    :states '(normal visual)
-   "a" 'org-agenda)
+   "SPC aa" 'org-agenda)
 
 ;;;###autoload
   (defun do-agenda()

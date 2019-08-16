@@ -26,10 +26,10 @@
   :init
   (general-define-key
    :keymaps 'override
-   :prefix "SPC g"
    :states '(normal visual)
-   "f" #'find-file
-   "F" #'dired)
+   "SPC gf" #'find-file
+   "SPC gF" #'dired)
+
   (defun do-file-manager (&optional path)
 	(interactive)
 	(do-make-frame "file-manager")

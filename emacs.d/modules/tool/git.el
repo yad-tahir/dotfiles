@@ -25,12 +25,10 @@
 
   :init
   (general-define-key
-   :prefix "SPC g"
    :keymaps 'override
    :states 'normal
    ;; make a prefix-command and add description
-   "" '(:ignore t :which-key "go")
-   "g" #'magit-status)
+   "SPC ag" #'magit-status)
 
   :config
   ;; Remove conflicting key bindings

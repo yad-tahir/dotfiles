@@ -157,11 +157,13 @@
    "[p" 'evil-backward-paragraph
    "[m" 'do-evil-backward-motion
 
+   "SPC a" '(:ignore t :which-key "app")
+   "SPC g" '(:ignore t :which-key "go")
    "SPC l" '(:ignore t :which-key "local")
    "SPC lq" 'evil-quit
    "SPC lw" 'evil-save-and-quit
 
-   "SPC g" '(:ignore t :which-key "go")
+
    "lg" '(:ignore t :which-key "jump")
    "lgh" 'evil-jump-backward
    "lgn" 'evil-jump-forward
