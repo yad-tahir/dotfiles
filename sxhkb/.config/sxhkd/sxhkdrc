@@ -32,8 +32,8 @@ super + shift + r
 	pkill -USR1 -x sxhkd
 
 # Quit/restart bspwm
-super + shift + x
-	pkill -x panel.sh; bspc quit
+# super + shift + x
+	# pkill -x panel.sh; bspc quit
 
 # Close and kill
 super + {_,shift + }q
