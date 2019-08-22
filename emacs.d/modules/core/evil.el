@@ -320,11 +320,11 @@
   (evil-put-property 'evil-state-properties 'operator :tag "OPERATOR")
 
   (setq evil-default-cursor `(box)
-		evil-insert-state-cursor `((bar . 5))
+		evil-insert-state-cursor `((bar . 2))
 		evil-normal-state-cursor `(box)
 		evil-visual-state-cursor `(box)
 		evil-emacs-state-cursor `(box)
-		evil-replace-state-cursor `((bar . 5))
+		evil-replace-state-cursor `((bar . 2))
 		evil-operator-state-cursor `(box)
 		evil-motion-state-cursor `(box))
 

@@ -17,6 +17,9 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
+(cl-eval-when (compile)
+  (require 'image-mode))
+
 (setq inhibit-startup-message t
 	  inhibit-startup-echo-area-message t
 	  user-mail-address "yad@ieee.org"
@@ -71,10 +74,11 @@
 
 	  ;; Other
 	  blink-matching-paren nil ;; don't blink--too distracting
-	  confirm-kill-processes nil ;; Kill all pprocesses without confirmation
+	  confirm-kill-processes nil ;; Kill all processes without confirmation
 	  sentence-end-double-space nil
 	  ;; debug-on-error t
-	  ;; image-animate-loop t
+
+	  image-animate-loop nil
 	  indicate-buffer-boundaries nil
 	  indicate-empty-lines nil
 	  show-help-function nil          ; hide :help-echo text
@@ -93,7 +97,7 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (desktop-save-mode 0)
-(tooltip-mode nil) ;; Redirect tooltip messages to the echo area
+(tooltip-mode nil) ;; Redirect tool-tip messages to the echo area
 
 ;; Disabled by .Xresources
 ;; (scroll-bar-mode 0)
