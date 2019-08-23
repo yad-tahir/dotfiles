@@ -34,14 +34,14 @@
   :ensure t
   :commands (speed-type-top-x speed-type-top-100 speed-type-top-1000)
   :init
-  (defun speed-type-top-200 ()
+  (defun speed-type-standard ()
 	(interactive)
-	(speed-type-top-x 200))
+	(speed-type-top-x 300))
 
   (general-define-key
    :keymaps 'override
    :states 'normal
-   "SPC at" 'speed-type-top-200
+   "SPC at" 'speed-type-standard
    "SPC aT" 'speed-type-top-1000)
 
   :config
