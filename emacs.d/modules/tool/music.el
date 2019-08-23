@@ -17,9 +17,6 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
-(cl-eval-when (compile)
-  (require 'simple-mpc))
-
 (use-package simple-mpc
   :ensure t
   :commands (simple-mpc-next
@@ -31,10 +28,15 @@
   (declare-function do--music-playlist-init nil)
   (declare-function do--music-query-init nil)
   (declare-function do--music-setup-process nil)
+  (declare-function simple-mpc-play-current-line nil)
+  (declare-function simple-mpc-modify-volume-internal nil)
   (defvar do--music-process-update nil)
   (defvar do--music-toggle-state nil)
 
   :init
+  (cl-eval-when (compile)
+	(require 'simple-mpc))
+
   (general-define-key
    :keymaps 'override
    :states '(normal visual)
