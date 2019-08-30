@@ -29,7 +29,7 @@ for i in $layouts; do
 	echo_string="${i}\\n${echo_string}"
 done
 
-run=$(echo "${echo_string}" |
+run=$(echo -e "${echo_string}" |
 		  dmenu -i -f -h $PANEL_HEIGHT \
 				-nb "$COLOR_BACKGROUND" \
 				-nf "$COLOR_FOREGROUND" \

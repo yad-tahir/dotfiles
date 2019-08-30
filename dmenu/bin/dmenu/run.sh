@@ -29,7 +29,7 @@ run=$(
 		prefix_commands="emacs|firefox-developer-edition"
 		echo_string=
 		filter_string=
-		
+
 		for i in $prefix_commands; do
 			echo_string="${i}\\n${echo_string}"
 			filter_string="${i}\$|${filter_string}"
@@ -38,7 +38,7 @@ run=$(
 		filter_string=$(awk -v VAL="$filter_string" \
 						'BEGIN {print substr(VAL,0,length(VAL)-1)}')
 		IFS=:
-		{ echo "${echo_string}";
+		{ echo -e "${echo_string}";
 		  stest -flx $PATH |
 			  awk "!/${filter_string}/" |
 			  sort -u | uniq ; } |
