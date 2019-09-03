@@ -49,8 +49,8 @@
 				 "lang/elisp"
 				 "lang/go"
 				 "lang/clojure"
+				 "lang/web"
 				 ;; "lang/java"
-				 ;; "lang/web"
 				 ;; "lang/php"
 
 				 "tool/scratch"
