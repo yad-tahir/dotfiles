@@ -32,4 +32,4 @@ systemctl --user restart lemon-bar.service &
 xsetroot -solid "$COLOR_BACKGROUND" &
 
 # Fix resolution
-bspc config right_padding 0
+bspc config right_padding 750
