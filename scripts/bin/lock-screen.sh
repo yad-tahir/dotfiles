@@ -20,6 +20,11 @@
 
 # Take a screen shot
 file=/tmp/screen.png
+
+# Remove the file if it exists
+rm "${file}" 2> /dev/null
+
+# Take a screenshot
 scrot "${file}"
 
 # Rescale it to make it blurry
