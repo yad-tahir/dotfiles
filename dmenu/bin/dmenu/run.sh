@@ -38,7 +38,7 @@ run=$(
 		filter_string=$(awk -v VAL="$filter_string" \
 						'BEGIN {print substr(VAL,0,length(VAL)-1)}')
 		IFS=:
-		{ echo -e "${echo_string}";
+		{ echo "${echo_string}";
 		  stest -flx $PATH |
 			  awk "!/${filter_string}/" |
 			  sort -u | uniq ; } |
