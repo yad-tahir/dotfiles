@@ -55,6 +55,9 @@ cd ..
 cd ./network-manager/
 sudo stow etc -t /etc
 cd ..
+# Install vpn-based apps
+sudo rm /bin/firefox-vpn 2> /dev/null
+sudo ln -s $DIR/scripts/bin/firefox-vpn /bin/firefox-vpn
 
 echo "Change the default shell from Bash to Dash"
 sudo rm /bin/sh

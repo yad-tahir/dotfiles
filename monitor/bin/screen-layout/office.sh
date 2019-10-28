@@ -33,3 +33,5 @@ systemctl --user restart lemon-bar.service &
 
 
 xsetroot -solid "$COLOR_BACKGROUND" &
+
+sudo ip route add 172.30.65.0/24 via 172.17.2.1 dev wlp4s0

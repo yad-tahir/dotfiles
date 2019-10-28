@@ -29,11 +29,19 @@ alias ls='ls -ali'
 alias s="sudo su"
 alias e="emacs"
 alias ec="emacsclient -cn"
-alias firefox="firefox-developer-edition"
+alias nv="sudo -u yad -g no-vpn"
+alias nV="sudo -u root -g no-vpn"
+alias web="firefox-developer-edition"
 alias pacman-history="expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -n 100"
 alias pacman-unused='pacman -Qtdq'
 alias kweb='sudo -u yad -g no_net KeeWeb'
 alias cleaor='clear'
+alias vpn-udp-stop='sudo systemctl stop openvpn-client@personal-udp.service'
+alias vpn-udp-start='sudo systemctl restart openvpn-client@personal-udp.service'
+alias vpn-tcp-stop='sudo systemctl stop openvpn-client@personal-tcp.service'
+alias vpn-tcp-start='sudo systemctl restart openvpn-client@personal-tcp.service'
+alias vpn-start='vpn-udp-start'
+alias vpn-stop='vpn-udp-stop'
 
 # Other variables
 source ~/bin/settings.sh

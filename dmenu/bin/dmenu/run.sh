@@ -26,7 +26,7 @@
 run=$(
 		IFS='|'
 		# Add Emacs and firefox to the beginning of the list
-		prefix_commands="emacs|firefox-developer-edition"
+		prefix_commands="emacs|local-firefox-no-vpn|firefox-developer-edition"
 		echo_string=
 		filter_string=
 
@@ -57,9 +57,13 @@ run=$(
 case "$run" in
 	# If it ends with '!', run it in a terminal instead
 	*!)
-		$(echo "$TERMINAL -hold -e $run" | sed -e 's/!$//') &
+		exec $(echo "$TERMINAL -hold -e $run" | sed -e 's/!$//') &
+		;;
+	local*)
+		exec $(echo "$HOME/bin/$run" | sed 's/local-//') &
 		;;
 	*?*)
-		"$run" &
+		# Run the local version first, if it is failed then switch to the system one.
+		exec "$run" &
 		;;
 esac

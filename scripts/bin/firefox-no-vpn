@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Run firefox but don't tunnel its packets via VPN
+exec sudo -g no-vpn -E firefox
