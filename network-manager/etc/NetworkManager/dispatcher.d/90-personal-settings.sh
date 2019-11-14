@@ -18,13 +18,12 @@
 # 02110-1301, USA.
 
 case "$1" in
-	wlp4s0)
-		echo wlps0
+	wlp59s0)
 		case "$2" in
 			up)
 				# OpenVPN may require DNS. A quick reboot is needed to make sure the DNS daemon is
 				# well initialized.
-				systemctl restart systemd-resolved.service
+				# systemctl restart systemd-resolved.service
 				systemctl start openvpn-client@personal-udp.service
 
 				# Setup no-vpn routing table

@@ -17,14 +17,15 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-xrandr --output DP-4 --mode 1280x1024 --pos 0x0
-xrandr --output DP-3 --mode 1280x1024 --pos 0x0
+# xrandr --output DP1 --mode 1280x1024 --pos 0x0
+xrandr --output eDP1 --mode 2560x1440 --pos 0x0
+xrandr --output DP1  --mode 1920x1200 --pos 0x0
 
 #Fix DP-2 resolution. A small hack to make text more readable with AUIS's projecter
-xrandr  --output DP-2 --scale-from 2048x1024
+# xrandr  --output DP1 --scale-from 2048x1024
 
 # Set the monitors
-bspc monitor DP-2 -n DP-2 -d 1 2 3 4 5 6 7 8 9 10 &> /dev/null
+bspc monitor DP1 -d 1 2 3 4 5 6 7 8 9 10 &> /dev/null
 
 # restart the bar
 systemctl --user restart lemon-bar.service &
@@ -32,4 +33,5 @@ systemctl --user restart lemon-bar.service &
 xsetroot -solid "$COLOR_BACKGROUND" &
 
 # Fix resolution
-bspc config right_padding 750
+bspc config right_padding 0
+bspc config bottom_padding 0

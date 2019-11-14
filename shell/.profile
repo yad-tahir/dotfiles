@@ -45,7 +45,6 @@ alias vpn-stop='vpn-udp-stop'
 
 # Other variables
 source ~/bin/settings.sh
-
 # Adjust the path
 PATH="~/bin:${PATH}"
 

@@ -237,7 +237,6 @@ function panel_bar {
 									selected_monitor=$(($current_monitor+1))
 									;;
 							esac
-							[ $num_mon -lt 2 ] && shift && continue
 							# wm="${wm}%{-S${mon}}"
 							current_monitor=$((current_monitor+1))
 							monitor_info_arr[$current_monitor]=""

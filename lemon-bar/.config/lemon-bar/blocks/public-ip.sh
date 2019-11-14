@@ -22,7 +22,7 @@
 
 while true; do
 	code=$(curl ipinfo.io 2> /dev/null | awk '/country/ {print substr($2,2,2)}' 2> /dev/null)
-	if [ "$code" = "GB" ]; then
+	if [ "$code" = "US" ]; then
 		code=" ${code}"
 	elif [ "$code" = "" ]; then
 		code="%{F${COLOR_INDICATOR3}}%{F-}"

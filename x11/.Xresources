@@ -36,13 +36,13 @@ URxvt.letterSpace: -1
 ! Pointer
 URxvt.pointerBlank:         true
 
-*background: #0f0b0c
+*background: #000000
 *foreground: #e6beae
-*pointerColorBackground: #0f0b0c
+*pointerColorBackground: #000000
 *pointerColorForeground: #e6beae
 
 !! black dark/light
-*color0: #0f0b0c
+*color0: #000000
 *color8: #654d4d
 
 !! red dark/light

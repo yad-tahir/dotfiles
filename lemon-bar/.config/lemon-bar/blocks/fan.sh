@@ -19,7 +19,7 @@
 # 02110-1301, USA.
 
 while true; do
-	tmp=$(echo $(sensors 2> /dev/null | awk '/^Left/{print $4}/^Right/{print $4}'))
+	tmp=$(echo $(sensors 2> /dev/null | awk '/^fan1/{print $2}/^fan2/{print $2}'))
 	echo "Sf" $tmp
 
 	if [ "$#" -eq 0 ]; then

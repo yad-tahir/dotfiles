@@ -17,7 +17,7 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
-(defcustom chocolate-theme-bg "#0f0b0c"
+(defcustom chocolate-theme-bg "#000000"
   "Palette - default background"
   :type 'string :group 'chocolate-theme)
 

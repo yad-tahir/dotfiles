@@ -42,7 +42,7 @@ export PASSWORD_STORE_SIGNING_KEY=$(cat $GNUPGHOME/usage/pass.sign.key)
 export PASSWORD_STORE_GENERATED_LENGTH=25
 
 # Terminal
-export RXVT_SOCKET=/run/user/1000/urxvtd-arch-laptop
+export RXVT_SOCKET=/run/user/1000/urxvtd-pipeline
 
 #Lemon-bar
 export PANEL_FONT_FAMILY="DejaVu Sans Mono-6"
@@ -53,7 +53,7 @@ export PANEL_FIFO="/tmp/lemon-panel-fifo"
 
 # Colors
 export COLOR_FOREGROUND='#e6beae'
-export COLOR_BACKGROUND='#0f0b0c'
+export COLOR_BACKGROUND='#000000'
 export COLOR_ACTIVE="#392626"
 export COLOR_ACTIVE2="#bd9c8f"
 export COLOR_INDICATOR1="#a7e23e"
