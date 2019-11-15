@@ -25,8 +25,8 @@
 
 run=$(
 		IFS='|'
-		# Add Emacs and firefox to the beginning of the list
-		prefix_commands="emacs|local-firefox-no-vpn|firefox-developer-edition"
+		# Add custom commends to the demnu
+		prefix_commands="steam-local|emacs|firefox-no-vpn-local|firefox-developer-edition"
 		echo_string=
 		filter_string=
 
@@ -59,8 +59,8 @@ case "$run" in
 	*!)
 		exec $(echo "$TERMINAL -hold -e $run" | sed -e 's/!$//') &
 		;;
-	local*)
-		exec $(echo "$HOME/bin/$run" | sed 's/local-//') &
+	*local)
+		exec $(echo "$HOME/bin/$run" | sed 's/-local//') &
 		;;
 	*?*)
 		# Run the local version first, if it is failed then switch to the system one.

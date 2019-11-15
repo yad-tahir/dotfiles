@@ -46,6 +46,7 @@ bspc rule -a 'Emacs' follow=on state=tiled
 bspc rule -a 'Emacs:music-playlist' follow=on desktop=9
 bspc rule -a 'Emacs:scratch-buffer' follow=on state=floating sticky=on center=on
 bspc rule -a 'Emacs:calculator' follow=on state=floating sticky=on center=on
+bspc rule -a 'Steam' follow=on state=tiled sticky=off desktop=5
 
 bspc monitor DP-2 -n DP-2 -d 10
 
