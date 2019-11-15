@@ -32,6 +32,7 @@ fi
 backup_sets=('rpool/sys/root/default'
 			 'rpool/data/yad/default'
 			 'rpool/data/yad/notes'
+			 'rpool/data/yad/archive'
 			 'rpool/data/yad/music')
 
 # GPG Key for backups
@@ -65,6 +66,7 @@ function backup {
 	fi
 
 	echo "Exporting ZFS Set ${backup_set} from Snapshot $2 to $name"
+	echo "Using GPG key ${key}"
 
 	zfs send ${option} ${backup_set}@${name} |
 		lz4 |

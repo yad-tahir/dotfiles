@@ -19,16 +19,16 @@
 # 02110-1301, USA.
 
 while true; do
-	tmp=$(insync-headless get_syn_progress | head -n1)
+	tmp=$(insync-headless get_sync_progress | head -n1)
 
-	if [ "$tmp" != "No syning activities" ]; then
+	if [ "$tmp" = "No syncing activities" ]; then
 		echo "Sg"
 	elif [ "$tmp" = "Download" ]; then
-		echo "Sg%{F$COLOR_INDICATOR1} %{F-}"
+		echo "Sg%{F$COLOR_INDICATOR1} Downloading %{F-}"
 	elif [ "$tmp" = "Uploading" ]; then
-		echo "Sg%{F$COLOR_INDICATOR3} %{F-}"
+		echo "Sg%{F$COLOR_INDICATOR3} Uploading %{F-}"
 	else
-		echo "Sg%{F$COLOR_INDICATOR2} %{F-}"
+		echo "Sg%{F$COLOR_INDICATOR2} $tmp %{F-}"
 	fi
 
 	if [ "$#" -eq 0 ]; then

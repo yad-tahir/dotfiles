@@ -49,7 +49,7 @@ bspc config top_padding $PANEL_HEIGHT
 . $PWD/blocks/processes.sh 20 > "$PANEL_FIFO"&
 . $PWD/blocks/battery.sh 20 > "$PANEL_FIFO"&
 . $PWD/blocks/net-speed.sh 60 > "$PANEL_FIFO"&
-. $PWD/blocks/sync.sh 120 > "$PANEL_FIFO"&
+. $PWD/blocks/sync.sh 60 > "$PANEL_FIFO"&
 # Event-driven blocks
 . $PWD/blocks/music.sh > "$PANEL_FIFO"&
 . $PWD/blocks/volume.sh > "$PANEL_FIFO"&
