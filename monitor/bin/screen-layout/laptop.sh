@@ -24,3 +24,7 @@ bspc monitor eDP1 -d 1 2 3 4 5 6 7 8 9 10 &> /dev/null
 systemctl --user restart lemon-bar.service &
 
 xsetroot -solid "$COLOR_BACKGROUND" &
+
+# Stop turning off screens
+xset -dpms
+xset s off

@@ -17,7 +17,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-# xrandr --output DP1 --mode 1280x1024 --pos 0x0
 xrandr --output eDP1 --mode 2560x1440 --pos 0x0
 xrandr --output DP1  --mode 1920x1200 --pos 0x0
 
@@ -35,3 +34,7 @@ xsetroot -solid "$COLOR_BACKGROUND" &
 # Fix resolution
 bspc config right_padding 0
 bspc config bottom_padding 0
+
+# Stop turning off screens
+xset -dpms
+xset s off
