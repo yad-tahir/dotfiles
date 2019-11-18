@@ -48,6 +48,7 @@ bspc config top_padding $PANEL_HEIGHT
 . $PWD/blocks/memory.sh 20 > "$PANEL_FIFO"&
 . $PWD/blocks/processes.sh 20 > "$PANEL_FIFO"&
 . $PWD/blocks/battery.sh 20 > "$PANEL_FIFO"&
+. $PWD/blocks/nvidia.sh 20 > "$PANEL_FIFO"&
 . $PWD/blocks/net-speed.sh 60 > "$PANEL_FIFO"&
 . $PWD/blocks/sync.sh 60 > "$PANEL_FIFO"&
 # Event-driven blocks
@@ -106,6 +107,9 @@ function panel_bar {
 					t*)
 						temperature="$lineCode"
 						;;
+					z*)
+						gpu="$lineCode"
+						;;
 					x*)
 						battery="$lineCode"
 						;;
@@ -122,7 +126,7 @@ function panel_bar {
 						clock=$lineCode
 						;;
 				esac
-				sys="${music} ${caps} ${temperature} ${fan} | ${memory} ${processes} ${bugs} ${emacs} | ${packages} | ${sync}${net} ${public_ip} | ${battery} ${volume} ${keyboard} ${clock} "
+				sys="${music} ${caps} ${temperature} ${fan} | ${memory} ${processes} ${bugs} ${emacs}${gpu}| ${packages} | ${sync}${net} ${public_ip} | ${battery} ${volume} ${keyboard} ${clock} "
 				;;
 
 			# Title
