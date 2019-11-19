@@ -21,7 +21,7 @@
 while true; do
 	state=$(xset -q | awk '/Caps/ {print $4}')
 	if [ $state = "off" ]; then
-		echo "Sy%{F${COLOR_ACTIVE}}CAPS%{F-}"
+		echo "Sy%{F${COLOR_INDICATOR6}}CAPS%{F-}"
 	else
 		echo "Sy%{F${COLOR_INDICATOR1}}CAPS%{F-}"
 	fi

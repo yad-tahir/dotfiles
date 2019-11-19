@@ -229,14 +229,14 @@ function panel_bar {
 							case $item in
 								m*)
 									# monitor
-									FG=$COLOR_MONITOR_FG
-									BG=$COLOR_MONITOR_BG
+									FG=$COLOR_FOREGROUND
+									BG=$COLOR_BACKGROUND
 									on_focused_monitor=
 									;;
 								M*)
 									# focused monitor
-									FG=$COLOR_MONITOR_FOCUSED_FG
-									BG=$COLOR_MONITOR_FOCUSED_BG
+									FG=$COLOR_FOREGROUND
+									BG=$COLOR_BACKGROUND
 									on_focused_monitor=1
 									selected_monitor=$(($current_monitor+1))
 									;;
@@ -252,47 +252,47 @@ function panel_bar {
 							case $item in
 								f*)
 									# free desktop
-									FG=$COLOR_DESKTOP_FG
-									BG=$COLOR_DESKTOP_BG
+									FG=$COLOR_FOREGROUND
+									BG=$COLOR_BACKGROUND
 									UL=$BG
 									;;
 								F*)
 									# free desktop
 									if [ "$on_focused_monitor" ] ; then
 										# focused occupied desktop
-										FG=$COLOR_DESKTOP_FOCUSED_FG
-										BG=$COLOR_DESKTOP_FOCUSED_BG
+										FG=$COLOR_BACKGROUND
+										BG=$COLOR_INDICATOR1
 										UL=$BG
 									else
 										# active occupied desktop
-										FG=$COLOR_DESKTOP_URGENT_BG
-										BG=$COLOR_DESKTOP_ACTIVE_BG
+										FG=$COLOR_INDICATOR3
+										BG=$COLOR_INDICATOR6
 										UL=$BG
 									fi
 									;;
 								o*)
 									# occupied desktop
-									FG=$COLOR_DESKTOP_ACTIVE_FG
-									BG=$COLOR_DESKTOP_ACTIVE_BG
+									FG=$COLOR_FOREGROUND
+									BG=$COLOR_INDICATOR6
 									UL=$BG
 									;;
 								O*)
 									if [ "$on_focused_monitor" ] ; then
 										# focused occupied desktop
-										FG=$COLOR_DESKTOP_FOCUSED_FG
-										BG=$COLOR_DESKTOP_FOCUSED_BG
+										FG=$COLOR_BACKGROUND
+										BG=$COLOR_INDICATOR1
 										UL=$BG
 									else
 										# active occupied desktop
-										FG=$COLOR_DESKTOP_URGENT_BG
-										BG=$COLOR_DESKTOP_ACTIVE_BG
+										FG=$COLOR_INDICATOR3
+										BG=$COLOR_INDICATOR6
 										UL=$BG
 									fi
 									;;
 								[uU]*)
 									# urgent desktop
-									FG=$COLOR_DESKTOP_URGENT_FG
-									BG=$COLOR_DESKTOP_URGENT_BG
+									FG=$COLOR_BACKGROUND
+									BG=$COLOR_INDICATOR3
 									UL=$BG
 									;;
 								G*)

@@ -23,21 +23,21 @@
 bspc config border_width 1
 bspc config window_gap 0
 bspc config pointer_follows_monitor true
-bspc config automatic_scheme longest_side
-bspc config initial_polarity second_child
-# bspc config automatic_scheme spiral
-# bspc config initial_polarity first_child
+# bspc config automatic_scheme longest_side
+# bspc config initial_polarity second_child
+bspc config automatic_scheme spiral
+bspc config initial_polarity first_child
 
 bspc config split_ratio 0.5
 bspc config borderless_monocle true
 bspc config gapless_monocle true
 bspc config ignore_ewmh_focus false
 
-bspc config normal_border_color $COLOR_ACTIVE
-bspc config active_border_color $COLOR_ACTIVE
-bspc config focused_border_color $COLOR_ACTIVE2
-bspc config presel_feedback_color $COLOR_ACTIVE
-bspc config external_rules_command $HOME/.config/bspwm/first-win-fixed.sh
+bspc config normal_border_color $COLOR_INDICATOR6
+bspc config active_border_color $COLOR_INDICACTOR6
+bspc config focused_border_color $COLOR_INDICATOR5
+bspc config presel_feedback_color $COLOR_INDICATOR6
+# bspc config external_rules_command $HOME/.config/bspwm/first-win-fixed.sh
 $HOME/.config/bspwm/ultrawide-aware.sh &> /dev/null &
 
 bspc rule -a 'Zathura' follow=on desktop=8 state=tiled
@@ -48,22 +48,20 @@ bspc rule -a 'Emacs:scratch-buffer' follow=on state=floating sticky=on center=on
 bspc rule -a 'Emacs:calculator' follow=on state=floating sticky=on center=on
 bspc rule -a 'Steam' follow=on state=tiled sticky=off desktop=5
 
-bspc monitor DP-2 -n DP-2 -d 10
-
 # Set the background color
 xsetroot -solid $COLOR_BACKGROUND &
 
 # Fix the mouse size
 xsetroot -xcf /usr/share/icons/Adwaita/cursors/left_ptr 16 &
 
-# Keybindings
-systemctl --user start sxhkd.service &
-
 # launch the bar
 systemctl --user start lemon-bar.service &
 
-# Startup commands
-gpg-connect-agent /bye
+# Keybindings
+systemctl --user start sxhkd.service &
 
 # Disable key repeat
 xset r off
+
+# Startup commands
+gpg-connect-agent /bye
