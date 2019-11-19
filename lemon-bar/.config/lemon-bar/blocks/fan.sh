@@ -18,6 +18,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
+. $HOME/bin/settings.sh
+
 while true; do
 	tmp=$(echo $(sensors 2> /dev/null | awk '/^fan1/{print $2}/^fan2/{print $2}'))
 	echo "Sf" $tmp

@@ -18,6 +18,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
+. $HOME/bin/settings.sh
+
 while true; do
 	tmp=$(echo $(free -h 2> /dev/null | awk '/^Mem/{print substr($3,1,length($3)-1)}'))
 	echo "Sm" $tmp

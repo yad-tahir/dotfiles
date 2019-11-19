@@ -18,6 +18,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
+. $HOME/bin/settings.sh
+
 while true; do
 	state=$(pulsemixer --get-volume | awk '{print $1}')
 	if [ $state -gt 100 ]; then

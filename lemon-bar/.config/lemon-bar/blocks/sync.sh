@@ -18,6 +18,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
+. $HOME/bin/settings.sh
+
 while true; do
 	tmp=$(insync-headless get_sync_progress | head -n1)
 

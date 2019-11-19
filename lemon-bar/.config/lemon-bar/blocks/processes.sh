@@ -18,6 +18,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
+. $HOME/bin/settings.sh
+
 while true; do
 	tmp=$(ps axl | awk '$7 != 0 && $10 !~ "Z"'| wc -l)
 	tmp2=$(ps axl -L | awk '$7 != 0 && $10 !~ "Z"'| wc -l)

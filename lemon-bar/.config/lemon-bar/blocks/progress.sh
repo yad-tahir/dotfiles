@@ -20,6 +20,8 @@
 
 # A utility script to draw a progress using text underline.
 
+. $HOME/bin/settings.sh
+
 text="$1"
 progress="$2"
 

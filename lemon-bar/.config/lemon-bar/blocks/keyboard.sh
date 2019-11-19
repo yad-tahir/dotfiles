@@ -18,6 +18,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
+. $HOME/bin/settings.sh
+
 while true; do
 	state=$(setxkbmap -query |
 				awk '/^layout/{split($2,arr,","); print toupper(arr[1])}')

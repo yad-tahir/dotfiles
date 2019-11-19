@@ -18,6 +18,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
+. $HOME/bin/settings.sh
+
 while true; do
 	state=$(xset -q | awk '/Caps/ {print $4}')
 	if [ $state = "off" ]; then

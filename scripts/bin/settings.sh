@@ -45,7 +45,7 @@ export RXVT_SOCKET=/run/user/1000/urxvtd-pipeline
 export PANEL_FONT_FAMILY="DejaVu Sans Mono-6"
 export PANEL_FONT_FAMILY2="FontAwesome-7"
 export PANEL_HEIGHT="35"
-export PANEL_WM_NAME=lemon_bspwm_panel
+export PANEL_WM_NAME="lemon-bspwm-panel"
 export PANEL_FIFO="/tmp/lemon-panel-fifo"
 
 # Colors

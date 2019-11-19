@@ -17,6 +17,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
+. $HOME/bin/settings.sh
+
 while true; do
 	CODE=$(cat /sys/bus/pci/devices/0000\:01\:00.0/power/runtime_status)
 

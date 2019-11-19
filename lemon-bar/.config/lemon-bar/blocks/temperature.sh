@@ -18,6 +18,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
+. $HOME/bin/settings.sh
+
 while true; do
 	temp=$(sensors | awk '/^Package/{print substr($4,2,length($4)-5)}')
 	if [ $temp -gt 100 ]; then
