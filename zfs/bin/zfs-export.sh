@@ -25,18 +25,16 @@ if [ $UID -ne 0 ]; then
 	exit 1
 fi
 
-# Get the settings
-. /home/$USERNAME/bin/settings.sh
+# Get the GPG key
+. /home/$USER/bin/settings.sh
+key=$(cat $GNUPGHOME/usage/zfs-backup.encrypt.key)
 
 # ZFS sets
-backup_sets=('rpool/sys/root/default'
-			 'rpool/data/yad/default'
-			 'rpool/data/yad/notes'
-			 'rpool/data/yad/archive'
-			 'rpool/data/yad/music')
-
-# GPG Key for backups
-key=$(cat $GNUPGHOME/usage/zfs-backup.encrypt.key)
+backup_sets=("rpool/sys/root/default"
+			 "rpool/data/$USER/default"
+			 "rpool/data/$USER/notes"
+			 "rpool/data/$USER/archive"
+			 "rpool/data/$USER/music")
 
 # Get the target location
 if [ "$#" -eq 1 ]; then
@@ -46,11 +44,6 @@ else
 fi
 
 function backup {
-
-	# To avoid syncing to google drive while exporting the snapshot
-	echo "Pause Insync"
-	sudo -u "$USERNAME" insync-headless pause_syncing &> /dev/null
-
 	backup_set=$1
 	# Make sure the folder of the backup file exists
 	mkdir -p "${location}/${backup_set}" 2> /dev/null
@@ -75,10 +68,6 @@ function backup {
 			-r "${key}!" \
 			-o "${location}/${backup_set}/${prefix}${name}.lz4.gpg" \
 			--encrypt
-
-	echo "Resume Insync"
-	sudo -u "$USERNAME" insync-headless resume_syncing &> /dev/null
-
 }
 
 # Compute necessary names

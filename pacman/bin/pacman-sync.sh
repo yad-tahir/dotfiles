@@ -17,10 +17,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-. /home/$USERNAME/bin/settings.sh
+. /home/$USER/bin/settings.sh
 
 /bin/rm /var/lib/pacman/db.lck 2> /dev/null;
 pacman -Syy
 
 #Notify lemon-bar
-sudo -u $USERNAME /bin/sh -c "/home/$USERNAME/.config/lemon-bar/blocks/packages.sh > $PANEL_FIFO"
+sudo -u $USER /bin/sh -c "/home/$USER/.config/lemon-bar/blocks/packages.sh > $PANEL_FIFO"

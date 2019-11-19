@@ -4,7 +4,7 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
-Environment=USERNAME=yad
+Environment=USER=yad
 ExecStart=/bin/zfs-export.sh /%i
 KillMode=process
 
