@@ -23,7 +23,7 @@
 function print_num_bugs {
 	c=$(journalctl -b -p err --no-pager --no-tail --no-full | wc -l)
 	if [ $c -gt 30 ]; then
-		c="%{B$COLOR_INDICATOR4}%{F$COLOR_BACKGROUND}"$c"%{F-}%{B-}"
+		c="%{F$COLOR_INDICATOR4}"$c"%{F-}"
 	else
 		c=" "$c
 	fi

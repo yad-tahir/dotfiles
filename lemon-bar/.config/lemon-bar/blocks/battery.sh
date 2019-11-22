@@ -27,16 +27,13 @@ while true; do
 	then
 		BAT=$(echo $ACPI | awk '{print substr($4,1,length($4)-2)}')
 		if [ $BAT -ge 90 ];then
-			B=$COLOR_INDICATOR2
-			F=$COLOR_BACKGROUND
+			F=$COLOR_INDICATOR2
 		elif [ $BAT -ge 60 ]; then
-			B=$COLOR_INDICATOR1
-			F=$COLOR_BACKGROUND
+			F=$COLOR_INDICATOR1
 		else
-			B=$COLOR_INDICATOR4
-			F=$COLOR_BACKGROUND
+			F=$COLOR_INDICATOR4
 		fi
-		echo "Sx%{B$B}%{F$F} "$BAT"%{F-}%{B-}"
+		echo "Sx%{F$F} "$BAT"%{F-}"
 	else
 		echo "Sx"
 	fi
