@@ -18,8 +18,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-PWD=$(dirname $0)
-
 . $HOME/bin/settings.sh
 
 # Remove the old panel completely
@@ -29,12 +27,12 @@ xdo id -a "$PANEL_WM_NAME" | xargs -n 1 -I % xdo kill %
 mkfifo "$PANEL_FIFO" -m600
 
 bspc subscribe report > "$PANEL_FIFO" &
-
 xtitle -sf 'T%s\n' > "$PANEL_FIFO" &
-
 
 bspc config top_padding $PANEL_HEIGHT
 
+
+PWD=$(dirname $0)
 # Here are the subprograms that add information to the status FIFO which are
 # interpreted by panel_bar, below. Each output is detected by its first
 # character, which is how the bspwm internal information is presented.
@@ -126,7 +124,7 @@ function panel_bar {
 						clock=$lineCode
 						;;
 				esac
-				sys="${music} ${caps} ${temperature} ${fan} | ${memory} ${processes} ${bugs} ${emacs}${gpu}| ${packages} | ${sync}${net} ${public_ip} | ${battery} ${volume} ${keyboard} ${clock} "
+				sys="${music} ${caps} ${temperature} ${fan} | ${memory} ${processes} ${bugs} ${emacs} ${gpu}| ${packages} | ${sync}${net} ${public_ip} | ${battery} ${volume} ${keyboard} ${clock} "
 				;;
 
 			# Title
@@ -144,12 +142,14 @@ function panel_bar {
 
 					flags="${focused_wm_flags[$selected_monitor]}"
 					locked_flag=
-					case "$flags" in *L*) locked_flag="L";;esac
 					fixed_flag=
-					case "$flags" in *P*) fixed_flag="F";;esac
+					sticky_flag=
 					marked_flag=
-					case "$flags" in *M*) marked_flag="M";;esac
 					other_flag=
+					case "$flags" in *L*) locked_flag="L" ;; esac
+					case "$flags" in *P*) fixed_flag="F"  ;; esac
+					case "$flags" in S*)  sticky_flag="S" ;; esac
+					case "$flags" in *M*) marked_flag="M" ;; esac
 
 
 					## Set the dominated color. The priority order is
@@ -158,9 +158,13 @@ function panel_bar {
 						FG=$COLOR_FOREGROUND
 						UG=$COLOR_INDICATOR4
 						BG=$COLOR_BACKGROUND
+					elif [ "$sticky_flag" = "S" ] ; then
+						FG=$COLOR_FOREGROUND
+						UG=$COLOR_INDICATOR1
+						BG=$COLOR_BACKGROUND
 					elif [ "$fixed_flag" = "F" ] ; then
 						FG=$COLOR_FOREGROUND
-						UG=$COLOR_INDICATOR3
+						UG=$COLOR_INDICATOR7
 						BG=$COLOR_BACKGROUND
 					elif [ "$marked_flag" = "M" ] ; then
 						FG=$COLOR_FOREGROUND
@@ -168,13 +172,13 @@ function panel_bar {
 						BG=$COLOR_BACKGROUND
 					else
 						FG=$COLOR_FOREGROUND
-						UG=$COLOR_INDICATOR1
+						UG=$COLOR_INDICATOR3
 						BG=$COLOR_BACKGROUND
 						other_flag="N${flags}"
 					fi
 
 					pid=$(xdo pid 2> /dev/null)
-					title_text="${locked_flag}${fixed_flag}${marked_flag}${other_flag} ${pid} | "
+					title_text="${locked_flag}${fixed_flag}${marked_flag}${sticky_flag}${other_flag} ${pid} | "
 					w_class=$(xprop -id $(xdo id) | awk '/^WM_CLASS/{print $4}' | sed 's/"//g')
 					if [ "$w_class" = "Emacs" ]; then
 						title_text="${title_text}${title:0:${#title}-7} "

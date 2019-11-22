@@ -22,20 +22,19 @@
 while true; do
 	ACPI=$(acpi)
 	CODE=$(echo $ACPI | awk '{print tolower(substr($3,1,length($3)-1))}')
-
+	BAT=$(echo $ACPI |  awk '{gsub(",","",$0);gsub("%","",$0);print $4}')
 	if [ $CODE = "discharging" ]
 	then
-		BAT=$(echo $ACPI | awk '{print substr($4,1,length($4)-2)}')
-		if [ $BAT -ge 90 ];then
+		if [ $BAT -ge 85 ];then
 			F=$COLOR_INDICATOR2
-		elif [ $BAT -ge 60 ]; then
+		elif [ $BAT -ge 50 ]; then
 			F=$COLOR_INDICATOR1
 		else
 			F=$COLOR_INDICATOR4
 		fi
-		echo "Sx%{F$F} "$BAT"%{F-}"
+		echo "Sx%{F$F} ${BAT}%%{F-}"
 	else
-		echo "Sx"
+		echo "Sx ${BAT}%"
 	fi
 
 	if [ "$#" -eq 0 ]; then

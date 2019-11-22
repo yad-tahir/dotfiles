@@ -57,12 +57,12 @@ URxvt.pointerBlank:         true
 *color3: #ffa500
 *color11: #ffa500
 
-!! blue dark/light
-*color4: #6fd8ff
-*color12: #6fd8ff
-
 !! magenta dark/light
-*color5: #da70d6
+*color4: #da70d6
+*color12: #db70d6
+
+!! blue dark/light
+*color5: #db7093
 *color13: #db7093
 
 !! cyan dark/light

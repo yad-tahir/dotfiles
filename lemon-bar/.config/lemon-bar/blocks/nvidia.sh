@@ -24,7 +24,7 @@ while true; do
 
 	if [ $CODE = "active" ]
 	then
-		echo "Sz%{F$COLOR_INDICATOR1}  %{F-}"
+		echo "Sz%{F$COLOR_INDICATOR1} %{F-}"
 	else
 		echo "Sz"
 	fi

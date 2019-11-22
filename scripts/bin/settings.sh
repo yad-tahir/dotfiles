@@ -18,9 +18,9 @@
 # 02110-1301, USA.
 
 # General
-export ALTERNATE_EDITOR=""
-export EDITOR="emacsclient -c"          # $EDITOR opens in terminal
-export VISUAL="emacsclient -c"         # $VISUAL opens in GUI mode
+export EDITOR="emacsclient -c"
+export VISUAL="emacsclient -c"
+export ALTERNATE_EDITOR="nano"
 export TERMINAL="urxvtc"
 export BROWSER="firefox-developer-edition"
 export JAVA_HOME="/usr/lib/jvm/default"
@@ -57,3 +57,4 @@ export COLOR_INDICATOR3="#ffa500"
 export COLOR_INDICATOR4="#ff4422"
 export COLOR_INDICATOR5="#bd9c8f"
 export COLOR_INDICATOR6="#392626"
+export COLOR_INDICATOR7="#da70d6"

@@ -20,6 +20,7 @@
 . /home/$USER/bin/settings.sh
 
 /bin/rm /var/lib/pacman/db.lck 2> /dev/null;
+
 pacman -Syy
 
 #Notify lemon-bar
