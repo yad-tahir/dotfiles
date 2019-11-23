@@ -25,7 +25,9 @@ dispwin -d 1 ~/.config/icc-profiles/U3818DW#2-2018-10-20-2347.icc
 dispwin -d 3 ~/.config/icc-profiles/U2718Q#3-2018-10-21-0034.icc
 
 # Set the workspaces
-bspc monitor eDP1 -d 10 &> /dev/null
+bspc query -D -m eDP1 | xargs -n 1 -I % bspc desktop % --to-monitor DP1
+bspc query -D -m DP3 | xargs -n 1 -I % bspc desktop % --to-monitor DP1
+bspc monitor eDP1 -r
 bspc monitor DP1  -d 1 2 3 4 5 &> /dev/null
 bspc monitor DP3  -d 6 7 8 9 &> /dev/null
 

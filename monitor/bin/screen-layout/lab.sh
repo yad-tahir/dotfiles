@@ -19,12 +19,12 @@
 
 xrandr --output eDP1 --mode 2560x1440 --pos 0x0
 xrandr --output DP1  --mode 1920x1200 --pos 0x0
-
-#Fix DP-2 resolution. A small hack to make text more readable with AUIS's projecter
-# xrandr  --output DP1 --scale-from 2048x1024
+xrandr --output DP3  --mode 1920x1200 --pos 0x0
 
 # Set the monitors
-bspc monitor DP1 -d 1 2 3 4 5 6 7 8 9 10 &> /dev/null
+bspc query -D -m DP1 | xargs -n 1 -I % bspc desktop % --to-monitor eDP1
+bspc query -D -m DP3 | xargs -n 1 -I % bspc desktop % --to-monitor eDP1
+bspc monitor eDP1 -d 1 2 3 4 5 6 7 8 9 10 &> /dev/null
 
 # restart the bar
 systemctl --user restart lemon-bar.service &

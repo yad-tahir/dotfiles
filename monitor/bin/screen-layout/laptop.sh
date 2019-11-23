@@ -17,7 +17,16 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
+xrandr --output eDP1 --auto --primary
+xrandr --output DP1 --off
+xrandr --output DP3 --off
+
 # Set the monitors
+bspc query -D -m DP1 | xargs -n 1 -I % bspc desktop % --to-monitor eDP1
+bspc query -D -m DP3 | xargs -n 1 -I % bspc desktop % --to-monitor eDP1
+
+bspc monitor DP1 -r
+bspc monitor DP3 -r
 bspc monitor eDP1 -d 1 2 3 4 5 6 7 8 9 10 &> /dev/null
 
 # restart the bar
