@@ -19,6 +19,8 @@
 
 . $HOME/bin/settings.sh
 
+systemctl stop --user sxhkd.service
+
 state=$(setxkbmap -query |
 				awk '/^layout/{split($2,arr,","); print toupper(arr[1])}')
 
@@ -27,10 +29,11 @@ if [ $state = "DVORAK" ]; then
 	setxkbmap -option
 else
 	setxkbmap dvorak
-	# setxkbmap -option altwin:swap_alt_win
+	# Selected options from /usr/share/X11/xkb/rules/base.lst
+	setxkbmap -option 'ctrl:swapcaps'
 fi
 
 # Restart refresh system-wide keybindings. This is to accommodate the changes in key codes
-systemctl restart --user sxhkd.service
+systemctl start --user sxhkd.service
 
 ~/.config/lemon-bar/blocks/keyboard.sh > $PANEL_FIFO
