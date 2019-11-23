@@ -23,6 +23,7 @@ while true; do
 	ACPI=$(acpi)
 	CODE=$(echo $ACPI | awk '{print tolower(substr($3,1,length($3)-1))}')
 	BAT=$(echo $ACPI |  awk '{gsub(",","",$0);gsub("%","",$0);print $4}')
+	MODE=$(cat /tmp/power-mode 2> /dev/null)
 	if [ $CODE = "discharging" ]
 	then
 		if [ $BAT -ge 85 ];then
@@ -32,9 +33,9 @@ while true; do
 		else
 			F=$COLOR_INDICATOR4
 		fi
-		echo "Sx%{F$F} ${BAT}%%{F-}"
+		echo "Sx%{F$F} ${BAT}% ${MODE}%{F-}"
 	else
-		echo "Sx ${BAT}%"
+		echo "Sx ${BAT}% ${MODE}"
 	fi
 
 	if [ "$#" -eq 0 ]; then

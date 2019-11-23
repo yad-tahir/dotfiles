@@ -45,6 +45,12 @@ sudo rm /usr/lib/systemd/system/zfs-backup@.* 2> /dev/null
 sudo cp ./systemd/* /usr/lib/systemd/system
 cd ..
 
+cd ./power-management/
+sudo cp ./system/etc/tmpfiles.d/* /etc/tmpfiles.d/
+sudo cp ./system/etc/udev/* /etc/udev/rules.d/
+sudo cp ./system/usr/bin/* /usr/bin/
+cd ..
+
 cd ./pacman/
 sudo rm /usr/lib/systemd/system/pacman-sync.* 2> /dev/null
 sudo cp ./systemd/* /usr/lib/systemd/system/
