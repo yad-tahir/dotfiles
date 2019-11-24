@@ -62,6 +62,11 @@ sudo cp ./system/etc/modprobe.d/* /etc/modprobe.d/
 sudo cp ./system/usr/bin/* /usr/bin/
 cd ..
 
+cd ./firewall/
+sudo cp ./system/etc/*.conf /etc/
+sudo cp ./system/etc/modprobe.d/* /etc/modprobe.d/
+cd ..
+
 cd ./pacman/
 sudo rm /usr/lib/systemd/system/pacman-sync.* 2> /dev/null
 sudo cp ./systemd/* /usr/lib/systemd/system/
