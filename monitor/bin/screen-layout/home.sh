@@ -27,9 +27,12 @@ dispwin -d 3 ~/.config/icc-profiles/U2718Q#3-2018-10-21-0034.icc
 # Set the workspaces
 bspc query -D -m eDP1 | xargs -n 1 -I % bspc desktop % --to-monitor DP1
 bspc query -D -m DP3 | xargs -n 1 -I % bspc desktop % --to-monitor DP1
-bspc monitor eDP1 -r
 bspc monitor DP1  -d 1 2 3 4 5 &> /dev/null
 bspc monitor DP3  -d 6 7 8 9 &> /dev/null
+bspc monitor eDP1 -r
+
+xrandr --output DP1  --dpi 200
+xrandr --output DP3  --dpi 200
 
 # restart the bar
 systemctl --user restart lemon-bar.service &

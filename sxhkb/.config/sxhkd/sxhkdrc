@@ -26,7 +26,7 @@ alt + space
 	~/bin/toggle-keyboard-layout.sh
 
 super + p
-	{xdo id -a "$PANEL_WM_NAME" | xargs -n 1 -I % xdo hide %; bspc config top_padding 0, xdo id -a "$PANEL_WM_NAME" | xargs -n 1 -I % xdo show %; bspc config top_padding $PANEL_HEIGHT}
+	{xdo id -a "$PANEL_WM_NAME" | xargs -n 1 -I % xdo show %; bspc config top_padding $PANEL_HEIGHT, xdo id -a "$PANEL_WM_NAME" | xargs -n 1 -I % xdo hide %; bspc config top_padding 0}
 
 
 # Make sxhkd reload its configuration files:

@@ -29,8 +29,14 @@ bspc monitor DP1 -r
 bspc monitor DP3 -r
 bspc monitor eDP1 -d 1 2 3 4 5 6 7 8 9 10 &> /dev/null
 
+xrandr --output eDP1 --dpi 250
+
 # restart the bar
-systemctl --user restart lemon-bar.service &
+systemctl --user restart lemon-bar.service
+
+# Hide the lemon-bar to prevent OLED burning
+sleep 0.1 && xdo id -a "$PANEL_WM_NAME" | xargs -n 1 -I % xdo hide %
+bspc config top_padding 0
 
 xsetroot -solid "$COLOR_BACKGROUND" &
 

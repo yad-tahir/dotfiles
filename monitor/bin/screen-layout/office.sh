@@ -32,6 +32,9 @@ bspc monitor eDP1 -r
 bspc monitor DP3  -d 1 2 3 4 5 &> /dev/null
 bspc monitor DP1  -d 6 7 8 9 &> /dev/null
 
+xrandr --output DP1  --dpi 200
+xrandr --output DP3  --dpi 200
+
 # restart the bar
 systemctl --user restart lemon-bar.service &
 
