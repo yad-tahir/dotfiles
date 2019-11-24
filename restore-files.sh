@@ -27,6 +27,9 @@ stow scripts
 
 stow dmenu
 stow bspwm
+rm ~/.config/lemon-bar -R
+mkdir ~/.config/lemon-bar
+mkdir ~/.config/lemon-bar/blocks
 stow lemon-bar
 stow sxhkb
 stow mpd
@@ -48,6 +51,14 @@ cd ..
 cd ./power-management/
 sudo cp ./system/etc/tmpfiles.d/* /etc/tmpfiles.d/
 sudo cp ./system/etc/udev/* /etc/udev/rules.d/
+sudo cp ./system/usr/bin/* /usr/bin/
+cd ..
+
+cd ./nvidia/
+stow .config -t ~/.config
+sudo cp ./system/etc/tmpfiles.d/* /etc/tmpfiles.d/
+sudo cp ./system/etc/udev/* /etc/udev/rules.d/
+sudo cp ./system/etc/modprobe.d/* /etc/modprobe.d/
 sudo cp ./system/usr/bin/* /usr/bin/
 cd ..
 
