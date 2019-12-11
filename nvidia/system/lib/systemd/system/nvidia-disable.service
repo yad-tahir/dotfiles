@@ -1,0 +1,9 @@
+[Unit]
+Description=Disables Nvidia GPU
+
+[Service]
+Type=oneshot
+ExecStart=-/usr/sbin/nvidia-stop
+
+[Install]
+WantedBy=multi-user.target

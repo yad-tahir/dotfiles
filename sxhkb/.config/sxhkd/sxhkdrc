@@ -80,7 +80,7 @@ super + @space
 
 # Set node flags
 super + {m,f,l,x}
-	bspc node -g {marked,private,locked,sticky}; /usr/bin/bspc wm -g > /tmp/lemon-panel-fifo && /usr/bin/xtitle -f "T%s\n" > /tmp/lemon-panel-fifo
+	bspc node -g {marked,private,locked,sticky}; /usr/bin/bspc wm -g > /tmp/lemon-panel-fifo && /usr/local/bin/xtitle -f "T%s\n" > /tmp/lemon-panel-fifo
 
 ##
 ## Focus
@@ -171,7 +171,7 @@ F2
 
 # Screen brightness
 F12
-	xrandr --output eDP1 --brightness {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1}
+	xrandr --output eDP-1 --brightness {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1}
 
 # Dmenu
 super + shift + m

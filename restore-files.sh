@@ -36,7 +36,6 @@ stow mpd
 stow zathura
 stow urxvt
 stow monitor
-stow x11
 stow git
 stow shell
 
@@ -44,8 +43,8 @@ cd ./zfs/
 sudo stow bin -t /bin
 # Enabling symbolic systemd's units can be very buggy. Hence, we need to
 # copy the actual files
-sudo rm /usr/lib/systemd/system/zfs-backup@.* 2> /dev/null
-sudo cp ./systemd/* /usr/lib/systemd/system
+sudo rm /lib/systemd/system/zfs-backup*@* 2> /dev/null
+sudo cp ./systemd/zfs-backup*@* /lib/systemd/system
 cd ..
 
 cd ./power-management/
@@ -56,20 +55,34 @@ cd ..
 
 cd ./nvidia/
 stow .config -t ~/.config
+stow bin -t ~/bin
 sudo cp ./system/etc/tmpfiles.d/* /etc/tmpfiles.d/
-sudo cp ./system/etc/udev/* /etc/udev/rules.d/
+sudo cp ./system/lib/systemd/system/* /lib/systemd/system/
 sudo cp ./system/etc/modprobe.d/* /etc/modprobe.d/
-sudo cp ./system/usr/bin/* /usr/bin/
+sudo cp ./system/usr/sbin/* /usr/sbin/
+cd ..
+
+cd ./igpu/
+stow bin -t ~/bin
+sudo cp ./system/etc/X11/xorg.conf.d/* /etc/X11/xorg.conf.d/
+sudo cp ./system/etc/modprobe.d/* /etc/modprobe.d/
+cd ..
+
+cd ./x11/
+stow .config -t ~/.config
+sudo cp ./system/etc/X11/xinit/* /etc/X11/xinit/
 cd ..
 
 cd ./firewall/
 sudo cp ./system/etc/*.conf /etc/
+sudo cp ./system/etc/iproute2/* /etc/iproute2/
 sudo cp ./system/etc/modprobe.d/* /etc/modprobe.d/
+sudo cp ./system/systemd/nftables.service /lib/systemd/system
 cd ..
 
 cd ./pacman/
-sudo rm /usr/lib/systemd/system/pacman-sync.* 2> /dev/null
-sudo cp ./systemd/* /usr/lib/systemd/system/
+sudo rm /lib/systemd/system/pacman-sync.* 2> /dev/null
+sudo cp ./systemd/* /lib/systemd/system/
 sudo stow etc -t /etc
 sudo stow bin -t /bin
 cd ..
@@ -81,8 +94,8 @@ cd ..
 sudo rm /bin/firefox-vpn 2> /dev/null
 sudo ln -s $DIR/scripts/bin/firefox-vpn /bin/firefox-vpn
 
-echo "Change the default shell from Bash to Dash"
-sudo rm /bin/sh
-sudo ln -s /bin/dash /bin/sh
+# echo "Change the default shell from Bash to Dash"
+# sudo rm /bin/sh
+# sudo ln -s /bin/dash /bin/sh
 
 echo "Done."

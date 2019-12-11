@@ -1,0 +1,7 @@
+sudo modprobe nvidia-drm
+sudo modprobe nvidia-modeset
+sudo modprobe nvidia NVreg_DeviceFileMode=432 NVreg_DeviceFileUID=0 NVreg_DeviceFileGID=27 NVreg_ModifyDeviceFiles=1
+
+sudo cp ~/dotfiles/nvidia/system/etc/X11/xorg.conf.d/30-nvidia.conf /etc/X11/xorg.conf.d
+echo 'dgpu' > /tmp/gpu-status
+exec /usr/bin/startx

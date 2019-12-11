@@ -48,6 +48,7 @@ $PWD/blocks/processes.sh 20 > "$PANEL_FIFO"&
 $PWD/blocks/battery.sh 20 > "$PANEL_FIFO"&
 $PWD/blocks/net-speed.sh 60 > "$PANEL_FIFO"&
 $PWD/blocks/sync.sh 60 > "$PANEL_FIFO"&
+$PWD/blocks/packages.sh 120 > "$PANEL_FIFO"&
 # Event-driven blocks
 $PWD/blocks/music.sh > "$PANEL_FIFO"&
 $PWD/blocks/volume.sh > "$PANEL_FIFO"&
@@ -55,7 +56,6 @@ $PWD/blocks/keyboard.sh > "$PANEL_FIFO"&
 $PWD/blocks/caps.sh > "$PANEL_FIFO"&
 $PWD/blocks/bugs.sh > "$PANEL_FIFO"&
 $PWD/blocks/emacs-stats.sh > "$PANEL_FIFO"&
-$PWD/blocks/packages.sh > "$PANEL_FIFO"&
 $PWD/blocks/public-ip.sh > "$PANEL_FIFO"&
 $PWD/blocks/nvidia.sh > "$PANEL_FIFO"&
 

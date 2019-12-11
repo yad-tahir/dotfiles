@@ -34,13 +34,13 @@ for i in $emacs_commands; do
 	echo_string="${i}\\n${echo_string}"
 done
 
-run=$(echo "${echo_string}" |
-		  dmenu -i -f -h $PANEL_HEIGHT \
+run=$(echo -e "${echo_string}" |
+		  dmenu -i -f\
 				-nb "$COLOR_BACKGROUND" \
 				-nf "$COLOR_FOREGROUND" \
 				-sb "$COLOR_INDICATOR1" \
 				-sf "$COLOR_BACKGROUND" \
-				-fn "$PANEL_FONT_FAMILY" \
+				-fn "$PANEL_FONT_FAMILY3" \
 				-l 0 -p "Emacs" "$@")
 
 

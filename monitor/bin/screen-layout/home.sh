@@ -17,22 +17,22 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-xrandr --output eDP1 --off
-xrandr --output DP3  --mode 3840x2160 --pos 0x0 --rotate left
-xrandr --output DP1  --mode 3840x1600 --pos 2160x980 --rotate normal --dpi 200 --primary
+xrandr --output eDP-1 --off
+xrandr --output DP-3  --mode 3840x2160 --pos 0x0 --rotate left --brightness 1
+xrandr --output DP-1  --mode 3840x1600 --pos 2160x980 --rotate normal --dpi 200 --primary --brightness 1
 
 dispwin -d 1 ~/.config/icc-profiles/U3818DW#2-2018-10-20-2347.icc
 dispwin -d 3 ~/.config/icc-profiles/U2718Q#3-2018-10-21-0034.icc
 
 # Set the workspaces
-bspc query -D -m eDP1 | xargs -n 1 -I % bspc desktop % --to-monitor DP1
-bspc query -D -m DP3 | xargs -n 1 -I % bspc desktop % --to-monitor DP1
-bspc monitor DP1  -d 1 2 3 4 5 &> /dev/null
-bspc monitor DP3  -d 6 7 8 9 &> /dev/null
-bspc monitor eDP1 -r
+bspc query -D -m eDP-1 | xargs -n 1 -I % bspc desktop % --to-monitor DP-1
+bspc query -D -m DP-3 | xargs -n 1 -I % bspc desktop % --to-monitor DP-1
+bspc monitor DP-1  -d 1 2 3 4 5 &> /dev/null
+bspc monitor DP-3  -d 6 7 8 9 &> /dev/null
+bspc monitor eDP-1 -r
 
-xrandr --output DP1  --dpi 200
-xrandr --output DP3  --dpi 200
+xrandr --output DP-1  --dpi 200
+xrandr --output DP-3  --dpi 200
 
 # restart the bar
 systemctl --user restart lemon-bar.service &

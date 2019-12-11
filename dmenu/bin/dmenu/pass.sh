@@ -27,15 +27,14 @@ password_files=$(find $prefix -name '*.gpg'|
 					 print $0}')
 
 value=$(printf '%s\n' "$password_files" |
-			dmenu -i -f -h $PANEL_HEIGHT \
+			dmenu -i -f\
 				  -nb "$COLOR_BACKGROUND" \
 				  -nf "$COLOR_FOREGROUND" \
 				  -sb "$COLOR_INDICATOR4" \
 				  -sf "$COLOR_BACKGROUND" \
-				  -fn "$PANEL_FONT_FAMILY" \
+				  -fn "$PANEL_FONT_FAMILY3" \
 				  -l 0 -p "Password" "$@")
 
 if [ "$value" != "" ]; then
 	sudo -u $USER -g no-net /bin/sh -c ". $HOME/bin/settings.sh && pass show -c $value" > /dev/null
 fi
-

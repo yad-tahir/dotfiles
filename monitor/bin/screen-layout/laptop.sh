@@ -17,19 +17,19 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-xrandr --output eDP1 --auto --primary
-xrandr --output DP1 --off
-xrandr --output DP3 --off
+xrandr --output eDP-1 --auto --primary --brightness 1
+xrandr --output DP-1 --off
+xrandr --output DP-3 --off
 
 # Set the monitors
-bspc query -D -m DP1 | xargs -n 1 -I % bspc desktop % --to-monitor eDP1
-bspc query -D -m DP3 | xargs -n 1 -I % bspc desktop % --to-monitor eDP1
+bspc query -D -m DP-1 | xargs -n 1 -I % bspc desktop % --to-monitor eDP-1
+bspc query -D -m DP-3 | xargs -n 1 -I % bspc desktop % --to-monitor eDP-1
 
-bspc monitor DP1 -r
-bspc monitor DP3 -r
-bspc monitor eDP1 -d 1 2 3 4 5 6 7 8 9 10 &> /dev/null
+bspc monitor DP-1 -r
+bspc monitor DP-3 -r
+bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9 10 &> /dev/null
 
-xrandr --output eDP1 --dpi 250
+xrandr --output eDP-1 --dpi 300
 
 # restart the bar
 systemctl --user restart lemon-bar.service
@@ -41,5 +41,5 @@ bspc config top_padding 0
 xsetroot -solid "$COLOR_BACKGROUND" &
 
 # Stop turning off screens
-xset -dpms
-xset s off
+# xset -dpms
+# xset s off

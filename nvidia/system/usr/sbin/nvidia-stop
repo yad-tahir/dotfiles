@@ -1,0 +1,10 @@
+#!/bin/sh
+
+echo 'Disable Nvidia dGPU'
+
+/sbin/rmmod nvidia_drm -f 2> /dev/null
+/sbin/rmmod nvidia_modeset -f 2> /dev/null
+/sbin/rmmod nvidia -f 2> /dev/null
+/bin/rm /etc/X11/xorg.conf.d/30-nvidia.conf 2> /dev/null
+
+echo 'Done'

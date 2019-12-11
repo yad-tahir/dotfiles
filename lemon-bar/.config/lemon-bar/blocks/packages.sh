@@ -20,11 +20,10 @@
 . $HOME/bin/settings.sh
 
 while true; do
-	tmp=$(pacman -Q | wc -l)
-	tmp2=$(pacman -Qu | awk '!/\[ignored\]$/' | wc -l)
+	tmp=$(qlist -I | wc -l)
+	tmp2=$(cat /var/lib/portage/world | wc -l)
 
-	[ -e "$PANEL_FIFO" ] && echo "Sj" $tmp " " $tmp2
-
+	[ -e "$PANEL_FIFO" ] && echo "Sj $tmp2  $tmp"
 	if [ "$#" -eq 0 ]; then
 		break
 	else

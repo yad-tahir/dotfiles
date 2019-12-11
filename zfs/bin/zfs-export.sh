@@ -30,7 +30,8 @@ fi
 key=$(cat $GNUPGHOME/usage/zfs-backup.encrypt.key)
 
 # ZFS sets
-backup_sets=("rpool/sys/root/default"
+backup_sets=("rpool/xps/arch/root/default"
+			 "rpool/xps/gentoo/root/default"
 			 "rpool/data/$USER/default"
 			 "rpool/data/$USER/notes"
 			 "rpool/data/$USER/archive"

@@ -26,7 +26,7 @@
 run=$(
 		IFS='|'
 		# Add custom commends to the demnu
-		prefix_commands="steam-local|emacs|firefox-no-vpn-local|firefox-developer-edition"
+		prefix_commands="steam-local|emacs|firefox-no-vpn-local|firefox-vpn"
 		echo_string=
 		filter_string=
 
@@ -38,16 +38,16 @@ run=$(
 		filter_string=$(awk -v VAL="$filter_string" \
 						'BEGIN {print substr(VAL,0,length(VAL)-1)}')
 		IFS=:
-		{ echo "${echo_string}";
+		{ echo -e "${echo_string}";
 		  stest -flx $PATH |
 			  awk "!/${filter_string}/" |
 			  sort -u | uniq ; } |
-			dmenu -i -f -h $PANEL_HEIGHT \
+			dmenu -i -f\
 						 -nb "$COLOR_BACKGROUND" \
 						 -nf "$COLOR_FOREGROUND" \
 						 -sb "$COLOR_INDICATOR3" \
 						 -sf "$COLOR_BACKGROUND" \
-						 -fn "$PANEL_FONT_FAMILY" \
+						 -fn "$PANEL_FONT_FAMILY3" \
 						 -l 0 -p "App" "$@"
    )
 

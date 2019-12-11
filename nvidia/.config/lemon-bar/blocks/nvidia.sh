@@ -19,29 +19,9 @@
 
 . $HOME/bin/settings.sh
 
-if [ "$#" -eq 0 ]; then
-	NVIDIA_FIFO=${PANEL_FIFO}-nvidia
-	[ -e "$NVIDIA_FIFO" ] && rm "$NVIDIA_FIFO"
-	mkfifo "$NVIDIA_FIFO" -m777
-	# Keep the pipline open for 99 days; Otherwise, kernel will close it after the first read
-	sleep 99d > "$NVIDIA_FIFO" &
-
-	while read line ; do
-		if [ $line = 'module-loaded' ]; then
-			echo "Sz%{F$COLOR_INDICATOR1} %{F-}"
-		else
-			echo "Sz"
-		fi
-	done < $NVIDIA_FIFO
+line=$(cat /tmp/gpu-status 2> /dev/null || echo igu)
+if [ $line = 'dgpu' ]; then
+	echo "Sz%{F$COLOR_INDICATOR1} nvidia%{F-}"
 else
-	while true; do
-	CODE=$(cat /sys/bus/pci/devices/0000\:01\:00.0/power/runtime_status)
-
-	if [ $CODE = "active" ]; then
-		echo "Sz%{F$COLOR_INDICATOR1} %{F-}"
-	else
-		echo "Sz"
-	fi
-		sleep $1
-	done
+	echo "Sz"
 fi

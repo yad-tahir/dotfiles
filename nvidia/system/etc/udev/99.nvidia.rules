@@ -1,4 +1,0 @@
-# Notify lemon-bar when nvidia has been loaded or disloaded
-# To get all events use `udevadm monitor --environment --subsystem-match='power_supply'
-SUBSYSTEM=="module", DEVPATH=="/module/nvidia", ACTION=="add", RUN+="/usr/bin/nvidia-state-changed module-loaded"
-SUBSYSTEM=="module", DEVPATH=="/module/nvidia", ACTION=="remove", RUN+="/usr/bin/nvidia-state-changed module-unloaded"

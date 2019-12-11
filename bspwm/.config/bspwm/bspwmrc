@@ -48,20 +48,20 @@ bspc rule -a 'Emacs:scratch-buffer' follow=on state=floating sticky=on center=on
 bspc rule -a 'Emacs:calculator' follow=on state=floating sticky=on center=on
 bspc rule -a 'Steam' follow=on state=tiled sticky=off desktop=5
 
+# Set the general setting for DPI
+xrandr --auto
+
+
 # Set the background color
 xsetroot -solid $COLOR_BACKGROUND &
 
 # Fix the mouse size
-xsetroot -xcf /usr/share/icons/Adwaita/cursors/left_ptr 16 &
+xsetroot -xcf /usr/share/cursors/xorg-x11/Adwaita/cursors/left_ptr 16 &
 
 # launch the bar
-systemctl --user start lemon-bar.service &
-
-# Keybindings
-systemctl --user start sxhkd.service &
-
-# Disable key repeat
-xset r off
+systemctl --user import-environment
+systemctl --user restart lemon-bar.service &
+systemctl --user restart sxhkd.service
 
 # Startup commands
 gpg-connect-agent /bye

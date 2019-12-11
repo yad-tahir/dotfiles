@@ -16,7 +16,7 @@
 ! 02110-1301, USA.
 
 !! General settings
-Xcursor.size: 16
+Xcursor.size: 20
 
 !! Emacs settings
 Emacs.cursorBlink: 0
@@ -25,7 +25,7 @@ Emacs.toolBar: 0
 Emacs.verticalScrollBars: off
 ! avoid X core font engine and use the newer enginer xft.
 Emacs.FontBackend: xft,x
-Emacs.font: DejaVu Sans Mono:size=24
+Emacs.font: DejaVu Sans Mono:size=28
 
 !! URxvt settings
 URxvt.font: xft:DejaVu Sans Mono:size=8:antialias=true
@@ -34,7 +34,7 @@ URxvt.scrollBar: false
 URxvt.letterSpace: -1
 
 ! Pointer
-URxvt.pointerBlank:         true
+URxvt.pointerBlank: true
 
 *background: #000000
 *foreground: #e6beae
@@ -74,7 +74,7 @@ URxvt.pointerBlank:         true
 *color15: #654d4d
 
 !! Extensions
-URxvt.perl-ext-common:	default,matcher,resize-font,url-select,keyboard-select,clipboard
+URxvt.perl-ext-common:	default,matcher,url-select,keyboard-select,clipboard,font-size
 URxvt.colorUL:		#ff4422
 !! url-select
 URxvt.keysym.M-l:	perl:url-select:select_next
@@ -109,5 +109,3 @@ URxvt.keysym.Control-Right:  \033[1;5C
 
 URxvt*iso14755: False
 URxvt*iso14755_52: False
-
-!! xrdb ~/.Xresources && urxvt&
