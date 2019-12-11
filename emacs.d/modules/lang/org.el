@@ -179,7 +179,7 @@
   (set-face-attribute 'org-todo nil
 					  :foreground chocolate-theme-element)
   (set-face-attribute 'org-table nil
-					  :foreground chocolate-theme-element+11)
+					  :foreground chocolate-theme-element+6)
   (set-face-attribute 'org-priority nil
 					  :foreground chocolate-theme-element+10)
   (set-face-attribute 'org-scheduled-today nil

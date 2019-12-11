@@ -17,6 +17,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
+USER=yad
+
 # General
 export EDITOR="emacsclient -c"
 export VISUAL="emacsclient -c"
@@ -53,7 +55,7 @@ export PANEL_FIFO="/tmp/lemon-panel-fifo"
 export COLOR_FOREGROUND='#e6beae'
 export COLOR_BACKGROUND='#000000'
 export COLOR_INDICATOR1="#a7e23e"
-export COLOR_INDICATOR2="#6fd8ff"
+export COLOR_INDICATOR2="#00ff7f"
 export COLOR_INDICATOR3="#ffa500"
 export COLOR_INDICATOR4="#ff4422"
 export COLOR_INDICATOR5="#bd9c8f"

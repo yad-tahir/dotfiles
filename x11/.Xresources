@@ -41,37 +41,22 @@ URxvt.pointerBlank: true
 *pointerColorBackground: #000000
 *pointerColorForeground: #e6beae
 
-!! black dark/light
-*color0: #000000
+*color0: #654d4d
 *color8: #654d4d
-
-!! red dark/light
-*color1: #ff4422
-*color9: #ff4422
-
-!! green dark/light
+*color1: #ffc05c
+*color9: #ffa500
 *color2: #a7e23e
-*color10: #a7e23e
-
-!! yellow dark/light
-*color3: #ffa500
-*color11: #ffa500
-
-!! magenta dark/light
+*color10: #00ff7f
+*color3: #ff6347
+*color11: #ff4422
 *color4: #da70d6
-*color12: #db70d6
-
-!! blue dark/light
-*color5: #db7093
-*color13: #db7093
-
-!! cyan dark/light
-*color6: #ff8c69
-*color14: #ff8c69
-
-!! white dark/light
-*color7: #654d4d
-*color15: #654d4d
+*color12: #9932cc
+*color5: #bb6083
+*color13: #fa8072
+*color6: #6fd8ff
+*color14: #00f5ff
+*color7: #bd9c8f
+*color15: #392626
 
 !! Extensions
 URxvt.perl-ext-common:	default,matcher,url-select,keyboard-select,clipboard,font-size

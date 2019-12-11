@@ -26,9 +26,9 @@ while true; do
 	MODE=$(cat /tmp/power-mode 2> /dev/null)
 	if [ $CODE = "discharging" ]
 	then
-		if [ $BAT -ge 85 ];then
+		if [ $BAT -ge 70 ];then
 			F=$COLOR_INDICATOR2
-		elif [ $BAT -ge 50 ]; then
+		elif [ $BAT -ge 20 ]; then
 			F=$COLOR_INDICATOR1
 		else
 			F=$COLOR_INDICATOR4

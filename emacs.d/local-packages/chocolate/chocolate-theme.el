@@ -73,30 +73,30 @@
   "Palette - element class 3"
   :type 'string :group 'chocolate-theme)
 
-(defcustom chocolate-theme-element+4 "#6fd8ff"
-  "Palette - element class 4"
-  :type 'string :group 'chocolate-theme)
-(defcustom chocolate-theme-element+5 "SkyBlue1"
-  "Palette - element class 5"
-  :type 'string :group 'chocolate-theme)
-(defcustom chocolate-theme-element+6 "SkyBlue2"
-  "Palette - element class 6"
-  :type 'string :group 'chocolate-theme)
-(defcustom chocolate-theme-element+7 "SkyBlue3"
-  "Palette - element class 7"
-  :type 'string :group 'chocolate-theme)
-
-(defcustom chocolate-theme-element+8 "salmon1"
-  "Palette - element class 8"
-  :type 'string :group 'chocolate-theme)
-(defcustom chocolate-theme-element+9 "salmon2"
+(defcustom chocolate-theme-element+4 "#da70d6"
   "Palette - element class 9"
   :type 'string :group 'chocolate-theme)
-(defcustom chocolate-theme-element+10 "#db7093"
+(defcustom chocolate-theme-element+5 "#9932cc"
   "Palette - element class 10"
   :type 'string :group 'chocolate-theme)
-(defcustom chocolate-theme-element+11 "#da70d6"
+(defcustom chocolate-theme-element+6 "#fa8072"
   "Palette - element class 11"
+  :type 'string :group 'chocolate-theme)
+(defcustom chocolate-theme-element+7 "#bb6083"
+  "Palette - element class 8"
+  :type 'string :group 'chocolate-theme)
+
+(defcustom chocolate-theme-element+8 "#00f5ff"
+  "Palette - element class 4"
+  :type 'string :group 'chocolate-theme)
+(defcustom chocolate-theme-element+9 "#6fd8ff"
+  "Palette - element class 5"
+  :type 'string :group 'chocolate-theme)
+(defcustom chocolate-theme-element+10 "SkyBlue1"
+  "Palette - element class 6"
+  :type 'string :group 'chocolate-theme)
+(defcustom chocolate-theme-element+11 "SkyBlue3"
+  "Palette - element class 7"
   :type 'string :group 'chocolate-theme)
 
 (deftheme chocolate-theme
@@ -171,9 +171,9 @@
  `(font-lock-function-name-face ((t (:foreground ,chocolate-theme-element+2))))
  `(font-lock-variable-name-face ((t (:foreground ,chocolate-theme-white))))
  `(font-lock-constant-face ((t (:foreground ,chocolate-theme-element+10))))
- `(font-lock-keyword-face ((t (:foreground ,chocolate-theme-element+8))))
- `(font-lock-type-face ((t (:foreground ,chocolate-theme-highlight+1))))
- `(font-lock-preprocessor-face ((t (:foreground ,chocolate-theme-element+6))))
+ `(font-lock-keyword-face ((t (:foreground ,chocolate-theme-element+4))))
+ `(font-lock-type-face ((t (:foreground ,chocolate-theme-highlight+3))))
+ `(font-lock-preprocessor-face ((t (:foreground ,chocolate-theme-element+8))))
  `(font-lock-regexp-grouping-backslash ((t (:inherit font-lock-string-face))))
  `(font-lock-regexp-grouping-construct ((t (:foreground
 											,chocolate-theme-highlight+1))))
@@ -181,9 +181,9 @@
  `(font-lock-doc-face ((t (:inherit font-lock-string-face :foreground nil))))
 
  `(hi-blue ((t (:foreground ,chocolate-theme-bg
-							:background ,chocolate-theme-element+6))))
+							:background ,chocolate-theme-element+8))))
  `(hi-blue-b ((t (:foreground ,chocolate-theme-bg
-							  :background ,chocolate-theme-element+8))))
+							  :background ,chocolate-theme-element+11))))
  `(hi-green ((t (:foreground ,chocolate-theme-bg
 							 :background ,chocolate-theme-element))))
  `(hi-green-b ((t (:foreground ,chocolate-theme-bg
@@ -258,7 +258,7 @@
 
  ;; whitespace
  `(whitespace-trailing ((t (:background nil
-										:foreground ,chocolate-theme-element+11))))
+										:foreground ,chocolate-theme-element+3))))
  `(whitespace-empty ((t (:foreground ,chocolate-theme-shadow+1))))
  `(whitespace-hspace ((t (:inherit (whitespace-empty)))))
  `(whitespace-indentation ((t (:inherit (whitespace-empty)))))

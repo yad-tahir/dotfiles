@@ -26,11 +26,11 @@ while true; do
 	if [ "$tmp" = "No syncing activities" ]; then
 		echo "Sg"
 	elif [ "$tmp" = "Download" ]; then
-		echo "Sg%{F$COLOR_INDICATOR1} Downloading %{F-}"
+		echo "Sg%{F$COLOR_INDICATOR3} Downloading %{F-}"
 	elif [ "$tmp" = "Uploading" ]; then
-		echo "Sg%{F$COLOR_INDICATOR3} Uploading %{F-}"
+		echo "Sg%{F$COLOR_INDICATOR1} Uploading %{F-}"
 	else
-		echo "Sg%{F$COLOR_INDICATOR2} $tmp %{F-}"
+		echo "Sg%{F$COLOR_INDICATOR4} $tmp %{F-}"
 	fi
 
 	if [ "$#" -eq 0 ]; then
