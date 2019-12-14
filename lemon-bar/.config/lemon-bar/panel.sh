@@ -29,7 +29,7 @@ mkfifo "$PANEL_FIFO" -m600
 bspc subscribe report > "$PANEL_FIFO" &
 xtitle -sf 'T%s\n' > "$PANEL_FIFO" &
 
-bspc config top_padding $PANEL_HEIGHT
+# bspc config top_padding $PANEL_HEIGHT
 
 
 PWD=$(dirname $0)
@@ -41,23 +41,22 @@ PWD=$(dirname $0)
 # Here are the blocks that must be refreshed regularly. The refresh
 # delay, in seconds, is passed as a first argument to each script.
 $PWD/blocks/clock.sh 1 > "$PANEL_FIFO"&
-$PWD/blocks/temperature.sh 10 > "$PANEL_FIFO"&
-$PWD/blocks/fan.sh 10 > "$PANEL_FIFO"&
-$PWD/blocks/memory.sh 20 > "$PANEL_FIFO"&
-$PWD/blocks/processes.sh 20 > "$PANEL_FIFO"&
-$PWD/blocks/battery.sh 20 > "$PANEL_FIFO"&
-$PWD/blocks/net-speed.sh 60 > "$PANEL_FIFO"&
+$PWD/blocks/temperature.sh 5 > "$PANEL_FIFO"&
+$PWD/blocks/fan.sh 5 > "$PANEL_FIFO"&
+$PWD/blocks/memory.sh 5 > "$PANEL_FIFO"&
+$PWD/blocks/processes.sh 5 > "$PANEL_FIFO"&
+$PWD/blocks/battery.sh 1 > "$PANEL_FIFO"&
+$PWD/blocks/net-speed.sh 20 > "$PANEL_FIFO"&
+$PWD/blocks/public-ip.sh 20 > "$PANEL_FIFO"&
 $PWD/blocks/sync.sh 60 > "$PANEL_FIFO"&
-$PWD/blocks/packages.sh 120 > "$PANEL_FIFO"&
-# Event-driven blocks
-$PWD/blocks/music.sh > "$PANEL_FIFO"&
+$PWD/blocks/packages.sh > "$PANEL_FIFO"&
+$PWD/blocks/music.sh 1 > "$PANEL_FIFO"&
 $PWD/blocks/volume.sh > "$PANEL_FIFO"&
 $PWD/blocks/keyboard.sh > "$PANEL_FIFO"&
 $PWD/blocks/caps.sh > "$PANEL_FIFO"&
 $PWD/blocks/bugs.sh > "$PANEL_FIFO"&
-$PWD/blocks/emacs-stats.sh > "$PANEL_FIFO"&
-$PWD/blocks/public-ip.sh > "$PANEL_FIFO"&
 $PWD/blocks/nvidia.sh > "$PANEL_FIFO"&
+#$PWD/blocks/emacs-stats.sh > "$PANEL_FIFO"&
 
 # Now panel_bar, which was mostly taken from the example panel_bar, with a
 # handful of improvements.
@@ -333,8 +332,8 @@ panel_bar |
 	/usr/bin/xargs -n 1 -I % /bin/sh -c % &
 
 
-xdo id -m -a "$PANEL_WM_NAME" |
-	xargs -n 1 -I % xdo above -t "$(xdo id -N Bspwm -n root | sort | head -n 1)" %
+# xdo id -m -a "$PANEL_WM_NAME" |
+#	xargs -n 1 -I % xdo above -t "$(xdo id -N Bspwm -n root | sort | head -n 1)" %
 
 
 wait

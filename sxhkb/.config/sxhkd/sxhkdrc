@@ -20,14 +20,10 @@
 ## General keybindings
 ##
 @Caps_Lock
-	~/.config/lemon-bar/blocks/caps.sh > /tmp/lemon-panel-fifo
+	~/.config/lemon-bar/blocks/caps.sh > /dev/null
 
 alt + space
 	~/bin/toggle-keyboard-layout.sh
-
-super + p
-	{xdo id -a "$PANEL_WM_NAME" | xargs -n 1 -I % xdo show %; bspc config top_padding $PANEL_HEIGHT, xdo id -a "$PANEL_WM_NAME" | xargs -n 1 -I % xdo hide %; bspc config top_padding 0}
-
 
 # Make sxhkd reload its configuration files:
 super + shift + r
@@ -80,7 +76,7 @@ super + @space
 
 # Set node flags
 super + {m,f,l,x}
-	bspc node -g {marked,private,locked,sticky}; /usr/bin/bspc wm -g > /tmp/lemon-panel-fifo && /usr/local/bin/xtitle -f "T%s\n" > /tmp/lemon-panel-fifo
+	bspc node -g {marked,private,locked,sticky}
 
 ##
 ## Focus
@@ -144,10 +140,10 @@ super + shift + {Left,Up,Down,Right}
 ##
 
 XF86AudioMute
-	pulsemixer --set-volume {0,20} --color 0; pkill -RTMIN+23 i3blocks 2> /dev/null; ~/.config/lemon-bar/blocks/volume.sh > /tmp/lemon-panel-fifo &
+	pulsemixer --set-volume {0,20} --color 0 &
 
 {XF86AudioRaiseVolume,XF86AudioLowerVolume}
-	pulsemixer --change-volume {+5,-5} --color 0; pkill -RTMIN+23 i3blocks 2> /dev/null; ~/.config/lemon-bar/blocks/volume.sh > /tmp/lemon-panel-fifo &
+	pulsemixer --change-volume {+5,-5} --color 0 &
 
 XF86AudioPlay
 	emacsclient -nqe '(do-music-toggle)' > /dev/null
@@ -194,9 +190,20 @@ super + F3
 super + shift + l
 	~/bin/lock-screen.sh &
 
-# Try to launch a urxvt client. Restart the urxvt server if it is needed.
 super + Return
-	emacs --no-splash --no-desktop --eval '(do-eshell-new)' > /dev/null &
+	urxvtc &
 
 super + Escape
 	urxvtc &
+
+super + p
+	systemctl --user start lemon-bar.service && bspc config top_padding $PANEL_HEIGHT &
+
+@super + p
+	systemctl --user stop lemon-bar.service && bspc config top_padding 0 &
+
+Print
+	systemctl --user start lemon-bar.service && bspc config top_padding $PANEL_HEIGHT &
+
+@Print
+	systemctl --user stop lemon-bar.service && bspc config top_padding 0 &

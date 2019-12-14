@@ -48,8 +48,3 @@ esac
 # Notify Lemon Bar
 USERNAME=yad #@TODO: Remove it. For some reasons, the Network Manager does not load
 #			 # the variables in /etc/environment!
-
-. /home/$USERNAME/bin/settings.sh
-sudo -u $USERNAME /bin/sh -c "/home/$USERNAME/.config/lemon-bar/blocks/net-speed.sh > $PANEL_FIFO" &
-
-sudo -u $USERNAME /bin/sh -c "/home/$USERNAME/.config/lemon-bar/blocks/public-ip.sh > $PANEL_FIFO" &

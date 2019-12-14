@@ -34,9 +34,6 @@ bspc monitor eDP-1 -r
 xrandr --output DP-1  --dpi 200
 xrandr --output DP-3  --dpi 200
 
-# restart the bar
-systemctl --user restart lemon-bar.service &
-
 # Refresh the background
 feh --bg-fill $(ls ${HOME}/pictures/background/* | shuf -n 1) &
 

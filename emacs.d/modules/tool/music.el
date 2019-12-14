@@ -58,7 +58,7 @@
 	  (start-process-shell-command
 	   "music-notify-external-process"
 	   nil
-	   "killall music.sh; ~/.config/lemon-bar/blocks/music.sh 1 > /tmp/lemon-panel-fifo"))
+	   "killall music.sh"))
 	nil)
 
   (defun do--music-refresh-buffer()

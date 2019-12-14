@@ -30,12 +30,6 @@ xrandr --output eDP-1 --dpi 250
 xrandr --output DP-1  --dpi 250
 xrandr --output DP-3  --dpi 250
 
-# restart the bar
-systemctl --user restart lemon-bar.service &
-
-# Hide the lemon-bar to prevent OLED burning
-sleep 0.1 && xdo id -a "$PANEL_WM_NAME" | xargs -n 1 -I % xdo hide %
-bspc config top_padding 0
 sleep 1 && feh --bg-fill $(ls ${HOME}/pictures/background/* | shuf -n 1) &
 
 # Fix resolution

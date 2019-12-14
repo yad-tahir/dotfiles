@@ -58,10 +58,11 @@ feh --bg-fill $(ls ${HOME}/pictures/background/* | shuf -n 1) &
 # Fix the mouse size
 xsetroot -xcf /usr/share/cursors/xorg-x11/Adwaita/cursors/left_ptr 16 &
 
-# launch the bar
 systemctl --user import-environment
-systemctl --user restart lemon-bar.service &
 systemctl --user restart sxhkd.service
+
+# Disable key stroke repeating
+xset r off
 
 # Startup commands
 gpg-connect-agent /bye

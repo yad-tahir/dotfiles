@@ -35,5 +35,3 @@ fi
 
 # Restart refresh system-wide keybindings. This is to accommodate the changes in key codes
 systemctl start --user sxhkd.service
-
-~/.config/lemon-bar/blocks/keyboard.sh > $PANEL_FIFO
