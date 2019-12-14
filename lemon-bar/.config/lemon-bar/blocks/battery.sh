@@ -26,6 +26,7 @@ while true; do
 	MODE=$(cat /tmp/power-mode 2> /dev/null)
 	if [ $CODE = "discharging" ]
 	then
+		TIME=$(echo $ACPI | awk '{print $5}')
 		if [ $BAT -ge 70 ];then
 			F=$COLOR_INDICATOR2
 		elif [ $BAT -ge 20 ]; then
@@ -33,7 +34,7 @@ while true; do
 		else
 			F=$COLOR_INDICATOR4
 		fi
-		echo "Sx%{F$F} ${BAT}% ${MODE}%{F-}"
+		echo "Sx%{F$F} ${BAT}% ${TIME} ${MODE}%{F-}"
 	else
 		echo "Sx ${BAT}% ${MODE}"
 	fi

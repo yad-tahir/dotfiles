@@ -21,7 +21,7 @@
 case $1 in
 	save)
 		echo 'save' > /tmp/power-mode
-		echo 'balance_power' | tee /sys/devices/system/cpu/cpufreq/policy?/energy_performance_preference
+		echo 'power' | tee /sys/devices/system/cpu/cpufreq/policy?/energy_performance_preference
 		# Sound
 		modprobe snd_hda_intel power_save=1
 		echo '1' | tee /sys/module/snd_hda_intel/parameters/power_save
