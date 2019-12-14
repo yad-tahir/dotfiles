@@ -38,4 +38,4 @@ xrandr --output DP-3  --dpi 200
 # restart the bar
 systemctl --user restart lemon-bar.service &
 
-xsetroot -solid "$COLOR_BACKGROUND" &
+feh --bg-fill $(ls ${HOME}/pictures/background/* | shuf -n 1) &

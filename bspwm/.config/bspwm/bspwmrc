@@ -50,10 +50,10 @@ bspc rule -a 'Steam' follow=on state=tiled sticky=off desktop=5
 
 # Set the general setting for DPI
 xrandr --auto
-
+xrandr --dpi 200
 
 # Set the background color
-xsetroot -solid $COLOR_BACKGROUND &
+feh --bg-fill $(ls ${HOME}/pictures/background/* | shuf -n 1) &
 
 # Fix the mouse size
 xsetroot -xcf /usr/share/cursors/xorg-x11/Adwaita/cursors/left_ptr 16 &

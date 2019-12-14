@@ -38,7 +38,7 @@ xrandr --output DP-3  --dpi 200
 systemctl --user restart lemon-bar.service &
 
 # Refresh the background
-xsetroot -solid "$COLOR_BACKGROUND" &
+feh --bg-fill $(ls ${HOME}/pictures/background/* | shuf -n 1) &
 
 # Launch Apps
 # bspc desktop 6 -f &&

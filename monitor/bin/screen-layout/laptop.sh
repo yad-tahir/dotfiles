@@ -38,7 +38,7 @@ systemctl --user restart lemon-bar.service
 sleep 0.1 && xdo id -a "$PANEL_WM_NAME" | xargs -n 1 -I % xdo hide %
 bspc config top_padding 0
 
-xsetroot -solid "$COLOR_BACKGROUND" &
+sleep 1 && feh --bg-fill $(ls ${HOME}/pictures/background/* | shuf -n 1) &
 
 # Stop turning off screens
 # xset -dpms
