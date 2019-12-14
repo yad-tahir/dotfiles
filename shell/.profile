@@ -54,3 +54,7 @@ PATH="~/bin:${PATH}"
 life
 
 echo ''
+
+# Starts GUI automatically if this is the DISPLAY variable is empty and this is
+# the virtual tty 1
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec ~/bin/startx
