@@ -232,85 +232,88 @@ occur after END. A value of nil means search from '(point-max)'."
   (setq start (or start (point-min)))
   (setq end (min (or end (point-max)) (point-max)))
 
-  (save-excursion
-	(save-restriction
-	  (narrow-to-region start end)
-	  ;; Go to starting point
-	  (goto-char (point-min))
-	  (latte--delete-overlays nil start end)
+  (ignore-errors
+	(save-mark-and-excursion
+	  (with-silent-modifications
+		(save-restriction
+		  (narrow-to-region start end)
+		  ;; Go to starting point
+		  (goto-char (point-min))
+		  (latte--delete-overlays nil start end)
 
-	  (let (w ;; Will hold the word found in the current search iteration
-			old-w ;; Will hold the word found in the previous search iteration
-			older-w ;; Will hold the word found in two iterations ago
-			phrase ;; Will hold the keyword existing in the buffer
-			chopped-phrase) ;; Used to hold the chopped version of PHRASE
-		;; For each word
-		(while (and (< (point) (point-max))
-					(forward-word))
+		  (let (w ;; The word found in the current search iteration
+				old-w ;; The word found in the previous search iteration
+				older-w ;; The word found in two search iterations ago
+				phrase
+				chopped-phrase) ;; Used to hold the chopped version of PHRASE
+			;; For each word
+			(while (and (< (point) (point-max))
+						(forward-word))
 
-		  ;; We can't use text property face as it is over-ruled by font-lock
-		  ;; highlighting. To solve this problem, we utilize overlays since
-		  ;; keywords have to be updated regularly, and a keyword can even be
-		  ;; part of multiple phrases. Having multiple overlays on top of the
-		  ;; keyword addresses these problems, given the fact that the overlay
-		  ;; that has the highest priority overshadows the reset. Utilizing
-		  ;; overlays also code complexity for re-highlighting nested keywords
-		  ;; when the parent phrase is destroyed.
+			  ;; We can't use text property face as it is over-ruled by
+			  ;; font-lock highlighting. To solve this problem, we utilize
+			  ;; overlays since keywords have to be updated regularly, and a
+			  ;; keyword can even be part of multiple phrases. Having multiple
+			  ;; overlays with different priorities on top of the keyword
+			  ;; addresses these problems, given the fact that an overlay with
+			  ;; high priority overshadows the lower. In addition, utilizing
+			  ;; overlays reduces code complexity for re-highlighting nested
+			  ;; keywords when the parent phrase is destroyed.
 
-		  ;; When latte-highlight-prog-comments is on, overlays in prog-mode
-		  ;; must be inside comment sections only
-		  (unless (and latte-highlight-prog-comments
-					   (derived-mode-p 'prog-mode)
-					   ;; Comment section?
-					   ;; from https://github.com/blorbx/evil-quickscope
-					   (not (nth 4 (syntax-ppss))))
+			  ;; When latte-highlight-prog-comments is on, overlays in prog-mode
+			  ;; must be inside comment sections only
+			  (unless (and latte-highlight-prog-comments
+						   (derived-mode-p 'prog-mode)
+						   ;; Comment section?
+						   ;; from https://github.com/blorbx/evil-quickscope
+						   (not (nth 4 (syntax-ppss))))
 
-			(setq older-w old-w
-				  old-w w
-				  w (downcase (substring-no-properties (or (word-at-point) "")))
-				  phrase nil)
+				(setq older-w old-w
+					  old-w w
+					  w (downcase (substring-no-properties (or (word-at-point) "")))
+					  phrase nil)
 
-			;; Search for a keyword, which can be either: a phrase that
-			;; consists of two or three words, or a single word.
-			(cond
-			 ((setq chopped-phrase (latte--phrase-checker
-									(concat older-w " " old-w " " w)))
-			  (setq phrase (concat older-w " " old-w " " w)))
+				;; Search for a keyword, which can be either: a phrase that
+				;; consists of two or three words, or a single word.
+				(cond
+				 ((setq chopped-phrase (latte--phrase-checker
+										(concat older-w " " old-w " " w)))
+				  (setq phrase (concat older-w " " old-w " " w)))
 
-			 ((setq chopped-phrase (latte--phrase-checker
-									(concat old-w " " w)))
-			  (setq phrase (concat old-w " " w)))
+				 ((setq chopped-phrase (latte--phrase-checker
+										(concat old-w " " w)))
+				  (setq phrase (concat old-w " " w)))
 
-			 ((setq chopped-phrase (latte--phrase-checker w))
-			  (setq phrase w)))
+				 ((setq chopped-phrase (latte--phrase-checker w))
+				  (setq phrase w)))
 
-			(when phrase
-			  (let* ((l (length phrase))
-					 (beginning (- (point) l))
-					 (end  (point)))
+				(when phrase
+				  (let* ((l (length phrase))
+						 (beginning (- (point) l))
+						 (end  (point)))
 
-				(unless (latte--overlay-exists chopped-phrase beginning end)
-				  (let ((o (make-overlay beginning end)))
-					(overlay-put o 'face 'latte-keyword-face)
-					;; On text modification under the overlay
-					(overlay-put o
-								 'modification-hooks
-								 '((lambda (overlay &rest args)
-									 ;; delete the overlay.  Re-drawing will
-									 ;; occur later if the new text is still a
-									 ;; member of 'latte--keywords'
-									 (delete-overlay overlay))))
+					(unless (latte--overlay-exists chopped-phrase beginning end)
+					  (let ((o (make-overlay beginning end)))
+						(overlay-put o 'face 'latte-keyword-face)
+						;; On text modification under the overlay
+						(overlay-put o
+									 'modification-hooks
+									 '((lambda (overlay &rest args)
+										 ;; delete the overlay. Re-drawing will
+										 ;; occur later if the new text is still
+										 ;; a member of 'latte--keywords'
+										 (delete-overlay overlay))))
 
-					(overlay-put o 'keymap latte-keyword-map)
-					(overlay-put o 'mouse-face 'highlight)
-					;; Use the pure form to improve the quality of the search
-					;; when requsted.
-					(overlay-put o 'latte-keyword chopped-phrase)
+						(overlay-put o 'keymap latte-keyword-map)
+						(overlay-put o 'mouse-face 'highlight)
+						;; Use the pure form to improve the quality of the
+						;; search when requested.
+						(overlay-put o 'latte-keyword chopped-phrase)
 
-					;; The priority is calculated based on the number of the
-					;; characters. Thus, overlays with longer phrases are on
-					;; top.
-					(overlay-put o 'priority l)))))))))))
+						;; The priority is calculated based on the number of the
+						;; characters. Thus, overlays with longer phrases are on
+						;; top.
+						(overlay-put o 'priority l)))))))))))))
 
 (defun latte--chop-keyword (keyword)
   "Removes meta characters from KEYWORD such as 'ies', 'es' and 's', which are

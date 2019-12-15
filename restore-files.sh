@@ -21,7 +21,6 @@ DIR="$HOME/dotfiles"
 cd $DIR
 
 echo "Start stowing!"
-
 mkdir ../bin 2> /dev/null
 stow scripts
 
@@ -38,6 +37,10 @@ stow urxvt
 stow monitor
 stow git
 stow shell
+
+cd ./emacs/
+ln -fs ${PWD}/emacs.d ~/.emacs.d
+cd ..
 
 cd ./zfs/
 sudo stow bin -t /bin

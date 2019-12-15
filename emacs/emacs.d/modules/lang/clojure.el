@@ -53,7 +53,7 @@
   (general-define-key
    :keymaps 'clojure-mode-map
    :states 'normal
-   "SPC le" '(:ignore t :which-key "eval")
+   ;; "SPC le" '(:ignore t :which-key "eval")
    "SPC les" 'cider-jack-in
    "SPC leS" 'cider-connect
    "SPC leb" 'cider-eval-buffer
@@ -64,14 +64,14 @@
    "SPC lel" 'cider-eval-file
    "SPC leL" 'cider-eval-all-files
 
-   "SPC ll" '(:ignore t :which-key "load")
+   ;; "SPC ll" '(:ignore t :which-key "load")
    "SPC lln" 'cider-ns-reload
    "SPC llN" 'cider-load-all-project-ns
    "SPC llb" 'cider-load-buffer
    "SPC llf" 'cider-load-file
    "SPC llF" 'cider-load-all-files
 
-   "SPC lh" '(:ignore t :which-key "help")
+   ;; "SPC lh" '(:ignore t :which-key "help")
    "SPC lha" 'cider-apropos
    "SPC lhA" 'cider-apropos-documentation
    "SPC lhh" 'cider-doc
@@ -80,7 +80,7 @@
    "SPC lhj" 'cider-javadoc
    "SPC lhn" 'cider-browse-ns
 
-   "SPC ld" '(:ignore t :which-key "debug")
+   ;; "SPC ld" '(:ignore t :which-key "debug")
    "SPC ldf" 'cider-debug-defun-at-point
    "SPC lde" 'cider-enlighten-mode
    "SPC ldi" 'cider-inspect-defun-at-point
@@ -90,7 +90,7 @@
    ;; "SPC lq" 'cider-quit
    ;; "=" 'cider-format-buffer ;; it is not that great!
 
-   "SPC lg" '(:ignore t :which-key "go")
+   ;; "SPC lg" '(:ignore t :which-key "go")
    "SPC lge" 'cider-jump-to-compilation-error
    "SPC lgs" 'cider-stacktrace-jump
    "SPC lgv" 'cider-find-var
@@ -100,7 +100,7 @@
    "SPC lgd" 'cider-find-dwim
    "SPC lg:" 'cider-find-property
 
-   "SPC lm" '(:ignore t :which-key "macro")
+   ;; "SPC lm" '(:ignore t :which-key "macro")
    "SPC lme" 'cider-macroexpand-1
    "SPC lma" 'cider-macroexpand-all
    "SPC lmz" 'cider-macroexpand-undo

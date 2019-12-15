@@ -36,7 +36,6 @@
 		package-user-dir (concat user-emacs-directory "/packages"))
   (package-initialize)
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-  (add-to-list 'package-archives '("gnu-plain" . "http://elpa.gnu.org/packages/"))
   ;; (package-refresh-contents)
 
   (unless (package-installed-p 'use-package)

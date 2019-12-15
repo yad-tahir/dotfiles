@@ -70,7 +70,7 @@ The third optional argument PROPS indicates the properties of the frame"
   (interactive)
   ;; Check arguments
   (when (null display)
-	(setq display ":0"))
+	(setq display (getenv "DISPLAY")))
   ;; Construct the properties of the new frame
   (let ((fp (or props (list (cons 'name fname)
 							(cons 'display display)

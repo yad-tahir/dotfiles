@@ -34,7 +34,7 @@
 
 				 "feature/project"
 				 "feature/text-adjust"
-				 "feature/spell-checker"
+				 ;; "feature/spell-checker"
 				 ;; "feature/lemon-bar"
 				 "feature/tramp"
 				 "feature/file-manager"
