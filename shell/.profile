@@ -58,3 +58,4 @@ echo ''
 # Starts GUI automatically if this is the DISPLAY variable is empty and this is
 # the virtual tty 1
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec ~/bin/startx
+[[ -z $DISPLAY && $XDG_VTNR -eq 2 ]] && exec ~/bin/startx-nvidia

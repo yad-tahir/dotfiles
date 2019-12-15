@@ -59,7 +59,8 @@ feh --bg-fill $(ls ${HOME}/pictures/background/* | shuf -n 1) &
 xsetroot -xcf /usr/share/cursors/xorg-x11/Adwaita/cursors/left_ptr 16 &
 
 systemctl --user import-environment
-systemctl --user restart sxhkd.service
+systemctl --user start emacs-26.service &
+systemctl --user restart sxhkd@${XDG_VTNR}.service &
 
 # Disable key stroke repeating
 xset r off

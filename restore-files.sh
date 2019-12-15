@@ -74,6 +74,7 @@ cd ..
 cd ./x11/
 stow .config -t ~/.config
 sudo cp ./system/etc/X11/xinit/* /etc/X11/xinit/
+sudo cp -R ./system/etc/systemd/system/getty@tty*.service.d /etc/systemd/system/
 cd ..
 
 cd ./firewall/

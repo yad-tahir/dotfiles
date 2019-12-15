@@ -163,7 +163,7 @@ XF86AudioPrev
 
 # Emacs
 F2
-	emacsclient -nqe '(do-make-frame)' -a='/usr/bin/urxvt -e nano' > /dev/null &
+	emacsclient -nqe "(do-make-frame nil \"$DISPLAY\")" -a='/usr/bin/urxvt -e nano' > /dev/null &
 
 # Screen brightness
 F12
@@ -197,13 +197,13 @@ super + Escape
 	urxvtc &
 
 super + p
-	systemctl --user start lemon-bar.service && bspc config top_padding $PANEL_HEIGHT &
+	xset r off; systemctl --user start lemon-bar.service && bspc config top_padding $PANEL_HEIGHT &
 
 @super + p
 	systemctl --user stop lemon-bar.service && bspc config top_padding 0 &
 
 Print
-	systemctl --user start lemon-bar.service && bspc config top_padding $PANEL_HEIGHT &
+	xset r off; systemctl --user start lemon-bar.service && bspc config top_padding $PANEL_HEIGHT &
 
 @Print
 	systemctl --user stop lemon-bar.service && bspc config top_padding 0 &
