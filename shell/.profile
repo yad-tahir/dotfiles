@@ -23,6 +23,7 @@
 # desktop session as well as by the login shell when one logs in from
 # the textual console
 
+stty -ixon # Disable ctrl-s and ctrl-q
 
 # Shortcut commands
 alias ls='ls -alih'

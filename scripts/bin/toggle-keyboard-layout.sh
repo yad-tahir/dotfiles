@@ -19,7 +19,7 @@
 
 . $HOME/bin/settings.sh
 
-systemctl stop --user sxhkd.service
+systemctl stop --user sxhkd@${XDG_VTNR}.service
 
 state=$(setxkbmap -query |
 				awk '/^layout/{split($2,arr,","); print toupper(arr[1])}')
@@ -34,4 +34,4 @@ else
 fi
 
 # Restart refresh system-wide keybindings. This is to accommodate the changes in key codes
-systemctl start --user sxhkd.service
+systemctl start --user sxhkd@${XDG_VTNR}.service

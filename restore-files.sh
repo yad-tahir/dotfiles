@@ -38,9 +38,10 @@ stow monitor
 stow git
 stow shell
 
-cd ./emacs/
-ln -fs ${PWD}/emacs.d ~/.emacs.d
-cd ..
+cd ~
+rm .emacs.d
+ln -s dotfiles/emacs/emacs.d .emacs.d
+cd ~/dotfiles/
 
 cd ./zfs/
 sudo stow bin -t /bin
@@ -92,8 +93,9 @@ sudo stow bin -t /bin
 cd ..
 
 cd ./network-manager/
-sudo stow etc -t /etc
+sudo cp ./etc/NetworkManager/dispatcher.d/* /etc/NetworkManager/dispatcher.d/
 cd ..
+
 # Install vpn-based apps
 sudo rm /bin/firefox-vpn 2> /dev/null
 sudo ln -s $DIR/scripts/bin/firefox-vpn /bin/firefox-vpn

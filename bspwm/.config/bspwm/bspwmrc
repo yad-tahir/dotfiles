@@ -27,7 +27,6 @@ bspc config pointer_follows_monitor true
 # bspc config initial_polarity second_child
 bspc config automatic_scheme spiral
 bspc config initial_polarity first_child
-
 bspc config split_ratio 0.5
 bspc config borderless_monocle true
 bspc config gapless_monocle true
@@ -37,9 +36,13 @@ bspc config normal_border_color $COLOR_INDICATOR6
 bspc config active_border_color $COLOR_INDICACTOR6
 bspc config focused_border_color $COLOR_INDICATOR5
 bspc config presel_feedback_color $COLOR_INDICATOR6
-# bspc config external_rules_command $HOME/.config/bspwm/first-win-fixed.sh
-$HOME/.config/bspwm/ultrawide-aware.sh &> /dev/null &
 
+# bspc config external_rules_command $HOME/.config/bspwm/first-win-fixed.sh
+# $HOME/.config/bspwm/ultrawide-aware.sh &> /dev/null &
+
+# Remove old rules
+bspc rule -r '*'
+# Write the new rules
 bspc rule -a 'Zathura' follow=on desktop=8 state=tiled
 bspc rule -a 'dmenu' manage=off
 bspc rule -a 'Emacs' follow=on state=tiled
