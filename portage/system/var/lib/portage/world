@@ -56,9 +56,9 @@ www-client/firefox
 www-client/firefox-bin
 x11-apps/xrdb
 x11-base/xorg-x11
-x11-libs/xcb-util-xrm
 x11-misc/dmenu
 x11-misc/i3lock
+x11-misc/polybar
 x11-misc/urxvt-font-size
 x11-misc/urxvt-perls
 x11-misc/xdo
