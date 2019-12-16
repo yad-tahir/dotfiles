@@ -1,0 +1,3 @@
+net-wireless/wpa_supplicant dbus
+net-misc/networkmanager -ppp -wext -modemmanager
+net-vpn/openvpn -examples lz4 # Fixes comp-lzo

@@ -91,12 +91,12 @@ sudo cp ./system/etc/modprobe.d/* /etc/modprobe.d/
 sudo cp ./system/systemd/nftables.service /lib/systemd/system
 cd ..
 
-cd ./pacman/
-sudo rm /lib/systemd/system/pacman-sync.* 2> /dev/null
-sudo cp ./systemd/* /lib/systemd/system/
-sudo stow etc -t /etc
-sudo stow bin -t /bin
-cd ..
+# cd ./pacman/
+# sudo rm /lib/systemd/system/pacman-sync.* 2> /dev/null
+# sudo cp ./systemd/* /lib/systemd/system/
+# sudo stow etc -t /etc
+# sudo stow bin -t /bin
+# cd ..
 
 cd ./network-manager/
 sudo cp ./etc/NetworkManager/dispatcher.d/* /etc/NetworkManager/dispatcher.d/
@@ -109,5 +109,20 @@ sudo ln -s $DIR/scripts/bin/firefox-vpn /bin/firefox-vpn
 # echo "Change the default shell from Bash to Dash"
 # sudo rm /bin/sh
 # sudo ln -s /bin/dash /bin/sh
+
+
+cd ./portage/
+sudo cp -R ./system/etc/portage/sets /etc/portage/
+sudo cp -R ./system/etc/portage/repos.conf /etc/portage/
+sudo cp -R ./system/etc/portage/package.use /etc/portage/
+sudo cp -R ./system/etc/portage/package.mask /etc/portage/
+sudo cp -R ./system/etc/portage/package.accept_keywords /etc/portage/
+sudo cp -R ./system/etc/portage/package.license /etc/portage/
+sudo cp -R ./system/etc/portage/make.conf /etc/portage/
+sudo ln -s /home/yad/dotfiles/portage/system/var/lib/portage/world /var/lib/portage/world
+sudo ln -sf /home/yad/dotfiles/portage/system/var/lib/portage/world_sets /var/lib/portage/world_sets
+sudo rm /var/db/repos/drvegeta
+sudo ln -s /home/yad/git/drvegeta-overlay /var/db/repos/drvegeta
+cd ..
 
 echo "Done."

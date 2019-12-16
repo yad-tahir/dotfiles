@@ -1,0 +1,6 @@
+# @truetype adds support for true fonts
+# @threads enables multi-threading
+# @vaapi enables HW accelarations API used internally by www-client/firefox
+# @x264 enables h264 enconding used by HTML 5
+virtual/ffmpeg X truetype threads vaapi x264
+media-video/ffmpeg X truetype vaapi x264

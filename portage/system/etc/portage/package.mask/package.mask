@@ -1,0 +1,7 @@
+# Don't switch to version 5 as it is going to break my setup!
+>media-fonts/fontawesome-4.9.9
+# We already have emacs. There is no need for another one
+app-editors/xemacs
+
+# Disable eselect opengl because we are using libglvnd
+app-eselect/eselect-opengl
