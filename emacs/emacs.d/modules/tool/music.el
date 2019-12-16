@@ -51,14 +51,14 @@
 			  (start-process-shell-command
 			   "music-notify-process"
 			   nil
-			   "while [ 1 ]; do emacsclient -nqe '(do--music-refresh-buffer)' && mpc current --wait; done"))))
+			   "while [ 1 ]; do [[ $(mpc status | awk '/paused/{print $0}') != '' ]] && break; emacsclient -nqe '(do--music-refresh-buffer)'; mpc current --wait; done"))))
 
 	;; Setup external notifier
 	(ignore-errors
 	  (start-process-shell-command
 	   "music-notify-external-process"
 	   nil
-	   "killall music.sh"))
+	   "while [ 1 ]; do [[ $(mpc status | awk '/paused/{print $0}') != '' ]] && polybar-msg hook music 1 &> /dev/null && break; polybar-msg hook music 2 2> /dev/null; sleep 1; done"))
 	nil)
 
   (defun do--music-refresh-buffer()

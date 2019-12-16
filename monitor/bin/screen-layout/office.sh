@@ -36,3 +36,6 @@ xrandr --output DP-1  --dpi 200
 xrandr --output DP-3  --dpi 200
 
 feh --bg-fill $(ls ${HOME}/pictures/background/* | shuf -n 1) &
+
+killall polybar
+bspc query -M --names | xargs -I % -n 1 sh -c 'MONITOR=% polybar orange &'

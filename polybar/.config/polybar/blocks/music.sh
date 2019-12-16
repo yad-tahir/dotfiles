@@ -1,4 +1,5 @@
 #! /bin/sh
+#
 
 # Copyright (C) 2019
 
@@ -17,25 +18,25 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-xrandr --output eDP-1 --auto --primary --brightness 1
-xrandr --output DP-1 --off
-xrandr --output DP-3 --off
+. $HOME/bin/settings.sh
 
-# Set the monitors
-bspc query -D -m DP-1 | xargs -n 1 -I % bspc desktop % --to-monitor eDP-1
-bspc query -D -m DP-3 | xargs -n 1 -I % bspc desktop % --to-monitor eDP-1
+current=0
+len=20
 
-bspc monitor DP-1 -r
-bspc monitor DP-3 -r
-bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9 10 &> /dev/null
+state=$(mpc current -f '%title% %artist% %album%' 2> /dev/null)
+pause=$(mpc status | awk '/paused/{print $0}' 2> /dev/null)
 
-xrandr --output eDP-1 --dpi 300
+if [ "$state" = "" -o "$pause" != "" ]; then
+	polybar-msg hook music 1 &> /dev/null
+else
+	position=$(mpc status | awk '/playing/{print $3}' 2> /dev/null)
+	title=" $position $state"
 
-sleep 1 && feh --bg-fill $(ls ${HOME}/pictures/background/* | shuf -n 1) &
+	percent=$(mpc status | awk '/playing/{print substr($4,2,length($4)-3)}' 2> /dev/null)
+	text=$($HOME/.config/lemon-bar/blocks/progress.sh " $title " $percent)
 
-killall polybar
-bspc query -M --names | xargs -I % -n 1 sh -c 'MONITOR=% polybar orange &'
-
-# Stop turning off screens
-# xset -dpms
-# xset s off
+	# print the formatted text
+	echo "${text}"
+	# Ask polybar to refresh the music module which in turn is going to call
+	# this script again
+fi

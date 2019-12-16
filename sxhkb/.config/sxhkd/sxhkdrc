@@ -197,13 +197,7 @@ super + Escape
 	urxvtc &
 
 super + p
-	xset r off; systemctl --user start lemon-bar.service && bspc config top_padding $PANEL_HEIGHT &
-
-@super + p
-	systemctl --user stop lemon-bar.service && bspc config top_padding 0 &
+	{killall polybar && bspc config top_padding 0, bspc config top_padding $PANEL_HEIGHT && bspc query -M --names | xargs -I % -n 1 sh -c 'MONITOR=% polybar orange &'} &
 
 Print
-	xset r off; systemctl --user start lemon-bar.service && bspc config top_padding $PANEL_HEIGHT &
-
-@Print
-	systemctl --user stop lemon-bar.service && bspc config top_padding 0 &
+	{killall polybar && bspc config top_padding 0, bspc config top_padding $PANEL_HEIGHT && bspc query -M --names | xargs -I % -n 1 sh -c 'MONITOR=% polybar orange &'} &

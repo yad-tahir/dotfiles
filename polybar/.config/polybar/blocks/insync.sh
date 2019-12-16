@@ -1,4 +1,5 @@
 #! /bin/sh
+#
 
 # Copyright (C) 2019
 
@@ -17,25 +18,16 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-xrandr --output eDP-1 --auto --primary --brightness 1
-xrandr --output DP-1 --off
-xrandr --output DP-3 --off
+. $HOME/bin/settings.sh
 
-# Set the monitors
-bspc query -D -m DP-1 | xargs -n 1 -I % bspc desktop % --to-monitor eDP-1
-bspc query -D -m DP-3 | xargs -n 1 -I % bspc desktop % --to-monitor eDP-1
+tmp=$(insync-headless get_sync_progress | head -n1)
 
-bspc monitor DP-1 -r
-bspc monitor DP-3 -r
-bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9 10 &> /dev/null
-
-xrandr --output eDP-1 --dpi 300
-
-sleep 1 && feh --bg-fill $(ls ${HOME}/pictures/background/* | shuf -n 1) &
-
-killall polybar
-bspc query -M --names | xargs -I % -n 1 sh -c 'MONITOR=% polybar orange &'
-
-# Stop turning off screens
-# xset -dpms
-# xset s off
+if [ "$tmp" = "No syncing activities" ]; then
+	echo ""
+elif [ "$tmp" = "Download" ]; then
+	echo "%{F$COLOR_INDICATOR3} Downloading %{F-}"
+elif [ "$tmp" = "Uploading" ]; then
+	echo "%{F$COLOR_INDICATOR1} Uploading %{F-}"
+else
+	echo "%{F$COLOR_INDICATOR4} $tmp %{F-}"
+fi

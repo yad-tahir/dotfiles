@@ -44,7 +44,3 @@ case "$1" in
 		esac
 		;;
 esac
-
-# Notify Lemon Bar
-USERNAME=yad #@TODO: Remove it. For some reasons, the Network Manager does not load
-#			 # the variables in /etc/environment!

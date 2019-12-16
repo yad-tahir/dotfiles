@@ -29,6 +29,12 @@ stow bspwm
 rm ~/.config/lemon-bar -R
 mkdir ~/.config/lemon-bar
 mkdir ~/.config/lemon-bar/blocks
+
+cd ./polybar/
+stow .config -t ~/.config
+sudo cp ./system/etc/NetworkManager/dispatcher.d/* /etc/NetworkManager/dispatcher.d/
+cd ..
+
 stow lemon-bar
 stow sxhkb
 stow mpd

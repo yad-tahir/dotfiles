@@ -38,6 +38,9 @@ xrandr --output DP-3  --dpi 200
 feh --bg-fill $(ls ${HOME}/pictures/background/* | shuf -n 1) &
 
 # Launch Apps
+killall polybar
+bspc query -M --names | xargs -I % -n 1 sh -c 'MONITOR=% polybar orange &'
+
 # bspc desktop 6 -f &&
 # urxvtc -e /bin/sh -c 'htop;bash' &&
 # urxvtc -e /bin/sh -c 'journalctl -fn 100;bash' &

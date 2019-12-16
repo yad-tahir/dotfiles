@@ -36,6 +36,9 @@ sleep 1 && feh --bg-fill $(ls ${HOME}/pictures/background/* | shuf -n 1) &
 bspc config right_padding 640
 bspc config bottom_padding 210
 
+killall polybar
+bspc query -M --names | xargs -I % -n 1 sh -c 'MONITOR=% polybar orange &'
+
 # Stop turning off screens
 xset -dpms
 xset s off
