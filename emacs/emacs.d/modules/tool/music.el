@@ -31,6 +31,8 @@
   (declare-function simple-mpc-play-current-line nil)
   (declare-function simple-mpc-modify-volume-internal nil)
   (defvar do--music-process-update nil)
+  (defvar do--music-process-external nil)
+  (defvar do--music-mpd-init nil)
   (defvar do--music-toggle-state nil)
 
   :init
@@ -43,22 +45,46 @@
    "SPC am" 'do-music-playlist)
 
   (defun do--music-setup-process ()
-	(ignore-errors
-	  (kill-process do--music-process-update))
-	(when do--music-toggle-state
-	  (ignore-errors
-		(setq do--music-process-update
-			  (start-process-shell-command
-			   "music-notify-process"
-			   nil
-			   "while [ 1 ]; do [[ $(mpc status | awk '/paused/{print $0}') != '' ]] && break; emacsclient -nqe '(do--music-refresh-buffer)'; mpc current --wait; done"))))
 
-	;; Setup external notifier
-	(ignore-errors
-	  (start-process-shell-command
-	   "music-notify-external-process"
-	   nil
-	   "while [ 1 ]; do [[ $(mpc status | awk '/paused/{print $0}') != '' ]] && polybar-msg hook music 1 &> /dev/null && break; polybar-msg hook music 2 2> /dev/null; sleep 1; done"))
+	(unless do--music-mpd-init
+	  ;; Start MPD
+	  (ignore-errors
+		(let ((b (get-buffer "*Messages*")))
+		  (shell-command "mpd" b b)))
+	  ;; Wait for mpd to initialize.
+	  ;; FIX-ME: Remove the sleep command
+	  (sit-for 1)
+	  ;; Volume is primarily controlled by PulseAudio. We don't need another
+	  ;; volume controller in Emacs
+	  (simple-mpc-modify-volume-internal 100)
+	  (setq do--music-mpd-init t))
+
+	(if (not do--music-toggle-state)
+		(progn
+		  (ignore-errors
+			(kill-process do--music-process-update))
+		  (ignore-errors
+			(kill-process do--music-process-external)
+			(start-process-shell-command
+			 "polybar-disable-music"
+			 nil
+			 "polybar-msg hook music 1 &> /dev/null")))
+	  (progn
+
+		(ignore-errors
+		  (setq do--music-process-update
+				(start-process-shell-command
+				 "music-notify-process"
+				 nil
+				 "while [ 1 ]; do [[ $(mpc status | awk '/paused/{print $0}') != '' ]] && break; emacsclient -nqe '(do--music-refresh-buffer)'; mpc current --wait; done")))
+
+		;; Setup external notifier
+		(ignore-errors
+		  (setq do--music-process-external
+				(start-process-shell-command
+				 "music-notify-external-process"
+				 nil
+				 "while [ 1 ]; do [[ $(mpc status | awk '/paused/{print $0}') != '' ]] && polybar-msg hook music 1 &> /dev/null && break; polybar-msg hook music 2 2> /dev/null; sleep 1; done")))))
 	nil)
 
   (defun do--music-refresh-buffer()
@@ -78,13 +104,11 @@
   (defun do-music-next ()
 	(interactive)
 	(setq do--music-toggle-state t)
-	(do--music-setup-process)
 	(simple-mpc-next))
 
   (defun do-music-previous ()
 	(interactive)
 	(setq do--music-toggle-state t)
-	(do--music-setup-process)
 	(simple-mpc-prev))
 
   (defun do-music-toggle ()
@@ -169,14 +193,6 @@
 	 "a" 'simple-mpc-query-add
 	 "SPC ls" 'simple-mpc-query-sort
 	 [remap evil-quit] 'simple-mpc-query-quit))
-  (add-hook 'simple-mpc-query-mode-hook #'do--music-query-init)
-
-  ;; Start MPD
-  (ignore-errors
-	(let ((b (get-buffer "*Messages*")))
-	  (shell-command "mpd" b b)
-	  ;; Volume is primarily controlled by PulseAudio. We don't need another
-	  ;; volume controller in Emacs
-	  (simple-mpc-modify-volume-internal 100))))
+  (add-hook 'simple-mpc-query-mode-hook #'do--music-query-init))
 
 (provide 'do-music)
