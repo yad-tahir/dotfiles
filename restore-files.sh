@@ -119,6 +119,7 @@ sudo cp -R ./system/etc/portage/package.mask /etc/portage/
 sudo cp -R ./system/etc/portage/package.accept_keywords /etc/portage/
 sudo cp -R ./system/etc/portage/package.license /etc/portage/
 sudo cp -R ./system/etc/portage/make.conf /etc/portage/
+sudo cp -R ./system/etc/portage/bashrc /etc/portage/
 sudo ln -s /home/yad/dotfiles/portage/system/var/lib/portage/world /var/lib/portage/world
 sudo ln -sf /home/yad/dotfiles/portage/system/var/lib/portage/world_sets /var/lib/portage/world_sets
 sudo rm /var/db/repos/drvegeta

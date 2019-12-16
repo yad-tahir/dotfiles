@@ -176,17 +176,21 @@ label = CPU %percentage%%
 ramp-load-spacing = 1
 
 [module/portage-world]
-type = custom/script
-label = |  %output%
-exec = cat /var/lib/portage/world | wc -l
-interval = 120
+type = custom/ipc
+format-prefix = "|  "
+hook-0 = cat /var/lib/portage/world | wc -l
+;; Sleep is required to make sure portage's db is up-to-date
+hook-1 = sleep 1 && cat /var/lib/portage/world | wc -l
+initial = 1
 label-padding = 1
 
 [module/portage-packages]
-type = custom/script
-label =  %output%
-exec = qlist -I | wc -l
-interval = 120
+type = custom/ipc
+format-prefix = "  "
+hook-0 = qlist -I | wc -l
+;; Sleep is required to make sure portage's db is up-to-date
+hook-1 = sleep 1 && qlist -I | wc -l
+initial = 1
 label-padding = 0
 
 [module/processes]
