@@ -79,4 +79,24 @@ The aim of this function is to minimize duplicated windows as much as possible."
   (advice-add 'ivy--switch-buffer-action :around #'do--switch-to-buffer))
 
 
+;;;###autoload
+(defun do-list-buffers (&optional list)
+  "Return list of user buffers. This function is used in i3Block to
+display the number of open buffers in Emacs."
+
+  (interactive)
+  (when (null list)
+	(setq list (buffer-list)))
+  (let ((result '()))
+	(while list
+	  (let* ((buffer (car list))
+			 (name (buffer-name buffer)))
+		(and name
+			 (not (string-equal name ""))
+			 (/= (aref name 0) ?\s)
+			 (push buffer result)))
+	  (setq list (cdr list)))
+	result))
+
+
 (provide 'do-buffers)

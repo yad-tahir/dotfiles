@@ -18,22 +18,20 @@
 ;; 02110-1301, USA.
 
 ;;;###autoload
-(defun do-lemonbar-notify(&rest args)
+(defun do-polybar-notify(&rest args)
   "Sends an event to the lemonbar"
   (ignore args)
   (ignore-errors
 	(start-process-shell-command
-	 "lemonbar-notifier"
+	 "polybar-notifier"
 	 'nil
-	 (concat "echo 'b"
-			 (format "%s" (length (do-list-buffers)))
-			 "'> /tmp/lemon-panel-fifo-emacs"))))
+	 "polybar-msg hook emacs 1")))
 
-;; Notify lemon-bar whenever we create a new buffer, delete one, switch to another.
-(advice-add 'switch-to-buffer :after #'do-lemonbar-notify)
-(advice-add 'find-file :after #'do-lemonbar-notify)
-(advice-add 'evil-delete-buffer :after #'do-lemonbar-notify)
+;; Notify polybar whenever we create a new buffer, delete one, switch to another.
+(advice-add 'switch-to-buffer :after #'do-polybar-notify)
+(advice-add 'find-file :after #'do-polybar-notify)
+(advice-add 'evil-delete-buffer :after #'do-polybar-notify)
 (with-eval-after-load 'ivy
-  (advice-add 'ivy-switch-buffer-kill :after #'do-lemonbar-notify))
+  (advice-add 'ivy-switch-buffer-kill :after #'do-polybar-notify))
 
-(provide 'do-lemon-bar)
+(provide 'do-polybar-bar)

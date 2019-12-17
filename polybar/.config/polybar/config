@@ -33,7 +33,7 @@ offset-x = 0%
 offset-y = 0%
 radius = 0
 fixed-center = true
-background = #bf010101
+background = ${colors.background}
 foreground = ${colors.foreground}
 line-size = 2
 line-color = ${colors.foreground}
@@ -49,7 +49,7 @@ font-1 = "DejaVu Sans Mono:weight=bold:size=12:antialias=true;1"
 font-2 = "FontAwesome:size=12:antialias=true;1"
 modules-left = bspwm xwindow
 modules-center =
-modules-right = music fan temperature memory processes threads portage-world portage-packages insync ping public-ip battery pulseaudio xkeyboard date
+modules-right = music fan temperature memory processes threads emacs nvidia portage-world portage-packages insync ping public-ip battery pulseaudio xkeyboard date
 tray-position = right
 tray-padding = 0
 wm-restack = bspwm
@@ -98,7 +98,7 @@ format-offset =
 
 ; Enables pseudo-transparency for the bar
 ; If set to true the bar can be transparent without a compositor.
-pseudo-transparency = true
+pseudo-transparency = false
 
 [module/xwindow]
 type = internal/xwindow
@@ -160,13 +160,13 @@ label-marked-padding = 1
 label-marked-foreground = ${colors.foreground-alt}
 label-marked-background = ${colors.secondary}
 
-[module/mpd]
-type = internal/mpd
-format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
-icon-pause =
-icon-next =
-label-song-maxlen = 25
-label-song-ellipsis = true
+[module/memory]
+type = internal/memory
+interval = 30
+format-prefix = "| "
+format-prefix-foreground = ${colors.foreground}
+label = %gb_used%
+label-padding = 1
 
 [module/cpu]
 type = internal/cpu
@@ -174,24 +174,6 @@ interval = 10
 format = <label>
 label = CPU %percentage%%
 ramp-load-spacing = 1
-
-[module/portage-world]
-type = custom/ipc
-format-prefix = "|  "
-hook-0 = cat /var/lib/portage/world | wc -l
-;; Sleep is required to make sure portage's db is up-to-date
-hook-1 = sleep 1 && cat /var/lib/portage/world | wc -l
-initial = 1
-label-padding = 1
-
-[module/portage-packages]
-type = custom/ipc
-format-prefix = "  "
-hook-0 = qlist -I | wc -l
-;; Sleep is required to make sure portage's db is up-to-date
-hook-1 = sleep 1 && qlist -I | wc -l
-initial = 1
-label-padding = 0
 
 [module/processes]
 type = custom/script
@@ -207,13 +189,30 @@ exec = ps axl -L | awk '$7 != 0 && $10 !~ "Z"'| wc -l
 interval = 10
 label-padding = 0
 
-[module/memory]
-type = internal/memory
-interval = 30
-format-prefix = "| "
-format-prefix-foreground = ${colors.foreground}
-label = %gb_used%
+[module/emacs]
+type = custom/ipc
+format-prefix = "  "
+hook-0 = emacsclient -e '(length (do-list-buffers))'
+initial = 1
 label-padding = 1
+
+[module/portage-world]
+type = custom/ipc
+format-prefix = " |  "
+hook-0 = cat /var/lib/portage/world | wc -l
+;; Sleep is required to make sure portage's db is up-to-date
+hook-1 = sleep 1 && cat /var/lib/portage/world | wc -l
+initial = 1
+label-padding = 1
+
+[module/portage-packages]
+type = custom/ipc
+format-prefix = "  "
+hook-0 = qlist -I | wc -l
+;; Sleep is required to make sure portage's db is up-to-date
+hook-1 = sleep 1 && qlist -I | wc -l
+initial = 1
+label-padding = 0
 
 [module/insync]
 type = custom/script
@@ -270,6 +269,13 @@ bar-volume-fill-font = 2
 bar-volume-empty = ─
 bar-volume-empty-font = 2
 bar-volume-empty-foreground = ${colors.alert}
+
+[module/nvidia]
+format-prefix = " "
+type = custom/ipc
+hook-0 = ~/.config/polybar/blocks/nvidia.sh
+initial = 1
+label-padding = 0
 
 [module/battery]
 type = internal/battery

@@ -1,5 +1,4 @@
-#! /bin/sh
-#
+#!/bin/sh
 
 # Copyright (C) 2019
 
@@ -20,23 +19,9 @@
 
 . $HOME/bin/settings.sh
 
-current=0
-len=20
-
-state=$(mpc current -f '%title% %artist% %album%' 2> /dev/null)
-pause=$(mpc status | awk '/paused/{print $0}' 2> /dev/null)
-
-if [ "$state" = "" -o "$pause" != "" ]; then
-	polybar-msg hook music 1 &> /dev/null
+line=$(cat /tmp/gpu-status 2> /dev/null || echo igu)
+if [ $line = 'dgpu' ]; then
+	echo "%{F$COLOR_INDICATOR1} nvidia%{F-}"
 else
-	position=$(mpc status | awk '/playing/{print $3}' 2> /dev/null)
-	title=" $position $state"
-
-	percent=$(mpc status | awk '/playing/{print substr($4,2,length($4)-3)}' 2> /dev/null)
-	text=$($HOME/.config/polybar/blocks/progress.sh " $title " $percent)
-
-	# print the formatted text
-	echo "${text}"
-	# Ask polybar to refresh the music module which in turn is going to call
-	# this script again
+	echo ""
 fi

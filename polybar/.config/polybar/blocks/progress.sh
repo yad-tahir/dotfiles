@@ -18,25 +18,27 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
+# A utility script to draw a progress using text underline.
+
 . $HOME/bin/settings.sh
 
-current=0
-len=20
+text="$1"
+progress="$2"
 
-state=$(mpc current -f '%title% %artist% %album%' 2> /dev/null)
-pause=$(mpc status | awk '/paused/{print $0}' 2> /dev/null)
+if [ $progress -eq $progress 2> /dev/null ]; then
+	len="${#text}"
+	# Calculate the number of characters that needs to be underline
+	underline_num=$(($len*progress/100))
 
-if [ "$state" = "" -o "$pause" != "" ]; then
-	polybar-msg hook music 1 &> /dev/null
-else
-	position=$(mpc status | awk '/playing/{print $3}' 2> /dev/null)
-	title=" $position $state"
+	# Make sure $underline_num never exceeds the length
+	if [ "$underline_num" -gt $len ]; then
+		underline_num=$len
+	fi
 
-	percent=$(mpc status | awk '/playing/{print substr($4,2,length($4)-3)}' 2> /dev/null)
-	text=$($HOME/.config/polybar/blocks/progress.sh " $title " $percent)
+	output=$(echo "$text" |
+				 awk -v UNDER="$underline_num" \
+					 '{print "%{+u}"substr($0,0,UNDER) \
+				"%{-u}"substr($0,UNDER+1,length($0))}')
 
-	# print the formatted text
-	echo "${text}"
-	# Ask polybar to refresh the music module which in turn is going to call
-	# this script again
+	echo "$output"
 fi
