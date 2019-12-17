@@ -74,6 +74,7 @@
 
 (use-package evil-quickscope
   :ensure t
+  :disabled t
   :commands  (evil-quickscope-find-char
 			  evil-quickscope-find-char-backward
 			  evil-quickscope-find-char-to

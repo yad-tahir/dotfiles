@@ -82,7 +82,7 @@ The third optional argument PROPS indicates the properties of the frame"
 	(select-frame-set-input-focus (make-frame fp))))
 
 (setq-default frame-title-format
-			  '(:eval (format "%s %s - %3d%%%%" (buffer-name)
+			  '(:eval (format "%s %s %3d%%%%" (buffer-name)
 							  (cond
 							   (buffer-file-truename
 								(concat "(" buffer-file-truename ")"))

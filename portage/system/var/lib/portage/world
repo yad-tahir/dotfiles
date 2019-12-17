@@ -42,6 +42,7 @@ sys-apps/pciutils
 sys-apps/ripgrep
 sys-apps/systemd
 sys-devel/crossdev
+sys-firmware/intel-microcode
 sys-fs/cryptsetup
 sys-fs/zfs
 sys-kernel/genkernel

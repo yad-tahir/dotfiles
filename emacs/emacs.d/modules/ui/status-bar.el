@@ -27,7 +27,7 @@
 					  :background chocolate-theme-element
 					  :foreground chocolate-theme-bg :weight 'normal)
   (set-face-attribute 'telephone-line-evil-insert nil
-					  :background chocolate-theme-element+4
+					  :background chocolate-theme-element+9
 					  :foreground chocolate-theme-bg :weight 'normal)
   (set-face-attribute 'telephone-line-evil-motion nil
 					  :background chocolate-theme-highlight
@@ -39,7 +39,7 @@
 					  :background chocolate-theme-highlight
 					  :foreground chocolate-theme-white+3 :weight 'normal)
   (set-face-attribute 'telephone-line-evil-emacs nil
-					  :background chocolate-theme-element+8
+					  :background chocolate-theme-element+4
 					  :foreground chocolate-theme-bg :weight 'normal)
   (set-face-attribute 'telephone-line-accent-active nil
 					  :background chocolate-theme-shadow+1
