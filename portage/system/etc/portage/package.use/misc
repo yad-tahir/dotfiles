@@ -1,6 +1,7 @@
 net-print/cups X
 app-admin/pass X # @X adds clipboard support
-app-editors/emacs X
+# @png, @jpeg, @tiff, @svg to support common image formats
+app-editors/emacs X png jpeg tiff svg
 media-fonts/* X
 media-libs/freetype X
 x11-misc/dmenu xinerama # Add multi-monitor support
@@ -15,6 +16,8 @@ x11-libs/gtk+ X
 
 # Other
 app-office/libreoffice -accessibility -bluetooth -mariadb
+# LaTex
+app-text/texlive png truetype texi2html tex4ht science publishers graphics epspdf
 x11-misc/polybar mpd ipc gcc
 
 # Disable ipv6 when it is not needed

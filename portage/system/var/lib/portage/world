@@ -13,6 +13,7 @@ app-portage/gentoolkit
 app-portage/layman
 app-portage/repoman
 app-shells/bash-completion
+app-text/texlive
 app-text/zathura
 app-text/zathura-pdf-mupdf
 cross-avr/avr-libc

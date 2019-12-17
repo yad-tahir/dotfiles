@@ -202,4 +202,17 @@ dev-lang/python sqlite
 # End of Steam and 32-bit games
 #
 
+
+# required by app-text/texlive-core-2019-r4::gentoo
+# required by dev-texlive/texlive-latex-2019::gentoo
+# required by dev-texlive/texlive-latexrecommended-2019-r2::gentoo
+# required by virtual/latex-base-1.0::gentoo
+# required by virtual/latex-base (argument)
+>=media-libs/gd-2.2.5-r2 png fontconfig truetype jpeg
+# required by dev-texlive/texlive-context-2019::gentoo
+# required by app-text/texlive-2019-r1::gentoo[context]
+# required by app-text/texlive (argument)
+>=app-text/texlive-core-2019-r4 xetex
+
+
 # Misc
