@@ -81,6 +81,7 @@ cd ..
 cd ./x11/
 stow .config -t ~/.config
 sudo cp ./system/etc/X11/xinit/* /etc/X11/xinit/
+sudo cp ./system/etc/X11/xorg.conf.d/* /etc/X11/xorg.conf.d/
 sudo cp -R ./system/etc/systemd/system/getty@tty*.service.d /etc/systemd/system/
 cd ..
 
