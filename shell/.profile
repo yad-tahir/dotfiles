@@ -30,7 +30,6 @@ alias ls='ls -alih'
 alias s="sudo su"
 alias e="emacs"
 alias ec="emacsclient -cn"
-alias web="firefox-developer-edition"
 alias pacman-history="expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -n 100"
 alias pacman-unused='pacman -Qtdq'
 alias nv="sudo -u yad -g no-vpn"
@@ -45,6 +44,9 @@ alias vpn-restart='vpn-udp-stop && sleep 1 && vpn-udp-start'
 alias nm-stop='nmcli r wifi off'
 alias nm-start='nmcli r wifi on'
 alias nm-restart='nmcli r wifi off && sleep 1 && nmcli r wifi on'
+# Make bc more accurate
+alias bc='bc --mathlib'
+# Common typos
 alias cleaor='clear'
 
 # Other variables
@@ -56,7 +58,13 @@ life
 
 echo ''
 
-# Starts GUI automatically if this is the DISPLAY variable is empty and this is
-# the virtual tty 1
-[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec ~/bin/startx
-[[ -z $DISPLAY && $XDG_VTNR -eq 2 ]] && exec ~/bin/startx-nvidia
+# Starts GUI automatically if this is the DISPLAY variable is empty, we are on
+# the virtual tty 1, and this is the first login after a cold boot
+if [[ -z $DISPLAY && $XDG_VTNR -eq 1 && ! -f /tmp/init-startx ]]; then
+	touch /tmp/init-startx
+	exec ~/bin/startx
+fi
+if [[ -z $DISPLAY && $XDG_VTNR -eq 2 && ! -f /tmp/init-startx-nvidia ]]; then
+	touch /tmp/init-startx-nvidia
+	exec ~/bin/startx-nvidia
+fi
