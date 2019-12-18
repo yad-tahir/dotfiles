@@ -49,7 +49,7 @@ font-1 = "DejaVu Sans Mono:weight=bold:size=12:antialias=true;1"
 font-2 = "FontAwesome:size=12:antialias=true;1"
 modules-left = bspwm xwindow
 modules-center =
-modules-right = music fan temperature memory processes threads emacs nvidia portage-world portage-packages insync ping public-ip battery pulseaudio xkeyboard date
+modules-right = music fan temperature memory cpu-freq processes threads emacs nvidia portage-world portage-packages insync ping public-ip battery pulseaudio xkeyboard date
 tray-position = right
 tray-padding = 0
 wm-restack = bspwm
@@ -175,6 +175,15 @@ format = <label>
 label = CPU %percentage%%
 ramp-load-spacing = 1
 
+[module/cpu-freq]
+type = custom/script
+label =  %output%GHz
+;; Get the average frequency from /proc/cpuinfo
+exec = cat /proc/cpuinfo | awk '/MHz/{n+=1; s+=$4} END{printf "%.1f\n", s/n/1000}'
+;; To reduce false readings, use an odd interval to offset from other polybar modules
+interval = 8
+label-left-padding = 1
+
 [module/processes]
 type = custom/script
 label =  %output%
@@ -216,24 +225,21 @@ label-padding = 0
 
 [module/insync]
 type = custom/script
-label = | %output%
+label =" | %output%"
 exec = ~/.config/polybar/blocks/insync.sh
 interval = 60
-label-padding = 1
-
-[module/public-ip]
-type = custom/ipc
-label =  %output%
-label-left-padding = 1
-hook-0 = curl ipinfo.io 2> /dev/null | awk '/country/ {print substr($2,2,2)}' 2> /dev/null
-initial = 1
 
 [module/ping]
 type = custom/script
-label = %output%ms
+label =" %output%ms"
 exec = ping 8.8.8.8 -c 3 2> /dev/null | awk '/avg/{split($4,arr,"/"); printf("%3.0f\n",arr[2])}' | awk '$1=$1'
 interval = 60
-label-padding = 1
+
+[module/public-ip]
+type = custom/ipc
+format-prefix = "  "
+hook-0 = curl ipinfo.io 2> /dev/null | awk '/country/ {print substr($2,2,2)}' 2> /dev/null
+initial = 1
 
 [module/music]
 type = custom/ipc
@@ -309,8 +315,8 @@ type = internal/temperature
 thermal-zone = 6
 warn-temperature = 95
 interval = 10
-format = <label>
-format-warn = <label-warn>
+format = <label>
+format-warn = <label-warn>
 format-warn-foreground = ${colors.warning}
 label = %temperature-c%
 label-padding = 1
