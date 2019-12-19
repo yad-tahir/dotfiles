@@ -47,8 +47,8 @@ sys-fs/cryptsetup
 sys-fs/zfs
 sys-kernel/genkernel
 sys-kernel/gentoo-sources
-sys-kernel/gentoo-sources:5.4.2
 sys-kernel/gentoo-sources:5.4.3
+sys-kernel/gentoo-sources:5.4.5
 sys-power/acpi
 sys-power/intel-undervolt
 sys-power/powertop

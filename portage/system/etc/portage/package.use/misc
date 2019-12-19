@@ -13,12 +13,13 @@ media-gfx/feh xinerama
 
 # UI
 x11-libs/gtk+ X
+x11-misc/polybar mpd ipc gcc
 
 # Other
-app-office/libreoffice -accessibility -bluetooth -mariadb
-# LaTex
-app-text/texlive png truetype texi2html tex4ht science publishers graphics epspdf
-x11-misc/polybar mpd ipc gcc
+app-office/libreoffice -accessibility -bluetooth -mariadb -branding
+app-text/texlive png truetype science publishers graphics epspdf
+dev-texlive/texlive-basic -luajittex
+
 
 # Disable ipv6 when it is not needed
 x11-apps/* -ipv6
