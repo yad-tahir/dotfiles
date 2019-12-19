@@ -64,7 +64,3 @@ if [[ -z $DISPLAY && $XDG_VTNR -eq 1 && ! -f /tmp/init-startx ]]; then
 	touch /tmp/init-startx
 	exec ~/bin/startx
 fi
-if [[ -z $DISPLAY && $XDG_VTNR -eq 2 && ! -f /tmp/init-startx-nvidia ]]; then
-	touch /tmp/init-startx-nvidia
-	exec ~/bin/startx-nvidia
-fi
