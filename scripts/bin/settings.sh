@@ -43,13 +43,10 @@ export PASSWORD_STORE_GENERATED_LENGTH=25
 # Terminal
 export RXVT_SOCKET=/run/user/1000/urxvtd-pipeline
 
-#Lemon-bar
 export PANEL_FONT_FAMILY="DejaVu Sans Mono:size=6"
 export PANEL_FONT_FAMILY2="FontAwesome:size=6"
 export PANEL_FONT_FAMILY3="DejaVu Sans Mono:size=10"
 export PANEL_HEIGHT="35"
-export PANEL_WM_NAME="lemon-bspwm-panel"
-export PANEL_FIFO="/tmp/lemon-panel-fifo"
 
 # Colors
 export COLOR_FOREGROUND='#e6beae'

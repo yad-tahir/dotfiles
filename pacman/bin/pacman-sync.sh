@@ -22,6 +22,3 @@
 /bin/rm /var/lib/pacman/db.lck 2> /dev/null;
 
 pacman -Syy
-
-#Notify lemon-bar
-sudo -u $USER /bin/sh -c "/home/$USER/.config/lemon-bar/blocks/packages.sh > $PANEL_FIFO"
