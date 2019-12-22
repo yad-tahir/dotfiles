@@ -30,12 +30,13 @@ fi
 key=$(cat $GNUPGHOME/usage/zfs-backup.encrypt.key)
 
 # ZFS sets
-backup_sets=("rpool/xps/arch/root/default"
-			 "rpool/xps/gentoo/root/default"
-			 "rpool/data/$USER/default"
-			 "rpool/data/$USER/notes"
-			 "rpool/data/$USER/archive"
-			 "rpool/data/$USER/music")
+backup_sets=(
+			 "vault/xps/gentoo/root"
+			 "vault/data/$USER/default"
+			 "vault/data/$USER/notes"
+			 "vault/data/$USER/archive"
+			 "vault/data/$USER/music"
+			)
 
 # Get the target location
 if [ "$#" -eq 1 ]; then
