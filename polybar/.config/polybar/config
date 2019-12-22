@@ -49,7 +49,7 @@ font-1 = "DejaVu Sans Mono:weight=bold:size=12:antialias=true;1"
 font-2 = "FontAwesome:size=12:antialias=true;1"
 modules-left = bspwm xwindow
 modules-center =
-modules-right = music fan temperature memory cpu-freq processes threads emacs nvidia portage-world portage-packages insync ping public-ip battery pulseaudio xkeyboard date
+modules-right = music fan temperature memory memory-zfs cpu-freq processes threads emacs nvidia portage-world portage-packages insync ping public-ip battery pulseaudio xkeyboard date
 tray-position = right
 tray-padding = 0
 wm-restack = bspwm
@@ -160,13 +160,18 @@ label-marked-padding = 1
 label-marked-foreground = ${colors.foreground-alt}
 label-marked-background = ${colors.secondary}
 
-[module/memory]
-type = internal/memory
+
+[module/memory-zfs]
+type = custom/script
+label = "  %output:0:3:%GB"
+exec =  cat /proc/spl/kstat/zfs/arcstats | awk '/^size[[:space:]]/{print $3/(1024^3)}' | bc
 interval = 30
-format-prefix = "| "
-format-prefix-foreground = ${colors.foreground}
-label = %gb_used%
-label-padding = 1
+
+[module/memory]
+type = custom/script
+label = "|  %output:0:3:%GB"
+exec =  free | awk '/^Mem/{print $3/(1024^2)}' | bc
+interval = 30
 
 [module/cpu]
 type = internal/cpu
@@ -177,12 +182,11 @@ ramp-load-spacing = 1
 
 [module/cpu-freq]
 type = custom/script
-label =  %output%GHz
+label = "  %output%GHz"
 ;; Get the average frequency from /proc/cpuinfo
 exec = cat /proc/cpuinfo | awk '/MHz/{n+=1; s+=$4} END{printf "%.1f\n", s/n/1000}'
 ;; To reduce false readings, use an odd interval to offset from other polybar modules
 interval = 8
-label-left-padding = 1
 
 [module/processes]
 type = custom/script
