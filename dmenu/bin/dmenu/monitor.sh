@@ -20,22 +20,23 @@
 # A small menu to choose the monitor setup
 
 # Get the settings
-. $HOME/bin/settings.sh
-
+COLOR_BG=$(xrdb -query | awk '/\*background:/{print $2}')
+COLOR_FG=$(xrdb -query | awk '/\*foreground:/{print $2}')
+COLOR_MAIN=$(xrdb -query | awk '/\*color10:/{print $2}')
+FONT=$(xrdb -query | awk '/\Panel.font1:/{$1="";print $0}')
 
 layouts="laptop lab office home"
-
 for i in $layouts; do
 	echo_string="${i}\\n${echo_string}"
 done
 
 run=$(echo -e "${echo_string}" |
 		  dmenu -i -f\
-				-nb "$COLOR_BACKGROUND" \
-				-nf "$COLOR_FOREGROUND" \
-				-sb "$COLOR_INDICATOR2" \
-				-sf "$COLOR_BACKGROUND" \
-				-fn "$PANEL_FONT_FAMILY3" \
+				-nb "$COLOR_BG" \
+				-nf "$COLOR_FG" \
+				-sb "$COLOR_MAIN" \
+				-sf "$COLOR_BG" \
+				-fn "${FONT}" \
 				-l 0 -p "Monitor" "$@")
 
 

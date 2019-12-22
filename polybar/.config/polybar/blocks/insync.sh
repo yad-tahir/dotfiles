@@ -18,16 +18,19 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-. $HOME/bin/settings.sh
+
 
 tmp=$(insync-headless get_sync_progress | head -n1)
 
 if [ "$tmp" = "No syncing activities" ]; then
 	echo ""
 elif [ "$tmp" = "Download" ]; then
-	echo "%{F$COLOR_INDICATOR3} Downloading %{F-}"
+	COLOR=$(xrdb -query | awk '/\*color2:/{print $2}')
+	echo "%{F$COLOR} Downloading %{F-}"
 elif [ "$tmp" = "Uploading" ]; then
-	echo "%{F$COLOR_INDICATOR1} Uploading %{F-}"
+	COLOR=$(xrdb -query | awk '/\*color9:/{print $2}')
+	echo "%{F$COLOR} Uploading %{F-}"
 else
-	echo "%{F$COLOR_INDICATOR4} $tmp %{F-}"
+	COLOR=$(xrdb -query | awk '/\*color11:/{print $2}')
+	echo "%{F$COLOR} $tmp %{F-}"
 fi

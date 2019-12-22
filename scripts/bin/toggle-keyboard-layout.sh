@@ -17,8 +17,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-. $HOME/bin/settings.sh
-
 systemctl stop --user sxhkd@${XDG_VTNR}.service
 
 state=$(setxkbmap -query |

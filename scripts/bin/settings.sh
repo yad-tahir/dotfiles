@@ -42,19 +42,3 @@ export PASSWORD_STORE_GENERATED_LENGTH=25
 
 # Terminal
 export RXVT_SOCKET=/run/user/1000/urxvtd-pipeline
-
-export PANEL_FONT_FAMILY="DejaVu Sans Mono:size=6"
-export PANEL_FONT_FAMILY2="FontAwesome:size=6"
-export PANEL_FONT_FAMILY3="DejaVu Sans Mono:size=10"
-export PANEL_HEIGHT="35"
-
-# Colors
-export COLOR_FOREGROUND='#e6beae'
-export COLOR_BACKGROUND='#000000'
-export COLOR_INDICATOR1="#a7e23e"
-export COLOR_INDICATOR2="#00ff7f"
-export COLOR_INDICATOR3="#ffa500"
-export COLOR_INDICATOR4="#ff4422"
-export COLOR_INDICATOR5="#bd9c8f"
-export COLOR_INDICATOR6="#392626"
-export COLOR_INDICATOR7="#da70d6"

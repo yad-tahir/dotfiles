@@ -17,11 +17,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-. $HOME/bin/settings.sh
-
 line=$(cat /tmp/gpu-status 2> /dev/null || echo igu)
+
 if [ $line = 'dgpu' ]; then
-	echo "%{F$COLOR_INDICATOR1} nvidia%{F-}"
+	COLOR=$(xrdb -query | awk '/\*color2:/{print $2}')
+	echo "%{F$COLOR} nvidia%{F-}"
 else
 	echo ""
 fi

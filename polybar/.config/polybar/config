@@ -28,7 +28,7 @@ alert = ${xrdb:color11}
 [bar/orange]
 monitor = ${env:MONITOR}
 width = 100%
-height = ${env:PANEL_HEIGHT}
+height = ${xrdb:Panel.height}
 offset-x = 0%
 offset-y = 0%
 radius = 0

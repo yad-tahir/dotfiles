@@ -20,7 +20,10 @@
 # A small menu to launch an Emacs command
 
 # Get the settings
-. $HOME/bin/settings.sh
+COLOR_BG=$(xrdb -query | awk '/\*background:/{print $2}')
+COLOR_FG=$(xrdb -query | awk '/\*foreground:/{print $2}')
+COLOR_MAIN=$(xrdb -query | awk '/\*color2:/{print $2}')
+FONT=$(xrdb -query | awk '/\Panel.font1:/{$1="";print $0}')
 
 emacs_commands="do-capture
 				do-agenda
@@ -36,11 +39,11 @@ done
 
 run=$(echo -e "${echo_string}" |
 		  dmenu -i -f\
-				-nb "$COLOR_BACKGROUND" \
-				-nf "$COLOR_FOREGROUND" \
-				-sb "$COLOR_INDICATOR1" \
-				-sf "$COLOR_BACKGROUND" \
-				-fn "$PANEL_FONT_FAMILY3" \
+				-nb "$COLOR_BG" \
+				-nf "$COLOR_FG" \
+				-sb "$COLOR_MAIN" \
+				-sf "$COLOR_BG" \
+				-fn "${FONT}" \
 				-l 0 -p "Emacs" "$@")
 
 

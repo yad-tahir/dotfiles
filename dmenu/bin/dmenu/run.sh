@@ -21,7 +21,11 @@
 # then use dmenu to show it.
 
 # Get the settings
-. $HOME/bin/settings.sh
+COLOR_BG=$(xrdb -query | awk '/\*background:/{print $2}')
+COLOR_FG=$(xrdb -query | awk '/\*foreground:/{print $2}')
+COLOR_MAIN=$(xrdb -query | awk '/\*color9:/{print $2}')
+FONT=$(xrdb -query | awk '/\Panel.font1:/{$1="";print $0}')
+
 
 run=$(
 		IFS='|'
@@ -43,12 +47,12 @@ run=$(
 			  awk "!/${filter_string}/" |
 			  sort -u | uniq ; } |
 			dmenu -i -f\
-						 -nb "$COLOR_BACKGROUND" \
-						 -nf "$COLOR_FOREGROUND" \
-						 -sb "$COLOR_INDICATOR3" \
-						 -sf "$COLOR_BACKGROUND" \
-						 -fn "$PANEL_FONT_FAMILY3" \
-						 -l 0 -p "App" "$@"
+				  -nb "$COLOR_BG" \
+				  -nf "$COLOR_FG" \
+				  -sb "$COLOR_MAIN" \
+				  -sf "$COLOR_BG" \
+				  -fn "${FONT}" \
+				  -l 0 -p "App" "$@"
    )
 
 

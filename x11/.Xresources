@@ -27,20 +27,10 @@ Emacs.verticalScrollBars: off
 Emacs.FontBackend: xft,x
 Emacs.font: DejaVu Sans Mono:size=28
 
-!! URxvt settings
-URxvt.font: xft:DejaVu Sans Mono:size=8:antialias=true
-! URxvt.font: xft:monospace:size=10:Bold
-URxvt.scrollBar: false
-URxvt.letterSpace: -1
-
-! Pointer
-URxvt.pointerBlank: true
-
 *background: #000000
 *foreground: #e6beae
 *pointerColorBackground: #000000
 *pointerColorForeground: #e6beae
-
 *color0: #654d4d
 *color8: #654d4d
 *color1: #ffc05c
@@ -58,6 +48,16 @@ URxvt.pointerBlank: true
 *color7: #bd9c8f
 *color15: #392626
 
+Panel.font1: DejaVu Sans Mono:size=7
+Panel.height: 35
+
+!! URxvt settings
+URxvt.font: xft:DejaVu Sans Mono:size=8:antialias=true
+! URxvt.font: xft:monospace:size=10:Bold
+URxvt.scrollBar: false
+URxvt.letterSpace: -1
+! Pointer
+URxvt.pointerBlank: true
 !! Extensions
 URxvt.perl-ext-common:	default,matcher,url-select,keyboard-select,clipboard,font-size
 URxvt.colorUL:		#ff4422
@@ -71,14 +71,12 @@ URxvt.keysym.M-Escape: perl:keyboard-select:activate
 URxvt.url-launcher:	/usr/bin/xdg-open
 URxvt.urlButton:	1
 URxvt.matcher.button:	1
-
 !! copy pasting
 URxvt.iso14755: False
 URxvt.keysym.Control-p: perl:clipboard:paste
 URxvt.keysym.Control-y: perl:clipboard:copy
 ! URxvt.keysym.Shift-Control-V: perl:clipboard:paste
 ! URxvt.keysym.Shift-Control-C: perl:clipboard:copy
-
 URxvt.keysym.Control-h:      \033[1;5D
 URxvt.keysym.Control-n:      \033[1;5C
 URxvt.keysym.Control-c:      \033[A
@@ -86,11 +84,9 @@ URxvt.keysym.Control-t:      \033[B
 ! Highlight mode
 URxvt.keysym.Control-v:      command:\033[33;1m
 URxvt.keysym.Control-V:      command:\033[0m
-
 URxvt.keysym.Control-Up:     \033[1;5A
 URxvt.keysym.Control-Down:   \033[1;5B
 URxvt.keysym.Control-Left:   \033[1;5D
 URxvt.keysym.Control-Right:  \033[1;5C
-
 URxvt*iso14755: False
 URxvt*iso14755_52: False

@@ -17,7 +17,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-. $HOME/bin/settings.sh
+# Get the settings
+COLOR_BG=$(xrdb -query | awk '/\*background:/{print $2}')
+COLOR_FG=$(xrdb -query | awk '/\*foreground:/{print $2}')
+COLOR_MAIN=$(xrdb -query | awk '/\*color11:/{print $2}')
+FONT=$(xrdb -query | awk '/\Panel.font1:/{$1="";print $0}')
 
 prefix="${PASSWORD_STORE_DIR}/"
 # Get the files
@@ -28,11 +32,11 @@ password_files=$(find $prefix -name '*.gpg'|
 
 value=$(printf '%s\n' "$password_files" |
 			dmenu -i -f\
-				  -nb "$COLOR_BACKGROUND" \
-				  -nf "$COLOR_FOREGROUND" \
-				  -sb "$COLOR_INDICATOR4" \
-				  -sf "$COLOR_BACKGROUND" \
-				  -fn "$PANEL_FONT_FAMILY3" \
+				  -nb "$COLOR_BG" \
+				  -nf "$COLOR_FG" \
+				  -sb "$COLOR_MAIN" \
+				  -sf "$COLOR_BG" \
+				  -fn "${FONT}" \
 				  -l 0 -p "Password" "$@")
 
 if [ "$value" != "" ]; then
