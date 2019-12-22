@@ -1,7 +1,8 @@
 net-print/cups X
 app-admin/pass X # @X adds clipboard support
-# @png, @jpeg, @tiff, @svg to support common image formats
-app-editors/emacs X png jpeg tiff svg
+# @png, @jpeg, @svg to support common image formats
+# @tiff, @xpm to remove unused image formats
+app-editors/emacs X png jpeg svg -tiff -xpm
 media-fonts/* X
 media-libs/freetype X
 x11-misc/dmenu xinerama # Add multi-monitor support

@@ -1,6 +1,4 @@
-#=sys-fs/zfs-9999 **
-#=sys-fs/zfs-kmod-9999 **
 sys-fs/zfs ~amd64
 sys-fs/zfs-kmod ~amd64
 
-sys-kernel/gentoo-sources ~amd64
+=sys-kernel/gentoo-sources-5.4.5 ~amd64

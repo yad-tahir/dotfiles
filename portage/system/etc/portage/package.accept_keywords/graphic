@@ -8,5 +8,4 @@ x11-driver/nvidia-drivers **
 >=dev-libs/nspr-4.23
 =sys-devel/llvmgold-8
 
-
-media-libs/mesa ~amd64
+=media-libs/mesa-19.3.0 ~amd64
