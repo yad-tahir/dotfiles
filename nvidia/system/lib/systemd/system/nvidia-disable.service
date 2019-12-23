@@ -5,7 +5,7 @@ Description=Disable Nvidia GPU
 Type=oneshot
 RemainAfterExit=true
 ExecStart=/bin/true
-ExecStop=/bin/bash -c "mv /etc/modprobe.d/disable-nvidia.conf.disable /etc/modprobe.d/disable-nvidia.conf || true"
+ExecStop=/usr/sbin/nvidia-cli off
 
 [Install]
 WantedBy=multi-user.target

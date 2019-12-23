@@ -30,6 +30,7 @@ stow bspwm
 cd ./polybar/
 stow .config -t ~/.config
 sudo cp ./system/etc/NetworkManager/dispatcher.d/* /etc/NetworkManager/dispatcher.d/
+sudo cp ./system/etc/udev/rules.d/*  /etc/udev/rules.d/
 cd ..
 
 stow sxhkb

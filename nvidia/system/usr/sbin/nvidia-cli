@@ -8,14 +8,19 @@
 
 CONTROLLER_BUS_ID=0000:00:01.0
 DEVICE_BUS_ID=0000:01:00.0
-MODULES_LOAD=(nvidia nvidia_modeset "nvidia_drm modeset=1")
-MODULES_UNLOAD=(nvidia_drm nvidia_modeset nvidia)
-BLACKLIST=/etc/modprobe.d/blacklist.conf
+MODULES_LOAD=(nvidia nvidia_modeset nvidia_drm nvidia_uvm)
+MODULES_UNLOAD=(nvidia_drm nvidia_modeset nvidia nvidia_uvm)
+BLACKLIST=/etc/modprobe.d/nvidia-blacklist.conf
 DISABLE_NVIDIA=/etc/modprobe.d/disable-nvidia.conf
-BIN_NAME=${0##*/}
+XORG_CONFIG=/home/yad/dotfiles/nvidia/system/etc/X11/xorg.conf.d/30-nvidia.conf
+INSTALL_XORG_CONFIG=/etc/X11/xorg.conf.d/30-nvidia.conf
 ERROR_RETURN_VALUE=1
 
 function gpu_on {
+
+	sudo mv $DISABLE_NVIDIA $DISABLE_NVIDIA.disable 2> /dev/null
+	sudo mv $BLACKLIST $BLACKLIST.disable 2> /dev/null
+	sudo cp $XORG_CONFIG $INSTALL_XORG_CONFIG 2> /dev/null
 
 	if [[ $(lsmod | grep nvidia) ]]; then
 		echo "Error: $ERROR_RETURN_VALUE - Nvidia card loaded already" 1>&2
@@ -23,12 +28,9 @@ function gpu_on {
 	fi
 
 	if [[ $(lsmod | grep nouveau) ]]; then
-		tt
 	echo "Error: $ERROR_RETURN_VALUE - Nouveau module owns the graphic card! Run $0 --init again and reboot, or if you know what you are doing, modprobe -r nouveau modules." 1>&2
 	exit $ERROR_RETURN_VALUE
 	fi
-
-	sudo mv $DISABLE_NVIDIA $DISABLE_NVIDIA.disable
 
 	echo 'Turning the PCIe controller on to allow card rescan'
 	sudo tee /sys/bus/pci/devices/${CONTROLLER_BUS_ID}/power/control <<<on
@@ -53,7 +55,9 @@ function gpu_on {
 
 function gpu_off {
 
-	sudo mv $DISABLE_NVIDIA.disable $DISABLE_NVIDIA
+	sudo mv $DISABLE_NVIDIA.disable $DISABLE_NVIDIA 2> /dev/null
+	sudo mv $BLACKLIST.disable $BLACKLIST 2> /dev/null
+	sudo rm $INSTALL_XORG_CONFIG 2> /dev/null
 
 	if [[ ! $(lsmod | grep nvidia) ]]; then
 		echo "Error : $ERROR_RETURN_VALUE - No Nvidia card loaded" 1>&2
@@ -80,13 +84,13 @@ function gpu_off {
 function help {
 cat <<EOF
 Help Menu:
-	$BIN_NAME --on  turn the nvidia GPU on
-	$BIN_NAME --off turn the nvidia GPU off
+	'nvidia-cli on'  to turn the nvidia GPU on
+	'nvidia-cli off' to turn the nvidia GPU off
 EOF
 }
 
 case $1 in
-	"--on") gpu_on ;;
-	"--off") gpu_off ;;
+	"on") gpu_on ;;
+	"off") gpu_off ;;
 	*) help ;;
 esac

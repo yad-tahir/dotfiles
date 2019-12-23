@@ -197,7 +197,7 @@ super + Escape
 	urxvtc &
 
 super + p
-	{killall polybar && bspc config top_padding 0, bspc config top_padding $(xrdb -query | awk '/\Panel.height:/{print $2}') && bspc query -M --names | xargs -I % -n 1 sh -c 'MONITOR=% polybar orange &'} &
+	{killall polybar; bspc config top_padding 0, bspc config top_padding "$(xrdb -query | awk '/\Panel.height:/\{print $2\}')"; bspc query -M --names | xargs -I % -n 1 sh -c 'MONITOR=% polybar orange &'} &
 
 Print
-	{killall polybar && bspc config top_padding 0, bspc config top_padding $(xrdb -query | awk '/\Panel.height:/{print $2}') && bspc query -M --names | xargs -I % -n 1 sh -c 'MONITOR=% polybar orange &'} &
+	{killall polybar; bspc config top_padding 0, bspc config top_padding "$(xrdb -query | awk '/\Panel.height:/\{print $2\}')"; bspc query -M --names | xargs -I % -n 1 sh -c 'MONITOR=% polybar orange &'} &

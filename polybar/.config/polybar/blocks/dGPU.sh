@@ -17,11 +17,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-line=$(cat /tmp/gpu-status 2> /dev/null || echo igu)
+status=$(cat /sys/bus/pci/devices/0000:01:00.0/power/runtime_status 2> /dev/null || echo igu)
 
-if [ $line = 'dgpu' ]; then
+if [ $status == 'active' ]; then
 	COLOR=$(xrdb -query | awk '/\*color2:/{print $2}')
-	echo "%{F$COLOR} nvidia%{F-}"
+	echo "%{F$COLOR} dGPU%{F-}"
 else
 	echo ""
 fi
