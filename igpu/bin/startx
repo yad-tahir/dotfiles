@@ -1,2 +1,1 @@
-echo 'igpu' > /tmp/gpu-status
 exec /usr/bin/startx

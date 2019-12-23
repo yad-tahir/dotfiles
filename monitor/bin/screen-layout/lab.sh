@@ -17,7 +17,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-xrandr --output eDP-1 --mode 2560x1440 --pos 0x0 --brightness 1
+xrandr --output eDP-1 --mode 2560x1440 --pos 0x0 --brightness 0.5
 xrandr --output DP-1  --mode 1920x1200 --pos 0x0 --brightness 1
 xrandr --output DP-3  --mode 1920x1200 --pos 0x0 --brightness 1
 

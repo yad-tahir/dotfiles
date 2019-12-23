@@ -123,4 +123,9 @@ sudo rm /var/db/repos/drvegeta
 sudo ln -s /home/yad/git/drvegeta-overlay /var/db/repos/drvegeta
 cd ..
 
+
+cd ./acpi
+sudo cp ./system/etc/acpi/* /etc/acpi/
+cd ..
+
 echo "Done."
