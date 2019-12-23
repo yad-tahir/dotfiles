@@ -20,17 +20,18 @@
 
 
 
-tmp=$(insync-headless get_sync_progress | head -n1)
+tmp=$(insync-headless get_sync_progress 2> /dev/null | head -n1)
+status=$(insync-headless get_status 2> /dev/null)
 
-if [ "$tmp" = "No syncing activities" ]; then
+if [ "$tmp" == "No syncing activities" ] && [ "$status" == "SHARE" ]; then
 	echo ""
-elif [ "$tmp" = "Download" ]; then
+elif [ "$tmp" == "Download" ]; then
 	COLOR=$(xrdb -query | awk '/\*color2:/{print $2}')
-	echo "%{F$COLOR} Downloading %{F-}"
-elif [ "$tmp" = "Uploading" ]; then
+	echo "%{F$COLOR} Downloading%{F-}"
+elif [ "$tmp" == "Uploading" ]; then
 	COLOR=$(xrdb -query | awk '/\*color9:/{print $2}')
-	echo "%{F$COLOR} Uploading %{F-}"
+	echo "%{F$COLOR} Uploading%{F-}"
 else
 	COLOR=$(xrdb -query | awk '/\*color11:/{print $2}')
-	echo "%{F$COLOR} $tmp %{F-}"
+	echo "%{F$COLOR} $status%{F-}"
 fi

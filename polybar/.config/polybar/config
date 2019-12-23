@@ -235,14 +235,14 @@ interval = 60
 
 [module/ping]
 type = custom/script
-label =" %output%ms"
-exec = ping 8.8.8.8 -c 3 2> /dev/null | awk '/avg/{split($4,arr,"/"); printf("%3.0f\n",arr[2])}' | awk '$1=$1'
+label =" %output%"
+exec = ping 8.8.8.8 -c 3 2>&1 | awk '/avg/{split($4,arr,"/"); printf("%3.0fms\n",arr[2])};/connect/{print "%{F'$(xrdb -query | awk '/\*color9:/{print $2}')'}NO-PING%{F-}"}' | awk '$1=$1'
 interval = 60
 
 [module/public-ip]
 type = custom/ipc
-format-prefix = "  "
-hook-0 = curl ipinfo.io 2> /dev/null | awk '/country/ {print substr($2,2,2)}' 2> /dev/null
+format-prefix = " "
+hook-0 = curl ipinfo.io 2>&1 | awk '/country/{print " " substr($2,2,2)}/^curl/{print "%{F'$(xrdb -query | awk '/\*color9:/{print $2}')'} NO-NET%{F-}"}'
 initial = 1
 
 [module/music]
