@@ -19,7 +19,7 @@
 
 xrandr --output eDP-1 --off
 xrandr --output DP-3  --mode 3840x2160 --pos 0x0 --rotate left --brightness 1
-xrandr --output DP-1  --mode 3840x1600 --pos 2160x980 --rotate normal --dpi 200 --primary --brightness 1
+xrandr --output DP-1  --mode 3840x1600 --pos 2160x980 --rotate normal --primary --brightness 1
 
 dispwin -d 1 ~/.config/icc-profiles/U3818DW#2-2018-10-20-2347.icc
 dispwin -d 3 ~/.config/icc-profiles/U2718Q#3-2018-10-21-0034.icc
@@ -31,8 +31,8 @@ bspc monitor DP-1  -d 1 2 3 4 5  &> /dev/null
 bspc monitor DP-3  -d 6 7 8 9 10 &> /dev/null
 bspc monitor eDP-1 -r
 
-xrandr --output DP-1  --dpi 200
-xrandr --output DP-3  --dpi 200
+xrandr --output DP-1  --dpi 280
+xrandr --output DP-3  --dpi 280
 
 # Refresh the background
 feh --bg-fill $(ls ${HOME}/pictures/background/* | shuf -n 1) &
