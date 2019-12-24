@@ -1,7 +1,4 @@
-#
-# /etc/bash.bashrc
-#
-
+#!/bin/bash
 # Copyright (C) 2019
 
 # This program is free software; you can redistribute it and/or
@@ -19,20 +16,12 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-. ~/.profile
+cd `dirname $0`
+echo "* Execute ${PWD}/`basename $0`"
+. ../utils.sh
 
-# if not running interactively, don't do anything
-[[ $- != *i* ]] && return
+TARGET=${HOME}/.config/systemd/user
+do-ln-sync "${PWD}/local/systemd/user/sxhkd@.service" "${TARGET}/sxhkd@.service"
 
-# double check window size
-[[ $DISPLAY ]] && shopt -s checkwinsize
 
-# start bash completion
-[ -r /usr/share/bash-completion/bash_completion ] &&
-	. /usr/share/bash-completion/bash_completion
-
-systemctl list-units -t service --failed --quiet --no-pager
-
-echo ''
-
-source $HOME/dotfiles/shell/command-prompt
+do-ln-sync "${PWD}/local/config" "${HOME}/.config"

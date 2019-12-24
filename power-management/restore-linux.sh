@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Copyright (C) 2019
 
 # This program is free software; you can redistribute it and/or
@@ -17,16 +16,18 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-# Firefox calls this script to open a local directory
+cd `dirname $0`
+echo "* Execute ${PWD}/`basename $0`"
+. ../utils.sh
 
-path=$1
+arr=( "/usr/bin"
+	  "/etc/acpi"
+	  "/etc/tmpfiles.d"
+	  "/etc/udev/rules.d" )
 
-prefix="${path:0:7}"
-
-#Remove the 'file://' prefix if exists
-if [ $prefix == "file://" ]; then
-	path="${path#?????}"
-fi
-
-# Open Dired mode
-emacsclient -n "$path"
+for i in "${arr[@]}"
+do
+	TARGET=$i
+	SOURCE=${PWD}/system${TARGET}
+	do-sync-sudo "$SOURCE" "${TARGET}"
+done

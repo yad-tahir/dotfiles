@@ -1,4 +1,6 @@
-#!/bin/sh
+#
+# /etc/bash.bashrc
+#
 
 # Copyright (C) 2019
 
@@ -17,32 +19,20 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-DIR="$HOME/dotfiles"
-cd $DIR
+. ~/.profile
 
-mkdir ${HOME}/bin 2> /dev/null
+# if not running interactively, don't do anything
+[[ $- != *i* ]] && return
 
-./acpi/restore-linux.sh
-./bspwm/restore-linux.sh
-./emacs/restore-linux.sh
-./dmenu/restore-linux.sh
-./firewall/restore-linux.sh
-./git/restore-linux.sh
-./igpu/restore-linux.sh
-./monitor/restore-linux.sh
-./mpd/restore-linux.sh
-./network-manager/restore-linux.sh
-./nvidia/restore-linux.sh
-# ./pacman/restore-linux.sh
-./polybar/restore-linux.sh
-./portage/restore-linux.sh
-./power-management/restore-linux.sh
-./scripts/restore-linux.sh
-./shell/restore-linux.sh
-./sxhkb/restore-linux.sh
-./urxvt/restore-linux.sh
-./x11/restore-linux.sh
-./zathura/restore-linux.sh
-./zfs/restore-linux.sh
+# double check window size
+[[ $DISPLAY ]] && shopt -s checkwinsize
 
-echo "Done."
+# start bash completion
+[ -r /usr/share/bash-completion/bash_completion ] &&
+	. /usr/share/bash-completion/bash_completion
+
+systemctl list-units -t service --failed --quiet --no-pager
+
+echo ''
+
+source $HOME/dotfiles/shell/other/command-prompt
