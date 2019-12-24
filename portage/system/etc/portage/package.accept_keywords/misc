@@ -1,4 +1,5 @@
 # WM
+x11-misc/lemonbar ~amd64
 x11-wm/bspwm
 x11-misc/sxhkd
 =x11-misc/polybar-9999 **

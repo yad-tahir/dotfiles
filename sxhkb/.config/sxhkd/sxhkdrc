@@ -19,6 +19,8 @@
 ##
 ## General keybindings
 ##
+@Caps_Lock
+	~/.config/lemon-bar/blocks/caps.sh > /dev/null
 
 alt + space
 	~/bin/toggle-keyboard-layout.sh
