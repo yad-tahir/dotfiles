@@ -1,6 +1,6 @@
 # @xvfb is needed by firefox
 # @suid allows to run xorg-server under root!
-x11-base/xorg-server xvfb -suid -ipv6 libglvnd
+x11-base/xorg-server xvfb libglvnd -suid -ipv6
 x11-base/xorg-drivers video_cards_nvidia
 x11-libs/gtk+ cups
 

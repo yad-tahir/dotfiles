@@ -7,6 +7,7 @@ app-backup/znapzend
 app-editors/emacs
 app-editors/nano
 app-misc/figlet
+app-misc/neofetch
 app-office/libreoffice
 app-portage/eix
 app-portage/gentoolkit
@@ -56,6 +57,7 @@ sys-process/glances
 sys-process/htop
 www-client/firefox
 www-client/firefox-bin
+x11-apps/mesa-progs
 x11-apps/setxkbmap
 x11-apps/xev
 x11-apps/xinput

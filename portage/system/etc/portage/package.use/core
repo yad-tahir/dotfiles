@@ -1,4 +1,4 @@
-sys-kernel/gentoo-sources ~amd64
+sys-kernel/gentoo-sources
 sys-kernel/genkernel cryptsetup
 sys-fs/zfs rootfs
 sys-apps/systemd elfutils -gcrypt # Remove @gcrypt as the disk it is already fully encrypted

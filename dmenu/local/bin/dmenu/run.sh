@@ -30,7 +30,7 @@ FONT=$(xrdb -query | awk '/\Panel.font1:/{$1="";print $0}')
 run=$(
 		IFS='|'
 		# Add custom commends to the demnu
-		prefix_commands="steam-local|emacs|firefox-no-vpn-local|firefox-vpn"
+		prefix_commands="steam-local|emacs|firefox-no-vpn-local|firefox-vpn-local"
 		echo_string=
 		filter_string=
 
