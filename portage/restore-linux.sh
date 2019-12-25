@@ -48,5 +48,11 @@ do
 	do-ln-sync-sudo "$SOURCE" "$TARGET"
 done
 
+OVERLAY_LOCATION="/home/yad/git/drvegeta-overlay"
+if [ ! -e $OVERLAY_LOCATION ]; then
+	echo "-> Download drvegeta portage overlay"
+	mkdir -p "$OVERLAY_LOCATION"
+	git clone git@github.com:yad-tahir/gentoo-overlay.git "$OVERLAY_LOCATION"
+fi
 sudo rm "/var/db/repos/drvegeta"
-sudo ln -s "/home/yad/git/drvegeta-overlay" "/var/db/repos/drvegeta"
+sudo ln -s "$OVERLAY_LOCATION" "/var/db/repos/drvegeta"
