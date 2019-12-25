@@ -1,4 +1,4 @@
-#!/bin/bash
+#/bin/sh
 # Copyright (C) 2019
 
 # This program is free software; you can redistribute it and/or
@@ -16,12 +16,12 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-cd `dirname $0`
-echo "* Execute ${PWD}/`basename $0`"
-. ../utils.sh
-
-TARGET=${HOME}
-rm ${TARGET}/.emacs.d 2> /dev/null
-ln -s ${PWD}/local/emacs.d ${TARGET}/.emacs.d
-
-do-ln-sync "$PWD/local/alias.d" "$HOME/.config/alias.d"
+alias nv="sudo -u yad -g no-vpn"
+alias nV="sudo -u root -g no-vpn"
+alias vpn-udp-stop='sudo systemctl stop openvpn-client@personal-udp.service'
+alias vpn-udp-start='sudo systemctl restart openvpn-client@personal-udp.service'
+alias vpn-tcp-stop='sudo systemctl stop openvpn-client@personal-tcp.service'
+alias vpn-tcp-start='sudo systemctl restart openvpn-client@personal-tcp.service'
+alias vpn-start='vpn-udp-start'
+alias vpn-stop='vpn-udp-stop'
+alias vpn-restart='vpn-udp-stop && sleep 1 && vpn-udp-start'

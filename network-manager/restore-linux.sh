@@ -29,3 +29,5 @@ do
 	SOURCE=${PWD}/system${TARGET}
 	do-sync-sudo "$SOURCE" "$TARGET"
 done
+
+do-ln-sync "$PWD/local/alias.d" "$HOME/.config/alias.d"

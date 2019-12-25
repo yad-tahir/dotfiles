@@ -25,29 +25,7 @@
 
 stty -ixon # Disable ctrl-s and ctrl-q
 
-# Shortcut commands
-alias ls='ls -alih'
-alias s="sudo su"
-alias e="emacs"
-alias ec="emacsclient -cn"
-alias pacman-history="expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -n 100"
-alias pacman-unused='pacman -Qtdq'
-alias nv="sudo -u yad -g no-vpn"
-alias nV="sudo -u root -g no-vpn"
-alias vpn-udp-stop='sudo systemctl stop openvpn-client@personal-udp.service'
-alias vpn-udp-start='sudo systemctl restart openvpn-client@personal-udp.service'
-alias vpn-tcp-stop='sudo systemctl stop openvpn-client@personal-tcp.service'
-alias vpn-tcp-start='sudo systemctl restart openvpn-client@personal-tcp.service'
-alias vpn-start='vpn-udp-start'
-alias vpn-stop='vpn-udp-stop'
-alias vpn-restart='vpn-udp-stop && sleep 1 && vpn-udp-start'
-alias nm-stop='nmcli r wifi off'
-alias nm-start='nmcli r wifi on'
-alias nm-restart='nmcli r wifi off && sleep 1 && nmcli r wifi on'
-# Make bc more accurate
-alias bc='bc --mathlib'
-# Common typos
-alias cleaor='clear'
+source $HOME/dotfiles/shell/other/aliases.sh
 
 # Other variables
 source ~/bin/settings.sh

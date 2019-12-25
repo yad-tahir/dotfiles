@@ -27,6 +27,7 @@ mkdir ${HOME}/bin 2> /dev/null
 ./emacs/restore-linux.sh
 ./dmenu/restore-linux.sh
 ./firewall/restore-linux.sh
+./gdrive/restore-linux.sh
 ./git/restore-linux.sh
 ./igpu/restore-linux.sh
 ./monitor/restore-linux.sh
@@ -41,6 +42,7 @@ mkdir ${HOME}/bin 2> /dev/null
 ./shell/restore-linux.sh
 ./sxhkb/restore-linux.sh
 ./urxvt/restore-linux.sh
+./vpn/restore-linux.sh
 ./x11/restore-linux.sh
 ./zathura/restore-linux.sh
 ./zfs/restore-linux.sh

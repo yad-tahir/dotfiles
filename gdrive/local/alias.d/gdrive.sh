@@ -1,4 +1,4 @@
-#!/bin/bash
+#/bin/sh
 # Copyright (C) 2019
 
 # This program is free software; you can redistribute it and/or
@@ -16,12 +16,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-cd `dirname $0`
-echo "* Execute ${PWD}/`basename $0`"
-. ../utils.sh
-
-TARGET=${HOME}
-rm ${TARGET}/.emacs.d 2> /dev/null
-ln -s ${PWD}/local/emacs.d ${TARGET}/.emacs.d
-
-do-ln-sync "$PWD/local/alias.d" "$HOME/.config/alias.d"
+alias insync-progress="insync-headless get_sync_progress"
+alias insync-status="insync-headless get_status"
+alias insync-error="insync-headless get_errors"

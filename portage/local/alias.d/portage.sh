@@ -1,4 +1,4 @@
-#!/bin/bash
+#/bin/sh
 # Copyright (C) 2019
 
 # This program is free software; you can redistribute it and/or
@@ -16,12 +16,27 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-cd `dirname $0`
-echo "* Execute ${PWD}/`basename $0`"
-. ../utils.sh
-
-TARGET=${HOME}
-rm ${TARGET}/.emacs.d 2> /dev/null
-ln -s ${PWD}/local/emacs.d ${TARGET}/.emacs.d
-
-do-ln-sync "$PWD/local/alias.d" "$HOME/.config/alias.d"
+alias emerge-sync='sudo emerge --sync && sudo eix-update'
+alias emerge-update='sudo emerge --update --deep --with-bdeps\=y @world'
+alias emerge-remove='sudo emerge --depclean $@'
+alias emerge-install='sudo emerge $@'
+alias emerge-list='qlist -I'
+alias emerge-has='equery hasuse $@'
+alias emerge-dep='equery depends $@'
+alias emerge-req='equery depgraph $@'
+alias emerge-files='equery files $@'
+alias emerge-belong='equery belongs $@'
+alias emerge-time='sudo qlop $@'
+emerge-info () {
+	echo 'Defination:'
+	equery which $@ 2> /dev/null
+	echo ''
+	equery m $@ 2> /dev/null
+	echo ''
+	eix -e $@ 2> /dev/null
+	echo ''
+	equery uses $@ 2> /dev/null
+	echo ''
+	echo 'Size:'
+	equery size $@ 2> /dev/null || echo "Not installed"
+}

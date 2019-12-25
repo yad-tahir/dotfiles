@@ -20,8 +20,4 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
-TARGET=${HOME}
-rm ${TARGET}/.emacs.d 2> /dev/null
-ln -s ${PWD}/local/emacs.d ${TARGET}/.emacs.d
-
 do-ln-sync "$PWD/local/alias.d" "$HOME/.config/alias.d"

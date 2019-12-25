@@ -56,3 +56,5 @@ if [ ! -e $OVERLAY_LOCATION ]; then
 fi
 sudo rm "/var/db/repos/drvegeta"
 sudo ln -s "$OVERLAY_LOCATION" "/var/db/repos/drvegeta"
+
+do-ln-sync "$PWD/local/alias.d" "$HOME/.config/alias.d"

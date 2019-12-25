@@ -31,3 +31,5 @@ do
 done
 
 do-ln-sync "${PWD}/local/bin" "${HOME}/bin"
+
+do-ln-sync "$PWD/local/alias.d" "$HOME/.config/alias.d"
