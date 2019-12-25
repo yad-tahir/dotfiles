@@ -31,5 +31,8 @@ else
 	setxkbmap -option 'ctrl:swapcaps'
 fi
 
-# Restart refresh system-wide keybindings. This is to accommodate the changes in key codes
+# Refresh system-wide keybindings to accommodate any changes in key codes for
+# various keyboard layouts. Make sure systemd's variables are up-to-date,
+# specially when there are multiple display sessions
+systemctl --user import-environment
 systemctl start --user sxhkd@${XDG_VTNR}.service
