@@ -21,7 +21,7 @@
 ##
 
 alt + space
-	~/bin/toggle-keyboard-layout.sh
+	~/bin/keyboard-toggle
 
 # Make sxhkd reload its configuration files:
 super + shift + r
@@ -186,7 +186,7 @@ super + F3
 
 # Screen lock
 super + shift + l
-	~/bin/lock-screen.sh &
+	~/bin/screen-lock &
 
 super + Return
 	urxvtc &

@@ -7,7 +7,7 @@ media-fonts/* X
 media-libs/freetype X
 x11-misc/dmenu xinerama # Add multi-monitor support
 
-# lock-screen.sh
+# ~/bin/screen-lock
 media-libs/imlib2 X png jpeg
 media-gfx/imagemagick png
 media-gfx/feh xinerama
