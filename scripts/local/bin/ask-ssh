@@ -1,5 +1,4 @@
-#!/bin/bash
-
+#!/bin/sh
 # Copyright (C) 2019
 
 # This program is free software; you can redistribute it and/or
@@ -17,31 +16,4 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-USER=yad
-
-# General
-export EDITOR="emacsclient -c"
-export VISUAL="emacsclient -c"
-export ALTERNATE_EDITOR="nano"
-export TERMINAL="urxvtc"
-export BROWSER="firefox-developer-edition"
-export JAVA_HOME="/usr/lib/jvm/default"
-
-# mpd
-export MPD_HOST="localhost"
-export MPD_PORT="6600"
-
-# gpg & ssh
-export GNUPGHOME=/home/${USER}/.config/gpg
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-
-# Pass
-export PASSWORD_STORE_DIR=$HOME/documents/shadows
-export PASSWORD_STORE_SIGNING_KEY=$(cat $GNUPGHOME/usage/pass.sign.key)
-export PASSWORD_STORE_GENERATED_LENGTH=25
-
-# Terminal
-export RXVT_SOCKET=/run/user/1000/urxvtd-pipeline
-
-# GUI-based sudo
-export SUDO_ASKPASS="/home/${USER}/bin/ask-ssh"
+exec /usr/bin/zenity --password

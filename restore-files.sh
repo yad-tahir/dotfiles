@@ -43,6 +43,7 @@ mkdir ${HOME}/bin 2> /dev/null
 ./shell/restore-linux.sh
 ./sxhkb/restore-linux.sh
 ./urxvt/restore-linux.sh
+./vm/restore-linux.sh
 ./vpn/restore-linux.sh
 ./x11/restore-linux.sh
 ./zathura/restore-linux.sh

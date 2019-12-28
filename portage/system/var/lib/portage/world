@@ -6,6 +6,9 @@ app-backup/insync
 app-backup/znapzend
 app-editors/emacs
 app-editors/nano
+app-emulation/libvirt
+app-emulation/qemu
+app-emulation/virt-manager
 app-misc/figlet
 app-misc/neofetch
 app-office/libreoffice

@@ -30,6 +30,7 @@ FONT=$(xrdb -query | awk '/\Panel.font1:/{$1="";print $0}')
 run=$(
 	# Add custom commends to the demnu
 	extra_commands=( "steam-local"
+					 "vm-manager-local"
 					 "emacs"
 					 "firefox" )
 	echo_string=

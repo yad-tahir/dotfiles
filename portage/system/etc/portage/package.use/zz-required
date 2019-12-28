@@ -2,10 +2,11 @@
 #### Requested USE flags
 ####
 
-# i3
+# General
 x11-libs/cairo xcb X
 x11-libs/libxcb xkb
 >=x11-libs/pango-1.30.0 X
+>=x11-libs/libxkbcommon-0.9.1 X
 
 # firefox
 >=sys-devel/llvm-8.0.1 gold
@@ -214,5 +215,10 @@ dev-lang/python sqlite
 # required by app-text/texlive (argument)
 >=app-text/texlive-core-2019-r4 xetex
 
-
 # Misc
+# required by app-emulation/virt-manager-2.2.1::gentoo[gtk]
+# required by virt-manager (argument)
+>=net-misc/spice-gtk-0.35 usbredir
+# required by app-emulation/libvirt-5.5.0-r1::gentoo[virt-network]
+# required by app-emulation/libvirt (argument)
+>=net-dns/dnsmasq-2.80-r1 script
