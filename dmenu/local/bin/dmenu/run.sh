@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Copyright (C) 2019
 
@@ -28,34 +28,31 @@ FONT=$(xrdb -query | awk '/\Panel.font1:/{$1="";print $0}')
 
 
 run=$(
-		IFS='|'
-		# Add custom commends to the demnu
-		prefix_commands="steam-local|emacs|firefox-no-vpn-local|firefox-vpn-local"
-		echo_string=
-		filter_string=
+	# Add custom commends to the demnu
+	extra_commands=( "steam-local"
+					 "emacs"
+					 "firefox" )
+	echo_string=
+	for i in "${extra_commands[@]}"; do
+		echo_string="${i}\\n${echo_string}"
+	done
+	# Create an regex to delete the extra commands from other result list
+	filter=$(echo "$echo_string" | sed -e 's/\\n/|/g')
+	filter=${filter::-1}
 
-		for i in $prefix_commands; do
-			echo_string="${i}\\n${echo_string}"
-			filter_string="${i}\$|${filter_string}"
-		done
-		# Delete the last character
-		filter_string=$(awk -v VAL="$filter_string" \
-						'BEGIN {print substr(VAL,0,length(VAL)-1)}')
-		IFS=:
-		{ echo -e "${echo_string}";
-		  stest -flx $PATH |
-			  awk "!/${filter_string}/" |
-			  sort -u | uniq ; } |
-			dmenu -i -f\
-				  -nb "$COLOR_BG" \
-				  -nf "$COLOR_FG" \
-				  -sb "$COLOR_MAIN" \
-				  -sf "$COLOR_BG" \
-				  -fn "${FONT}" \
-				  -l 0 -p "App" "$@"
+	echo_string="${echo_string}"$(IFS=: ; stest -flx $PATH |
+									  awk "!/^$filter/" |
+									  sort -u |
+									  uniq)
+
+	echo -e "${echo_string}"| dmenu -i -f\
+									-nb "$COLOR_BG" \
+									-nf "$COLOR_FG" \
+									-sb "$COLOR_MAIN" \
+									-sf "$COLOR_BG" \
+									-fn "${FONT}" \
+									-l 0 -p "App" "$@"
    )
-
-
 
 #Run the selected command
 case "$run" in
