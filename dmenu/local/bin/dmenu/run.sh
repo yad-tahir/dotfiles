@@ -29,8 +29,8 @@ FONT=$(xrdb -query | awk '/\Panel.font1:/{$1="";print $0}')
 
 run=$(
 	# Add custom commends to the demnu
-	extra_commands=( "steam-local"
-					 "vm-manager-local"
+	extra_commands=( "steam~"
+					 "vm-manager~"
 					 "emacs"
 					 "firefox" )
 	echo_string=
@@ -61,8 +61,8 @@ case "$run" in
 	*!)
 		exec $(echo "$TERMINAL -hold -e $run" | sed -e 's/!$//') &
 		;;
-	*local)
-		exec $(echo "$HOME/bin/$run" | sed 's/-local//') &
+	*~)
+		exec $(echo "$HOME/bin/$run" | sed 's/~//') &
 		;;
 	*?*)
 		# Run the local version first, if it is failed then switch to the system one.
