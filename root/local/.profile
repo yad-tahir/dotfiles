@@ -25,4 +25,6 @@
 
 stty -ixon # Disable ctrl-s and ctrl-q
 
+. /etc/profile
+
 source $HOME/bin/command-prompt.sh

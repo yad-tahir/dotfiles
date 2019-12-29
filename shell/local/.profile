@@ -23,6 +23,8 @@
 # desktop session as well as by the login shell when one logs in from
 # the textual console
 
+. /etc/profile
+
 stty -ixon # Disable ctrl-s and ctrl-q
 
 source $HOME/dotfiles/shell/other/aliases.sh
