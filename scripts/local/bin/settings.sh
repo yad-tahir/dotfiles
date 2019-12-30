@@ -24,7 +24,7 @@ export EDITOR="emacsclient -c"
 export VISUAL="emacsclient -c"
 export ALTERNATE_EDITOR="nano"
 export TERMINAL="urxvtc"
-export BROWSER="firefox-developer-edition"
+export BROWSER="firefox"
 export JAVA_HOME="/usr/lib/jvm/default"
 
 # mpd

@@ -17,9 +17,11 @@
 # 02110-1301, USA.
 
 alias emerge-sync='sudo emerge --sync && sudo eix-update'
-alias emerge-update='sudo emerge --update --deep --with-bdeps\=y @world'
-alias emerge-remove='sudo emerge --depclean $@'
+alias emerge-update='sudo emerge --update --deep --keep-going --with-bdeps\=y $@'
 alias emerge-install='sudo emerge $@'
+alias emerge-remove='sudo emerge --depclean $@'
+alias emerge-remove-force='sudo emerge --unmerge $@'
+alias emerge-clean='sudo emerge --depclean'
 alias emerge-list='qlist -I'
 alias emerge-has='equery hasuse $@'
 alias emerge-dep='equery depends $@'
@@ -27,10 +29,8 @@ alias emerge-req='equery depgraph $@'
 alias emerge-files='equery files $@'
 alias emerge-belong='equery belongs $@'
 alias emerge-time='sudo qlop $@'
+alias emerge-log='sudo elogv'
 emerge-info () {
-	echo 'Defination:'
-	equery which $@ 2> /dev/null
-	echo ''
 	equery m $@ 2> /dev/null
 	echo ''
 	eix -e $@ 2> /dev/null
@@ -39,4 +39,10 @@ emerge-info () {
 	echo ''
 	echo 'Size:'
 	equery size $@ 2> /dev/null || echo "Not installed"
+}
+emerge-reinstall () {
+	sudo emerge --unmerge $@
+	sudo emerge -1 $@
+	# Ask whether add it to @world or not
+	sudo emerge $@
 }

@@ -10,9 +10,9 @@ app-emulation/libvirt
 app-emulation/qemu
 app-emulation/virt-manager
 app-misc/figlet
-app-misc/neofetch
 app-office/libreoffice
 app-portage/eix
+app-portage/elogv
 app-portage/gentoolkit
 app-portage/layman
 app-portage/repoman
@@ -59,7 +59,6 @@ sys-power/powertop
 sys-process/glances
 sys-process/htop
 www-client/firefox
-www-client/firefox-bin
 x11-apps/mesa-progs
 x11-apps/setxkbmap
 x11-apps/xev

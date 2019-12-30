@@ -27,9 +27,11 @@ dev-lang/python sqlite
 # required by file-roller (argument)
 >=dev-libs/libxml2-2.9.9-r1 python
 
-## required by x11-drivers/nvidia-drivers-440.36-r1::gentoo[tools]
+# Graphic
+# required by x11-drivers/nvidia-drivers-440.36-r1::gentoo[tools]
 # required by nvidia-drivers (argument)
 >=x11-libs/gdk-pixbuf-2.38.1-r1 X
+x11-libs/libdrm video_cards_intel
 
 #
 # Steam and 32-bit games
