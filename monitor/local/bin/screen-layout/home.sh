@@ -27,8 +27,8 @@ dispwin -d 3 ~/.config/icc-profiles/U2718Q#3-2018-10-21-0034.icc
 # Set the workspaces
 bspc query -D -m eDP-1 | xargs -n 1 -I % bspc desktop % --to-monitor DP-1
 bspc query -D -m DP-3 | xargs -n 1 -I % bspc desktop % --to-monitor DP-1
-bspc monitor DP-1  -d 1 2 3 4 5  &> /dev/null
-bspc monitor DP-3  -d 6 7 8 9 10 &> /dev/null
+bspc monitor DP-1  -d 1 2 3 4 5 6 &> /dev/null
+bspc monitor DP-3  -d 7 8 9 10 &> /dev/null
 bspc monitor eDP-1 -r
 
 xrandr --output DP-1  --dpi 280
