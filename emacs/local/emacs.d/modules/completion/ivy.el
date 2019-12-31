@@ -96,7 +96,7 @@
   (set-face-attribute 'ivy-current-match nil
 					  :inherit nil
 					  :background chocolate-theme-bg
-					  :foreground chocolate-theme-element+4)
+					  :foreground chocolate-theme-highlight+2)
   (set-face-attribute 'ivy-minibuffer-match-face-1 nil
 					  :inherit nil
 					  :background chocolate-theme-bg
