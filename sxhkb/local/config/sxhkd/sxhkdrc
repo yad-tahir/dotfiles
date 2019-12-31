@@ -20,10 +20,7 @@
 ## General keybindings
 ##
 
-alt + space
-	~/bin/keyboard-toggle
-
-# Make sxhkd reload its configuration files:
+# Reload sxhkd's configuration file
 super + shift + r
 	pkill -USR1 -x sxhkd
 
@@ -31,15 +28,21 @@ super + shift + r
 super + {_,shift +}q
 	bspc node -{c,k}
 
+# Close and kill marked nodes
+super + ctrl + {_,shift +}q
+	bspc query -N -n .marked | xargs -n 1 -I % bspc node % -{c,k}
+
 # Swap
 super + s
 	bspc node newest.focused.local -s biggest.local
 
+# Swap with the last marked node, then remove the mark
 super + shift + s
-	bspc node any.marked -s newest.focused.local
+	bspc node last.marked -s focused.local; bspc node last.marked -f; bspc node focused.marked -g marked
 
-super + control + s
-	bspc node last -s newest.focused.local
+# Swap with the last marked node
+super + ctrl + s
+	bspc node last.marked -s focused.local; bspc node last.marked -f
 
 # Balance the selected nodes.
 super + equal
@@ -59,13 +62,16 @@ super {_,shift +} v
 super + shift + {1-9,0}
 	bspc  node -d '{1-9,10}' --follow
 
+# Send marked nodes to a desktop
+super + ctrl + {1-9,0}
+	bspc query -N -n .marked | xargs -n 1 -I % bspc node % -d '{1-9,10}'
 
 ##
 ## State/flags
 ##
 
 # Toggle between various display modes
-super + shift + f
+super + Return
 	{bspc config top_padding 0, bspc desktop -l monocle, bspc  desktop -l tiled; bspc config top_padding 35}
 
 # Toggle the floating mode
@@ -91,18 +97,19 @@ super + {_,shift + }Tab
 	bspc node -f {next,prev}.local
 
 super + quoteright
-	bspc node -f any.marked
+	bspc node -f next.marked
 
-# Focus desktop
+super + shift + quoteright
+	bspc node -f next.!marked
+
+super + ctrl + quoteright
+	bspc query -N -n .marked | xargs -n 1 -I % bspc node % -g marked
+
 super + {1-9,0}
 	bspc desktop -f '{1-9,10}'
 
 super + bracket{left,right}
 	bspc desktop -f {prev,next}.local
-
-super + comma
-	bspc desktop -f last
-
 
 ##
 ## Preselect
@@ -117,7 +124,7 @@ super + shift + minus
 	bspc node -p cancel
 
 # Preselect the ratio.
-super + ctrl + {1-9}
+super + alt + {1-9}
 	bspc node -o 0.{1-9}
 
 
@@ -168,34 +175,34 @@ F12
 	xrandr --output eDP-1 --brightness {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1}
 
 # Dmenu
-super + shift + m
-	~/bin/dmenu/monitor.sh
-
 super + g
 	~/bin/dmenu/run.sh
 
-super + shift + g
+super + e
 	~/bin/dmenu/emacs.sh
 
-super + shift + p
+super + p
 	~/bin/dmenu/pass.sh
+
+super + u
+	~/bin/dmenu/monitor.sh
 
 # Screenshot
 super + F3
 	scrot &
 
-# Screen lock
-super + shift + l
-	~/bin/screen-lock &
-
-super + Return
-	urxvtc &
-
+# Terminal
 super + Escape
 	urxvtc &
 
-super + p
-	{killall polybar; bspc config top_padding 0, bspc config top_padding "$(xrdb -query | awk '/\Panel.height:/\{print $2\}')"; bspc query -M --names | xargs -I % -n 1 sh -c 'MONITOR=% polybar orange &'} &
+# Screen lock
+super + shift + Escape
+	~/bin/screen-lock &
 
+# Bar
 Print
 	{killall polybar; bspc config top_padding 0, bspc config top_padding "$(xrdb -query | awk '/\Panel.height:/\{print $2\}')"; bspc query -M --names | xargs -I % -n 1 sh -c 'MONITOR=% polybar orange &'} &
+
+# Dvorak or Qwerty
+alt + space
+	~/bin/keyboard-toggle
