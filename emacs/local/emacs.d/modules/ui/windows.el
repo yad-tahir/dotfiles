@@ -42,7 +42,7 @@
 
 (general-define-key
  :keymaps 'override
- :prefix "SPC f"
+ :prefix "SPC wf"
  :states '(normal visual)
  "" '(:ignore t :which-key "frame")
  "n" 'do-new-frame

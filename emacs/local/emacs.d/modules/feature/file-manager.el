@@ -27,8 +27,9 @@
   (general-define-key
    :keymaps 'override
    :states '(normal visual)
-   "SPC gf" #'find-file
-   "SPC gF" #'dired)
+   "SPC f" 'find-file
+   "SPC F" 'dired
+   "SPC m" 'bookmark-set)
 
   (defun do-file-manager (&optional path)
 	(interactive)
@@ -91,6 +92,7 @@ separate frame."
 		wdired-create-parent-directories t
 		wdired-allow-to-redirect-links t
 		dired-auto-revert-buffer t
+		dired-listing-switches "-alih"
 		dired-no-confirm t)
 
   (general-define-key
@@ -113,9 +115,9 @@ separate frame."
    ;; Navigation
    "t" 'dired-next-line
    "c" 'dired-previous-line
-   "<return>" 'do-dired-find-file
-   "<S-return>" 'dired-find-file-other-window
-   "DEL" 'do-dired-up-directory
+   "<return>" 'dired-find-file
+   "<M-return>" 'dired-find-file-other-window
+   "DEL" 'dired-up-directory
    "{" 'dired-prev-dirline
    "}" 'dired-next-dirline
    "<" 'dired-prev-dirline
@@ -133,14 +135,14 @@ separate frame."
    "SPC l/f" 'find-grep-dired
    "SPC l/g" 'dired-do-find-regexp
    "SPC l/r" 'dired-do-find-regexp-and-replace
+   "SPC l/*" 'dired-do-find-regexp
 
    ;; Mark
    "m" 'dired-mark
    "u" 'dired-unmark
-   "U" 'dired-unmark-all-marks
 
    "SPC l*" 'nil
-   "SPC l**" 'dired-mark-executables
+   "SPC l*x" 'dired-mark-executables
    "SPC l*d" 'dired-mark-directories
    "SPC l*@" 'dired-mark-symlinks
    "SPC l*f" 'dired-mark-files-regexp
@@ -149,10 +151,11 @@ separate frame."
    "SPC l*!" 'dired-unmark-all-marks
    "SPC l*t" 'dired-toggle-marks
    "SPC l*g" 'dired-mark-files-containing-regexp
-   "SPC l*G" 'dired-do-find-regexp
    "SPC l*~" 'dired-flag-garbage-files
    "SPC l*o" 'do-dired-find-marked-files
    "SPC l*O" 'do-dired-find-marked-files-noframe
+   "SPC l* <return>" 'do-dired-find-marked-files
+   "SPC l* <M-return>" 'do-dired-find-marked-files
 
    ;; Operations
    "SPC ls" 'dired-sort-toggle-or-edit
@@ -166,7 +169,8 @@ separate frame."
    "a" 'dired-toggle-read-only
    "A" 'dired-toggle-read-only
    "i" 'dired-toggle-read-only
-   "I" 'dired-toggle-read-only)
+   "I" 'dired-toggle-read-only
+   "U" 'dired-toggle-read-only)
 
   (general-define-key
    :keymaps 'dired-mode-map
@@ -175,7 +179,6 @@ separate frame."
    "D" 'dired-do-delete
    "M" 'dired-do-rename
    "L" 'dired-do-symlink
-   "O" 'dired-do-chown
    "!" 'dired-do-shell-command
    "&" 'dired-do-async-shell-command
 
@@ -184,23 +187,26 @@ separate frame."
    "SPC lm" 'dired-do-rename
    "SPC ll" 'dired-do-symlink
    "SPC lL" 'dired-do-hardlink
-   "SPC lO" 'dired-do-chown
+   "SPC lo" 'dired-do-chown
+   "SPC lO" 'dired-do-chgrp
+   "SPC lx" 'dired-do-chmod
    "SPC l!" 'dired-do-shell-command
    "SPC l&" 'dired-do-async-shell-command
-   "SPC lz" 'dired-do-compress
-   "SPC lZ" 'dired-do-compress-to
+   "SPC lz" 'dired-do-compress-to
+   "SPC lZ" 'dired-do-compress
    "SPC lt" 'dired-do-touch)
 
 
   (defmacro do--dired-visual-marking (func)
 	"Marks the selected region before executing FUNC."
 
-	`(call-interactively (quote dired-mark))
+	(call-interactively (quote dired-mark))
 	`(call-interactively (quote ,func)))
 
   (general-define-key
    :keymaps 'dired-mode-map
    :states 'visual
+   "m" 'dired-mark
    "Y" '(lambda ()(interactive)(do--dired-visual-marking dired-do-copy))
    "D" '(lambda ()(interactive)(do--dired-visual-marking dired-do-delete))
    "M" '(lambda ()(interactive)(do--dired-visual-marking dired-do-rename))
@@ -214,11 +220,13 @@ separate frame."
    "SPC lm" '(lambda ()(interactive)(do--dired-visual-marking dired-do-rename))
    "SPC ll" '(lambda ()(interactive)(do--dired-visual-marking dired-do-symlink))
    "SPC lL" '(lambda ()(interactive)(do--dired-visual-marking dired-do-hardlink))
-   "SPC lO" '(lambda ()(interactive)(do--dired-visual-marking dired-do-chown))
+   "SPC lo" '(lambda ()(interactive)(do--dired-visual-marking dired-do-chown))
+   "SPC lO" '(lambda ()(interactive)(do--dired-visual-marking dired-do-chgrp))
+   "SPC lx" '(lambda ()(interactive)(do--dired-visual-marking dired-do-chmod))
    "SPC l!" '(lambda ()(interactive)(do--dired-visual-marking dired-do-shell-command))
    "SPC l&" '(lambda ()(interactive)(do--dired-visual-marking dired-do-async-shell-command))
-   "SPC lz" '(lambda ()(interactive)(do--dired-visual-marking dired-do-compress))
-   "SPC lZ" '(lambda ()(interactive)(do--dired-visual-marking dired-do-compress-to))
+   "SPC lz" '(lambda ()(interactive)(do--dired-visual-marking dired-do-compress-to))
+   "SPC lZ" '(lambda ()(interactive)(do--dired-visual-marking dired-do-compress))
    "SPC lt" '(lambda ()(interactive)(do--dired-visual-marking dired-do-touch))))
 
 (use-package dired-open
@@ -231,7 +239,7 @@ separate frame."
    "<C-return>" 'dired-open-xdg))
 
 (use-package dired-ranger
-  :disabled t
+  ;; :disabled t
   :ensure t
   :after (dired)
   :config
@@ -240,10 +248,27 @@ separate frame."
    :states 'normal
    "Y" 'dired-ranger-copy
    "M" 'dired-ranger-move
-   "P" 'dired-ranger-paste))
+   "P" 'dired-ranger-paste
+   "SPC ly" 'dired-ranger-copy
+   "SPC lm" 'dired-ranger-move
+   "SPC lp" 'dired-ranger-paste
+   "SPC lY" 'dired-do-copy
+   "SPC lM" 'dired-do-rename)
+
+  (general-define-key
+   :keymaps 'dired-mode-map
+   :states 'visual
+   "Y" '(lambda () (interactive) (do--dired-visual-marking dired-ranger-copy))
+   "M" '(lambda () (interactive) (do--dired-visual-marking dired-ranger-move))
+   "P" '(lambda () (interactive) (do--dired-visual-marking dired-ranger-paste))
+   "SPC ly" '(lambda () (interactive) (do--dired-visual-marking dired-ranger-copy))
+   "SPC lm" '(lambda () (interactive) (do--dired-visual-marking dired-ranger-move))
+   "SPC lp" '(lambda () (interactive) (do--dired-visual-marking dired-ranger-paste))
+   "SPC lY" '(lambda () (interactive) (do--dired-visual-marking dired-do-copy))
+   "SPC lM" '(lambda () (interactive) (do--dired-visual-marking dired-do-rename))))
 
 (use-package dired-collapse
-  :disabled t
+  ;; :disabled t
   :ensure t
   :commands (dired-collapse-mode)
   ;; :hook ((dired-mode . dired-collapse-mode))
@@ -271,13 +296,11 @@ separate frame."
    "SPC l*}" 'dired-subtree-mark-subtree)
   :config
   (set-face-attribute 'dired-subtree-depth-1-face nil
-					  :background chocolate-theme-shadow)
-  (set-face-attribute 'dired-subtree-depth-2-face nil
 					  :background chocolate-theme-shadow+1)
-  (set-face-attribute 'dired-subtree-depth-3-face nil
-					  :background chocolate-theme-shadow+2)
-  (set-face-attribute 'dired-subtree-depth-4-face nil
+  (set-face-attribute 'dired-subtree-depth-2-face nil
 					  :background chocolate-theme-shadow+3)
+  (set-face-attribute 'dired-subtree-depth-3-face nil
+					  :background chocolate-theme-shadow+1)
   (set-face-attribute 'dired-subtree-depth-4-face nil
 					  :background chocolate-theme-shadow+3))
 
@@ -292,6 +315,7 @@ separate frame."
 								("\\.gz\\'" "file-roller" (file))
 								("\\.tar\\'" "file-roller" (file))
 								("\\.pdf\\'" "zathura" (file)))))
+
 
 ;; For large file
 (use-package vlf
