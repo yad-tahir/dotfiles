@@ -36,6 +36,7 @@ media-sound/mpc
 media-sound/mpd
 media-sound/pulseaudio
 media-sound/pulsemixer
+net-analyzer/wireshark
 net-firewall/nftables
 net-misc/networkmanager
 net-vpn/openvpn
