@@ -26,7 +26,10 @@ cross-avr/gcc
 dev-embedded/dfu-programmer
 dev-vcs/git
 games-util/steam-launcher
+media-fonts/corefonts
 media-fonts/dejavu
+media-fonts/font-arabic-misc
+media-fonts/font-cursor-misc
 media-fonts/fontawesome
 media-gfx/feh
 media-gfx/imagemagick
