@@ -30,6 +30,7 @@ mkdir ${HOME}/bin 2> /dev/null
 ./gdrive/restore-linux.sh
 ./git/restore-linux.sh
 ./igpu/restore-linux.sh
+./kernel/restore-linux.sh
 ./monitor/restore-linux.sh
 ./mpd/restore-linux.sh
 ./network-manager/restore-linux.sh
