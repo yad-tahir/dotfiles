@@ -193,10 +193,13 @@ super + F3
 
 # Terminal
 super + Escape
-	urxvtc &
+	/usr/bin/urxvtc &
+
+super + shift + Escape
+	/usr/bin/urxvt &
 
 # Screen lock
-super + shift + Escape
+super + shift + L
 	~/bin/screen-lock &
 
 # Bar
@@ -206,3 +209,12 @@ Print
 # Dvorak or Qwerty
 alt + space
 	~/bin/keyboard-toggle
+
+super + w
+	firefox &
+
+super + {_,shift +}comma
+	urxvtc -hold {-name glances -e /usr/bin/glances, -name htop -e /usr/bin/htop}
+
+super + {_,shift +}period
+	urxvtc -hold {-name pulsemixer -e /usr/bin/pulsemixer, -name log -e /bin/journalctl -fn 200}

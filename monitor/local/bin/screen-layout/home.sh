@@ -41,6 +41,11 @@ feh --bg-fill $(ls ${HOME}/pictures/background/* | shuf -n 1) &
 killall polybar
 bspc query -M --names | xargs -I % -n 1 sh -c 'MONITOR=% polybar orange &'
 
+systemctl --user start urxvtd.service &
+sleep 1
+urxvtc -hold -name glances -e /usr/bin/glances &
+urxvtc -hold -name htop -e /usr/bin/htop &
+
 # bspc desktop 6 -f &&
 # urxvtc -e /bin/sh -c 'htop;bash' &&
 # urxvtc -e /bin/sh -c 'journalctl -fn 100;bash' &

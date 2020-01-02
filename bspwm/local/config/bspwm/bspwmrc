@@ -47,6 +47,10 @@ bspc rule -a 'Emacs' follow=on state=tiled
 bspc rule -a 'Emacs:music-playlist' follow=on desktop=9
 bspc rule -a 'Emacs:scratch-buffer' follow=on state=floating sticky=on center=on
 bspc rule -a 'Emacs:calculator' follow=on state=floating sticky=on center=on
+bspc rule -a 'URxvt:pulsemixer' follow=on state=floating sticky=on center=on
+bspc rule -a 'URxvt:htop' follow=on desktop=10 state=tiled
+bspc rule -a 'URxvt:glances' follow=on desktop=10 state=tiled
+bspc rule -a 'URxvt:log' follow=on desktop=10 state=tiled
 bspc rule -a 'Steam' follow=on state=tiled sticky=off desktop=5
 
 # Set the general setting for DPI
