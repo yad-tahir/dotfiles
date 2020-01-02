@@ -34,7 +34,7 @@ for i in "${arr[@]}"
 do
 	TARGET=$i
 	SOURCE=${PWD}/system${TARGET}
-	do-ln-sync-sudo "$SOURCE" "$TARGET"
+	do-sync-sudo "$SOURCE" "$TARGET"
 done
 
 arr=( "/var/lib/portage/world"
@@ -48,13 +48,23 @@ do
 	do-ln-sync-sudo "$SOURCE" "$TARGET"
 done
 
-OVERLAY_LOCATION="/home/yad/git/drvegeta-overlay"
-if [ ! -e $OVERLAY_LOCATION ]; then
-	echo "-> Download drvegeta portage overlay"
-	mkdir -p "$OVERLAY_LOCATION"
-	git clone git@github.com:yad-tahir/gentoo-overlay.git "$OVERLAY_LOCATION"
+REPO_PATH="/var/db/repos/drvegeta"
+if [ ! -e $REPO_PATH ]; then
+	echo "-> Download DrVegeta portage overlay"
+	sudo -E git clone git@github.com:yad-tahir/gentoo-overlay.git "$REPO_PATH"
 fi
-sudo rm "/var/db/repos/drvegeta"
-sudo ln -s "$OVERLAY_LOCATION" "/var/db/repos/drvegeta"
+
+REPO_PATH="/var/db/repos/gentoo"
+if [ ! -e $REPO_PATH ]; then
+	echo "-> Download Gentoo Github mirror"
+	sudo -E git clone git@github.com:yad-tahir/gentoo-mirror.git "$REPO_PATH"
+	pushd .
+	cd $REPO_PATH
+	sudo -E git checkout without-manifest
+	sudo -E git checkout rsync
+	sudo -E git remote add gentoo https://anongit.gentoo.org/git/repo/gentoo.git
+	popd
+fi
+
 
 do-ln-sync "$PWD/local/alias.d" "$HOME/.config/alias.d"
