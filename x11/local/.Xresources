@@ -39,9 +39,10 @@ Emacs.font: DejaVu Sans Mono:size=28
 *color10: #00ff7f
 *color3: #ff6347
 *color11: #ff4422
-*color4: #da70d6
+*color4: #403333
 *color12: #9932cc
-*color13: #fa8072
+*color5: #efd5cb
+*color13: #f0f0a0
 *color6: #6fd8ff
 *color14: #00f5ff
 *color7: #bd9c8f
