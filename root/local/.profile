@@ -27,4 +27,7 @@ stty -ixon # Disable ctrl-s and ctrl-q
 
 . /etc/profile
 
+export GNUPGHOME=/home/yad/.config/gpg
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+
 source $HOME/bin/command-prompt.sh
