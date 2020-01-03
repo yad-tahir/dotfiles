@@ -170,7 +170,7 @@ interval = 30
 [module/memory]
 type = custom/script
 label = " %output:0:4:%GB"
-exec =  free | awk '/^Mem/{print $3/(1024^2)}' | bc
+exec =  free | awk '/^Mem/{print ($2-$7)/(1024^2)}' | bc
 interval = 30
 
 [module/cpu]
