@@ -27,8 +27,12 @@
   (general-define-key
    :keymaps 'override
    :states 'normal
-   ;; make a prefix-command and add description
-   "SPC ag" #'magit-status)
+   "SPC ag" 'magit-status
+   "SPC aG" '(lambda () (interactive)
+			   ;; Set 'universal argument' to force magit to prompt the user to
+			   ;; choose a new repo location
+			   (let ((current-prefix-arg "(4)"))
+				 (call-interactively 'magit-status))))
 
   :config
   ;; Remove conflicting key bindings
@@ -36,7 +40,7 @@
    :keymaps '(magit-file-section-map
 			  magit-hunk-section-map
 			  magit-log-mode-map)
-   "C" 'nil
+   "C"   'nil
    "C-c" 'nil)
   ;; Remove all keybindings in the blob mode to avoid future bugs
   (setf (cdr magit-blob-mode-map) nil)
@@ -50,54 +54,37 @@
   (general-define-key
    :keymaps 'magit-log-mode-map
    :states 'normal
-   "p"  'magit-log-move-to-parent
-   "s"  'magit-log-toggle-commit-limit
-   "+"  'magit-log-double-commit-limit
-   "-"  'magit-log-half-commit-limit
-   "r"  'magit-rebase
-   "m"  'magit-merge
-
+   "SPC l@" 'magit-checkout
+   "SPC lr" 'magit-rebase
+   "SPC lv" 'magit-revert
+   "SPC lm" 'magit-merge
+   "SPC lx" 'magit-reset
+   "SPC ly" 'magit-cherry-pick
    "SPC lp" 'magit-log-move-to-parent
    "SPC ls" 'magit-log-toggle-commit-limit
-   "SPC lr" 'magit-rebase
-   "SPC lm"  'magit-merge
-   "SPC lx"  'magit-reset
    "SPC l+" 'magit-log-double-commit-limit
    "SPC l-" 'magit-log-half-commit-limit)
 
   (general-define-key
    :keymaps 'git-rebase-mode-map
    :states 'normal
+   [remap evil-quit] 'kill-buffer
+   [remap evil-save-and-quit] 'server-edit
    "<return>" 'git-rebase-show-commit
-   "p"        'git-rebase-pick
-   "d"        'git-rebase-kill-line
-   "j"        'git-rebase-break
-   "e"        'git-rebase-edit
-   "b"        'git-rebase-label
-   "m"        'git-rebase-merge
-   "f"        'git-rebase-fixup
-   "w"        'git-rebase-reword
-   "s"        'git-rebase-squash
-   "r"        'git-rebase-reset
-   "!"        'git-rebase-exec
-   "i"        'git-rebase-insert
-   "SPC l"        'git-rebase-noop
-   "SPC lp"       'git-rebase-pick
-   "SPC l,"       'git-rebase-kill-line
-   "SPC lb"       'git-rebase-break
-   "SPC le"       'git-rebase-edit
-   "SPC ll"       'git-rebase-label
-   "SPC lm"       'git-rebase-merge
-   "SPC lM"       'git-rebase-merge-toggle-editmsg
-   "SPC lf"       'git-rebase-fixup
-   "SPC lw"       'git-rebase-reword
-   "SPC ls"       'git-rebase-squash
-   "SPC lt"       'git-rebase-reset
-   "SPC lx"       'git-rebase-exec
-   "SPC li"       'git-rebase-insert
-   "SPC lz"       'git-rebase-noop
-   "<space>"  'git-rebase-show-or-scroll-up
-   "DEL"      'git-rebase-show-or-scroll-down
+   "SPC lp"   'git-rebase-pick
+   "SPC l,"   'git-rebase-kill-line
+   "SPC lb"   'git-rebase-break
+   "SPC le"   'git-rebase-edit
+   "SPC ll"   'git-rebase-label
+   "SPC lm"   'git-rebase-merge
+   "SPC lM"   'git-rebase-merge-toggle-editmsg
+   "SPC lf"   'git-rebase-fixup
+   "SPC lk"   'git-rebase-reword
+   "SPC ls"   'git-rebase-squash
+   "SPC lt"   'git-rebase-reset
+   "SPC lx"   'git-rebase-exec
+   "SPC li"   'git-rebase-insert
+   "SPC lz"   'git-rebase-noop
    "M-c"      'git-rebase-move-line-up
    "M-t"      'git-rebase-move-line-down
    "z"        'git-rebase-undo)
@@ -112,16 +99,17 @@
 			  magit-hunk-section-map)
    [return] 'magit-visit-thing
    [S-return] 'magit-jump-to-diffstat-or-diff
-   "a" 'magit-apply
-   "s" 'magit-stage
-   "u" 'magit-unstage
-   "k" 'magit-discard
-   "i" 'magit-commit-add-log
+   "a"      'magit-apply
+   "A"      'magit-commit-add-log
+   "s"      'magit-stage
+   "u"      'magit-unstage
+   "k"      'magit-discard
+   "d"      'magit-delete-thing
    "SPC la" 'magit-apply
+   "SPC lA" 'magit-commit-add-log
    "SPC ls" 'magit-stage
    "SPC lu" 'magit-unstage
-   "SPC lk" 'magit-discard
-   "SPC li" 'magit-commit-add-log)
+   "SPC lk" 'magit-discard)
 
   (general-define-key
    :keymaps 'magit-diff-mode-map
@@ -137,39 +125,33 @@
    "SPC lG" 'magit-dispatch
    "SPC dg" 'magit-diff
    "SPC dG" 'magit-ediff
-   "C-n" 'magit-blob-next
-   "C-h" 'magit-blob-previous)
+   "C-n"    'magit-blob-next
+   "C-h"    'magit-blob-previous)
 
   (general-define-key
    :keymaps 'magit-mode-map
    :states '(normal visual)
-   [return] 'magit-visit-thing
+   [return]   'magit-visit-thing
    [S-return] 'magit-jump-to-diffstat-or-diff
-   "<tab>" 'magit-section-toggle
-   [C-tab] 'magit-section-cycle
-   [M-tab] 'magit-section-cycle-diffs
-   [S-tab] 'magit-section-cycle-global
-   "C" 'magit-section-backward
-   "T" 'magit-section-forward
-   "H" 'magit-go-backward
-   "N" 'magit-go-forward
-   "d" 'magit-delete-thing
-   "z" 'magit-revert-no-commit
-   "Q" 'magit-log-bury-buffer
-   "SPC dg" 'magit-diff
-   "SPC dG" 'magit-ediff
-   "<f5>" 'magit-refresh)
+   "<tab>"    'magit-section-toggle
+   [C-tab]    'magit-section-cycle
+   [M-tab]    'magit-section-cycle-diffs
+   [S-tab]    'magit-section-cycle-global
+   "C"        'magit-section-backward
+   "T"        'magit-section-forward
+   "H"        'magit-go-backward
+   "N"        'magit-go-forward
+   "d"        'magit-delete-thing
+   "SPC dg"   'magit-diff
+   "SPC dG"   'magit-ediff
+   "<f5>"     'magit-refresh)
 
   (general-define-key
    :keymaps 'magit-status-mode-map
    :states 'normal
-   "p" 'magit-push
-   "r" 'magit-rebase
-   "f" 'magit-fetch
-   "F" 'magit-pull
-   "a" 'magit-log
+   [remap evil-quit] 'magit-mode-bury-buffer
    "SPC l$" 'magit-process-buffer
-   "SPC lA" 'magit-cherry-pick
+   "SPC l@" 'magit-checkout
    "SPC lb" 'magit-branch
    "SPC lB" 'magit-bisect
    "SPC lc" 'magit-commit
@@ -182,16 +164,16 @@
    "SPC lF" 'magit-pull
    "SPC lg" 'magit-refresh
    "SPC lG" 'magit-refresh-all
+   "SPC l?" 'magit-dispatch
    "SPC lh" 'magit-dispatch
    "SPC lk" 'magit-delete-thing
-   "SPC l?" 'magit-dispatch
    "SPC ll" 'magit-log
    "SPC lL" 'magit-log-refresh
    "SPC lm" 'magit-merge
-   "SPC lM" 'magit-remote
+   "SPC ln" 'magit-show-refs
+   "SPC lN" 'magit-remote
    "SPC lo" 'magit-submodule
    "SPC lO" 'magit-subtree
-   [remap evil-quit] 'magit-mode-bury-buffer
    "SPC lp" 'magit-push
    "SPC lr" 'magit-rebase
    "SPC lR" 'magit-file-rename
@@ -201,16 +183,13 @@
    "SPC lS" 'magit-stage-modified
    "SPC lu" 'magit-unstage-file
    "SPC lU" 'magit-unstage-all
-   "SPC lv" 'magit-revert-no-commit
-   "SPC lV" 'magit-revert
+   "SPC lv" 'magit-revert
    "SPC lw" 'magit-am
    "SPC lW" 'magit-patch
-   "SPC lx" 'magit-reset-quickly
-   "SPC lX" 'magit-reset
-   "SPC ly" 'magit-show-refs
+   "SPC lx" 'magit-reset
+   "SPC ly" 'magit-cherry-pick
    "SPC lY" 'magit-cherry
    "SPC lz" 'magit-stash
-   "SPC lZ" 'magit-stash
    "SPC l:" 'magit-git-command
    "SPC l!" 'magit-run)
 
@@ -218,7 +197,7 @@
   (unless (fboundp 'exec-path-from-shell)
 	(require 'exec-path-from-shell))
 
-  ;; Active the blob mode automatically when we visit a file in a git project
+  ;; Activate the blob mode automatically when we visit a file in a git project
   (add-hook 'magit-file-mode-hook 'magit-blob-mode)
 
   (evil-set-initial-state 'magit-popup-mode 'emacs)
@@ -270,18 +249,6 @@
   (set-face-attribute 'magit-log-date nil
 					  :foreground chocolate-theme-white+3)
   (set-face-attribute 'magit-log-graph nil
-					  :foreground chocolate-theme-white+3)
-  ;; (set-face-attribute 'magit-diff-added-highlight nil
-  ;;					  :foreground chocolate-theme-bg
-  ;;					  :background chocolate-theme-element+3)
-  ;; (set-face-attribute 'magit-diff-removed-highlight nil
-  ;;					  :background chocolate-theme-highlight)
-  ;; (set-face-attribute 'magit-diffstat-removed nil
-  ;;:foreground chocolate-theme-highlight)
-  ;; (set-face-attribute 'magit-diffstat-removed nil
-  ;; :foreground chocolate-theme-highlight)
-  ;; (set-face-attribute 'magit-diffstat-added nil :foreground "#8ae234")
-  )
-
+					  :foreground chocolate-theme-white+3))
 
 (provide 'do-git)

@@ -1,5 +1,5 @@
-#!/bin/bash
-# Copyright (C) 2019
+#/bin/sh
+# Copyright (C) 2020
 
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -16,9 +16,4 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-cd `dirname $0`
-echo "* Execute ${PWD}/`basename $0`"
-. ../utils.sh
-
-do-ln-sync "${PWD}/local/.gitconfig" "${HOME}/.gitconfig"
-do-ln-sync "$PWD/local/alias.d" "$HOME/.config/alias.d"
+alias git-log="git log --graph --abbrev-commit --decorate --oneline $@"
