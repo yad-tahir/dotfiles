@@ -45,8 +45,8 @@
 ;;;
 
 (eval-and-compile
-  (unless (fboundp 'cl)
-	(require 'cl))
+  (unless (fboundp 'cl-lib)
+	(require 'cl-lib))
   (unless (fboundp 's)
 	(require 's)))
 
@@ -202,12 +202,12 @@ checking."
 (defun latte--overlay-exists (keyword start end)
   "Return t if an overlay for KEYWORD exists between START and END."
 
-  (loop for co in (overlays-in start end)
+  (cl-loop for co in (overlays-in start end)
 		do
 		(when (equal keyword (overlay-get co 'latte-keyword))
 		  (if (and (equal (overlay-start co) start)
 				   (equal (overlay-end co) end))
-			  (return t)
+			  (cl-return t)
 
 			;; Region mismatch; e.g. an old overlay that does not
 			;; accommodate the extra length. Clean it and continue searching.
@@ -342,7 +342,7 @@ occur after END. A value of nil means search from '(point-max)'."
   (unless (or (gethash keyword latte--keywords)
 			  (member keyword latte-ignore-words))
 	;; Add KEYWORD along with all possible chopped forms
-	(loop for k in (list keyword
+	(cl-loop for k in (list keyword
 						 ;; Play with '-' to address cases such as well-done and
 						 ;; well done
 						 (s-replace "-" " " keyword)
@@ -413,7 +413,7 @@ keywords."
 
   ;; Go through each line, which has the format:
   ;; <title> :<tag1>:<tag2>:...:
-  (loop for l in (s-lines str)
+  (cl-loop for l in (s-lines str)
 		do
 		(progn
 		  ;; The line can be received partially. If this case, save it and
@@ -439,7 +439,7 @@ keywords."
 					(s-replace "\n" "" latte--async-line))
 
 			  ;; Parse
-			  (loop for s in (s-split ":"  latte--async-line)
+			  (cl-loop for s in (s-split ":"  latte--async-line)
 					do (progn
 						 ;; Remove meta characters
 						 (setq s (s-trim (s-replace "*" "" s)))
@@ -494,10 +494,10 @@ This function launches an shell process to go through the note files in the
 
   (let ((p (overlays-at (point) t))
 		(lk nil))
-	(loop for o in p
+	(cl-loop for o in p
 		  do
 		  (when-let (k (overlay-get o 'latte-keyword))
-			(return (setq lk (downcase k)))))
+			(cl-return (setq lk (downcase k)))))
 	(or lk
 		(when (use-region-p)
 		  (buffer-substring-no-properties (region-beginning) (region-end)))
@@ -519,7 +519,7 @@ This function launches an shell process to go through the note files in the
 tags. Spaces and '-' are replaced by '_'."
 
   (delete-dups
-   (append (loop for k in (hash-table-keys latte--keywords)
+   (append (cl-loop for k in (hash-table-keys latte--keywords)
 				 collect
 				 (progn
 				   ;; Space is not allowed in Org tags
