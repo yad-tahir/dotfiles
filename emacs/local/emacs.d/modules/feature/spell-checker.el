@@ -83,7 +83,8 @@
   (defun do--spell-checker-timer ()
 	"Called on a regular basis to highlight typos in the current window."
 	;; When the backend is a file
-	(when (buffer-file-name)
+	(when (and (derived-mode-p 'text-mode)
+			   (buffer-file-name))
 	  (save-excursion
 		(with-local-quit
 		  (flyspell-region (window-start)

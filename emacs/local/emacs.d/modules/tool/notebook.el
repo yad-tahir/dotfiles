@@ -22,10 +22,8 @@
   :defer 5
   :load-path "~/.emacs.d/local-packages/latte"
 
-  :hook ((find-file . latte-mode)
-		 ;;Avoid using the 'after-change-major-mode' hook as it can cause
-		 ;;problems for some modes, e.g. org-agenda
-		 ;; (after-change-major-mode . latte-mode)
+  :hook ((text-mode . latte-mode)
+		 (prog-mode . latte-mode)
 		 )
 
   :commands (latte-files latte-search
