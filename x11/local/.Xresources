@@ -24,7 +24,7 @@ Emacs.menuBar: 0
 Emacs.toolBar: 0
 Emacs.verticalScrollBars: off
 ! avoid X core font engine and use the newer enginer xft.
-Emacs.FontBackend: xft,x
+! Emacs.FontBackend: cairo,xft,x
 Emacs.font: DejaVu Sans Mono:size=28
 
 *background: #000000

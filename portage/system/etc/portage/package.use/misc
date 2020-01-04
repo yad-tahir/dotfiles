@@ -3,7 +3,7 @@ app-admin/pass X # @X adds clipboard support
 # @png, @jpeg, @svg to support common image formats
 # @tiff, @xpm to remove unused image formats
 # @harfbuzz @cairo @json will be added in Emacs 27
-app-editors/emacs X png jpeg svg gfile harfbuzz -cairo json -tiff -xpm
+app-editors/emacs X png jpeg svg gfile harfbuzz cairo json -tiff -xpm
 media-fonts/* X
 media-libs/freetype X
 x11-misc/dmenu xinerama # Add multi-monitor support
