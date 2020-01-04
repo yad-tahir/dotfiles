@@ -25,8 +25,7 @@
 						  (face trailing indentation empty
 								newline newline-mark
 								spaces space-mark
-								space-before-tab space-after-tab)))
-  (add-hook 'before-save-hook 'whitespace-cleanup))
+								space-before-tab space-after-tab))))
 
 (use-package simple
   :preface
@@ -99,13 +98,6 @@
    "T" 'nil)
 
   (global-evil-quickscope-mode 1))
-
-;; (use-package evil-visual-mark-mode
-;;		:hook ((prog-mode . evil-visual-mark-mode))
-;;		:config
-;;		(set-face-attribute 'evil-visual-mark-face nil
-;;							:background nil :foreground
-;;							nil :inherit 'isearch :underline nil))
 
 
 (provide 'do-text-visual)

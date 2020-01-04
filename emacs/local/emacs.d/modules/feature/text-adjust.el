@@ -25,8 +25,8 @@
    :states '(normal visual)
    "k" 'fusion-join
    "K" 'fusion-split
-   "lj" 'fusion-join
-   "lJ" 'fusion-split))
+   "lk" 'fusion-join
+   "lK" 'fusion-split))
 
 (use-package evil-surround
   :ensure t
@@ -41,17 +41,16 @@
    "sS" 'evil-Surround-region
    "su" 'evil-surround-change
    "sd" 'evil-surround-delete)
+
   :config
   ;; Eliminate extra space between pairs
   (setq-default evil-surround-pairs-alist
 				'((?\( . ("(" . ")"))
 				  (?\[ . ("[" . "]"))
 				  (?\{ . ("{" . "}"))
-
 				  (?\) . ("(" . ")"))
 				  (?\] . ("[" . "]"))
 				  (?\} . ("{" . "}"))
-
 				  (?# . ("#{" . "}"))
 				  (?b . ("(" . ")"))
 				  (?B . ("{" . "}"))
@@ -64,10 +63,17 @@
   :ensure t
   :hook ((prog-mode . turn-on-smartparens-mode))
   :config
+  ;; Remove compiler warnings
+  (eval-when-compile
+	(declare-function sp-pair nil))
+
   (require 'smartparens-config)
   (setq sp-highlight-pair-overlay nil
 		sp-highlight-wrap-overlay nil
 		sp-highlight-wrap-tag-overlay nil)
+
+  (sp-pair "\\'" nil :actions :rem)
+  (sp-pair "\\\"" nil :actions :rem)
 
   (general-define-key
    :keymaps 'smartparens-mode-map
@@ -91,7 +97,6 @@
   :init
   (general-define-key
    :states '(normal visual)
-   "lc" 'evilnc-comment-operator
    "x" 'evilnc-comment-operator))
 
 (use-package evil-lion
@@ -103,6 +108,7 @@
    :states '(normal visual)
    "l<" #'evil-lion-left
    "l>" #'evil-lion-right)
+
   :config
   (setq evil-lion-left-align-key (kbd "l <")
 		evil-lion-right-align-key (kbd "l >"))
@@ -146,9 +152,15 @@
    "lx" 'evil-exchange
    "lX" 'evil-exchange-cancel))
 
+(use-package whitespace
+  :config
+  (add-hook 'before-save-hook '(lambda ()
+								 (when whitespace-mode
+								   (whitespace-cleanup)))))
+
 ;; (use-package aggressive-indent
+;;   :ensure t
 ;;   :hook ((prog-mode . aggressive-indent-mode)
 ;;		 (text-mode . aggressive-indent-mode)))
-
 
 (provide 'do-text-adjust)
