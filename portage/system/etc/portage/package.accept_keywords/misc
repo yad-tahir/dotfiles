@@ -2,10 +2,12 @@
 x11-wm/bspwm
 x11-misc/sxhkd
 =x11-misc/polybar-9999 **
-x11-terms/rxvt-unicode ~amd64
 
-# Power Managment
+# Power management
 sys-power/intel-undervolt
 
 # AVR
 cross-avr/gcc **
+
+# Other
+x11-terms/rxvt-unicode

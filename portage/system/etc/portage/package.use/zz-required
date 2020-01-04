@@ -239,3 +239,18 @@ x11-libs/libdrm video_cards_intel
 # required by @selected
 # required by @world (argument)
 >=dev-libs/libpcre2-10.33-r1 pcre16
+
+# required by x11-libs/gtk+-3.24.11::gentoo
+# required by app-text/ghostscript-gpl-9.50::gentoo[gtk]
+# required by app-text/ps2eps-1.68::gentoo
+# required by app-text/texlive-2019-r1::gentoo
+# required by @selected
+# required by @world (argument)
+>=media-libs/libepoxy-1.5.4 X
+# required by media-libs/mesa-19.3.0::gentoo
+# required by media-libs/libepoxy-1.5.4::gentoo[egl]
+# required by media-libs/virglrenderer-0.6.0::gentoo
+# required by app-emulation/qemu-4.0.0-r50::gentoo[virgl]
+# required by @selected
+# required by @world (argument)
+>=dev-util/glslang-7.12.3353_pre20191027-r2 abi_x86_32
