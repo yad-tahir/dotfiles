@@ -210,14 +210,14 @@
   (set-face-attribute 'magit-section-highlight nil
 					  :inherit 'region
 					  :foreground nil
-					  :background chocolate-theme-shadow)
+					  :background chocolate-theme-shadow+1)
   (set-face-attribute 'magit-diff-hunk-heading
 					  nil :inherit 'lazy-highlight
-					  :background chocolate-theme-shadow
+					  :background chocolate-theme-shadow+1
 					  :foreground chocolate-theme-highlight+2)
   (set-face-attribute 'magit-diff-hunk-heading-highlight
 					  nil :inherit 'lazy-highlight
-					  :background chocolate-theme-shadow
+					  :background chocolate-theme-shadow+1
 					  :foreground chocolate-theme-highlight+2)
   (set-face-attribute 'magit-diff-context
 					  nil

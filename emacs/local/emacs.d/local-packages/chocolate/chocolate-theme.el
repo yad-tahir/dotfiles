@@ -129,7 +129,8 @@
  `(error ((t (:background nil :foreground ,chocolate-theme-highlight
 						  :weight bold))))
  `(highlight ((t (:foreground ,chocolate-theme-element+4 :underline t))))
- `(region ((t (:background ,chocolate-theme-shadow :foreground nil))))
+ `(region ((t (:background ,chocolate-theme-shadow+1
+						   :foreground ,chocolate-theme-highlight+2))))
  `(secondary-selection ((t (:background ,chocolate-theme-shadow))))
  `(lazy-highlight ((t (:inherit secondary-selection
 								:background ,chocolate-theme-shadow+3
