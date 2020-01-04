@@ -68,7 +68,7 @@
   (general-define-key
    :keymaps 'emmet-mode-keymap
    :states '(normal insert)
-   "M-<tab>" #'emmet-expand-yas))
+   "C-M-i" 'emmet-expand-yas))
 
 (use-package impatient-mode
   :ensure t

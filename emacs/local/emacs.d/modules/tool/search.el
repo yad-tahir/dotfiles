@@ -31,9 +31,9 @@
   (general-define-key
    :keymaps 'deadgrep-mode-map
    :states '(normal visual)
-   "<return>" 'deadgrep-visit-result
-   "<S-return>" 'deadgrep-visit-result-other-window
-   "<tab>" 'deadgrep-toggle-file-results
+   "<RET>" 'deadgrep-visit-result
+   "<M-RET>" 'deadgrep-visit-result-other-window
+   "TAB" 'deadgrep-toggle-file-results
    "N" 'deadgrep-forward
    "H" 'deadgrep-backward
    "SPC lo" 'deadgrep-visit-result-other-window
@@ -44,7 +44,7 @@
   (general-define-key
    :keymaps 'deadgrep-edit-mode-map
    :states '(normal visual)
-   "<return>" 'deadgrep-visit-result))
+   "<RET>" 'deadgrep-visit-result))
 
 (use-package google-this
   :ensure t
@@ -52,7 +52,7 @@
   :init
   (general-define-key
    :states '(normal visual)
-   "l <return>" 'google-this))
+   "l <RET>" 'google-this))
 
 (general-define-key
    :states '(normal visual)

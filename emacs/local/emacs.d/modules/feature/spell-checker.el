@@ -65,7 +65,7 @@
 
   (general-define-key
    :keymaps 'flyspell-mouse-map
-   "<M-return>" 'ispell-word)
+   "ly" 'ispell-word)
 
   (general-define-key
    :states 'normal
@@ -97,7 +97,7 @@
   :init
   (general-define-key
    :keymaps 'flyspell-mouse-map
-   "<M-S-return>" 'flyspell-correct-at-point))
+   "lY" 'flyspell-correct-at-point))
 
 
 

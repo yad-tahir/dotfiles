@@ -46,11 +46,12 @@
 	:config
 	(general-define-key
 	 :states 'normal
-	 "l <tab>" #'(lambda () (interactive) (evil-insert-state)(aya-expand)))
+	 "l [?\t]" #'(lambda () (interactive) (evil-insert-state)(aya-expand)))
+	 "l TAB" #'(lambda () (interactive) (evil-insert-state)(aya-expand)))
 	(general-define-key
 	 :states 'insert
 	 "C-l ~" #'aya-create
-	 "C-l <tab>" #'aya-expand))
+	 "C-l TAB" #'aya-expand))
 
 
 (provide 'do-snippets)

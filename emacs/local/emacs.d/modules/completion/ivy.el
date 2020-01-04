@@ -53,10 +53,8 @@
    ;; Special commands
    "C-e" 'ivy-occur
    "C-." 'ivy-resume
-   "<tab>" 'ivy-partial
-   "M-<tab>" 'ivy-next-line-and-call
-   "<S-return>" 'ivy-dispatching-call
-   "<C-return>" 'ivy-immediate-done
+   "C-M-i" 'ivy-next-line-and-call
+   "<M-RET>" 'ivy-immediate-done
    ;; Other commons
    "C-p" 'yank
    "C-w" 'forward-word
@@ -70,11 +68,14 @@
    "<escape>" 'do-evil-escape-abort
    "C-k" 'describe-key)
 
+   ;; To support TAB in both GUI and Terminal
+   (define-key ivy-minibuffer-map (kbd "TAB") 'ivy-partial)
+
   (general-define-key
    :keymaps '(ivy-occur-mode-map ivy-occur-grep-mode-map)
    :states 'normal
-   "<return>" 'ivy-occur-press
-   "<tab>" 'ivy-occur-read-action
+   "<RET>" 'ivy-occur-press
+   "TAB" 'ivy-occur-read-action
    "}" 'next-line
    "{" 'previous-line)
 

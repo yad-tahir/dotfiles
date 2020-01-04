@@ -89,7 +89,10 @@
   :init
   (general-define-key
    :states 'visual
-   "<tab>" 'er/expand-region))
+   ;; for Emacs GUI
+   "<tab>" 'er/expand-region
+   ;; for Emacs Terminal
+   "TAB" 'er/expand-region))
 
 (use-package evil-nerd-commenter
   :ensure t

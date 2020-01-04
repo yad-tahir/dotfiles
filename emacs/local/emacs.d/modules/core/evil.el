@@ -53,8 +53,8 @@
    :states 'insert
    ;; Don't create another normal mode from the insert mode. Thus, we
    ;; will only allow basic navigation here.
-   "<tab>" 'tab-to-tab-stop
    "<C-escape>" 'evil-execute-in-normal-state
+   "TAB" 'tab-to-tab-stop
    "C-i" 'evil-beginning-of-line
    "C-0" 'evil-beginning-of-line
    "C-a" 'evil-end-of-line
@@ -250,7 +250,6 @@
    "C-b" 'backward-word
    "C-$" 'move-end-of-line
    "C-0" 'move-beginning-of-line
-   "C-i" 'backward-kill-word
    "C-a" 'kill-word
    "C-u" 'kill-line
    "C-d" 'kill-whole-line
@@ -265,7 +264,7 @@
 
   (general-define-key
    :keymaps 'button-map
-   "<return>" 'push-button
+   "<RET>" 'push-button
    "<space>" 'push-button
    "<mouse-1>" 'push-button)
 

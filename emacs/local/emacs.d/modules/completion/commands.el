@@ -32,7 +32,7 @@
    :keymaps 'which-key-C-h-map
    "<escape>" 'which-key-abort
    "d" 'which-key-toggle-docstrings
-   "<tab>" 'which-key-show-next-page-cycle
+   "TAB" 'which-key-show-next-page-cycle
    "n" 'which-key-show-next-page-cycle
    "h" 'which-key-show-previous-page-cycle
    "z" 'which-key-undo-key)

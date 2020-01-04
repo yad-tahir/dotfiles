@@ -41,13 +41,13 @@
   (general-define-key
    :keymaps 'org-mode-map
    :states 'insert
-   "M-<tab>" 'org-cycle)
+   "C-M-i" 'org-cycle)
 
   (general-define-key
    :keymaps 'org-mode-map
    :states '(normal visual)
-   "<tab>" 'org-cycle
-   "M-<tab>" 'org-cycle
+   "TAB" 'org-cycle
+   "C-M-i" 'org-cycle
    "SPC ll" 'org-insert-link
    "SPC lp" 'org-todo
    "SPC l#" 'org-set-tags
@@ -59,9 +59,9 @@
   (general-define-key
    :keymaps 'org-mode-map
    :states 'normal
-   "<return>" 'org-cycle
-   "<S-return>" 'org-global-cycle
-   "<C-return>" 'org-open-line
+   "<RET>" 'org-cycle
+   "<M-RET>" 'org-global-cycle
+   "SPC l <RET>" 'org-open-line
    "C-c" 'org-shiftup
    "C-t" 'org-shiftdown
    "C-h" 'org-shiftleft

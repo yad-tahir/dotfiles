@@ -59,8 +59,8 @@
    :states '(normal visual)
    "ln" 'latte-grep-topic
    "lN" 'latte-grep-all
-   "<M-return>" 'latte-grep-topic
-   "<M-S-return>" 'latte-grep-all)
+   "<M-RET>" 'latte-grep-topic
+   "<M-S-RET>" 'latte-grep-all)
 
   (with-eval-after-load 'org
 	(general-define-key

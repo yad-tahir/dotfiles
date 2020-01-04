@@ -160,7 +160,7 @@
   (general-define-key
    :keymaps 'simple-mpc-mode-map
    :states '(normal visual)
-   "<return>" 'nil
+   "<RET>" 'nil
    "SPC lq" 'do-music-stop
    "SPC lp" 'simple-mpc-toggle
    "SPC l/" 'simple-mpc-query
@@ -175,7 +175,7 @@
 	(general-define-key
 	 :keymaps 'local
 	 :states '(normal visual)
-	 "<return>" 'do-music-play-selected
+	 "<RET>" 'do-music-play-selected
 	 "C-n" 'do-music-next
 	 "C-h" 'do-music-previous
 	 "M-n" 'simple-mpc-seek-forward
@@ -186,7 +186,7 @@
 	(general-define-key
 	 :keymaps 'local
 	 :states '(normal visual)
-	 "<return>" 'simple-mpc-query-add-and-play
+	 "<RET>" 'simple-mpc-query-add-and-play
 	 "a" 'simple-mpc-query-add
 	 "SPC ls" 'simple-mpc-query-sort
 	 [remap evil-quit] 'simple-mpc-query-quit))

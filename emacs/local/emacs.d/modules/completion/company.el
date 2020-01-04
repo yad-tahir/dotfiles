@@ -34,9 +34,12 @@
 
   (general-define-key
    :states 'insert
-   ;; make TAB smarter a bit!
+   ;; for Emacs Terminal
+   "TAB" 'do--tab-complete
+   ;; for Emacs GUI
    "<tab>" 'do--tab-complete
-   "M-<tab>" 'tab-to-tab-stop)
+   ;; C-M-i is used instead of M-TAB to support terminal Emacs
+   "C-M-i" 'tab-to-tab-stop)
 
   :config
   ;; Remove compiler warnings
@@ -49,7 +52,10 @@
    :keymaps 'company-active-map
    "M-n" 'nil
    "M-p" 'nil
-   "<return>" 'company-complete-selection
+   "<RET>" 'company-complete-selection
+   ;; In Emacs Terminal
+   "TAB" 'company-complete-common-or-cycle
+   ;; In Emacs GUI
    "<tab>" 'company-complete-common-or-cycle
    "<escape>" 'company-abort
    "C-f" 'company-filter-candidates

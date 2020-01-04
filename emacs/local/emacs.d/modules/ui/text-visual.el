@@ -49,8 +49,8 @@
   (general-define-key
    :keymaps 'hs-minor-mode-map
    :states 'normal
-   "<tab>" 'evil-toggle-fold
-   "M-<tab>" 'do--fold-toggle-all))
+   "TAB" 'evil-toggle-fold
+   "C-M-i" 'do--fold-toggle-all))
 
 (use-package rainbow-mode
   :ensure t

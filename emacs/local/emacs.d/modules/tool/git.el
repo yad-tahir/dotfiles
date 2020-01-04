@@ -70,7 +70,7 @@
    :states 'normal
    [remap evil-quit] 'kill-buffer
    [remap evil-save-and-quit] 'server-edit
-   "<return>" 'git-rebase-show-commit
+   "<RET>"    'git-rebase-show-commit
    "SPC lp"   'git-rebase-pick
    "SPC l,"   'git-rebase-kill-line
    "SPC lb"   'git-rebase-break
@@ -97,19 +97,19 @@
 			  magit-merge-preview-mode-map
 			  magit-staged-section-map
 			  magit-hunk-section-map)
-   [return] 'magit-visit-thing
-   [S-return] 'magit-jump-to-diffstat-or-diff
-   "a"      'magit-apply
-   "A"      'magit-commit-add-log
-   "s"      'magit-stage
-   "u"      'magit-unstage
-   "k"      'magit-discard
-   "d"      'magit-delete-thing
-   "SPC la" 'magit-apply
-   "SPC lA" 'magit-commit-add-log
-   "SPC ls" 'magit-stage
-   "SPC lu" 'magit-unstage
-   "SPC lk" 'magit-discard)
+   "<RET>"       'magit-visit-thing
+   "SPC l <RET>" 'magit-jump-to-diffstat-or-diff
+   "a"           'magit-apply
+   "A"           'magit-commit-add-log
+   "s"           'magit-stage
+   "u"           'magit-unstage
+   "k"           'magit-discard
+   "d"           'magit-delete-thing
+   "SPC la"      'magit-apply
+   "SPC lA"      'magit-commit-add-log
+   "SPC ls"      'magit-stage
+   "SPC lu"      'magit-unstage
+   "SPC lk"      'magit-discard)
 
   (general-define-key
    :keymaps 'magit-diff-mode-map
@@ -131,20 +131,20 @@
   (general-define-key
    :keymaps 'magit-mode-map
    :states '(normal visual)
-   [return]   'magit-visit-thing
-   [S-return] 'magit-jump-to-diffstat-or-diff
-   "<tab>"    'magit-section-toggle
-   [C-tab]    'magit-section-cycle
-   [M-tab]    'magit-section-cycle-diffs
-   [S-tab]    'magit-section-cycle-global
-   "C"        'magit-section-backward
-   "T"        'magit-section-forward
-   "H"        'magit-go-backward
-   "N"        'magit-go-forward
-   "d"        'magit-delete-thing
-   "SPC dg"   'magit-diff
-   "SPC dG"   'magit-ediff
-   "<f5>"     'magit-refresh)
+   "<RET>"       'magit-visit-thing
+   "SPC l <RET>" 'magit-jump-to-diffstat-or-diff
+   "TAB"         'magit-section-toggle
+   "<C-tab>"     'magit-section-cycle
+   "C-M-i"       'magit-section-cycle-diffs
+   "S-M-i"       'magit-section-cycle-global
+   "C"           'magit-section-backward
+   "T"           'magit-section-forward
+   "H"           'magit-go-backward
+   "N"           'magit-go-forward
+   "d"           'magit-delete-thing
+   "SPC dg"      'magit-diff
+   "SPC dG"      'magit-ediff
+   "<f5>"        'magit-refresh)
 
   (general-define-key
    :keymaps 'magit-status-mode-map

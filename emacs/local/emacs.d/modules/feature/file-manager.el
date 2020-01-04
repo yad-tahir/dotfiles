@@ -119,8 +119,8 @@ separate frame."
    ;; Navigation
    "t" 'dired-next-line
    "c" 'dired-previous-line
-   "<return>" 'dired-find-file
-   "<M-return>" 'dired-find-file-other-window
+   "<RET>" 'dired-find-file
+   "<M-RET>" 'dired-find-file-other-window
    "DEL" 'dired-up-directory
    "{" 'dired-prev-dirline
    "}" 'dired-next-dirline
@@ -156,10 +156,8 @@ separate frame."
    "SPC l*t" 'dired-toggle-marks
    "SPC l*g" 'dired-mark-files-containing-regexp
    "SPC l*~" 'dired-flag-garbage-files
-   "SPC l*o" 'do-dired-find-marked-files
-   "SPC l*O" 'do-dired-find-marked-files-noframe
-   "SPC l* <return>" 'do-dired-find-marked-files
-   "SPC l* <M-return>" 'do-dired-find-marked-files
+   "SPC l* <RET>" 'do-dired-find-marked-files-noframe
+   "SPC l* <M-RET>" 'do-dired-find-marked-files
 
    ;; Operations
    "SPC ls" 'dired-sort-toggle-or-edit
@@ -240,7 +238,7 @@ separate frame."
   (general-define-key
    :keymaps 'dired-mode-map
    :states 'normal
-   "<C-return>" 'dired-open-xdg))
+   "SPC l <RET>" 'dired-open-xdg))
 
 (use-package dired-ranger
   ;; :disabled t
@@ -293,7 +291,7 @@ separate frame."
   (general-define-key
    :keymaps 'dired-mode-map
    :states 'normal
-   "<tab>" 'dired-subtree-insert
+   "TAB" 'dired-subtree-insert
    "<M-tab>" 'dired-subtree-remove
    "[" 'dired-subtree-beginning
    "]" 'dired-subtree-end

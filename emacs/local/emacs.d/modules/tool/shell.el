@@ -96,7 +96,7 @@
 	;; (general-define-key
 	;;  :keymaps 'eshell-mode-map
 	;;  :states 'insert
-	;;  "<tab>" 'completion-at-point
+	;;  "TAB" 'completion-at-point
 	;;  "C-q" 'eshell-interrupt-process
 	;;  "C-c" 'eshell-previous-input
 	;;  "C-t" 'eshell-next-input)
