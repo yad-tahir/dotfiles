@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2019
+;; Copyright (C) 2020
 
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License
@@ -98,6 +98,7 @@
 ;; Disabled by .Xresources
 ;; (scroll-bar-mode 0)
 ;; (tool-bar-mode -1)
-;; (menu-bar-mode -1)
+(unless (display-graphic-p)
+  (menu-bar-mode -1))
 
 (provide 'do-general)
