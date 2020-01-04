@@ -24,10 +24,6 @@
   ;; (with-eval-after-load 'evil
   ;;   (defalias #'forward-evil-word #'forward-evil-symbol))
 
-  (cl-eval-when (compile)
-	(require 'company)
-	(require 'whitespace))
-
   (eldoc-mode 1)
   (with-eval-after-load 'whitespace
 				   ;; Make long-tailing lines visible

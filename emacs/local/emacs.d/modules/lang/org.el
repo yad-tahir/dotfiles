@@ -17,13 +17,6 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
-(cl-eval-when (compile)
-  (require 'org)
-  (require 'org-id)
-  (require 'org-habit)
-  (require 'org-agenda)
-  (require 'org-capture))
-
 (use-package org
   :defer t
   :init
@@ -37,6 +30,14 @@
 		 :which-key "todo.org"))
 
   :config
+  ;; Remove compiler warnings
+  (eval-when-compile
+	(require 'org)
+	(require 'org-id)
+	(require 'org-habit)
+	(require 'org-agenda)
+	(require 'org-capture))
+
   (general-define-key
    :keymaps 'org-mode-map
    :states 'insert

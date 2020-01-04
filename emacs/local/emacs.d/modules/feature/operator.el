@@ -18,9 +18,6 @@
 ;; 02110-1301, USA.
 
 
-(cl-eval-when (compile)
-  (require 'evil))
-
 ;; Operators
 (evil-define-operator do-evil-insert (beginning end &optional type)
   "Ask for a motion and switch to the insert state at BEGINNING."

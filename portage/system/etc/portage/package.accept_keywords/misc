@@ -11,3 +11,4 @@ cross-avr/gcc **
 
 # Other
 x11-terms/rxvt-unicode
+<=app-editors/emacs-28 **

@@ -18,11 +18,7 @@
 ;; 02110-1301, USA.
 
 
-(cl-eval-when (compile)
-  (require 'evil))
-
 ;; Custom motions
-
 (evil-define-motion do-evil-forward-whitespace (count)
   "Moves point COUNT whitespaces forward."
   :jump nil

@@ -17,8 +17,16 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
+(eval-and-compile
+  (defconst chocolate-theme-location "local-packages/chocolate"))
+
 (use-package chocolate-theme
   :demand t
-  :load-path "~/.emacs.d/local-packages/chocolate")
+  :load-path chocolate-theme-location
+  :config
+  (setq custom-theme-directory
+		(concat user-emacs-directory chocolate-theme-location))
+  (load-theme 'chocolate t))
+
 
 (provide 'do-theme)

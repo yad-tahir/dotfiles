@@ -39,9 +39,8 @@
   ;; Hooks
   (defun do--web-init()
 	"Called whenever Web mode is loaded."
-
 	;;Adjust company's settings
-	(cl-eval-when (compile)
+	(eval-when-compile
 	  (require 'company))
 	(with-eval-after-load 'company
 	  (set (make-local-variable 'company-backends)

@@ -99,14 +99,14 @@
   "Palette - element class 7"
   :type 'string :group 'chocolate-theme)
 
-(deftheme chocolate-theme
+(deftheme chocolate
   "Chocolate - A delicious brown theme!")
 
 ;; NOTE: This files only contains the faces of Emacs built-in. The faces of
 ;; third-party packages should be handled in their corresponding files.
 
 (custom-theme-set-faces
- 'chocolate-theme
+ 'chocolate
 
  ;; basic
  `(cursor ((t (:background ,chocolate-theme-white
@@ -270,6 +270,7 @@
  `(whitespace-space-before-tab ((t (:inherit (whitespace-empty)))))
  `(whitespace-tab ((t (:inherit (whitespace-empty))))))
 
+(provide-theme 'chocolate)
 
 (provide 'chocolate-theme)
 

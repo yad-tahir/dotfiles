@@ -17,13 +17,6 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
-(cl-eval-when (compile)
-  (require 'eshell)
-  ;; (require 'esh-mode)
-  (require 'em-term)
-  (require 'em-hist)
-  (require 'em-glob))
-
 (use-package eshell
   :after (evil)
   :commands (eshell)
@@ -47,13 +40,19 @@
 	(eshell 'N))
 
   :config
+  ;; Remove compiler warnings
+  (eval-when-compile
+	(require 'eshell)
+	(require 'em-term)
+	(require 'em-hist)
+	(require 'em-glob))
+
   (setq eshell-prefer-lisp-functions 'nil
 		eshell-scroll-to-bottom-on-input 'all
 		eshell-scroll-to-bottom-on-output 'all
 		eshell-kill-processes-on-exit t
 		eshell-save-history-on-exit t
-		eshell-error-if-no-glob t
-		eshell-prefer-lisp-variables 'nil)
+		eshell-error-if-no-glob t)
 
   (with-eval-after-load 'em-term
 	(add-to-list 'eshell-visual-commands "htop")

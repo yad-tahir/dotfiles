@@ -17,9 +17,6 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
-(cl-eval-when (compile)
-  (require 'image-mode))
-
 (setq inhibit-startup-message t
 	  inhibit-startup-echo-area-message t
 	  user-mail-address "yad@ieee.org"
@@ -78,7 +75,6 @@
 	  sentence-end-double-space nil
 	  ;; debug-on-error t
 
-	  image-animate-loop nil
 	  indicate-buffer-boundaries nil
 	  indicate-empty-lines nil
 	  show-help-function nil          ; hide :help-echo text

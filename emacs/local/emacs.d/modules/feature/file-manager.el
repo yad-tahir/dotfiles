@@ -17,9 +17,6 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
-(cl-eval-when (compile)
-  (require 'dired))
-
 (use-package dired
   :commands (do-file-manager dired)
   :functions (do--dired-simultaneous-find)
@@ -39,8 +36,15 @@
 	  (dired path)))
 
   :config
-  ;; Load wdired.el to enable the edit mode
-  (cl-eval-when (compile)
+  ;; Remove compiler warnings
+  (eval-when-compile
+	(declare-function dired-get-marked-files nil)
+	(declare-function dired-get-filename nil)
+	(declare-function dired-find-alternate-file nil)
+	(declare-function dired-find-file nil)
+	(declare-function dired-current-directory nil)
+	(declare-function dired-goto-file nil)
+	(declare-function dired-goto-subdir nil)
 	(require 'wdired))
 
   (defun do--dired-simultaneous-find (file-list frame)

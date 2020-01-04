@@ -21,8 +21,10 @@
 (defun do--elisp-init()
   "Called whenever the emacs-lisp mode is loaded."
 
-  (cl-eval-when (compile)
+  ;; Remove compiler warnings
+  (eval-when-compile
 	(require 'company))
+
   (with-eval-after-load 'company
 	(set (make-local-variable 'company-backends)
 		 (add-to-list 'company-backends

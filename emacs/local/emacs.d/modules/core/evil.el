@@ -17,9 +17,6 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
-(cl-eval-when (compile)
-  (require 'evil))
-
 (use-package evil
   :ensure t
   :demand t
@@ -28,6 +25,13 @@
   (setq-default evil-search-module 'evil-search)
 
   :config
+  ;; Remove compiler warnings
+  (declare-function evil-set-initial-state nil)
+  (declare-function evil-put-property nil)
+  (declare-function evil-normal-state nil)
+  (declare-function evil-ex-search-abort nil)
+  (declare-function evil-ex-delete-hl nil)
+
   (general-define-key
    "C-c" 'nil
    "<f1>" 'help-command

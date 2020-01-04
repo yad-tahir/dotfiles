@@ -36,9 +36,6 @@
   (defvar do--music-toggle-state nil)
 
   :init
-  (cl-eval-when (compile)
-	(require 'simple-mpc))
-
   (general-define-key
    :keymaps 'override
    :states '(normal visual)

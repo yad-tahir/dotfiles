@@ -15,9 +15,10 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
-(cl-eval-when (compile)
-  (require 'calc)
-  (require 'calc-aent))
+;; Remove compiler warnings
+(eval-when-compile
+  (declare-function calc-trail-display nil)
+  (declare-function calc-alg-entry nil))
 
 ;;;###autoload
 (defun do-calculator ()

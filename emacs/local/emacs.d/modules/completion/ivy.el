@@ -17,14 +17,14 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
-;; Remove compile warnings
-(cl-eval-when (compile)
-  (require 'ivy))
-
 (use-package ivy
   :demand t
   :ensure t
   :config
+  ;; Remove compile warnings
+  (declare-function ivy-set-actions nil)
+  (declare-function ivy-set-occur nil)
+
   ;; Keybinding
   (general-define-key
    :keymaps 'evil-ex-completion-map

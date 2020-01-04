@@ -22,9 +22,6 @@
   :after (company)
   :preface
   (declare-function yas-reload-all nil)
-  (cl-eval-when (compile)
-	(require 'company))
-
   :config
   (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
   (yas-global-mode 1)

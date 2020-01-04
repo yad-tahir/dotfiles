@@ -18,10 +18,6 @@
 ;; 02110-1301, USA.
 
 ;; To silent warnings
-(cl-eval-when (compile)
-  (require 'company-dabbrev)
-  (require 'company-dabbrev-code))
-
 (use-package company
   :ensure t
   :hook ((find-file . company-mode))
@@ -43,6 +39,11 @@
    "M-<tab>" 'tab-to-tab-stop)
 
   :config
+  ;; Remove compiler warnings
+  (eval-when-compile
+	(require 'company-dabbrev)
+	(require 'company-dabbrev-code))
+
   ;; Key bindings
   (general-define-key
    :keymaps 'company-active-map
