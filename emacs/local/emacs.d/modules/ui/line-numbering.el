@@ -22,7 +22,6 @@
   :config
   (setq display-line-numbers-current-absolute nil
 		;; Narrowing does not make sense in visual type
-		display-line-numbers-widen t
 		display-line-numbers-width 3
 		;; Visual really useful for the evil mode
 		display-line-numbers-type 'visual)
@@ -37,9 +36,8 @@
 					  :weight 'normal)
   (set-face-attribute 'fringe nil
 					  :background chocolate-theme-bg)
-
   ;; Start line numbering
-  (add-hook 'change-major-mode-after-body-hook #'display-line-numbers-mode))
+  (global-display-line-numbers-mode))
 
 
 (provide 'do-line-numbering)
