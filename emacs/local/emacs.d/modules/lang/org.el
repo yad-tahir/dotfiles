@@ -48,9 +48,9 @@
    :states '(normal visual)
    "TAB" 'org-cycle
    "C-M-i" 'org-cycle
-   "SPC ll" 'org-insert-link
-   "SPC lp" 'org-todo
-   "SPC l#" 'org-set-tags
+   "ll" 'org-insert-link
+   "lp" 'org-todo
+   "l#" 'org-set-tags
    "M-c" 'org-metaup
    "M-t" 'org-metadown
    "M-h" 'org-metaleft
@@ -61,7 +61,7 @@
    :states 'normal
    "<RET>" 'org-cycle
    "<M-RET>" 'org-global-cycle
-   "SPC l <RET>" 'org-open-line
+   "l <RET>" 'org-open-line
    "C-c" 'org-shiftup
    "C-t" 'org-shiftdown
    "C-h" 'org-shiftleft
@@ -74,31 +74,31 @@
    "gN" 'org-forward-element
    "gH" 'org-backward-element
    "gT" 'org-down-element
-   "SPC lt" '(:ignore t :which-key "time")
-   "SPC ltt" '(:ignore t :which-key "insert timestamp")
-   "SPC ltt" '(lambda () (interactive) (org-time-stamp (current-time)))
-   "SPC lt(" 'org-clock-in
-   "SPC lt)" 'org-clock-out
-   "SPC ltq" 'org-clock-cancel
-   "SPC ltg" 'org-clock-goto
-   "SPC lv" '(:ignore t :which-key "view")
-   "SPC lvl" 'org-toggle-latex-fragment
-   "SPC ls" 'org-schedule
-   "SPC lS" 'org-deadline
-   "SPC lu" 'org-add-note ;;progress
-   "SPC la" 'org-attach
-   "SPC lg" 'org-open-at-point
-   "SPC lc" 'org-ctrl-c-ctrl-c
-   "SPC li" 'org-id-get-create
-   "SPC l@" 'org-toggle-ordered-property
-   "SPC lel" 'org-export-dispatch
-   "SPC lep" 'org-latex-export-to-pdf
-   "SPC leb" 'org-beamer-export-to-pdf
-   "SPC leh" 'org-html-export-to-html
+   "lt" '(:ignore t :which-key "time")
+   "ltt" '(:ignore t :which-key "insert timestamp")
+   "ltt" '(lambda () (interactive) (org-time-stamp (current-time)))
+   "lt(" 'org-clock-in
+   "lt)" 'org-clock-out
+   "ltq" 'org-clock-cancel
+   "ltg" 'org-clock-goto
+   "lv" '(:ignore t :which-key "view")
+   "lvl" 'org-toggle-latex-fragment
+   "ls" 'org-schedule
+   "lS" 'org-deadline
+   "lu" 'org-add-note ;;progress
+   "la" 'org-attach
+   "lg" 'org-open-at-point
+   "lc" 'org-ctrl-c-ctrl-c
+   "li" 'org-id-get-create
+   "l@" 'org-toggle-ordered-property
+   "lel" 'org-export-dispatch
+   "lep" 'org-latex-export-to-pdf
+   "leb" 'org-beamer-export-to-pdf
+   "leh" 'org-html-export-to-html
    [remap evil-save-and-quit] 'org-ctrl-c-ctrl-c
    [remap evil-quit] 'org-kill-note-or-show-branches
-   "SPC l'" 'org-edit-src-code
-   "SPC ld" 'org-archive-subtree)
+   "l'" 'org-edit-src-code
+   "ld" 'org-archive-subtree)
 
   (general-define-key
    :keymaps 'org-src-mode-map
@@ -331,22 +331,22 @@
 	"*%" 'org-agenda-bulk-mark-regexp
 	"*a" 'org-agenda-bulk-action
 	"*A" 'org-agenda-bulk-action
-	"SPC lp" 'org-agenda-todo
-	"SPC lk" 'org-agenda-kill
-	"SPC l#" 'org-agenda-set-tags
-	"SPC lu" 'org-agenda-add-note
-	"SPC la" 'org-attach
-	"SPC ls" 'org-agenda-schedule
-	"SPC lS" 'org-agenda-deadline
-	"SPC ld" 'org-agenda-date-prompt
-	"SPC lg" 'org-agenda-open-link
-	"SPC lt" 'nil
-	"SPC lta" 'org-agenda-clock-in
-	"SPC lti" 'org-agenda-clock-in
-	"SPC ltq" 'org-agenda-clock-out
-	"SPC ltx" 'org-agenda-clock-cancel
-	"SPC ltg" 'org-agenda-clock-goto
-	"SPC lx" 'org-agenda-archive)
+	"lp" 'org-agenda-todo
+	"lk" 'org-agenda-kill
+	"l#" 'org-agenda-set-tags
+	"lu" 'org-agenda-add-note
+	"la" 'org-attach
+	"ls" 'org-agenda-schedule
+	"lS" 'org-agenda-deadline
+	"ld" 'org-agenda-date-prompt
+	"lg" 'org-agenda-open-link
+	"lt" 'nil
+	"lta" 'org-agenda-clock-in
+	"lti" 'org-agenda-clock-in
+	"ltq" 'org-agenda-clock-out
+	"ltx" 'org-agenda-clock-cancel
+	"ltg" 'org-agenda-clock-goto
+	"lx" 'org-agenda-archive)
 
   (setq org-agenda-skip-deadline-if-done t
 		org-agenda-tags-column 0
@@ -405,8 +405,8 @@
 ;;				(general-define-key
 ;;				 :keymaps 'evil-org-mode-map
 ;;				 :states '(normal)
-;;				 "SPC l" 'nil
-;;				 "SPC l" 'nil))))
+;;				 "l" 'nil
+;;				 "l" 'nil))))
 
 
 (provide 'do-org)

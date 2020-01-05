@@ -51,13 +51,13 @@
   :config
   (general-define-key
    :keymaps 'smerge-mode-map
-   "SPC l<" 'smerge-keep-upper
-   "SPC l>" 'smerge-keep-lower
-   "SPC l SPC" 'smerge-keep-current
-   "SPC la" 'smerge-keep-all
-   "SPC lr" 'smerge-refine
-   "SPC ld" 'smerge-ediff
-   "SPC lb" 'smerge-keep-base))
+   "l<" 'smerge-keep-upper
+   "l>" 'smerge-keep-lower
+   "l SPC" 'smerge-keep-current
+   "la" 'smerge-keep-all
+   "lr" 'smerge-refine
+   "ld" 'smerge-ediff
+   "lb" 'smerge-keep-base))
 
 (use-package ediff
   :defer t

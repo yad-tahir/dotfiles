@@ -41,95 +41,94 @@
   (general-define-key
    :keymaps 'cider-repl-mode-map
    :states 'normal
-   "SPC ls" 'cider-toggle-trace-var
-   "SPC lS" 'cider-toggle-trace-ns
-   "SPC la" 'cider-apropos-select
-   "SPC lA" 'cider-apropos-documentation-select
-   "SPC lh" 'cider-doc
-   "SPC lr" 'cider-grimoire
-   "SPC lw" 'cider-grimoire-web
-   "SPC lj" 'cider-javadoc)
+   "ls" 'cider-toggle-trace-var
+   "lS" 'cider-toggle-trace-ns
+   "la" 'cider-apropos-select
+   "lA" 'cider-apropos-documentation-select
+   "lh" 'cider-doc
+   "lr" 'cider-grimoire
+   "lw" 'cider-grimoire-web
+   "lj" 'cider-javadoc)
 
   (general-define-key
    :keymaps 'clojure-mode-map
    :states 'normal
-   ;; "SPC le" '(:ignore t :which-key "eval")
-   "SPC les" 'cider-jack-in
-   "SPC leS" 'cider-connect
-   "SPC leb" 'cider-eval-buffer
-   "SPC lef" 'cider-eval-defun-at-point
-   "SPC ler" 'cider-eval-region
-   "SPC lee" 'cider-eval-sexp-at-point
-   "SPC leE" 'cider-eval-last-sexp
-   "SPC lel" 'cider-eval-file
-   "SPC leL" 'cider-eval-all-files
+   ;; "le" '(:ignore t :which-key "eval")
+   "les" 'cider-jack-in
+   "leS" 'cider-connect
+   "leb" 'cider-eval-buffer
+   "lef" 'cider-eval-defun-at-point
+   "ler" 'cider-eval-region
+   "lee" 'cider-eval-sexp-at-point
+   "leE" 'cider-eval-last-sexp
+   "lel" 'cider-eval-file
+   "leL" 'cider-eval-all-files
 
-   ;; "SPC ll" '(:ignore t :which-key "load")
-   "SPC lln" 'cider-ns-reload
-   "SPC llN" 'cider-load-all-project-ns
-   "SPC llb" 'cider-load-buffer
-   "SPC llf" 'cider-load-file
-   "SPC llF" 'cider-load-all-files
+   "lln" 'cider-ns-reload
+   "llN" 'cider-load-all-project-ns
+   "llb" 'cider-load-buffer
+   "llf" 'cider-load-file
+   "llF" 'cider-load-all-files
 
-   ;; "SPC lh" '(:ignore t :which-key "help")
-   "SPC lha" 'cider-apropos
-   "SPC lhA" 'cider-apropos-documentation
-   "SPC lhh" 'cider-doc
-   "SPC lhg" 'cider-grimoire
-   "SPC lhG" 'cider-grimoire-web
-   "SPC lhj" 'cider-javadoc
-   "SPC lhn" 'cider-browse-ns
+   ;; "lh" '(:ignore t :which-key "help")
+   "lha" 'cider-apropos
+   "lhA" 'cider-apropos-documentation
+   "lhh" 'cider-doc
+   "lhg" 'cider-grimoire
+   "lhG" 'cider-grimoire-web
+   "lhj" 'cider-javadoc
+   "lhn" 'cider-browse-ns
 
-   ;; "SPC ld" '(:ignore t :which-key "debug")
-   "SPC ldf" 'cider-debug-defun-at-point
-   "SPC lde" 'cider-enlighten-mode
-   "SPC ldi" 'cider-inspect-defun-at-point
-   ;; "SPC ldI" 'cider-inspect
+   ;; "ld" '(:ignore t :which-key "debug")
+   "ldf" 'cider-debug-defun-at-point
+   "lde" 'cider-enlighten-mode
+   "ldi" 'cider-inspect-defun-at-point
+   ;; "ldI" 'cider-inspect
 
-   "SPC lr" 'cider-refresh
-   ;; "SPC lq" 'cider-quit
+   "lr" 'cider-refresh
+   ;; "lq" 'cider-quit
    ;; "=" 'cider-format-buffer ;; it is not that great!
 
-   ;; "SPC lg" '(:ignore t :which-key "go")
-   "SPC lge" 'cider-jump-to-compilation-error
-   "SPC lgs" 'cider-stacktrace-jump
-   "SPC lgv" 'cider-find-var
+   ;; "lg" '(:ignore t :which-key "go")
+   "lge" 'cider-jump-to-compilation-error
+   "lgs" 'cider-stacktrace-jump
+   "lgv" 'cider-find-var
    "gd" 'cider-find-var
-   "SPC lgn" 'cider-find-ns
-   "SPC lgk" 'cider-find-keyword
-   "SPC lgd" 'cider-find-dwim
-   "SPC lg:" 'cider-find-property
+   "lgn" 'cider-find-ns
+   "lgk" 'cider-find-keyword
+   "lgd" 'cider-find-dwim
+   "lg:" 'cider-find-property
 
-   ;; "SPC lm" '(:ignore t :which-key "macro")
-   "SPC lme" 'cider-macroexpand-1
-   "SPC lma" 'cider-macroexpand-all
-   "SPC lmz" 'cider-macroexpand-undo
-   "SPC lmr" 'cider-macroexpand-again
-   "SPC lmm" 'cider-macroexpand-mode)
+   ;; "lm" '(:ignore t :which-key "macro")
+   "lme" 'cider-macroexpand-1
+   "lma" 'cider-macroexpand-all
+   "lmz" 'cider-macroexpand-undo
+   "lmr" 'cider-macroexpand-again
+   "lmm" 'cider-macroexpand-mode)
 
   (general-define-key
    :keymaps 'cider-inspector-mode-map
    "SPC"   'nil
-   "SPC lf" 'cider-inspect-defun-at-point
-   "SPC le" 'cider-inspect-expr
-   "SPC ll" 'cider-inspect-last-sexp
-   "SPC lp" 'cider-inspector-pop
-   "SPC ln" 'cider-inspector-next-page
-   "SPC lh" 'cider-inspector-prev-page
-   "SPC lr" 'cider-inspector-refresh)
+   "lf" 'cider-inspect-defun-at-point
+   "le" 'cider-inspect-expr
+   "ll" 'cider-inspect-last-sexp
+   "lp" 'cider-inspector-pop
+   "ln" 'cider-inspector-next-page
+   "lh" 'cider-inspector-prev-page
+   "lr" 'cider-inspector-refresh)
 
   (general-define-key
    :keymaps 'cider-test-report-mode-map
-   ;; "SPC l"   'nil
-   "SPC ln" 'cider-test-next-result
-   "SPC lh" 'cider-test-previous-result
-   "SPC lj" 'cider-test-jump
-   "SPC ld" 'cider-test-ediff
-   "SPC ls" 'cider-test-stacktrace
+   ;; "l"   'nil
+   "ln" 'cider-test-next-result
+   "lh" 'cider-test-previous-result
+   "lj" 'cider-test-jump
+   "ld" 'cider-test-ediff
+   "ls" 'cider-test-stacktrace
    [remap evil-quit] 'cider-popup-buffer-quit
-   "SPC lR" 'cider-test-rerun-tests
-   "SPC lr" 'cider-test-run-test
-   "SPC ln" 'cider-test-run-ns-tests)
+   "lR" 'cider-test-rerun-tests
+   "lr" 'cider-test-run-test
+   "ln" 'cider-test-run-ns-tests)
 
   (set-face-attribute 'cider-fringe-good-face
 					  nil :foreground chocolate-theme-shadow+3

@@ -55,8 +55,8 @@
   :config
   (general-define-key
    :states '(normal visual)
-   "ln" 'latte-grep-topic
-   "lN" 'latte-grep-all
+   "SPC ln" 'latte-grep-topic
+   "SPC lN" 'latte-grep-all
    "<M-RET>" 'latte-grep-topic
    "<M-S-RET>" 'latte-grep-all)
 
@@ -64,7 +64,7 @@
 	(general-define-key
 	 :keymaps 'org-mode-map
 	 :states '(normal visual)
-	 "SPC l#" 'latte-insert-org-tag)))
+	 "l#" 'latte-insert-org-tag)))
 
 
 (provide 'do-notebook)

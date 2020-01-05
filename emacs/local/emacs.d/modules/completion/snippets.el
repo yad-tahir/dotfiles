@@ -41,13 +41,12 @@
 	:init
 	(general-define-key
 	 :states 'normal
-	 "l ~" #'aya-create)
+	 "SPC l~" #'aya-create)
 
 	:config
 	(general-define-key
 	 :states 'normal
-	 "l [?\t]" #'(lambda () (interactive) (evil-insert-state)(aya-expand)))
-	 "l TAB" #'(lambda () (interactive) (evil-insert-state)(aya-expand)))
+	 "SPC l TAB" #'(lambda () (interactive) (evil-insert-state)(aya-expand)))
 	(general-define-key
 	 :states 'insert
 	 "C-l ~" #'aya-create

@@ -25,8 +25,8 @@
   (general-define-key
    :states '(normal visual)
    :keymaps 'eww-mode-map
-   "SPC lo" 'eww-browse-with-external-browser
-   "SPC ly" 'eww-copy-page-url
+   "lo" 'eww-browse-with-external-browser
+   "ly" 'eww-copy-page-url
    "<f5>" 'eww-reload)
 
   (general-define-key

@@ -24,17 +24,17 @@
 
   (general-define-key
    :states 'normal
-   "lS" 'ispell-buffer)
+   "SPC lS" 'ispell-buffer)
 
   (general-define-key
    :states 'visual
-   "lS" 'ispell-region)
+   "SPC lS" 'ispell-region)
 
   ;; Prog-mode overrides
   (general-define-key
    :keymaps 'prog-mode-map
    :states 'normal
-   "lS" 'ispell-comments-and-strings)
+   "SPC lS" 'ispell-comments-and-strings)
 
   (setq ispell-personal-dictionary "~/notes/personal.aspell.en.pws"
 		ispell-dictionary "en_US"
@@ -65,15 +65,15 @@
 
   (general-define-key
    :keymaps 'flyspell-mouse-map
-   "ly" 'ispell-word)
+   "SPC ly" 'ispell-word)
 
   (general-define-key
    :states 'normal
-   "ls" 'flyspell-buffer)
+   "SPC ls" 'flyspell-buffer)
 
   (general-define-key
    :states 'visual
-   "ls" 'flyspell-region)
+   "SPC ls" 'flyspell-region)
 
   (setq flyspell-issue-message-flag nil
 		flyspell-delay 5
@@ -98,7 +98,7 @@
   :init
   (general-define-key
    :keymaps 'flyspell-mouse-map
-   "lY" 'flyspell-correct-at-point))
+   "SPC lY" 'flyspell-correct-at-point))
 
 
 

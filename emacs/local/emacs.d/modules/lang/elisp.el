@@ -56,7 +56,7 @@
 (general-define-key
  :keymaps 'emacs-lisp-mode-map
  :states '(normal visual)
- "SPC le" 'do-elisp-eval)
+ "le" 'do-elisp-eval)
 
 ;; Third-party packages
 (use-package macrostep
@@ -66,8 +66,8 @@
   (general-define-key
    :keymaps 'emacs-lisp-mode-map
    :states '(normal visual)
-   "SPC lm" 'macrostep-expand
-   "SPC lM" 'macrostep-collapse)
+   "lm" 'macrostep-expand
+   "lM" 'macrostep-collapse)
 
   :config
   (set-face-attribute 'macrostep-expansion-highlight-face nil

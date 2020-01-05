@@ -260,7 +260,7 @@
   :init
   (general-define-key
    :states '(visual normal)
-   "l/" 'swiper)
+   "SPC l/" 'swiper)
   :config
   (general-define-key
    :keymaps 'swiper-map
@@ -282,16 +282,16 @@
   (general-define-key
    :keymaps 'ivy-occur-grep-mode-map
    :states 'normal
-   "SPC l" 'nil
-   "SPC lw" 'wgrep-change-to-wgrep-mode)
+   "l" 'nil
+   "lw" 'wgrep-change-to-wgrep-mode)
 
   :config
   (general-define-key
    :keymaps 'wgrep-mode-map
    :states 'normal
    [remap evil-save-and-quit] 'wgrep-finish-edit
-   "SPC l <escape>" 'wgrep-abort-changes
-   "SPC lz" 'wgrep-remove-all-change)
+   "l <escape>" 'wgrep-abort-changes
+   "lz" 'wgrep-remove-all-change)
 
   (setq wgrep-auto-save-buffer t))
 

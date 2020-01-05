@@ -37,7 +37,7 @@
    "N" 'deadgrep-forward
    "H" 'deadgrep-backward
    [remap evil-quit] 'deadgrep-kill-process
-   "SPC le" 'deadgrep-edit-mode
+   "le" 'deadgrep-edit-mode
    "<f5>" 'deadgrep-restart)
 
   (general-define-key
@@ -56,11 +56,11 @@
   :init
   (general-define-key
    :states '(normal visual)
-   "l <RET>" 'google-this))
+   "SPC l <RET>" 'google-this))
 
 (general-define-key
    :states '(normal visual)
-   "lw" 'define-wiki)
+   "SPC li" 'define-wiki)
 
 (with-eval-after-load 'evil
   (evil-define-operator define-wiki (beginning end)

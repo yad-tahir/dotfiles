@@ -161,15 +161,15 @@
    :keymaps 'simple-mpc-mode-map
    :states '(normal visual)
    "<RET>" 'nil
-   "SPC lq" 'do-music-stop
-   "SPC lp" 'simple-mpc-toggle
-   "SPC l/" 'simple-mpc-query
-   "SPC lr" 'simple-mpc-shuffle-current-playlist
-   "SPC ln" 'do-music-next
-   "SPC lh" 'do-music-previous
-   "SPC lN" 'simple-mpc-seek-forward
-   "SPC lH" 'simple-mpc-seek-backward
-   "SPC ld" 'simple-mpc-clear-current-playlist)
+   "lq" 'do-music-stop
+   "lp" 'simple-mpc-toggle
+   "l/" 'simple-mpc-query
+   "lr" 'simple-mpc-shuffle-current-playlist
+   "ln" 'do-music-next
+   "lh" 'do-music-previous
+   "lN" 'simple-mpc-seek-forward
+   "lH" 'simple-mpc-seek-backward
+   "ld" 'simple-mpc-clear-current-playlist)
 
   (defun do--music-playlist-init ()
 	(general-define-key
@@ -188,7 +188,7 @@
 	 :states '(normal visual)
 	 "<RET>" 'simple-mpc-query-add-and-play
 	 "a" 'simple-mpc-query-add
-	 "SPC ls" 'simple-mpc-query-sort
+	 "ls" 'simple-mpc-query-sort
 	 [remap evil-quit] 'simple-mpc-query-quit))
   (add-hook 'simple-mpc-query-mode-hook #'do--music-query-init))
 

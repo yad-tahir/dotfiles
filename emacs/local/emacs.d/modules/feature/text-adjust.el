@@ -25,8 +25,8 @@
    :states '(normal visual)
    "k" 'fusion-join
    "K" 'fusion-split
-   "lk" 'fusion-join
-   "lK" 'fusion-split))
+   "SPC lk" 'fusion-join
+   "SPC lK" 'fusion-split))
 
 (use-package evil-surround
   :ensure t
@@ -109,12 +109,12 @@
   :init
   (general-define-key
    :states '(normal visual)
-   "l<" #'evil-lion-left
-   "l>" #'evil-lion-right)
+   "SPC l<" #'evil-lion-left
+   "SPC l>" #'evil-lion-right)
 
   :config
-  (setq evil-lion-left-align-key (kbd "l <")
-		evil-lion-right-align-key (kbd "l >"))
+  (setq evil-lion-left-align-key (kbd "SPC l <")
+		evil-lion-right-align-key (kbd "SPC l >"))
   (evil-lion-mode))
 
 (use-package drag-stuff
@@ -152,8 +152,8 @@
   :config
   (general-define-key
    :states '(normal visual)
-   "lx" 'evil-exchange
-   "lX" 'evil-exchange-cancel))
+   "SPC lx" 'evil-exchange
+   "SPC lX" 'evil-exchange-cancel))
 
 (use-package whitespace
   :config

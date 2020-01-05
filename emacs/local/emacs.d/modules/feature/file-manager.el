@@ -135,36 +135,36 @@ separate frame."
    [remap advertised-undo] 'dired-undo
 
    ;; Search
-   "SPC l/" 'nil
-   "SPC l/f" 'find-grep-dired
-   "SPC l/g" 'dired-do-find-regexp
-   "SPC l/r" 'dired-do-find-regexp-and-replace
-   "SPC l/*" 'dired-do-find-regexp
+   "l/" 'nil
+   "l/f" 'find-grep-dired
+   "l/g" 'dired-do-find-regexp
+   "l/r" 'dired-do-find-regexp-and-replace
+   "l/*" 'dired-do-find-regexp
 
    ;; Mark
    "m" 'dired-mark
    "u" 'dired-unmark
 
-   "SPC l*" 'nil
-   "SPC l*x" 'dired-mark-executables
-   "SPC l*d" 'dired-mark-directories
-   "SPC l*@" 'dired-mark-symlinks
-   "SPC l*f" 'dired-mark-files-regexp
-   "SPC l*s" 'dired-mark-subdir-files
-   "SPC l*?" 'dired-unmark-all-files
-   "SPC l*!" 'dired-unmark-all-marks
-   "SPC l*t" 'dired-toggle-marks
-   "SPC l*g" 'dired-mark-files-containing-regexp
-   "SPC l*~" 'dired-flag-garbage-files
-   "SPC l* <RET>" 'do-dired-find-marked-files-noframe
-   "SPC l* <M-RET>" 'do-dired-find-marked-files
+   "l*" 'nil
+   "l*x" 'dired-mark-executables
+   "l*d" 'dired-mark-directories
+   "l*@" 'dired-mark-symlinks
+   "l*f" 'dired-mark-files-regexp
+   "l*s" 'dired-mark-subdir-files
+   "l*?" 'dired-unmark-all-files
+   "l*!" 'dired-unmark-all-marks
+   "l*t" 'dired-toggle-marks
+   "l*g" 'dired-mark-files-containing-regexp
+   "l*~" 'dired-flag-garbage-files
+   "l* <RET>" 'do-dired-find-marked-files-noframe
+   "l* <M-RET>" 'do-dired-find-marked-files
 
    ;; Operations
-   "SPC ls" 'dired-sort-toggle-or-edit
-   "SPC le" 'wdired-change-to-wdired-mode
-   "SPC lf" 'find-file
-   "SPC l+" 'dired-create-directory
-   "SPC l=" 'dired-diff
+   "ls" 'dired-sort-toggle-or-edit
+   "le" 'wdired-change-to-wdired-mode
+   "lf" 'find-file
+   "l+" 'dired-create-directory
+   "l=" 'dired-diff
 
    "+" 'dired-create-directory
    "F" 'find-file
@@ -184,19 +184,19 @@ separate frame."
    "!" 'dired-do-shell-command
    "&" 'dired-do-async-shell-command
 
-   "SPC ly" 'dired-do-copy
-   "SPC ld" 'dired-do-delete
-   "SPC lm" 'dired-do-rename
-   "SPC ll" 'dired-do-symlink
-   "SPC lL" 'dired-do-hardlink
-   "SPC lo" 'dired-do-chown
-   "SPC lO" 'dired-do-chgrp
-   "SPC lx" 'dired-do-chmod
-   "SPC l!" 'dired-do-shell-command
-   "SPC l&" 'dired-do-async-shell-command
-   "SPC lz" 'dired-do-compress-to
-   "SPC lZ" 'dired-do-compress
-   "SPC lt" 'dired-do-touch)
+   "ly" 'dired-do-copy
+   "ld" 'dired-do-delete
+   "lm" 'dired-do-rename
+   "ll" 'dired-do-symlink
+   "lL" 'dired-do-hardlink
+   "lo" 'dired-do-chown
+   "lO" 'dired-do-chgrp
+   "lx" 'dired-do-chmod
+   "l!" 'dired-do-shell-command
+   "l&" 'dired-do-async-shell-command
+   "lz" 'dired-do-compress-to
+   "lZ" 'dired-do-compress
+   "lt" 'dired-do-touch)
 
 
   (defmacro do--dired-visual-marking (func)
@@ -217,19 +217,19 @@ separate frame."
    "!" '(lambda ()(interactive)(do--dired-visual-marking dired-do-shell-command))
    "&" '(lambda ()(interactive)(do--dired-visual-marking dired-do-async-shell-command))
 
-   "SPC ly" '(lambda ()(interactive)(do--dired-visual-marking dired-do-copy))
-   "SPC ld" '(lambda ()(interactive)(do--dired-visual-marking dired-do-delete))
-   "SPC lm" '(lambda ()(interactive)(do--dired-visual-marking dired-do-rename))
-   "SPC ll" '(lambda ()(interactive)(do--dired-visual-marking dired-do-symlink))
-   "SPC lL" '(lambda ()(interactive)(do--dired-visual-marking dired-do-hardlink))
-   "SPC lo" '(lambda ()(interactive)(do--dired-visual-marking dired-do-chown))
-   "SPC lO" '(lambda ()(interactive)(do--dired-visual-marking dired-do-chgrp))
-   "SPC lx" '(lambda ()(interactive)(do--dired-visual-marking dired-do-chmod))
-   "SPC l!" '(lambda ()(interactive)(do--dired-visual-marking dired-do-shell-command))
-   "SPC l&" '(lambda ()(interactive)(do--dired-visual-marking dired-do-async-shell-command))
-   "SPC lz" '(lambda ()(interactive)(do--dired-visual-marking dired-do-compress-to))
-   "SPC lZ" '(lambda ()(interactive)(do--dired-visual-marking dired-do-compress))
-   "SPC lt" '(lambda ()(interactive)(do--dired-visual-marking dired-do-touch))))
+   "ly" '(lambda ()(interactive)(do--dired-visual-marking dired-do-copy))
+   "ld" '(lambda ()(interactive)(do--dired-visual-marking dired-do-delete))
+   "lm" '(lambda ()(interactive)(do--dired-visual-marking dired-do-rename))
+   "ll" '(lambda ()(interactive)(do--dired-visual-marking dired-do-symlink))
+   "lL" '(lambda ()(interactive)(do--dired-visual-marking dired-do-hardlink))
+   "lo" '(lambda ()(interactive)(do--dired-visual-marking dired-do-chown))
+   "lO" '(lambda ()(interactive)(do--dired-visual-marking dired-do-chgrp))
+   "lx" '(lambda ()(interactive)(do--dired-visual-marking dired-do-chmod))
+   "l!" '(lambda ()(interactive)(do--dired-visual-marking dired-do-shell-command))
+   "l&" '(lambda ()(interactive)(do--dired-visual-marking dired-do-async-shell-command))
+   "lz" '(lambda ()(interactive)(do--dired-visual-marking dired-do-compress-to))
+   "lZ" '(lambda ()(interactive)(do--dired-visual-marking dired-do-compress))
+   "lt" '(lambda ()(interactive)(do--dired-visual-marking dired-do-touch))))
 
 (use-package dired-open
   :ensure t
@@ -238,7 +238,7 @@ separate frame."
   (general-define-key
    :keymaps 'dired-mode-map
    :states 'normal
-   "SPC l <RET>" 'dired-open-xdg))
+   "l <RET>" 'dired-open-xdg))
 
 (use-package dired-ranger
   ;; :disabled t
@@ -251,11 +251,11 @@ separate frame."
    "Y" 'dired-ranger-copy
    "M" 'dired-ranger-move
    "P" 'dired-ranger-paste
-   "SPC ly" 'dired-ranger-copy
-   "SPC lm" 'dired-ranger-move
-   "SPC lp" 'dired-ranger-paste
-   "SPC lY" 'dired-do-copy
-   "SPC lM" 'dired-do-rename)
+   "ly" 'dired-ranger-copy
+   "lm" 'dired-ranger-move
+   "lp" 'dired-ranger-paste
+   "lY" 'dired-do-copy
+   "lM" 'dired-do-rename)
 
   (general-define-key
    :keymaps 'dired-mode-map
@@ -263,11 +263,11 @@ separate frame."
    "Y" '(lambda () (interactive) (do--dired-visual-marking dired-ranger-copy))
    "M" '(lambda () (interactive) (do--dired-visual-marking dired-ranger-move))
    "P" '(lambda () (interactive) (do--dired-visual-marking dired-ranger-paste))
-   "SPC ly" '(lambda () (interactive) (do--dired-visual-marking dired-ranger-copy))
-   "SPC lm" '(lambda () (interactive) (do--dired-visual-marking dired-ranger-move))
-   "SPC lp" '(lambda () (interactive) (do--dired-visual-marking dired-ranger-paste))
-   "SPC lY" '(lambda () (interactive) (do--dired-visual-marking dired-do-copy))
-   "SPC lM" '(lambda () (interactive) (do--dired-visual-marking dired-do-rename))))
+   "ly" '(lambda () (interactive) (do--dired-visual-marking dired-ranger-copy))
+   "lm" '(lambda () (interactive) (do--dired-visual-marking dired-ranger-move))
+   "lp" '(lambda () (interactive) (do--dired-visual-marking dired-ranger-paste))
+   "lY" '(lambda () (interactive) (do--dired-visual-marking dired-do-copy))
+   "lM" '(lambda () (interactive) (do--dired-visual-marking dired-do-rename))))
 
 (use-package dired-collapse
   ;; :disabled t
@@ -278,7 +278,7 @@ separate frame."
   (general-define-key
    :keymaps 'dired-mode-map
    :states 'normal
-   "SPC lc" 'dired-collapse-mode))
+   "lc" 'dired-collapse-mode))
 
 (use-package dired-subtree
   :disabled t
@@ -295,7 +295,7 @@ separate frame."
    "<M-tab>" 'dired-subtree-remove
    "[" 'dired-subtree-beginning
    "]" 'dired-subtree-end
-   "SPC l*}" 'dired-subtree-mark-subtree)
+   "l*}" 'dired-subtree-mark-subtree)
   :config
   (set-face-attribute 'dired-subtree-depth-1-face nil
 					  :background chocolate-theme-shadow+1)

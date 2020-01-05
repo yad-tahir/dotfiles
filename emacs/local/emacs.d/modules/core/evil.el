@@ -109,8 +109,8 @@
   (general-define-key
    :states '(normal visual)
    "s" 'nil ;; Used for searching instead
-   "l" 'nil ;; Used as a prefix for evil-local keybindings
-   "SPC l" 'nil ;; Used as a prefix for mode-local keybindings
+   "l" 'nil ;; Used as a prefix for mode-local keybindings
+   "SPC l" 'nil ;; Used as a prefix for evil-local keybindings
    "j" 'nil
    "x" 'nil
    "J" 'nil
@@ -168,18 +168,18 @@
    "SPC lw" 'evil-save-and-quit
 
 
-   "lg" '(:ignore t :which-key "jump")
-   "lgh" 'evil-jump-backward
-   "lgn" 'evil-jump-forward
-   "lgH" 'goto-last-change
-   "lgN" 'goto-last-change-reverse
-   "lgt" 'evil-jump-to-tag
-   "lgc" 'evil-goto-column
-   "lgd" 'evil-goto-definition
-   "lgl" 'evil-show-jumps
-   "lgs" 'evil-jump-backward-swap
-   "l-" 'do-evil-narrow
-   "l+" 'widen)
+   "SPC lg" '(:ignore t :which-key "jump")
+   "SPC lgh" 'evil-jump-backward
+   "SPC lgn" 'evil-jump-forward
+   "SPC lgH" 'goto-last-change
+   "SPC lgN" 'goto-last-change-reverse
+   "SPC lgt" 'evil-jump-to-tag
+   "SPC lgc" 'evil-goto-column
+   "SPC lgd" 'evil-goto-definition
+   "SPC lgl" 'evil-show-jumps
+   "SPC lgs" 'evil-jump-backward-swap
+   "SPC l-" 'do-evil-narrow
+   "SPC l+" 'widen)
 
   (general-define-key
    :states 'visual
@@ -204,7 +204,7 @@
    "T" 'nil
    "H" 'nil
    "M" 'nil
-   "L" 'nil
+   "SPC" 'nil
    "'" 'nil
    "\"" 'nil
 

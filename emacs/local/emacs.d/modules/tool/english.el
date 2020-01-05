@@ -27,7 +27,7 @@
 
   (general-define-key
    :states 'normal
-   "lW" 'do-define-word))
+   "SPC lI" 'do-define-word))
 
 
 (use-package speed-type
