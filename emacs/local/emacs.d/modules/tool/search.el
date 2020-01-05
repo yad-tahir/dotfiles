@@ -36,7 +36,6 @@
    "TAB" 'deadgrep-toggle-file-results
    "N" 'deadgrep-forward
    "H" 'deadgrep-backward
-   "SPC lo" 'deadgrep-visit-result-other-window
    [remap evil-quit] 'deadgrep-kill-process
    "SPC le" 'deadgrep-edit-mode
    "<f5>" 'deadgrep-restart)
@@ -44,7 +43,12 @@
   (general-define-key
    :keymaps 'deadgrep-edit-mode-map
    :states '(normal visual)
-   "<RET>" 'deadgrep-visit-result))
+   "<RET>" 'deadgrep-visit-result)
+
+  (add-hook 'deadgrep-mode-hook
+			'(lambda ()
+			   ;; Show hidden files by default
+			   (setq deadgrep--file-type (cons 'glob "*")))))
 
 (use-package google-this
   :ensure t
