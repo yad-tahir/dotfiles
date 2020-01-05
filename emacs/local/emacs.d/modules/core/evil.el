@@ -96,6 +96,7 @@
    "g*" 'evil-ex-search-unbounded-word-forward
    "gn" 'evil-next-match
    "gh" 'evil-previous-match
+   "g^" 'evil-first-non-blank
    "N" 'evil-ex-search-next
    "H" 'evil-ex-search-previous
 
@@ -162,7 +163,6 @@
    "[m" 'do-evil-backward-motion
 
    "SPC a" '(:ignore t :which-key "app")
-   "SPC g" '(:ignore t :which-key "go")
    "SPC l" '(:ignore t :which-key "local")
    "SPC lq" 'evil-quit
    "SPC lw" 'evil-save-and-quit

@@ -40,8 +40,8 @@
 
   (general-define-key
    :keymaps 'org-mode-map
-   :states 'insert
-   "C-M-i" 'org-cycle)
+   "<return>" 'nil
+   "<M-return>" 'nil)
 
   (general-define-key
    :keymaps 'org-mode-map
@@ -59,9 +59,17 @@
   (general-define-key
    :keymaps 'org-mode-map
    :states 'normal
-   "<RET>" 'org-cycle
-   "<M-RET>" 'org-global-cycle
-   "l <RET>" 'org-open-line
+   "<RET>" '(lambda ()
+			  (interactive)
+			  (evil-end-of-line)
+			  (goto-char (+ 1 (point)))
+			  (org-meta-return)
+			  (evil-insert-state))
+   "<M-RET>" '(lambda ()
+				(interactive)
+				(evil-first-non-blank)
+				(org-meta-return)
+				(evil-insert-state))
    "C-c" 'org-shiftup
    "C-t" 'org-shiftdown
    "C-h" 'org-shiftleft
@@ -70,34 +78,34 @@
    "M-T" 'org-shiftmetadown
    "M-H" 'org-shiftmetaleft
    "M-N" 'org-shiftmetaright
-   "gC" 'org-up-element
-   "gN" 'org-forward-element
-   "gH" 'org-backward-element
-   "gT" 'org-down-element
-   "lt" '(:ignore t :which-key "time")
+   "gC"  'org-up-element
+   "gN"  'org-forward-element
+   "gH"  'org-backward-element
+   "gT"  'org-down-element
+   "lt"  '(:ignore t :which-key "time")
    "ltt" '(:ignore t :which-key "insert timestamp")
    "ltt" '(lambda () (interactive) (org-time-stamp (current-time)))
    "lt(" 'org-clock-in
    "lt)" 'org-clock-out
    "ltq" 'org-clock-cancel
    "ltg" 'org-clock-goto
-   "lv" '(:ignore t :which-key "view")
+   "lv"  '(:ignore t :which-key "view")
    "lvl" 'org-toggle-latex-fragment
-   "ls" 'org-schedule
-   "lS" 'org-deadline
-   "lu" 'org-add-note ;;progress
-   "la" 'org-attach
-   "lg" 'org-open-at-point
-   "lc" 'org-ctrl-c-ctrl-c
-   "li" 'org-id-get-create
-   "l@" 'org-toggle-ordered-property
+   "ls"  'org-schedule
+   "lS"  'org-deadline
+   "lu"  'org-add-note ;;progress
+   "la"  'org-attach
+   "lg"  'org-open-at-point
+   "lc"  'org-ctrl-c-ctrl-c
+   "li"  'org-id-get-create
+   "l@"  'org-toggle-ordered-property
    "lel" 'org-export-dispatch
    "lep" 'org-latex-export-to-pdf
    "leb" 'org-beamer-export-to-pdf
    "leh" 'org-html-export-to-html
    [remap evil-save-and-quit] 'org-ctrl-c-ctrl-c
    [remap evil-quit] 'org-kill-note-or-show-branches
-   "l'" 'org-edit-src-code
+   "l'"  'org-edit-src-code
    "ld" 'org-archive-subtree)
 
   (general-define-key

@@ -64,7 +64,6 @@
 
 (evil-define-operator do-evil-indent (beginning end)
   "Indent current defun."
-  :motion do-evil-a-section
   :move-point nil
   (evil-indent beginning end))
 

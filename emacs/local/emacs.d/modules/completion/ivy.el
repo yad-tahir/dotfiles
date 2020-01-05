@@ -56,6 +56,7 @@
    "C-M-i" 'ivy-next-line-and-call
    "<M-RET>" 'ivy-immediate-done
    ;; Other commons
+   "M-p" 'ivy-yank-word
    "C-p" 'yank
    "C-w" 'forward-word
    "C-b" 'backward-word
@@ -175,16 +176,16 @@
    :keymaps 'override
    :states '(normal visual)
    "M-p" 'counsel-yank-pop
+   "SPC '"  'counsel-bookmark
    ;; make a prefix-command and add description
    "SPC s" '(:ignore t :which-key "search")
    "SPC sf" '(lambda () (interactive) (counsel-fzf nil nil "file " ))
    "SPC sj" 'counsel-dired-jump
    "SPC sv" 'counsel-describe-variable
    "SPC sl" 'counsel-find-library
-   "SPC sSPC l" 'counsel-describe-function
+   "SPC sF" 'counsel-describe-function
    "SPC si" 'counsel-info-lookup-symbol
    "SPC su" 'counsel-unicode-char
-   "SPC s'" 'counsel-bookmark
    "SPC sg" 'counsel-rg)
 
   (general-define-key

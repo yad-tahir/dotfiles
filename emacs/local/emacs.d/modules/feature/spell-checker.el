@@ -65,6 +65,7 @@
 
   (general-define-key
    :keymaps 'flyspell-mouse-map
+   :states 'normal
    "SPC ly" 'ispell-word)
 
   (general-define-key
@@ -98,6 +99,7 @@
   :init
   (general-define-key
    :keymaps 'flyspell-mouse-map
+   :states 'normal
    "SPC lY" 'flyspell-correct-at-point))
 
 

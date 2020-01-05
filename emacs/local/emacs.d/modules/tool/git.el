@@ -27,12 +27,13 @@
   (general-define-key
    :keymaps 'override
    :states 'normal
-   "SPC ag" 'magit-status
-   "SPC aG" '(lambda () (interactive)
-			   ;; Set 'universal argument' to force magit to prompt the user to
-			   ;; choose a new repo location
-			   (let ((current-prefix-arg "(4)"))
-				 (call-interactively 'magit-status))))
+   "SPC g" '(magit-status :which-key "magit")
+   "SPC G" '((lambda () (interactive)
+			  ;; Set 'universal argument' to force magit to prompt the user to
+			  ;; choose a new repo location
+			  (let ((current-prefix-arg "(4)"))
+				(call-interactively 'magit-status)))
+			  :which-key "magit+"))
 
   :config
   ;; Remove conflicting key bindings
@@ -70,24 +71,24 @@
    :states 'normal
    [remap evil-quit] 'kill-buffer
    [remap evil-save-and-quit] 'server-edit
-   "<RET>"    'git-rebase-show-commit
-   "lp"   'git-rebase-pick
-   "l,"   'git-rebase-kill-line
-   "lb"   'git-rebase-break
-   "le"   'git-rebase-edit
-   "ll"   'git-rebase-label
-   "lm"   'git-rebase-merge
-   "lM"   'git-rebase-merge-toggle-editmsg
-   "lf"   'git-rebase-fixup
-   "lk"   'git-rebase-reword
-   "ls"   'git-rebase-squash
-   "lt"   'git-rebase-reset
-   "lx"   'git-rebase-exec
-   "li"   'git-rebase-insert
-   "lz"   'git-rebase-noop
-   "M-c"      'git-rebase-move-line-up
-   "M-t"      'git-rebase-move-line-down
-   "z"        'git-rebase-undo)
+   "<RET>" 'git-rebase-show-commit
+   "lp"    'git-rebase-pick
+   "l,"    'git-rebase-kill-line
+   "lb"    'git-rebase-break
+   "le"    'git-rebase-edit
+   "ll"    'git-rebase-label
+   "lm"    'git-rebase-merge
+   "lM"    'git-rebase-merge-toggle-editmsg
+   "lf"    'git-rebase-fixup
+   "lk"    'git-rebase-reword
+   "ls"    'git-rebase-squash
+   "lt"    'git-rebase-reset
+   "lx"    'git-rebase-exec
+   "li"    'git-rebase-insert
+   "lz"    'git-rebase-noop
+   "M-c"   'git-rebase-move-line-up
+   "M-t"   'git-rebase-move-line-down
+   "z"     'git-rebase-undo)
 
   (general-define-key
    :keymaps '(magit-file-section-map
@@ -97,14 +98,14 @@
 			  magit-merge-preview-mode-map
 			  magit-staged-section-map
 			  magit-hunk-section-map)
-   "<RET>"       'magit-visit-thing
+   "<RET>"   'magit-visit-thing
    "l <RET>" 'magit-jump-to-diffstat-or-diff
-   "a"           'magit-apply
-   "A"           'magit-commit-add-log
-   "s"           'magit-stage
-   "u"           'magit-unstage
-   "k"           'magit-discard
-   "d"           'magit-delete-thing
+   "a"       'magit-apply
+   "A"       'magit-commit-add-log
+   "s"       'magit-stage
+   "u"       'magit-unstage
+   "k"       'magit-discard
+   "d"       'magit-delete-thing
    "la"      'magit-apply
    "lA"      'magit-commit-add-log
    "ls"      'magit-stage
@@ -131,20 +132,20 @@
   (general-define-key
    :keymaps 'magit-mode-map
    :states '(normal visual)
-   "<RET>"       'magit-visit-thing
-   "l <RET>"     'magit-jump-to-diffstat-or-diff
-   "TAB"         'magit-section-toggle
-   "<C-tab>"     'magit-section-cycle
-   "C-M-i"       'magit-section-cycle-diffs
-   "S-M-i"       'magit-section-cycle-global
-   "C"           'magit-section-backward
-   "T"           'magit-section-forward
-   "H"           'magit-go-backward
-   "N"           'magit-go-forward
-   "d"           'magit-delete-thing
-   "SPC dg"      'magit-diff
-   "SPC dG"      'magit-ediff
-   "<f5>"        'magit-refresh)
+   "<RET>"   'magit-visit-thing
+   "l <RET>" 'magit-jump-to-diffstat-or-diff
+   "TAB"     'magit-section-toggle
+   "<C-tab>" 'magit-section-cycle
+   "C-M-i"   'magit-section-cycle-diffs
+   "S-M-i"   'magit-section-cycle-global
+   "C"       'magit-section-backward
+   "T"       'magit-section-forward
+   "H"       'magit-go-backward
+   "N"       'magit-go-forward
+   "d"       'magit-delete-thing
+   "SPC dg"  'magit-diff
+   "SPC dG"  'magit-ediff
+   "<f5>"    'magit-refresh)
 
   (general-define-key
    :keymaps 'magit-status-mode-map

@@ -25,8 +25,7 @@
    :keymaps 'override
    :states '(normal visual)
    "SPC f" 'find-file
-   "SPC F" 'dired
-   "SPC m" 'bookmark-set)
+   "SPC F" 'dired)
 
   (defun do-file-manager (&optional path)
 	(interactive)
