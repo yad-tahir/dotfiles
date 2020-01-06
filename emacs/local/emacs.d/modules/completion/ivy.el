@@ -216,17 +216,17 @@
 		counsel-fzf-cmd "rg --color never -uu --files -g '*%s*' ")
 
 	;;; Enable rg export by ignoring counsel's fzf internal processing.
-  (defun do--counsel-fzf-occur ()
+  (defun do--counsel-fzf-occur (&rest args)
 	"Occur function for `counsel-fzf' to use 'ag' instead "
+	(ignore args)
 	(cd counsel--fzf-dir)
 	(counsel-cmd-to-dired
 	 (concat
 	  (format counsel-fzf-cmd ivy-text)
 	  ;; The sed is required to change ' to \'. Otherwise, xargs will throw
 	  ;; exceptions when file names contain single quotes.
-	  "| sed -e \"s/'/\\\\\\\\'/g\" | xargs -I {} ls -l ./{}")))
+	  "| sed -e \"s/'/\\\\\\\\'/g\" | xargs -I {} ls -alih ./{}")))
   (ivy-set-occur 'counsel-fzf 'do--counsel-fzf-occur))
-
 
 (use-package counsel-projectile
   :commands (counsel-projectile-find-dir
@@ -253,7 +253,6 @@
   (projectile-mode 1)
   ;; Use git's search engine. This enables occur-mode on counsel-find-file
   (ivy-set-occur 'counsel-projectile-find-file 'counsel-git-occur))
-
 
 (use-package swiper
   :disabled t
@@ -295,6 +294,5 @@
    "lz" 'wgrep-remove-all-change)
 
   (setq wgrep-auto-save-buffer t))
-
 
 (provide 'do-ivy)
