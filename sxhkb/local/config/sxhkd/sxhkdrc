@@ -1,94 +1,45 @@
 # Copyright (C) 2020
 
-# This program is free software; you can redistribute it and/or
-# modify it under the terms of the GNU General Public License
-# as published by the Free Software Foundation; either version 2
-# of the License, or (at your option) any later version.
+# This program is free software; you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation; either version 2 of the License, or (at your option) any later
+# version.
 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-# 02110-1301, USA.
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
+# Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
+#
+# System-wide keybindings designed for Dvorak layouts. This configuration is
+# meant to work with BSPWM only. The content of this file is partially inspired by
+# https://gitlab.com/protesilaos/dotfiles
+#
 
-##
-## General keybindings
-##
+# Keybinding Mnemonics
+# --------------------
+# super + action         : performs 'action' on the system
+# super + shift + action : performs a different variation of 'action'
+# super + arrow keys     : resize windows
+# super + h,c,t,n        : navigates between windows
+# super + alt            : controls presels
+# super + ctrl           : controls masked nodes
 
-# Reload sxhkd's configuration file
-super + shift + r
+# Reload SXHKD config file
+super + F5
 	pkill -USR1 -x sxhkd
 
-# Close and kill
-super + {_,shift +}q
-	bspc node -{c,k}
-
-# Close and kill marked nodes
-super + ctrl + {_,shift +}q
-	bspc query -N -n .marked | xargs -n 1 -I % bspc node % -{c,k}
-
-# Swap
-super + s
-	bspc node newest.focused.local -s biggest.local
-
-# Swap with the last marked node, then remove the mark
-super + shift + s
-	bspc node last.marked -s focused.local; bspc node last.marked -f; bspc node focused.marked -g marked
-
-# Swap with the last marked node
-super + ctrl + s
-	bspc node last.marked -s focused.local; bspc node last.marked -f
-
-# Balance the selected nodes.
-super + equal
-	bspc node -B
-
-super + shift + equal
-	sh -c 'fwid=$(bspc query -N -n focused.local); bspc node any.local -f && bspc node -B && bspc node $fwid -f'
-
-# Rotate and flip
-super r
-	bspc node -R -90
-
-super {_,shift +} v
-	bspc node {-F vertical,-F horizontal}
-
-# Send to a desktop
-super + shift + {1-9,0}
-	bspc  node -d '{1-9,10}' --follow
-
-# Send marked nodes to a desktop
-super + ctrl + {1-9,0}
-	bspc query -N -n .marked | xargs -n 1 -I % bspc node % -d '{1-9,10}'
-
-##
-## State/flags
-##
-
-# Toggle between various display modes
-super + Return
-	{bspc config top_padding 0, bspc desktop -l monocle, bspc  desktop -l tiled; bspc config top_padding 35}
-
-# Toggle the floating mode
-super + @space
-	bspc node -t '~{floating,tiled}'
-
-# Set node flags
-super + {m,f,l,x}
-	bspc node -g {marked,private,locked,sticky}
-
-##
-## Focus
-##
-
-# Focus node
-super + {_,shift + }{h,t,c,n}
-	bspc node -{f,s} {west,south,north,east}
+# Focus
+# -----
+#
+# Basic navigation is done through 'h, t, c, n' instead of 'h, t, n, s' as the
+# former is objectively more ergonomic. Please note that I am using Dvorak and
+# my daily keyboard driver is an HHKB Pro 2.
+super + {h,t,c,n}
+	bspc node -f {west,south,north,east}
 
 super + {a,b}
 	bspc node -f @{parent,brother}
@@ -96,26 +47,119 @@ super + {a,b}
 super + {_,shift + }Tab
 	bspc node -f {next,prev}.local
 
-super + quoteright
-	bspc node -f next.marked
-
-super + shift + quoteright
-	bspc node -f next.!marked
-
-super + ctrl + quoteright
-	bspc query -N -n .marked | xargs -n 1 -I % bspc node % -g marked
-
 super + {1-9,0}
 	bspc desktop -f '{1-9,10}'
 
 super + bracket{left,right}
 	bspc desktop -f {prev,next}.local
 
-##
-## Preselect
-##
+# Navigate through marked nodes
+super + quoteright
+	bspc node -f next.marked
 
-# Preselect the direction.
+super + shift + quoteright
+	bspc node -f next.!marked
+
+
+# Resize / Rotate
+# ---------------
+# I use arrow keys for resizing. Generally, I rarely resize windows.
+super + {Left,Up,Down,Right}
+	bspc node -z {left -20 0,top 0 -20,top 0 20,left 20 0}
+
+# Perform the reverse action with Shift
+super + shift + {Left,Up,Down,Right}
+	bspc node -z {right -20 0,bottom 0 -20,bottom 0 20,right 20 0}
+
+# Balance the selected nodes.
+super + equal
+	bspc node -B
+
+# @TODO Fix this and make it more useful
+# Balance all local nodes
+super + shift + equal
+	{ \
+	fwid=$(bspc query -N -n focused.local); \
+	bspc node any.local -f && bspc node -B; \
+	bspc node $fwid -f \
+	}
+
+# Rotate and flip
+super {_,shift +} r
+	bspc node -R {-90,90}
+
+super {_,shift +} v
+	bspc node {-F vertical,-F horizontal}
+
+
+# State/flags
+# -----------
+# Switch between various display modes: without panel, monocle, and normal
+super + Return
+	{ \
+	bspc config top_padding 0, \
+	bspc desktop -l monocle, \
+	bspc desktop -l tiled; bspc config top_padding 35 \
+	}
+
+# Toggle floating mode
+super + @space
+	bspc node -t '~{floating,tiled}'
+
+# Set node flags.
+super + {m,f,l,x}
+	bspc node -g {marked,private,locked,sticky}
+
+# @TODO May be we need to narrow down the search to local nodes only
+# With shift flags from all the nodes
+super + shift + {m,f,l,x}
+	{ \
+	bspc query -N -n .marked | xargs -n 1 -I % bspc node % -g marked, \
+	bspc query -N -n .private | xargs -n 1 -I % bspc node % -g private, \
+	bspc query -N -n .locked | xargs -n 1 -I % bspc node % -g locked, \
+	bspc query -N -n .sticky | xargs -n 1 -I % bspc node % -g sticky \
+	}
+
+# Swapping
+# --------
+# Directional swapping
+super + shift + {h,t,c,n}
+	bspc node -s {west,south,north,east}
+
+# Swap with the node that has the biggest window size
+super + s
+	bspc node focused.local -s biggest.local
+
+# Swap with the last marked node
+super + ctrl + s
+	{ \
+	bspc node any.marked -s focused.local; \
+	bspc node any.marked -f; \
+	bspc node any.marked -g marked \
+	}
+
+# Swap with the marked node that exists in a particalar direction
+super + ctrl + {h,t,c,n}
+	{ \
+	bspc node -s west.marked; bspc node east.marked -g marked, \
+	bspc node -s south.marked; bspc node north.marked -g marked, \
+	bspc node -s north.marked; bspc node south.marked -g marked, \
+	bspc node -s east.marked; bspc node west.marked -g marked \
+	}
+
+# Send focused nodes to a desktop
+super + shift + {1-9,0}
+	bspc node -d '{1-9,10}' --follow
+
+# Send marked nodes to a desktop
+super + ctrl + {1-9,0}
+	bspc query -N -n .marked | xargs -n 1 -I % bspc node % -d '{1-9,10}'
+
+
+
+# Preselect and receptacle
+# ------------------------
+# Spawn a preselection
 super + minus
 	bspc node -p {south,east}
 
@@ -123,27 +167,56 @@ super + minus
 super + shift + minus
 	bspc node -p cancel
 
-# Preselect the ratio.
+# Move the last marked window to the presel
+super + ctrl + minus
+	{ \
+	bspc node any.marked -f; \
+	bspc node any.marked -n 'newest.!automatic'; \
+	bspc node any.marked -g marked \
+	}
+
+# Move current focused node to the presel
+super + alt + {h,t,c,n}
+	{ \
+	bspc node focused.local -n 'west.!automatic', \
+	bspc node focused.local -n 'south.!automatic', \
+	bspc node focused.local -n 'north.!automatic', \
+	bspc node focused.local -n 'east.!automatic' \
+	}
+
+# Size the ratio of a preselection.
 super + alt + {1-9}
 	bspc node -o 0.{1-9}
 
+# Spawn a receptacle
+super + comma
+	bspc node -i
 
-##
-## Move/resize
-##
+# Kill the last receptacle
+super + shift + comma
+	bspc node 'any.leaf.!window.local' -k
 
-# expand a window by moving one of its side outward.
-super + {Left,Up,Down,Right}
-	bspc node -z {left -20 0,top 0 -20,top 0 20,left 20 0}
+# Move the last marked window to the receptacle
+super + ctrl + comma
+	{ \
+	bspc node any.marked -f; \
+	bspc node any.marked -n 'any.leaf.!window.local'; \
+	bspc node any.marked -g marked \
+	}
 
-super + shift + {Left,Up,Down,Right}
-	bspc node -z {right -20 0,bottom 0 -20,bottom 0 20,right 20 0}
+
+# Close/Kill
+# ----------
+super + {_,shift +}q
+	bspc node -{c,k}
+
+# Close or kill marked nodes
+super + ctrl + {_,shift +}q
+	bspc query -N -n .marked | xargs -n 1 -I % bspc node % -{c,k}
 
 
-##
-## Media control
-##
-
+# Media control
+# -------------
 XF86AudioMute
 	pulsemixer --set-volume {0,20} --color 0 &
 
@@ -151,22 +224,22 @@ XF86AudioMute
 	pulsemixer --change-volume {+5,-5} --color 0 &
 
 XF86AudioPlay
-	emacsclient -nqe '(do-music-toggle)' > /dev/null
+	emacsclient -nqe '(do-music-toggle)' > /dev/null &
 
 XF86AudioNext
-	emacsclient -nqe '(do-music-next)' > /dev/null
+	emacsclient -nqe '(do-music-next)' > /dev/null &
 
 XF86AudioPrev
-	emacsclient -nqe '(do-music-previous)' > /dev/null
+	emacsclient -nqe '(do-music-previous)' > /dev/null &
 
 {XF86AudioNext,XF86AudioPrev} + shift
-	mpc seek {+00,-00}10 > /dev/null
+	mpc seek {+00,-00}10 > /dev/null &
 
-##
-## Program launcher
-##
 
-# Emacs
+# Program launcher
+# ----------------
+
+# Beloved Emacs
 F2
 	emacsclient -nqe "(do-make-frame nil \"$DISPLAY\")" -a='/usr/bin/urxvt -e nano' > /dev/null &
 
@@ -176,20 +249,19 @@ F12
 
 # Dmenu
 super + g
-	~/bin/dmenu/run.sh
+	~/bin/dmenu/run.sh &
 
 super + e
-	~/bin/dmenu/emacs.sh
+	~/bin/dmenu/emacs.sh &
 
 super + p
-	~/bin/dmenu/pass.sh
+	~/bin/dmenu/pass.sh &
 
 super + u
-	~/bin/dmenu/monitor.sh
+	~/bin/dmenu/monitor.sh &
 
-# Screenshot
 super + F3
-	scrot &
+	~/bin/screen-lock &
 
 # Terminal
 super + Escape
@@ -198,23 +270,27 @@ super + Escape
 super + shift + Escape
 	/usr/bin/urxvt &
 
-# Screen lock
-super + shift + L
-	~/bin/screen-lock &
-
 # Bar
 Print
-	{killall polybar; bspc config top_padding 0, bspc config top_padding "$(xrdb -query | awk '/\Panel.height:/\{print $2\}')"; bspc query -M --names | xargs -I % -n 1 sh -c 'MONITOR=% polybar orange &'} &
+	{ \
+	killall polybar; bspc config top_padding 0, \
+	height=$(xrdb -query | awk '/\Panel.height:/\{print $2\}'); \
+	bspc config top_padding "$height"; \
+	bspc query -M --names | xargs -I % -n 1 sh -c 'MONITOR=% polybar orange &' \
+	} &
 
-# Dvorak or Qwerty
+# Toggle between Dvorak and Qwerty
 alt + space
-	~/bin/keyboard-toggle
+	~/bin/keyboard-toggle &
 
-super + w
+# Other applications
+super + o; w
 	firefox &
-
-super + {_,shift +}comma
-	urxvtc -hold {-name glances -e /usr/bin/glances, -name htop -e /usr/bin/htop}
-
-super + {_,shift +}period
-	urxvtc -hold {-name pulsemixer -e /usr/bin/pulsemixer, -name log -e /bin/journalctl -fn 200}
+super + o; g
+	urxvtc -hold -name glances -e /usr/bin/glances &
+super + o; h
+	urxvtc -hold -name htop -e /usr/bin/htop &
+super + o; s
+	urxvtc -hold -name pulsemixer -e /usr/bin/pulsemixer &
+super + o; l
+	urxvtc -hold -name log -e /bin/journalctl -fn 200 &
