@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Copyright (C) 2020
 
@@ -17,29 +17,35 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
+function setup-vpn-routing () {
+	local currentIP=$(ip route | grep default | awk '{print $3}')
+	# Setup no-vpn routing table
+	ip route del default table no-vpn
+	# Add the default root to the no-vpn routing table
+	echo "current IP is $currentIP"
+	ip route add default via "$currentIP" dev $1 table no-vpn
+	ip rule add fwmark 1 table no-vpn prior 1000
+
+	# The status might be not successful after executing the commands above. For
+	# example, the ip rule might already exist the table when we try to add it.
+	# There is no need to report this error status back to systemd. These
+	# exceptions are typical and okay to occur.
+	true
+}
+
 case "$1" in
 	wlp59s0)
 		case "$2" in
 			up)
-				# OpenVPN may require DNS. A quick reboot is needed to make sure the DNS daemon is
-				# well initialized.
-				# systemctl restart systemd-resolved.service
 				systemctl start openvpn-client@personal-udp.service
-
-				# Setup no-vpn routing table
-				ip route del default table no-vpn 2> /dev/null
-				# Add the default root to the no-vpn routing table
-				ip route add default via $(ip route | grep default | awk '{print $3}') dev $1 table no-vpn 2> /dev/null
-				ip rule add fwmark 1 table no-vpn prior 1000
+				setup-vpn-routing $1
 				;;
 			down)
 				systemctl stop openvpn-client@personal-udp.service
 				;;
 			connectivity-change)
 				systemctl restart openvpn-client@personal-udp.service
-				# Add the default root to the no-vpn routing table
-				ip route del default table no-vpn 2> /dev/null
-				ip route add default via $(ip route | grep default | awk '{print $3}') dev $1 table no-vpn 2> /dev/null
+				setup-vpn-routing $1
 				;;
 		esac
 		;;
