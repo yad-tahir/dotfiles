@@ -169,8 +169,8 @@ interval = 30
 
 [module/memory]
 type = custom/script
-label = " %output:0:4:%GB"
-exec =  free | awk '/^Mem/{print ($2-$7)/(1024^2)}' | bc
+label = " %output%"
+exec =  free | awk '/^Mem/{print ($2-$7)/(1024^2)}' | bc | awk '{$1=sprintf("%.1f",$0); if ( int($1) < 24) print $1 "GB" ; else print "%{F'$(xrdb -query | awk '/\*color11:/{print $2}')'}" $1 "GB%{F-}";}'
 interval = 30
 
 [module/cpu]
