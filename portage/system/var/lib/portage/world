@@ -5,6 +5,7 @@ app-arch/file-roller
 app-backup/insync
 app-backup/znapzend
 app-editors/emacs
+app-editors/emacs:26
 app-editors/nano
 app-emulation/libvirt
 app-emulation/qemu
