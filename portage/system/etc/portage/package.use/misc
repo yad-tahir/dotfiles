@@ -4,14 +4,18 @@ app-admin/pass X # @X adds clipboard support
 # @tiff, @xpm to remove unused image formats
 # @harfbuzz @cairo @json will be added in Emacs 27
 app-editors/emacs X png jpeg svg gfile harfbuzz cairo json -tiff -xpm
-media-fonts/* X
-media-libs/freetype X
 x11-misc/dmenu xinerama # Add multi-monitor support
 
 # ~/bin/screen-lock
 media-libs/imlib2 X png jpeg
 media-gfx/imagemagick png
 media-gfx/feh xinerama
+
+# Fonts
+media-fonts/* X
+media-libs/freetype X
+# @cjk adds chinese, japanese and korean character sets
+media-fonts/noto cjk
 
 # UI
 x11-libs/gtk+ X

@@ -32,6 +32,7 @@ media-fonts/dejavu
 media-fonts/font-arabic-misc
 media-fonts/font-cursor-misc
 media-fonts/fontawesome
+media-fonts/noto
 media-gfx/feh
 media-gfx/imagemagick
 media-gfx/scrot
