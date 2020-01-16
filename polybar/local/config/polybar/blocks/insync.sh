@@ -24,7 +24,7 @@ tmp=$(insync-headless get_sync_progress 2> /dev/null | head -n1)
 status=$(insync-headless get_status 2> /dev/null)
 
 if [ "$tmp" == "No syncing activities" ] && [ "$status" == "SHARE" ]; then
-	echo ""
+	echo ""
 else
 	# Calculate the mean of the progress' percentage. Insync shares this data
 	# when uploading or downloading files.

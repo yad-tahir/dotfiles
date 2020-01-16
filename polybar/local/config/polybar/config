@@ -229,7 +229,7 @@ label-padding = 0
 
 [module/insync]
 type = custom/script
-label =" | %output%"
+label =" %output%"
 exec = ~/.config/polybar/blocks/insync.sh
 interval = 60
 
