@@ -25,13 +25,32 @@ status=$(insync-headless get_status 2> /dev/null)
 
 if [ "$tmp" == "No syncing activities" ] && [ "$status" == "SHARE" ]; then
 	echo ""
-elif [ "$tmp" == "Download" ]; then
-	COLOR=$(xrdb -query | awk '/\*color2:/{print $2}')
-	echo "%{F$COLOR} Downloading%{F-}"
-elif [ "$tmp" == "Uploading" ]; then
-	COLOR=$(xrdb -query | awk '/\*color9:/{print $2}')
-	echo "%{F$COLOR} Uploading%{F-}"
 else
-	COLOR=$(xrdb -query | awk '/\*color11:/{print $2}')
-	echo "%{F$COLOR} $status%{F-}"
+	# Calculate the mean of the progress' percentage. Insync shares this data
+	# when uploading or downloading files.
+	per=$(insync-headless get_sync_progress |
+			  awk '/[:number:]?%/{
+						p=$2;
+						gsub("\\(","",p);
+						gsub("%","",p);
+						# update sum and count
+						s+=p
+						n+=1;
+					}
+					END{
+						# print the mean
+						if (n != 0)
+							printf ("%d%\n", s/n)
+					}' 2> /dev/null)
+	if [ "$tmp" == "Download" ]; then
+		COLOR=$(xrdb -query | awk '/\*color2:/{print $2}')
+		echo "%{F$COLOR} Downloading $per%{F-}"
+	elif [ "$tmp" == "Uploading" ]; then
+		COLOR=$(xrdb -query | awk '/\*color9:/{print $2}')
+		echo "%{F$COLOR} Uploading $per%{F-}"
+	else
+		# For anything else, print it in the alert color.
+		COLOR=$(xrdb -query | awk '/\*color11:/{print $2}')
+		echo "%{F$COLOR} $status%{F-}"
+	fi
 fi
