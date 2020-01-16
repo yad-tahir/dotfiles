@@ -49,7 +49,7 @@ font-1 = "DejaVu Sans Mono:weight=bold:size=12:antialias=true;1"
 font-2 = "FontAwesome:size=12:antialias=true;1"
 modules-left = bspwm xwindow
 modules-center =
-modules-right = music fan memory memory-zfs cpu-freq processes threads emacs dGPU portage-world portage-packages insync ping public-ip battery pulseaudio xkeyboard date
+modules-right = music fan memory memory-zfs cpu-freq processes threads emacs dGPU insync public-ip portage-world portage-packages battery pulseaudio xkeyboard date
 tray-position = right
 tray-padding = 0
 wm-restack = bspwm
