@@ -242,7 +242,7 @@ interval = 60
 [module/public-ip]
 type = custom/ipc
 format-prefix = " "
-hook-0 = curl ipinfo.io 2>&1 | awk '/country/{print " " substr($2,2,2)}/^curl/{print "%{F'$(xrdb -query | awk '/\*color9:/{print $2}')'} NO-NET%{F-}"}'
+hook-0 = ~/.config/polybar/blocks/public-ip.sh
 initial = 1
 
 [module/music]
