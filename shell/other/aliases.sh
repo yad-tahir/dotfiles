@@ -20,7 +20,7 @@ alias s="sudo su"
 alias ls='ls -alih'
 alias bc='bc --mathlib'
 alias cleaor='clear'
-
+alias man='urxvtc -hold -name man -e /usr/bin/man $@'
 
 # Other
 if [ -e "$HOME/.config/alias.d/" ]; then

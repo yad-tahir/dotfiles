@@ -29,8 +29,11 @@ dispwin -d 3 ~/.config/icc-profiles/U3415W#3-2018-10-21-1221.icc
 bspc query -D -m eDP-1 | xargs -n 1 -I % bspc desktop % --to-monitor DP-1
 bspc query -D -m DP-3 | xargs -n 1 -I % bspc desktop % --to-monitor DP-1
 bspc monitor eDP-1 -r
-bspc monitor DP-3  -d 1 2 3 4 5 6 &> /dev/null
-bspc monitor DP-1  -d 7 8 9 10 &> /dev/null
+bspc monitor DP-3  -d 1 2 3 4 5 &> /dev/null
+bspc monitor DP-1  -d 6 7 8 9 10 &> /dev/null
+
+# Reset desktop layouts
+bspc query -D | xargs -n 1 -I % bspc desktop % -l tiled
 
 xrandr --output DP-1  --dpi 200
 xrandr --output DP-3  --dpi 200

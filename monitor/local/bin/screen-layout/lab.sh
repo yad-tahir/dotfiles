@@ -26,6 +26,10 @@ bspc query -D -m DP-1 | xargs -n 1 -I % bspc desktop % --to-monitor eDP-1
 bspc query -D -m DP-3 | xargs -n 1 -I % bspc desktop % --to-monitor eDP-1
 bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9 10 &> /dev/null
 
+# Reset desktop layouts
+bspc query -D | xargs -n 1 -I % bspc desktop % -l tiled
+
+
 xrandr --output eDP-1 --dpi 250
 xrandr --output DP-1  --dpi 250
 xrandr --output DP-3  --dpi 250
