@@ -107,17 +107,32 @@ super + @space
 	bspc node -t '~{floating,tiled}'
 
 # Set node flags.
-super + {m,f,l,x}
+super + {m,f,l,y}
 	bspc node -g {marked,private,locked,sticky}
 
 # @TODO May be we need to narrow down the search to local nodes only
 # With shift flags from all the nodes
-super + shift + {m,f,l,x}
+super + shift + {m,f,l,y}
 	{ \
 	bspc query -N -n .marked | xargs -n 1 -I % bspc node % -g marked, \
 	bspc query -N -n .private | xargs -n 1 -I % bspc node % -g private, \
 	bspc query -N -n .locked | xargs -n 1 -I % bspc node % -g locked, \
 	bspc query -N -n .sticky | xargs -n 1 -I % bspc node % -g sticky \
+	}
+
+# Scratch pad
+super + x
+	{ \
+	bspc node -t floating; \
+	bspc node -g sticky; \
+	bspc node -g hidden \
+	}
+
+super + shift + x
+	{ \
+	n=$(bspc query -N -n any.hidden); \
+	bspc node $n -g hidden; \
+	bspc node $n -f \
 	}
 
 # Swapping
