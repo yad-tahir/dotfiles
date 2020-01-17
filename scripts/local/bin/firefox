@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Copyright (C) 2020
+
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
+
+# Desktop-aware launcher for Firefox. We launch Firefox either in the VPN mode
+# or not depending on the current focused desktop. If the VPN mode is
+# activated, then Firefox sends that data through VPN. Otherwise, data is
+# sent directly.
+
+workspace=$(bspc query -D -d --names)
+if [ $workspace == "5" ]; then
+	# Sudo sets the group owner of the process to 'no-vpn'. We use this fact in
+	# nftables to redirect the packets. Option -E is needed to incorporate
+	# current environmental variables.
+	# We use the 'no-vpn' profile to provide visual feedback.
+	exec sudo -g no-vpn -E /usr/bin/firefox -P "no-vpn" &> /dev/null
+else
+	exec /usr/bin/firefox -P "vpn" &> /dev/null
+fi

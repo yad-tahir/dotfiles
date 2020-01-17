@@ -285,7 +285,7 @@ alt + space
 
 # Other applications
 super + o; w
-	firefox &
+	~/bin/firefox &
 super + o; g
 	urxvtc -hold -name glances -e /usr/bin/glances &
 super + o; h
