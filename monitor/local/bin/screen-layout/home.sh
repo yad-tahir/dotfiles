@@ -43,7 +43,7 @@ bspc query -M --names | xargs -I % -n 1 sh -c 'MONITOR=% polybar orange &'
 
 systemctl --user start urxvtd.service &
 sleep 1
-urxvtc -hold -name glances -e /usr/bin/glances &
+urxvtc -hold -name log -e /bin/journalctl -fn 200 &
 urxvtc -hold -name htop -e /usr/bin/htop &
 
 # bspc desktop 6 -f &&
