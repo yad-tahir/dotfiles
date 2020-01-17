@@ -28,6 +28,7 @@ sys-apps/dbus X
 app-office/libreoffice -accessibility -bluetooth -mariadb -branding
 app-text/texlive png truetype science publishers graphics epspdf
 dev-texlive/texlive-basic -luajittex
+app-text/mupdf -javascript
 
 # @spice used by virt for UI desktop sharing
 # @lzo enables lzo compression

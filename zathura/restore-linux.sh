@@ -21,3 +21,6 @@ echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
 do-ln-sync "${PWD}/local/config" "${HOME}/.config"
+
+do-sync-sudo "${PWD}/system/usr/share/applications" "/usr/share/applications"
+sudo update-desktop-database
