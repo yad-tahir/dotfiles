@@ -65,6 +65,10 @@ feh --bg-fill $(ls ${HOME}/pictures/background/* | shuf -n 1) &
 xsetroot -xcf /usr/share/cursors/xorg-x11/Adwaita/cursors/left_ptr 16 &
 
 systemctl --user import-environment
+# Avoid using systemd 'enable' feature for Emacs as it can launch Emacs server
+# before importing most all env. variables. Instead, start Emacs service
+# manually in the beginning of a new BSPWM session.
+systemctl --user start emacs-27-vcs.service &
 systemctl --user restart sxhkd@${XDG_VTNR}.service &
 
 # Disable key stroke repeating
