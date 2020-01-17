@@ -23,6 +23,7 @@ state=$(setxkbmap -query |
 				awk '/^layout/{split($2,arr,","); print toupper(arr[1])}')
 
 if [ $state = "DVORAK" ]; then
+	# Switch back to QWERTY
 	setxkbmap us
 	setxkbmap -option
 else

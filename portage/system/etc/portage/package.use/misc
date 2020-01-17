@@ -38,7 +38,7 @@ app-emulation/libvirt zfs virt-network pcap dbus -macvtap -vepa
 # TODO: Add @webdav in the future
 net-misc/spice-gtk lz4 dbus
 
-# @265-color @blink @unicode3 for UI enhancement
+# @265-color @blink for UI enhancements
 x11-terms/rxvt-unicode 256-color blink
 
 # Disable ipv6 when it is not needed
