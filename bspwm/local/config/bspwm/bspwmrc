@@ -36,24 +36,16 @@ bspc config focused_border_color $(xrdb -query | awk '/\*color7:/{print $2}')
 bspc config presel_feedback_color $(xrdb -query | awk '/\*color0:/{print $2}')
 
 bspc config external_rules_command $HOME/.config/bspwm/evil-rules.sh
-# $HOME/.config/bspwm/ultrawide-aware.sh &> /dev/null &
 
 # Remove old rules
 bspc rule -r '*'
-# Write the new rules
-bspc rule -a 'Zathura' follow=on desktop=8 state=tiled
+# All the rules that do not require a desktop change can be added here. The rest
+# must be added the external script file as it might override the rules stated
+# here.
 bspc rule -a 'dmenu' manage=off
-bspc rule -a 'Emacs' follow=on state=tiled
-bspc rule -a 'Emacs:music-playlist' follow=on desktop=5
-bspc rule -a 'Emacs:scratch-buffer' follow=on state=floating sticky=on center=on
-bspc rule -a 'Emacs:calculator' follow=on state=floating sticky=on center=on
-bspc rule -a 'URxvt:pulsemixer' follow=on state=floating sticky=on center=on
-bspc rule -a 'URxvt:htop' follow=on desktop=10 state=tiled
-bspc rule -a 'URxvt:glances' follow=on desktop=10 state=tiled
-bspc rule -a 'URxvt:log' follow=on desktop=10 state=tiled
-bspc rule -a 'URxvt:man' follow=on desktop=9 state=tiled
-bspc rule -a 'Steam' follow=on state=tiled sticky=off desktop=5
-bspc rule -a 'Nightly:Toolkit' follow=off state=float sticky=on # Firefox's Picture-in-Picture mode
+bspc rule -a 'Emacs' state=tiled follow=on
+# Firefox's Picture-in-Picture mode
+bspc rule -a 'Nightly:Toolkit' state=float follow=off sticky=on locked=on
 
 # Set the general setting for DPI
 xrandr --auto
