@@ -162,6 +162,18 @@
 		   :scale 1.0 :html-foreground chocolate-theme-white
 		   :html-background "Transparent"
 		   :html-scale 1.0)))
+  (define-advice org-compile-file (:around (org-fn source process ext &optional err-msg log-buf spec &rest args))
+	(ignore log-buf)
+	;; Disable log buffers to the '*Messages*' buffer to avoid creating pop-up
+	;; frames
+	(apply org-fn
+		   source
+		   process
+		   ext
+		   err-msg
+		   (get-buffer-create "*Messages*")
+		   spec
+		   args))
 
   (set-face-attribute 'org-special-keyword nil
 					  :inherit 'font-lock-comment-face)

@@ -92,8 +92,11 @@ The third optional argument PROPS indicates the properties of the frame"
 							  (/ (line-number-at-pos)
 								 0.01
 								 (line-number-at-pos (point-max)))))
-			  ;; Use new frames as much as possible
-			  pop-up-frames t)
-
+			  ;; Create new frames as much as possible. This works beautifully
+			  ;; with tiling window managers such as i3 and BSPWM
+			  pop-up-frames t
+			  ;; Buffers that do not require pop-up frames
+			  display-buffer-alist
+			  '(("\\*Messages\\*" (display-buffer-in-side-window))))
 
 (provide 'do-windows)
