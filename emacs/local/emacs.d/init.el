@@ -48,7 +48,7 @@
 				 "lang/prog"
 				 "lang/elisp"
 				 "lang/go"
-				 "lang/clojure"
+				 ;; "lang/clojure"
 				 "lang/web"
 				 ;; "lang/java"
 				 ;; "lang/php"

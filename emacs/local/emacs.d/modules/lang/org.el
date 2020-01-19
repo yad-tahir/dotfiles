@@ -143,7 +143,7 @@
 		org-track-ordered-property-with-tag t ;; Add :ORDER:
 		org-enforce-todo-checkbox-dependencies t ;; Don't allow the super task
 		org-enforce-todo-dependencies t ;; Don't allow the super task to close
-		org-habit-graph-column 60)
+		org-habit-graph-column 30)
 
   ;; Open in a current window instead of a new frame
   ;; Source: https://bit.ly/2WX44mj

@@ -32,10 +32,7 @@
 	  ;; Files
 	  delete-old-versions t
 	  make-backup-files nil
-	  backup-directory-alist `((".*" . ,temporary-file-directory))
-	  auto-save-default t
-	  auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
-	  auto-save-list-file-prefix 'temporary-file-directory
+	  auto-save-default nil
 	  delete-auto-save-files t
 	  coding-system-for-read 'utf-8
 	  coding-system-for-write 'utf-8
