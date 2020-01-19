@@ -29,6 +29,12 @@
 		   (find-file "~/notes/todo.org"))
 		 :which-key "todo.org"))
 
+  (custom-set-variables
+   '(org-format-latex-options
+	 `(:foreground ,chocolate-theme-white
+				   :background ,chocolate-theme-bg
+				   :scale 0.7
+				   :html-scale 0.7)))
   :config
   ;; Remove compiler warnings
   (eval-when-compile
@@ -90,7 +96,7 @@
    "ltq" 'org-clock-cancel
    "ltg" 'org-clock-goto
    "lv"  '(:ignore t :which-key "view")
-   "lvl" 'org-toggle-latex-fragment
+   "lvl" 'org-latex-preview
    "ls"  'org-schedule
    "lS"  'org-deadline
    "lu"  'org-add-note ;;progress
@@ -125,6 +131,7 @@
 		org-startup-with-inline-images t
 		org-directory "~/notes"
 		org-startup-indented nil
+		org-preview-latex-default-process 'dvisvgm
 		org-startup-with-latex-preview t
 		org-startup-folded "OVERVIEW"
 		org-log-into-drawer "LOGBOOK"
@@ -155,13 +162,6 @@
 	   "C-c" 'nil)
 	  (apply org-fn args)))
 
-  ;; Theme
-  (custom-set-variables
-   '(org-format-latex-options
-	 (list :foreground chocolate-theme-white :background chocolate-theme-bg
-		   :scale 1.0 :html-foreground chocolate-theme-white
-		   :html-background "Transparent"
-		   :html-scale 1.0)))
   (define-advice org-compile-file (:around (org-fn source process ext &optional err-msg log-buf spec &rest args))
 	(ignore log-buf)
 	;; Disable log buffers to the '*Messages*' buffer to avoid creating pop-up
@@ -175,6 +175,7 @@
 		   spec
 		   args))
 
+  ;; Theme
   (set-face-attribute 'org-special-keyword nil
 					  :inherit 'font-lock-comment-face)
   (set-face-attribute 'org-level-1 nil

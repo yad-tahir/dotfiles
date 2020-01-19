@@ -18,6 +18,7 @@ app-portage/gentoolkit
 app-portage/layman
 app-portage/repoman
 app-shells/bash-completion
+app-text/dvisvgm
 app-text/texlive
 app-text/zathura
 app-text/zathura-pdf-mupdf
