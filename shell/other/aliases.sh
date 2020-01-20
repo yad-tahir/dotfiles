@@ -22,6 +22,9 @@ alias bc='bc --mathlib'
 alias cleaor='clear'
 alias man='urxvtc -hold -name man -e /usr/bin/man $@'
 
+alias zip-compress='zip -r $1 $@'
+alias zip-uncompress='unzip $@'
+
 # Other
 if [ -e "$HOME/.config/alias.d/" ]; then
 	for f in $HOME/.config/alias.d/* ; do

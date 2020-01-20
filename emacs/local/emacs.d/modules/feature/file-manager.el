@@ -310,12 +310,7 @@ separate frame."
   :hook ((org-mode . openwith-mode)
 		 (dired-mode . openwith-mode))
   :config
-  (setq openwith-associations '(("\\.rar\\'" "file-roller" (file))
-								("\\.zip\\'" "file-roller" (file))
-								("\\.7z\\'" "file-roller" (file))
-								("\\.gz\\'" "file-roller" (file))
-								("\\.tar\\'" "file-roller" (file))
-								("\\.pdf\\'" "zathura" (file)))))
+  (setq openwith-associations '(("\\.pdf\\'" "zathura" (file)))))
 
 
 ;; For large file

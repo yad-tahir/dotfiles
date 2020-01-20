@@ -24,9 +24,6 @@ dev-lang/python sqlite
 # required by sys-kernel/genkernel-3.5.3.3
 >=sys-apps/util-linux-2.33.2 static-libs
 
-# required by file-roller (argument)
->=dev-libs/libxml2-2.9.9-r1 python
-
 # Graphic
 # required by x11-drivers/nvidia-drivers-440.36-r1::gentoo[tools]
 # required by nvidia-drivers (argument)
@@ -221,6 +218,8 @@ x11-libs/libdrm video_cards_intel
 # required by app-emulation/virt-manager-2.2.1::gentoo[gtk]
 # required by virt-manager (argument)
 >=net-misc/spice-gtk-0.35 usbredir
+>=dev-libs/libxml2-2.9.9-r1 python
+
 # required by app-emulation/libvirt-5.5.0-r1::gentoo[virt-network]
 # required by app-emulation/libvirt (argument)
 >=net-dns/dnsmasq-2.80-r1 script
