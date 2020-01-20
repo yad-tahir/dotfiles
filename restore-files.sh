@@ -22,7 +22,6 @@ cd $DIR
 
 mkdir ${HOME}/bin 2> /dev/null
 
-./acpi/restore-linux.sh
 ./bspwm/restore-linux.sh
 ./emacs/restore-linux.sh
 ./dmenu/restore-linux.sh
