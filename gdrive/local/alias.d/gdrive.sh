@@ -16,6 +16,9 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-alias insync-progress="insync-headless get_sync_progress"
-alias insync-status="insync-headless get_status"
-alias insync-error="insync-headless get_errors"
+alias gdrive-progress="insync-headless get_sync_progress"
+alias gdrive-status="insync-headless get_status"
+alias gdrive-error="insync-headless get_errors"
+alias gdrive-stop="sudo systemctl stop insync.service"
+alias gdrive-start="sudo systemctl start insync.service"
+alias gdrive-restart="sudo systemctl restart insync.service"
