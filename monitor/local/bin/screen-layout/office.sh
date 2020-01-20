@@ -26,6 +26,9 @@ dispwin -d 1 ~/.config/icc-profiles/U3415W#2-2018-10-21-1137.icc
 dispwin -d 3 ~/.config/icc-profiles/U3415W#3-2018-10-21-1221.icc
 
 # Set the monitors
+# Move current tiled nodes to a desktop. This is needed because sometimes
+# BSPWM bugs out when we switch between various monitors.
+bspc query -N -n .tiled | xargs -n 1 -I % bspc node % -d 1
 bspc query -D -m eDP-1 | xargs -n 1 -I % bspc desktop % --to-monitor DP-1
 bspc query -D -m DP-3 | xargs -n 1 -I % bspc desktop % --to-monitor DP-1
 bspc monitor eDP-1 -r

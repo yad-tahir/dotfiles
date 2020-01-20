@@ -25,6 +25,9 @@ dispwin -d 1 ~/.config/icc-profiles/U3818DW#2-2018-10-20-2347.icc
 dispwin -d 3 ~/.config/icc-profiles/U2718Q#3-2018-10-21-0034.icc
 
 # Set the workspaces
+# Move current tiled nodes to a desktop. This is needed because sometimes
+# BSPWM bugs out when we switch between various monitors.
+bspc query -N -n .tiled | xargs -n 1 -I % bspc node % -d 1
 bspc query -D -m eDP-1 | xargs -n 1 -I % bspc desktop % --to-monitor DP-1
 bspc query -D -m DP-3 | xargs -n 1 -I % bspc desktop % --to-monitor DP-1
 bspc monitor DP-1  -d 1 2 3 4 5 &> /dev/null

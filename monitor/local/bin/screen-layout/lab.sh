@@ -22,6 +22,9 @@ xrandr --output DP-1  --mode 1920x1200 --pos 0x0 --brightness 1
 xrandr --output DP-3  --mode 1920x1200 --pos 0x0 --brightness 1
 
 # Set the monitors
+# Move current tiled nodes to a desktop. This is needed because sometimes
+# BSPWM bugs out when we switch between various monitors.
+bspc query -N -n .tiled | xargs -n 1 -I % bspc node % -d 1
 bspc query -D -m DP-1 | xargs -n 1 -I % bspc desktop % --to-monitor eDP-1
 bspc query -D -m DP-3 | xargs -n 1 -I % bspc desktop % --to-monitor eDP-1
 bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9 10 &> /dev/null
