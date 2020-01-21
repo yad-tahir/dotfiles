@@ -43,16 +43,16 @@ padding-left = 1
 padding-right = 1
 module-margin-left = 0
 module-margin-right = 0
-;;		  <Font name>	:<properties>	; <vertical-offset>
-font-0 = "DejaVu Sans Mono:style=regular:size=12:antialias=true;1"
-font-1 = "DejaVu Sans Mono:weight=bold:size=12:antialias=true;1"
-font-2 = "FontAwesome:size=12:antialias=true;1"
+;;		  <font name>-<size>	:<property>:<property2>:...	; <vertical-offset>
+font-0 = "DejaVu Sans Mono-12:style=regular;1"
+font-1 = "DejaVu Sans Mono-12:weight=bold;1"
+font-2 = "FontAwesome-12;1"
 modules-left = bspwm xwindow
 modules-center =
 modules-right = music fan memory memory-zfs cpu-freq processes threads emacs dGPU insync public-ip portage-world portage-packages battery pulseaudio xkeyboard date
 tray-position = right
 tray-padding = 0
-wm-restack = bspwm
+; wm-restack = bspwm
 ;override-redirect = true
 ;scroll-up = bspwm-desknext
 ;scroll-down = bspwm-deskprev
@@ -205,7 +205,11 @@ label-padding = 0
 [module/emacs]
 type = custom/ipc
 format-prefix = "  "
-hook-0 = emacsclient -e '(length (do-list-buffers))'
+;; On startup, Polybar crashes if emacs daemon is not ready. To workaround this
+;; problem, we print a static value, which will be updated when emacs opens a
+;; new buffer
+hook-0 = echo 0
+hook-1 = emacsclient -ne '(length (do-list-buffers))'
 initial = 1
 label-padding = 1
 

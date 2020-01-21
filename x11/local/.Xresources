@@ -16,16 +16,7 @@
 ! 02110-1301, USA.
 
 !! General settings
-Xcursor.size: 20
-
-!! Emacs settings
-Emacs.cursorBlink: 0
-Emacs.menuBar: 0
-Emacs.toolBar: 0
-Emacs.verticalScrollBars: off
-! avoid X core font engine and use the newer enginer xft.
-! Emacs.FontBackend: cairo,xft,x
-Emacs.font: DejaVu Sans Mono:size=23
+Xcursor.size: 24
 
 *background: #000000
 *foreground: #e6beae
@@ -54,16 +45,22 @@ Emacs.font: DejaVu Sans Mono:size=23
 *colorUL: #a7e23e
 *coloRV: #00f5ff
 
-Panel.font1: DejaVu Sans Mono:size=7
-Panel.height: 35
+!! Emacs settings
+Emacs.cursorBlink: 0
+Emacs.menuBar: 0
+Emacs.toolBar: 0
+Emacs.verticalScrollBars: off
+Emacs.font: DejaVu Sans Mono 14
+
+!! Dmenu...etc
+Panel.font1: DejaVu Sans Mono-14
+Panel.height: 30
 
 !! URxvt settings
-URxvt.font: xft:DejaVu Sans Mono:size=8:antialias=true
+URxvt.font: xft:DejaVu Sans Mono-14
 URxvt.depth: 32
 URxvt.scrollBar: false
 URxvt.letterSpace: -1
-! Pointer
-URxvt.pointerBlank: true
 !! Extensions
 URxvt.perl-lib: /usr/lib64/urxvt/perl
 URxvt.perl-ext-common:	default,matcher,font-size,selection-to-clipboard

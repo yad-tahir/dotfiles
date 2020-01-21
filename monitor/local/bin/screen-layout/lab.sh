@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/bash
 
 # Copyright (C) 2020
 
@@ -17,35 +17,28 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
+# Import utility functions
+cd `dirname $0`
+. $PWD/util.sh
+
 xrandr --output eDP-1 --mode 2560x1440 --pos 0x0 --brightness 0.5
 xrandr --output DP-1  --mode 1920x1200 --pos 0x0 --brightness 1
 xrandr --output DP-3  --mode 1920x1200 --pos 0x0 --brightness 1
 
-# Set the monitors
-# Move current tiled nodes to a desktop. This is needed because sometimes
-# BSPWM bugs out when we switch between various monitors.
-bspc query -N -n .tiled | xargs -n 1 -I % bspc node % -d 1
-bspc query -D -m DP-1 | xargs -n 1 -I % bspc desktop % --to-monitor eDP-1
-bspc query -D -m DP-3 | xargs -n 1 -I % bspc desktop % --to-monitor eDP-1
+# Set desktops
+util-reset-desktops eDP-1
 bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9 10 &> /dev/null
 
-# Reset desktop layouts
-bspc query -D | xargs -n 1 -I % bspc desktop % -l tiled
-
-
-xrandr --output eDP-1 --dpi 250
-xrandr --output DP-1  --dpi 250
-xrandr --output DP-3  --dpi 250
-
-sleep 1 && feh --bg-fill $(ls ${HOME}/pictures/background/* | shuf -n 1) &
+# Adjust DPI
+util-set-dpi 120
 
 # Fix resolution
 bspc config right_padding 640
 bspc config bottom_padding 210
 
-killall polybar
-bspc query -M --names | xargs -I % -n 1 sh -c 'MONITOR=% polybar orange &'
+# Restart apps that depend on environmental variables
+util-setup-services
 
-# Stop turning off screens
+# Stop turning off screens when idle
 xset -dpms
 xset s off

@@ -1,7 +1,7 @@
 set adjust-open width
 
-set font "Noto Sans Display 18"
-set page-padding 10
+set font "DejaVu Sans Mono 14"
+set page-padding 5
 set scroll-wrap "false"
 set statusbar-home-tilde "true"
 set selection-clipboard clipboard

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Copyright (C) 2020
 
@@ -17,31 +17,24 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
+# Import utility functions
+cd `dirname $0`
+. $PWD/util.sh
+
 xrandr --output eDP-1 --off
-xrandr --output DP-1	 --mode 3440x1440 --pos 0x0 --rotate normal --brightness 1
-xrandr --output DP-3	 --mode 3440x1440 --pos 3440x0 --rotate normal --primary --brightness 1
+xrandr --output DP-1  --mode 3440x1440 --pos 0x0 --rotate normal --brightness 1
+xrandr --output DP-3  --mode 3440x1440 --pos 3440x0 --rotate normal --primary --brightness 1
 
 # Set the icc profile of each screen
 dispwin -d 1 ~/.config/icc-profiles/U3415W#2-2018-10-21-1137.icc
 dispwin -d 3 ~/.config/icc-profiles/U3415W#3-2018-10-21-1221.icc
 
-# Set the monitors
-# Move current tiled nodes to a desktop. This is needed because sometimes
-# BSPWM bugs out when we switch between various monitors.
-bspc query -N -n .tiled | xargs -n 1 -I % bspc node % -d 1
-bspc query -D -m eDP-1 | xargs -n 1 -I % bspc desktop % --to-monitor DP-1
-bspc query -D -m DP-3 | xargs -n 1 -I % bspc desktop % --to-monitor DP-1
-bspc monitor eDP-1 -r
+# Set desktops
+util-reset-desktops DP-1
 bspc monitor DP-3  -d 1 2 3 4 5 &> /dev/null
 bspc monitor DP-1  -d 6 7 8 9 10 &> /dev/null
+bspc monitor eDP-1 -r
 
-# Reset desktop layouts
-bspc query -D | xargs -n 1 -I % bspc desktop % -l tiled
-
-xrandr --output DP-1  --dpi 200
-xrandr --output DP-3  --dpi 200
-
-feh --bg-fill $(ls ${HOME}/pictures/background/* | shuf -n 1) &
-
-killall polybar
-bspc query -M --names | xargs -I % -n 1 sh -c 'MONITOR=% polybar orange &'
+# Restart apps that depend on environmental variables
+util-set-dpi 120
+util-setup-services

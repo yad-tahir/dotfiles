@@ -25,7 +25,7 @@
 	(start-process-shell-command
 	 "polybar-notifier"
 	 'nil
-	 "polybar-msg hook emacs 1")))
+	 "polybar-msg hook emacs 2")))
 
 ;; Notify polybar whenever we create a new buffer, delete one, switch to another.
 (advice-add 'switch-to-buffer :after #'do-polybar-notify)
