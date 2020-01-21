@@ -28,6 +28,7 @@ cross-avr/gcc
 dev-embedded/dfu-programmer
 dev-vcs/git
 games-util/steam-launcher
+lxde-base/lxappearance
 media-fonts/corefonts
 media-fonts/dejavu
 media-fonts/font-arabic-misc
@@ -74,11 +75,14 @@ x11-apps/xmodmap
 x11-apps/xrandr
 x11-apps/xrdb
 x11-apps/xsetroot
+x11-misc/arandr
 x11-misc/dmenu
 x11-misc/i3lock
 x11-misc/polybar
+x11-misc/qt5ct
 x11-misc/urxvt-font-size
 x11-misc/urxvt-perls
 x11-misc/xdo
 x11-terms/rxvt-unicode
+x11-themes/adwaita-qt
 x11-wm/bspwm
