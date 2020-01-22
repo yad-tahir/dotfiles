@@ -3,6 +3,7 @@
 x11-base/xorg-server xvfb libglvnd -suid -ipv6
 x11-base/xorg-drivers video_cards_nvidia
 x11-libs/gtk+ cups
+x11-themes/gtk-engines-murrine -themes
 
 # OpenGL
 # libglvnd provides automatic switching between using iGPU and dGPU. When you enable it, you need to unmerge manual switching performed by eselect-opengl
