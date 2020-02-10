@@ -3,4 +3,3 @@
 # @pgo uses gcc-4 to preform profile-guided optimazations
 # *NOTE*: do not enable hwaccel as it forces firefox to use a gpu. If you don't have a dGPU, video deconding is going to be very CPU intensive.
 www-client/firefox lto pgo bindist system-harfbuzz -screenshot -gmp-autoupdate
-www-client/firefox-bin

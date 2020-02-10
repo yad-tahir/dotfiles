@@ -3,4 +3,5 @@
 # @vaapi enables HW accelarations API used internally by www-client/firefox
 # @x264 required by virtaul/ffmpeg
 virtual/ffmpeg X truetype threads vaapi
-media-video/ffmpeg X truetype vaapi libdrm opencl openssl
+# @opencl,
+media-video/ffmpeg X truetype vaapi libdrm openssl -opencl
