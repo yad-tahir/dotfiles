@@ -142,12 +142,7 @@
 		  (with-current-buffer (window-buffer (frame-selected-window m))
 			(when (equal (format "%s" major-mode) "simple-mpc-mode")
 			  (setq music-playlist-frame-found t)
-			  (raise-frame m)
-			  (ignore-errors
-				(start-process-shell-command
-				 "notify-bspc-process"
-				 nil
-				 "bspc node $(xdo id -a 'music-playlist') -f &> /dev/null"))))))
+			  (raise-frame m)))))
 	  (when (not music-playlist-frame-found)
 		(do-make-frame "music-playlist")
 		(simple-mpc-view-current-playlist))))
