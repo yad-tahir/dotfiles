@@ -35,6 +35,10 @@ bspc monitor DP-3  -d 1 2 3 4 5 &> /dev/null
 bspc monitor DP-1  -d 6 7 8 9 10 &> /dev/null
 bspc monitor eDP-1 -r
 
+# Reset padding
+bspc config bottom_padding 0
+bspc config right_padding 0
+
 # Restart apps that depend on environmental variables
 util-set-dpi 120
 util-setup-services
