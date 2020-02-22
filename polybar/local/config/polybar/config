@@ -43,16 +43,16 @@ padding-left = 1
 padding-right = 1
 module-margin-left = 0
 module-margin-right = 0
-;;		  <font name>-<size>	:<property>:<property2>:...	; <vertical-offset>
+;; Syntax is <font name>-<size>:<property>:<property2>:...;<vertical-offset>
 font-0 = "DejaVu Sans Mono-12:style=regular;1"
 font-1 = "DejaVu Sans Mono-12:weight=bold;1"
 font-2 = "FontAwesome-12;1"
 modules-left = bspwm xwindow
 modules-center =
-modules-right = music fan memory memory-zfs cpu-freq processes threads emacs dGPU insync public-ip portage-world portage-packages battery pulseaudio xkeyboard date
+modules-right = music fan memory memory-zfs cpu-freq processes threads emacs dGPU insync public-ip portage-world portage-packages pulseaudio battery xkeyboard date
 tray-position = right
 tray-padding = 0
-; wm-restack = bspwm
+wm-restack = bspwm
 ;override-redirect = true
 ;scroll-up = bspwm-desknext
 ;scroll-down = bspwm-deskprev
@@ -69,8 +69,8 @@ enable-ipc = true
 ; just care about the last one. But if we wait too long for events to swallow
 ; the bar would appear sluggish so we continue if timeout
 ; expires or limit is reached.
-throttle-output = 5
-throttle-output-for = 10
+throttle-output = 10
+throttle-output-for = 15
 
 ; Time in milliseconds that the input handler will wait between processing events
 throttle-input-for = 30
@@ -108,8 +108,6 @@ label-underline= ${colors.warning}
 [module/xkeyboard]
 type = internal/xkeyboard
 blacklist-0 = num lock
-
-format-prefix = " "
 label-layout = %name%
 label-indicator-padding = 1
 label-indicator-margin = 0
@@ -138,11 +136,13 @@ label-empty-foreground = ${colors.foreground}
 label-empty-padding = 1
 wrapping-scroll = false
 
-; label-monocle = M
 ; label-tiled = T
 ; label-fullscreen = F
 ; label-floating = F
 ; label-pseudotiled = P
+label-monocle = " FULL "
+label-monocle-foreground = ${colors.foreground-alt}
+label-monocle-background = ${colors.secondary}
 label-locked = L
 label-locked-padding = 1
 label-locked-foreground = ${colors.foreground-alt}
@@ -192,7 +192,7 @@ interval = 8
 type = custom/script
 label =  %output%
 exec = ps axl | awk '$7 != 0 && $10 !~ "Z"'| wc -l
-interval = 10
+interval = 9 ;; Use odd numbers to improve accuracy
 label-padding = 1
 
 [module/threads]
@@ -261,19 +261,16 @@ label-padding = 1
 [module/date]
 type = internal/date
 interval = 1
-time = %A, %B %d %H:%M:%S
-time-alt =
-; format-prefix =
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline =
 label = %time%
+time = %a, %b %d %H:%M:%S
+time-alt = %A, %B %d %H:%M:%S
+format-underline =
 
 [module/pulseaudio]
 type = internal/pulseaudio
 format-volume = <label-volume>
-label-volume =   %percentage%%
+label-volume = " |  %percentage%%"
 label-muted =  muted
-label-muted-foreground = ${colors.alert}
 bar-volume-width = 1
 bar-volume-gradient = false
 bar-volume-indicator =
@@ -282,7 +279,6 @@ bar-volume-fill = ─
 bar-volume-fill-font = 2
 bar-volume-empty = ─
 bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${colors.alert}
 
 [module/dGPU]
 format-prefix = " "
@@ -297,9 +293,6 @@ battery = BAT0
 adapter = AC
 full-at = 98
 time-format = %H:%M
-format-full-prefix = "| "
-format-charing-prefix = "| "
-format-discharing-prefix = "| "
 format-charging = <label-charging>
 format-discharging = <label-discharging>
 label-charging =  %percentage%% %time% %consumption%mW
