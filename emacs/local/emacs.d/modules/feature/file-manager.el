@@ -234,10 +234,11 @@ separate frame."
   :ensure t
   :commands (dired-open-xdg)
   :init
-  (general-define-key
-   :keymaps 'dired-mode-map
-   :states 'normal
-   "l <RET>" 'dired-open-xdg))
+  (with-eval-after-load 'dired
+	(general-define-key
+	 :keymaps 'dired-mode-map
+	 :states 'normal
+	 "l <RET>" 'dired-open-xdg)))
 
 (use-package dired-ranger
   ;; :disabled t
