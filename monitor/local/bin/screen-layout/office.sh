@@ -39,6 +39,10 @@ bspc monitor eDP-1 -r
 bspc config bottom_padding 0
 bspc config right_padding 0
 
+# Enable energy-saving modes
+xset +dpms
+xset s on
+
 # Restart apps that depend on environmental variables
 util-set-dpi 120
 util-setup-services

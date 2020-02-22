@@ -43,6 +43,10 @@ bspc config right_padding 0
 bspc desktop 8 -l monocle
 bspc desktop 9 -l monocle
 
+# Enable energy-saving modes
+xset +dpms
+xset s on
+
 util-set-dpi 120
 util-setup-services
 
