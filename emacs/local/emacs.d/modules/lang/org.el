@@ -33,8 +33,8 @@
    '(org-format-latex-options
 	 `(:foreground ,chocolate-theme-white
 				   :background ,chocolate-theme-bg
-				   :scale 0.7
-				   :html-scale 0.7)))
+				   :scale 1.8
+				   :html-scale 1.8)))
   :config
   ;; Remove compiler warnings
   (eval-when-compile
