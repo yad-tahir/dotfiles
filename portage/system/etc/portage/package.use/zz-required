@@ -269,3 +269,7 @@ x11-libs/libdrm video_cards_intel
 # required by media-gfx/gimp-2.10.8-r1::gentoo
 # required by media-gfx/gimp (argument)
 >=media-libs/gegl-0.4.16 cairo
+# required by dev-lang/php-7.4.3::gentoo
+# required by @selected
+# required by @world (argument)
+>=app-eselect/eselect-php-0.9.4-r5 apache2

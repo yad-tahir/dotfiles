@@ -25,6 +25,7 @@ cross-avr/avr-libc
 cross-avr/binutils
 cross-avr/gcc
 dev-embedded/dfu-programmer
+dev-lang/php
 dev-ruby/sass
 dev-vcs/git
 games-util/steam-launcher
