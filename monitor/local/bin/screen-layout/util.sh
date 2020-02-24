@@ -31,7 +31,9 @@ function util-setup-services {
 
 	systemctl --user restart emacs-27-vcs.service&
 	systemctl --user restart urxvtd.service &
+}
 
+function util-launch-polybar-all {
 	killall polybar 2> /dev/null
 	bspc query -M --names | xargs -I % -n 1 sh -c 'MONITOR=% polybar orange &' &
 }

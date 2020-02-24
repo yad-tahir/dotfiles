@@ -46,3 +46,4 @@ xset s on
 # Restart apps that depend on environmental variables
 util-set-dpi 120
 util-setup-services
+util-launch-polybar-all

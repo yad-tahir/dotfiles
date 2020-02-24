@@ -37,3 +37,4 @@ bspc config right_padding 0
 
 util-set-dpi 140
 util-setup-services
+util-launch-polybar-all

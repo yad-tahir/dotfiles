@@ -36,9 +36,13 @@ util-set-dpi 120
 bspc config right_padding 640
 bspc config bottom_padding 210
 
-# Restart apps that depend on environmental variables
-util-setup-services
-
 # Stop turning off screens when idle
 xset -dpms
 xset s off
+
+# Restart apps that depend on environmental variables
+util-setup-services
+
+# Launch polybar to eDP-1 only since we are using xrandr's mirror mode
+killall polybar 2> /dev/null
+MONITOR=eDP-1 polybar orange &
