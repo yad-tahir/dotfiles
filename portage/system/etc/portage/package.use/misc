@@ -1,4 +1,6 @@
 net-print/cups X -acl
+net-print/cups-filters pdf png jpeg
+
 app-admin/pass X # @X adds clipboard support
 # @png, @jpeg, @svg to support common image formats
 # @tiff, @xpm to remove unused image formats
@@ -26,6 +28,9 @@ x11-misc/polybar mpd ipc gcc
 sys-apps/dbus X
 
 app-office/libreoffice -accessibility -bluetooth -mariadb -branding
+# Fontforge - postscript font editor and converter
+media-gfx/fontforge X gif jpeg png svg tiff cairo
+
 app-text/texlive png truetype science graphics epspdf metapost
 dev-texlive/texlive-basic -luajittex
 app-text/mupdf -javascript

@@ -48,6 +48,7 @@ media-sound/pulsemixer
 net-analyzer/wireshark
 net-firewall/nftables
 net-misc/networkmanager
+net-misc/ntp
 net-vpn/openvpn
 net-wireless/bluez
 net-wireless/wpa_supplicant
