@@ -5,3 +5,6 @@
 virtual/ffmpeg X truetype threads vaapi
 # @opencl,
 media-video/ffmpeg X truetype vaapi libdrm openssl -opencl
+# @speex adds noise suppression filter
+# @v4l allows webcam integration
+media-video/obs-studio speex v4l
