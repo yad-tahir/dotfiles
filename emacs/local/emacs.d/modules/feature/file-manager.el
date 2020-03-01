@@ -311,7 +311,8 @@ separate frame."
   :hook ((org-mode . openwith-mode)
 		 (dired-mode . openwith-mode))
   :config
-  (setq openwith-associations '(("\\.pdf\\'" "zathura" (file)))))
+  (setq openwith-associations '(("\\.pdf\\'" "zathura" (file))
+								("\\.mp4\\'" "mpv" (file)))))
 
 
 ;; For large file
