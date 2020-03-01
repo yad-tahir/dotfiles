@@ -47,7 +47,7 @@ emerge-reinstall () {
 	sudo emerge $@
 }
 emerge-sync () {
-	pushd .
+	pushd . > /dev/null
 	local cdate=$(date +'%b %d, %Y')
 	cd /var/db/repos/gentoo
 	sudo rm -R .tmp-unverified-download-quarantine 2> /dev/null
@@ -79,5 +79,5 @@ emerge-sync () {
 	sudo -E git push origin rsync
 
 	sudo eix-update
-	popd
+	popd > /dev/null
 }

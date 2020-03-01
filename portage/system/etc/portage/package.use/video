@@ -1,10 +1,9 @@
-# @truetype adds support for true fonts
 # @threads enables multi-threading
 # @vaapi enables HW accelarations API used internally by www-client/firefox
-# @x264 required by virtaul/ffmpeg
-virtual/ffmpeg X truetype threads vaapi
-# @opencl,
-media-video/ffmpeg X truetype vaapi libdrm openssl -opencl
+virtual/ffmpeg X threads vaapi
+# @x264 mainly used by OBS
+media-video/ffmpeg X vaapi libdrm openssl x264 -opencl
+
 # @speex adds noise suppression filter
 # @v4l allows webcam integration
 media-video/obs-studio speex v4l
