@@ -10,3 +10,8 @@ media-video/obs-studio speex v4l
 
 # @vulkan breaks mpv during compile time because nvidia driver is not set
 media-video/mpv X drm dvd vpdau vaapi lcms -vulkan
+
+
+# TODO add GPU support for rendering
+# @openal enables sound encoding/decoding
+media-gfx/blender llvm ffmpeg color-management openal opencl openimageio cycles tiff

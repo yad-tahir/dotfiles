@@ -1,11 +1,18 @@
-x11-misc/lightdm ~amd64
-=x11-misc/xdo-0.5.7 ~amd64
-x11-base/xorg-server ~amd64
-media-libs/libglvnd ~amd64
+x11-misc/lightdm
+=x11-misc/xdo-0.5.7
+x11-base/xorg-server
+media-libs/libglvnd
 x11-driver/nvidia-drivers **
 
 # Requested by firefox-71.0.1
 >=dev-libs/nspr-4.23
 =sys-devel/llvmgold-8
 
-=media-libs/mesa-19.3.0 ~amd64
+=media-libs/mesa-19.3.0
+
+# Intel-support for OpenCL
+dev-libs/intel-neo
+dev-libs/opencl-clang
+dev-util/intel-graphics-compiler
+dev-util/spirv-llvm-translator
+=media-libs/gmmlib-19.4.1
