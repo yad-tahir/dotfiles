@@ -60,6 +60,7 @@ else
 					;;
 				"man")
 					echo "follow=on"
+					echo "state=tiled"
 					exec echo "desktop=9"
 					;;
 			esac
@@ -67,7 +68,7 @@ else
 		Zathura)
 			echo "follow=on"
 			echo "state=tiled"
-			exec echo "desktop=8"
+			exec echo "desktop=9"
 			;;
 	esac
 
