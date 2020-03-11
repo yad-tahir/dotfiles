@@ -106,7 +106,8 @@ super + Return
 	{ \
 	bspc config top_padding 0, \
 	bspc desktop -l monocle, \
-	bspc desktop -l tiled; bspc config top_padding 35 \
+	bspc desktop -l tiled; \
+	bspc config top_padding $(xrdb -query | awk "/\Panel.height:/" | sed -e "s/Panel.height://g") \
 	}
 
 # Toggle floating mode
