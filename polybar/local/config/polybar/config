@@ -191,14 +191,14 @@ interval = 8
 [module/processes]
 type = custom/script
 label =  %output%
-exec = ps axl | awk '$7 != 0 && $10 !~ "Z"'| wc -l
+exec = ps aux | grep -v ]$ | wc -l
 interval = 9 ;; Use odd numbers to improve accuracy
 label-padding = 1
 
 [module/threads]
 type = custom/script
 label =  %output%
-exec = ps axl -L | awk '$7 != 0 && $10 !~ "Z"'| wc -l
+exec = ps aux -L | grep -v ]$ | wc -l
 interval = 10
 label-padding = 0
 
