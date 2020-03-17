@@ -14,7 +14,6 @@ app-office/libreoffice
 app-portage/eix
 app-portage/elogv
 app-portage/gentoolkit
-app-portage/layman
 app-portage/repoman
 app-shells/bash-completion
 app-text/dvisvgm
