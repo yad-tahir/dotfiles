@@ -1,15 +1,13 @@
-# WM
-x11-wm/bspwm
-x11-misc/sxhkd
+# WM and others
 =x11-misc/polybar-9999 **
 
 # Power management
-sys-power/intel-undervolt
+sys-power/intel-undervolt ~amd64
 
 # AVR
 cross-avr/gcc **
 
 # Other
-x11-terms/rxvt-unicode
+dev-libs/nss ~amd64
 <=app-editors/emacs-28 **
-media-video/obs-studio
+media-video/obs-studio ~amd64
