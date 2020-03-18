@@ -330,9 +330,9 @@ alt + space
 
 # Other applications
 super + w
-	~/bin/firefox &
-super + o; w
-	~/bin/firefox &
+	~/bin/firefox-vpn &
+super + shift + w
+	~/bin/firefox-novpn &
 super + o; g
 	urxvtc -hold -name glances -e /usr/bin/glances &
 super + o; h

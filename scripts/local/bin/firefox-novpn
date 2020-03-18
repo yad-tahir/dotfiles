@@ -22,13 +22,4 @@
 # activated, then Firefox sends that data through VPN. Otherwise, data is
 # sent directly.
 
-workspace=$(bspc query -D -d --names)
-if [ $workspace == "5" ]; then
-	# Sudo sets the group owner of the process to 'no-vpn'. We use this fact in
-	# nftables to redirect the packets. Option -E is needed to incorporate
-	# current environmental variables.
-	# We use the 'no-vpn' profile to provide visual feedback.
-	exec sudo -g no-vpn -E /usr/bin/firefox -P "no-vpn" &> /dev/null
-else
-	exec /usr/bin/firefox -P "vpn" &> /dev/null
-fi
+exec sudo -g no-vpn -E /usr/bin/firefox -P "no-vpn" &> /dev/null

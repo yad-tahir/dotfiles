@@ -32,7 +32,9 @@ run=$(
 	extra_commands=( "steam~"
 					 "vm-manager~"
 					 "emacs"
-					 "firefox~" )
+					 "firefox-novpn~"
+					 "firefox-vpn~"
+					 )
 	echo_string=
 	for i in "${extra_commands[@]}"; do
 		echo_string="${i}\\n${echo_string}"
