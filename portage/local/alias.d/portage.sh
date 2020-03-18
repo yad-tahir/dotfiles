@@ -16,11 +16,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-alias emerge-update='sudo emerge --update --deep --keep-going --with-bdeps\=y $@'
+alias emerge-update='sudo emerge --update --keep-going --deep --with-bdeps\=n $@'
 alias emerge-install='sudo emerge $@'
 alias emerge-remove='sudo emerge --depclean $@'
 alias emerge-remove-force='sudo emerge --unmerge $@'
-alias emerge-clean='sudo emerge --depclean'
+alias emerge-clean='sudo emerge --with-bdeps\=n --depclean'
 alias emerge-search='emerge --search $@'
 alias emerge-list='qlist -I'
 alias emerge-has='equery hasuse $@'
