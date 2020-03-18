@@ -5,8 +5,6 @@ x11-base/xorg-drivers video_cards_nvidia
 x11-libs/gtk+ cups
 x11-themes/gtk-engines-murrine -themes
 
-media-gfx/inkscape python_single_target_python2_7
-
 # OpenGL
 # libglvnd provides automatic switching between using iGPU and dGPU. When you enable it, you need to unmerge manual switching performed by eselect-opengl
 media-libs/libglvnd X abi_x86_32
