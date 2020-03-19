@@ -72,38 +72,39 @@ else
 			;;
 	esac
 
-	# Set nodes in the three-column layout if the current desktop is 1 or 2
-	d=$(bspc query -D -d --names)
-	if [ "$d" -le 2 ]; then
+	# Set nodes in the three-column layout if the current desktop is between 1
+	# and 3
+	# d=$(bspc query -D -d --names)
+	# if [ "$d" -le 3 ]; then
 
-		# Check number of nodes
-		# @TODO @FIX-ME This line can crash BSPWM if:
-		# - We printed 'state=title' before running this line.
-		# - We printed 'node=#' before running this line.
-		n=$(bspc query -N -n .tiled.local | wc -l)
+	#	# Check number of nodes
+	#	# @TODO @FIX-ME This line can crash BSPWM if:
+	#	# - We printed 'state=title' before running this line.
+	#	# - We printed 'node=#' before running this line.
+	#	n=$(bspc query -N -n .tiled.local | wc -l)
 
-		# Target and replace the master node if it exists. In the three-column
-		# layout, the master node is the node in the middle of the screen.
-		first=$(bspc query -N -n any.tiled.local)
-		master=$(bspc query -N -n ${first}\#east)
+	#	# Target and replace the master node if it exists. In the three-column
+	#	# layout, the master node is the node in the middle of the screen.
+	#	first=$(bspc query -N -n any.tiled.local)
+	#	master=$(bspc query -N -n ${first}\#east)
 
-		if [ ! -z "$master" ]; then
-			echo "node=$master"
-		fi
+	#	if [ ! -z "$master" ]; then
+	#		echo "node=$master"
+	#	fi
 
-		if [ $n == 1 ]; then
-			# Push the current master to left so that we can put the new node
-			# on the right side.
-			# You need to be careful when you close the left-most node as BSPWM
-			# may destroy the three-column layout - Check sxhkb's keybindings
-			# for closing nodes.
-			echo "split_dir=east"
-			echo "split_ratio=0.33333333" # = 1/3
-		elif [ $n == 2 ]; then
-			# Push the current master to right so that we can put the new node
-			# in the middle
-			echo "split_dir=west"
-			echo "split_ratio=0.5"
-		fi
-	fi
+	#	if [ $n == 1 ]; then
+	#		# Push the current master to left so that we can put the new node
+	#		# on the right side.
+	#		# You need to be careful when you close the left-most node as BSPWM
+	#		# may destroy the three-column layout - Check sxhkb's keybindings
+	#		# for closing nodes.
+	#		echo "split_dir=east"
+	#		echo "split_ratio=0.33333333" # = 1/3
+	#	elif [ $n == 2 ]; then
+	#		# Push the current master to right so that we can put the new node
+	#		# in the middle
+	#		echo "split_dir=west"
+	#		echo "split_ratio=0.5"
+	#	fi
+	# fi
 fi

@@ -231,25 +231,29 @@ super + ctrl + comma
 # Close/Kill
 # ----------
 
-# Close current node. If it is the last node on the west, move it to the middle,
+# Close current node.
+super + q
+	bspc  node -c
+
+# THREE-COLUMN LAYOUT MODE: If it is the last node on the west, move it to the middle,
 # then close it to preserve three-column layout. However, there is no need
 # to follow this rule when:
 # - We have only two columns or less
 # - The current desktop does not follow three-column layout (check evil-rules.sh).
 # - The west-most side of the current desktop has more than one window, e.g.
 # splitting the west side horizontally.
-super + q
-	{ \
-	w=$(bspc query -N -n @west/.local); \
-	n=$(bspc query -N -n @north/.local); \
-	s=$(bspc query -N -n @south/.local); \
-	num=$(bspc query -N -n .tiled.local | wc -l); \
-	d=$(bspc query -D -d --names); \
-	if [ -z "$w" -a "$d" -le 2 -a -z "$n" -a -z "$s" ]; then \
-		bspc node -s east; \
-	fi; \
-	bspc  node -c; \
-	}
+# super + q
+#	{ \
+#	w=$(bspc query -N -n @west/.local); \
+#	n=$(bspc query -N -n @north/.local); \
+#	s=$(bspc query -N -n @south/.local); \
+#	num=$(bspc query -N -n .tiled.local | wc -l); \
+#	d=$(bspc query -D -d --names); \
+#	if [ -z "$w" -a "$d" -le 2 -a -z "$n" -a -z "$s" ]; then \
+#		bspc node -s east; \
+#	fi; \
+#	bspc  node -c; \
+#	}
 
 # Kill node. BSPWM automatically adjusts its parent as required.
 super + shift + q
