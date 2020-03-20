@@ -20,7 +20,7 @@
 # Get the settings
 COLOR_BG=$(xrdb -query | awk '/\*background:/{print $2}')
 COLOR_FG=$(xrdb -query | awk '/\*foreground:/{print $2}')
-COLOR_MAIN=$(xrdb -query | awk '/\*color11:/{print $2}')
+COLOR_SEL=$(xrdb -query | awk '/\*color11:/{print $2}')
 FONT=$(xrdb -query | awk '/\Panel.font1:/{$1="";print $0}')
 HEIGHT=$(xrdb -query | awk '/\Panel.height:/{print $2}')
 
@@ -35,7 +35,7 @@ value=$(printf '%s\n' "$password_files" |
 			dmenu -i -f\
 				  -nb "$COLOR_BG" \
 				  -nf "$COLOR_FG" \
-				  -sb "$COLOR_MAIN" \
+				  -sb "$COLOR_SEL" \
 				  -sf "$COLOR_BG" \
 				  -fn "${FONT}" \
 				  -h "${HEIGHT}" \

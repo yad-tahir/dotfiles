@@ -17,9 +17,10 @@
 # 02110-1301, USA.
 
 alias s="sudo su"
+alias c="clear"
+alias cleaor='clear'
 alias ls='ls -alih --color'
 alias bc='bc --mathlib'
-alias cleaor='clear'
 alias man='urxvtc -hold -name man -e /usr/bin/man $@'
 
 alias zip-compress='zip -r $1 $@'

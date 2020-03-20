@@ -23,10 +23,10 @@
 # --------------------
 # super + action         : performs 'action' on the system
 # super + shift + action : performs a different variation of 'action'
-# super + arrow keys     : resize windows
 # super + h,c,t,n        : navigates between windows
+# super + arrow keys     : resize windows
 # super + alt            : controls presels
-# super + ctrl           : controls masked nodes
+# super + ctrl           : controls marked nodes
 
 # Reload SXHKD config file
 super + F5
@@ -36,8 +36,8 @@ super + F5
 # -----
 #
 # Basic navigation is done through 'h, t, c, n' instead of 'h, t, n, s' as the
-# former is objectively more ergonomic. Please note that I am using Dvorak and
-# my daily keyboard driver is an HHKB Pro 2.
+# former is objectively more ergonomic. Please note that I am a Dvorak user and
+# my daily keyboard is either HHKB or FC660C.
 super + {h,t,c,n}
 	bspc node -f {west,south,north,east}
 

@@ -20,12 +20,10 @@
 USER=yad
 
 # General
-export EDITOR="emacsclient -c"
-export VISUAL="emacsclient -c"
+# $EDITOR and $VISUAL are managed by eselect
 export ALTERNATE_EDITOR="nano"
 export TERMINAL="urxvtc"
 export BROWSER="firefox"
-export JAVA_HOME="/usr/lib/jvm/default"
 
 # mpd
 export MPD_HOST="localhost"
