@@ -11,6 +11,7 @@ sys-power/intel-undervolt ~amd64
 cross-avr/gcc **
 
 # Other
+x11-misc/dmenu ~amd64
 dev-libs/nss ~amd64
 <=app-editors/emacs-28 **
 media-video/obs-studio ~amd64

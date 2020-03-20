@@ -53,7 +53,7 @@ Emacs.verticalScrollBars: off
 Emacs.font: DejaVu Sans Mono 14
 
 !! Dmenu...etc
-Panel.font1: DejaVu Sans Mono-14
+Panel.font1: DejaVu Sans Mono-12
 Panel.height: 30
 
 !! URxvt settings

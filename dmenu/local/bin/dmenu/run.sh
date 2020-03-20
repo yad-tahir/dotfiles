@@ -25,6 +25,7 @@ COLOR_BG=$(xrdb -query | awk '/\*background:/{print $2}')
 COLOR_FG=$(xrdb -query | awk '/\*foreground:/{print $2}')
 COLOR_MAIN=$(xrdb -query | awk '/\*color9:/{print $2}')
 FONT=$(xrdb -query | awk '/\Panel.font1:/{$1="";print $0}')
+HEIGHT=$(xrdb -query | awk '/\Panel.height:/{print $2}')
 
 
 run=$(
@@ -54,6 +55,7 @@ run=$(
 									-sb "$COLOR_MAIN" \
 									-sf "$COLOR_BG" \
 									-fn "${FONT}" \
+									-h "${HEIGHT}" \
 									-l 0 -p "App" "$@"
    )
 
