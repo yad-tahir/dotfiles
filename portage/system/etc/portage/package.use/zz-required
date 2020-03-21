@@ -291,3 +291,8 @@ media-libs/gst-plugins-base X
 # required by @selected
 # required by @world (argument)
 >=media-gfx/openvdb-4.0.2-r3 -abi3-compat
+
+# required by x11-themes/adwaita-qt
+# required by @selected
+# required by @world (argument)
+dev-qt/* X
