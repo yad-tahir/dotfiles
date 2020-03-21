@@ -39,6 +39,7 @@ for i in $emacs_commands; do
 done
 
 run=$(echo -e "${echo_string}" |
+		  head -n-1 |
 		  dmenu -i -f\
 				-nb "$COLOR_BG" \
 				-nf "$COLOR_FG" \

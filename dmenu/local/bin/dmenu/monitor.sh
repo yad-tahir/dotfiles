@@ -32,6 +32,7 @@ for i in $layouts; do
 done
 
 run=$(echo -e "${echo_string}" |
+		  head -n-1 |
 		  dmenu -i -f\
 				-nb "$COLOR_BG" \
 				-nf "$COLOR_FG" \

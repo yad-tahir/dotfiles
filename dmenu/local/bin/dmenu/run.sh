@@ -47,9 +47,9 @@ run=$(
 	echo_string="${echo_string}"$(IFS=: ; stest -flx $PATH |
 									  awk "!/^$filter/" |
 									  sort -u |
-									  uniq)
+									  uniq | head -n-2)
 
-	echo -e "${echo_string}"| dmenu -i -f\
+	echo -e "${echo_string}" | dmenu -i -f\
 									-nb "$COLOR_BG" \
 									-nf "$COLOR_FG" \
 									-sb "$COLOR_SEL" \
