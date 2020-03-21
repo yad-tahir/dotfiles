@@ -20,4 +20,8 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
-do-ln-sync "${PWD}/local/config" "${HOME}/.config"
+do-ln-sync "${PWD}/local/config/bspwm" "${HOME}/.config/bspwm"
+do-ln-sync "${PWD}/local/config/sxhkd" "${HOME}/.config/sxhkd"
+
+TARGET=${HOME}/.config/systemd/user
+do-ln-sync "${PWD}/local/systemd/user/sxhkd-bspwm@.service" "${TARGET}/sxhkd-bspwm@.service"

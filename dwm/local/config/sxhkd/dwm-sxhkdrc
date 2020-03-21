@@ -1,0 +1,89 @@
+# Copyright (C) 2020
+
+# This program is free software; you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation; either version 2 of the License, or (at your option) any later
+# version.
+
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
+# Street, Fifth Floor, Boston, MA 02110-1301, USA.
+
+#
+# System-wide keybindings designed for Dvorak layouts. This configuration is
+# meant to work along with DWM internel keybindings.
+#
+
+# Media control
+# -------------
+XF86AudioMute
+	pulsemixer --set-volume {0,20} --color 0 &
+
+{XF86AudioRaiseVolume,XF86AudioLowerVolume}
+	pulsemixer --change-volume {+5,-5} --color 0 &
+
+XF86AudioPlay
+	emacsclient -nqe '(do-music-toggle)' > /dev/null &
+
+XF86AudioNext
+	emacsclient -nqe '(do-music-next)' > /dev/null &
+
+XF86AudioPrev
+	emacsclient -nqe '(do-music-previous)' > /dev/null &
+
+{XF86AudioNext,XF86AudioPrev} + shift
+	mpc seek {+00,-00}10 > /dev/null &
+
+
+# Program launcher
+# ----------------
+
+# Beloved Emacs
+F2
+	emacsclient -nqe "(do-make-frame nil \"$DISPLAY\")" -a='/usr/bin/urxvt -e nano' > /dev/null &
+
+# Screen brightness
+F12
+	xrandr --output eDP-1 --brightness {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1}
+
+# Dmenu
+super + g
+	~/bin/dmenu/run.sh &
+
+super + e
+	~/bin/dmenu/emacs.sh &
+
+super + p
+	~/bin/dmenu/pass.sh &
+
+super + u
+	~/bin/dmenu/monitor.sh &
+
+super + F3
+	~/bin/screen-lock &
+
+# Terminal
+super + Escape
+	/usr/bin/urxvtc &
+
+# Toggle between Dvorak and Qwerty
+alt + space
+	~/bin/keyboard-toggle &
+
+# Other applications
+super + w
+	~/bin/firefox-vpn &
+super + shift + w
+	~/bin/firefox-novpn &
+super + o; g
+	urxvtc -hold -name glances -e /usr/bin/glances &
+super + o; h
+	urxvtc -hold -name htop -e /usr/bin/htop &
+super + o; s
+	urxvtc -hold -name pulsemixer -e /usr/bin/pulsemixer &
+super + o; l
+	urxvtc -hold -name log -e /bin/journalctl -fn 200 &

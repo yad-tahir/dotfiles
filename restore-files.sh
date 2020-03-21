@@ -25,6 +25,7 @@ mkdir ${HOME}/bin 2> /dev/null
 ./bspwm/restore-linux.sh
 ./emacs/restore-linux.sh
 ./dmenu/restore-linux.sh
+./dwm/restore-linux.sh
 ./firewall/restore-linux.sh
 ./gdrive/restore-linux.sh
 ./git/restore-linux.sh
@@ -42,7 +43,6 @@ mkdir ${HOME}/bin 2> /dev/null
 ./root/restore-linux.sh
 ./scripts/restore-linux.sh
 ./shell/restore-linux.sh
-./sxhkb/restore-linux.sh
 ./urxvt/restore-linux.sh
 ./vm/restore-linux.sh
 ./vpn/restore-linux.sh
