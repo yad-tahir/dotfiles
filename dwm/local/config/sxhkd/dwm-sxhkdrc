@@ -18,13 +18,17 @@
 # meant to work along with DWM internel keybindings.
 #
 
+# Reload SXHKD config file
+super + F5
+	pkill -USR1 -x sxhkd
+
 # Media control
 # -------------
 XF86AudioMute
-	pulsemixer --set-volume {0,20} --color 0 &
+	pulsemixer --set-volume {0,20}; dwmbar-refresh
 
 {XF86AudioRaiseVolume,XF86AudioLowerVolume}
-	pulsemixer --change-volume {+5,-5} --color 0 &
+	pulsemixer --change-volume {+5,-5} ; dwmbar-refresh
 
 XF86AudioPlay
 	emacsclient -nqe '(do-music-toggle)' > /dev/null &
@@ -72,7 +76,12 @@ super + Escape
 
 # Toggle between Dvorak and Qwerty
 alt + space
-	~/bin/keyboard-toggle &
+	~/bin/keyboard-toggle; dwmbar-refresh
+
+
+@Caps_Lock
+	dwmbar-refresh
+
 
 # Other applications
 super + w

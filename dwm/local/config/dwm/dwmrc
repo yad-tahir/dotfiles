@@ -41,6 +41,22 @@ gpg-connect-agent /bye
 
 
 while [ 1 ]; do
-	xsetroot -name "$(date +' %a, %b %d %H:%M:%S')"
-	sleep 1s
+
+	fan=$(sensors |
+			  awk '/^fan1/{print $2}/^fan2/{print $2}' |
+			  tr '\n' ' ')
+	mem=$(free |
+		awk '/^Mem/{print ($2-$7)/(1024^2)}' |
+		bc |
+		awk '{$1=sprintf("%.1f",$0); if ( int($1) < 24) print $1 "GB" ; else print "%{F'$(xrdb -query | awk '/\*color11:/{print $2}')'}" $1 "GB%{F-}";}')
+	keyboard=$(setxkbmap -query |
+				awk '/^layout/{split($2,arr,","); print toupper(arr[1])}')
+	caps=$(xset -q | awk '/Caps/{print $4}')
+	vol=$(pulsemixer --get-volume | awk '{print $1}')
+	batCode=$(acpi | awk '{print tolower(substr($3,1,length($3)-1))}')
+	batLevel=$(acpi |  awk '{gsub(",","",$0);gsub("%","",$0);print $4}')
+	batTime=$(acpi | awk '{print $5}')
+
+	xsetroot -name "  $fan|  $mem |  $batLevel $batTime $batCode |  $vol |  $caps  $keyboard | $(date +'%a, %b %d %H:%M')"
+	sleep 1m
 done
