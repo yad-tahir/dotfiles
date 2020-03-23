@@ -47,10 +47,10 @@
   "Palette - shadow class 4"
   :type 'string :group 'chocolate-theme)
 
-(defcustom chocolate-theme-highlight "#ff4422"
+(defcustom chocolate-theme-highlight "#ff009e"
   "Palette - default highlight"
   :type 'string :group 'chocolate-theme)
-(defcustom chocolate-theme-highlight+1 "tomato"
+(defcustom chocolate-theme-highlight+1 "#ff6347"
   "Palette - highlight class 1"
   :type 'string :group 'chocolate-theme)
 (defcustom chocolate-theme-highlight+2 "#ffa500"
@@ -69,7 +69,7 @@
 (defcustom chocolate-theme-element+2 "#c0ff3e"
   "Palette - element class 2"
   :type 'string :group 'chocolate-theme)
-(defcustom chocolate-theme-element+3 "#00ff7f"
+(defcustom chocolate-theme-element+3 "#e0d0c1"
   "Palette - element class 3"
   :type 'string :group 'chocolate-theme)
 
@@ -92,10 +92,10 @@
 (defcustom chocolate-theme-element+9 "#6fd8ff"
   "Palette - element class 5"
   :type 'string :group 'chocolate-theme)
-(defcustom chocolate-theme-element+10 "SkyBlue1"
+(defcustom chocolate-theme-element+10 "#6fd8ff"
   "Palette - element class 6"
   :type 'string :group 'chocolate-theme)
-(defcustom chocolate-theme-element+11 "SkyBlue3"
+(defcustom chocolate-theme-element+11 "#bef6d4"
   "Palette - element class 7"
   :type 'string :group 'chocolate-theme)
 
@@ -178,7 +178,7 @@
  `(font-lock-regexp-grouping-backslash ((t (:inherit font-lock-string-face))))
  `(font-lock-regexp-grouping-construct ((t (:foreground
 											,chocolate-theme-highlight+1))))
- `(font-lock-string-face ((t (:foreground ,chocolate-theme-highlight+2))))
+ `(font-lock-string-face ((t (:foreground ,chocolate-theme-highlight+3))))
  `(font-lock-doc-face ((t (:inherit font-lock-string-face :foreground nil))))
 
  `(hi-blue ((t (:foreground ,chocolate-theme-bg
@@ -259,7 +259,7 @@
 
  ;; whitespace
  `(whitespace-trailing ((t (:background nil
-										:foreground ,chocolate-theme-element+3))))
+										:foreground ,chocolate-theme-element+9))))
  `(whitespace-empty ((t (:foreground ,chocolate-theme-shadow+1))))
  `(whitespace-hspace ((t (:inherit (whitespace-empty)))))
  `(whitespace-indentation ((t (:inherit (whitespace-empty)))))

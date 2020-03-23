@@ -27,21 +27,22 @@ Xcursor.size: 24
 *color1: #ffc05c
 *color9: #ffa500
 *color2: #a7e23e
-*color10: #00ff7f
+*color10: #c0ff3e
 *color3: #ff6347
-*color11: #ff4422
+*color11: #ff009e
 *color4: #da70d6
 *color12: #9932cc
 *color5: #efd5cb
 *color13: #f0f0a0
-*color6: #6fd8ff
-*color14: #00f5ff
+*color6: #bef6d4
+*color14: #6fd8ff
 *color7: #bd9c8f
 *color15: #392626
+
 *highlightColor: #392626
 *highlightTextColor: #ffa500
 *colorBD: #ffa500
-*colorIT: #00ff7f
+*colorIT: #ff009e
 *colorUL: #a7e23e
 *coloRV: #00f5ff
 
@@ -64,7 +65,7 @@ URxvt.letterSpace: -1
 !! Extensions
 URxvt.perl-lib: /usr/lib64/urxvt/perl
 URxvt.perl-ext-common:	default,matcher,font-size,selection-to-clipboard
-URxvt.colorUL: #ff4422
+URxvt.colorUL: #ff6347
 !! url-select
 URxvt.url-select.launcher: linkhandler
 URxvt.url-select.underline: true
