@@ -81,8 +81,6 @@ alt + space
 
 @Caps_Lock
 	dwmbar-refresh
-
-
 # Other applications
 super + w
 	~/bin/firefox-vpn &
@@ -96,3 +94,5 @@ super + o; s
 	urxvtc -hold -name pulsemixer -e /usr/bin/pulsemixer &
 super + o; l
 	urxvtc -hold -name log -e /bin/journalctl -fn 200 &
+super + shift + q
+	kill -9 $(xdo pid 2> /dev/null)

@@ -18,3 +18,5 @@ dev-libs/nss ~amd64
 media-video/obs-studio ~amd64
 # The unstable version is used to remove Python 3.6 dependency
 media-sound/pulsemixer ~amd64
+# Required by DWM keybinding
+x11-misc/xdo ~amd64
