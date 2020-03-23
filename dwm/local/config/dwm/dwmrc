@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Copyright (C) 2020
 
@@ -40,23 +40,104 @@ xset r off
 gpg-connect-agent /bye
 
 
-while [ 1 ]; do
+insync() {
+	local tmp=$(insync-headless get_sync_progress 2> /dev/null | head -n1)
+	local status=$(insync-headless get_status 2> /dev/null)
 
-	fan=$(sensors |
-			  awk '/^fan1/{print $2}/^fan2/{print $2}' |
-			  tr '\n' ' ')
-	mem=$(free |
-		awk '/^Mem/{print ($2-$7)/(1024^2)}' |
-		bc |
-		awk '{$1=sprintf("%.1f",$0); if ( int($1) < 24) print $1 "GB" ; else print "%{F'$(xrdb -query | awk '/\*color11:/{print $2}')'}" $1 "GB%{F-}";}')
-	keyboard=$(setxkbmap -query |
-				awk '/^layout/{split($2,arr,","); print toupper(arr[1])}')
+	if [ "$tmp" == "No syncing activities" ] && [ "$status" == "SHARE" ]; then
+		echo -e "  "
+	else
+		# Calculate the mean of the progress' percentage. Insync shares this data
+		# when uploading or downloading files.
+		per=$(insync-headless get_sync_progress |
+				  awk '/[:number:]?%/{
+						p=$2;
+						gsub("\\(","",p);
+						gsub("%","",p);
+						# update sum and count
+						s+=p
+						n+=1;
+					}
+					END{
+						# print the mean
+						if (n != 0)
+							printf ("%d%\n", s/n)
+					}' 2> /dev/null)
+		if [ "$tmp" == "Download" ]; then
+			echo -e "\x04  Downloading ${per}% \x01"
+		elif [ "$tmp" == "Uploading" ]; then
+			echo -e "\x04  Uploading ${per}% \x01"
+		else
+			echo -e "\x05  $status \x01"
+		fi
+	fi
+}
+
+gpu(){
+	local status=$(cat /sys/bus/pci/devices/0000:01:00.0/power/runtime_status 2> /dev/null || echo igu)
+
+	if [ $status == 'active' ]; then
+		echo -e " |\x04  dGPU \x01"
+	else
+		echo -e ""
+	fi
+}
+
+fan(){
+	sensors | awk '/^fan1/{print "  "$2}/^fan2/{print $2" "}'
+}
+
+mem(){
+	local m=$(free | awk '/^Mem/{$1=sprintf("%.1f",($2-$7)/(1024^2)); print $1}')
+	local zfs=$(cat /proc/spl/kstat/zfs/arcstats |
+					awk '/^size[[:space:]]/{$1=sprintf("%.1f",$3/(1024^3));print $1}')
+	if (( $(echo $m'>'24 | bc ) )); then
+		m="\x05 ${m}GB \x01"
+	else
+		m="${m}GB"
+	fi
+	echo -e " ${m} ${zfs}GB"
+}
+
+keyboard(){
+	local layout=$(setxkbmap -query |
+				   awk '/^layout/{split($2,arr,","); print toupper(arr[1])}')
 	caps=$(xset -q | awk '/Caps/{print $4}')
-	vol=$(pulsemixer --get-volume | awk '{print $1}')
-	batCode=$(acpi | awk '{print tolower(substr($3,1,length($3)-1))}')
-	batLevel=$(acpi |  awk '{gsub(",","",$0);gsub("%","",$0);print $4}')
-	batTime=$(acpi | awk '{print $5}')
+	if [ "$caps" = 'off' ]; then
+		echo -e "  $caps  $layout "
+	else
+		echo -e "\x05  $caps \x01  $layout "
+	fi
+}
 
-	xsetroot -name "  $fan|  $mem |  $batLevel $batTime $batCode |  $vol |  $caps  $keyboard | $(date +'%a, %b %d %H:%M')"
+vol(){
+	local v=$(pulsemixer --get-volume | awk '{print $1}')
+	if [ $v = 0 ]; then
+		v="\x04  ${v}% \x01"
+	else
+		v="  ${v}% "
+	fi
+	echo -e "$v"
+}
+
+battery(){
+	local code=$(acpi | awk '{print tolower(substr($3,1,length($3)-1))}')
+	local level=$(acpi |  awk '{gsub(",","",$0);gsub("%","",$0);print $4}')
+
+	if [ $code = "discharging" ]; then
+		local time=$(acpi | awk '{print " "$5" "}')
+		echo -e "\x04  ${level}%${time}${code} \x01"
+	elif [ $code = "charging" ]; then
+		local time=$(acpi | awk '{print " "$5" "}')
+		echo -e "  ${level}%${time}${code} "
+	else
+		echo -e "  ${level}% "
+	fi
+}
+
+while [ 1 ]; do
+	status=" $(fan)| $(mem) |$(insync)$(gpu)|$(battery)|$(vol)|$(keyboard)| $(date +'%a, %b %d %H:%M')"
+	status=$(echo -e "$status" | tr '\n' ' ')
+	xsetroot -name "$status"
 	sleep 1m
 done
