@@ -61,7 +61,7 @@ insync() {
 					END{
 						# print the mean
 						if (n != 0)
-							printf ("%d%\n", s/n)
+							printf ("%d\n", s/n)
 					}' 2> /dev/null)
 		if [ "$tmp" == "Download" ]; then
 			echo -e "\x04  Downloading ${per}% \x01"
