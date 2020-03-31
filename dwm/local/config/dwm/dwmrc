@@ -77,7 +77,7 @@ gpu(){
 	local status=$(cat /sys/bus/pci/devices/0000:01:00.0/power/runtime_status 2> /dev/null || echo igu)
 
 	if [ $status == 'active' ]; then
-		echo -e " |\x04  dGPU \x01"
+		echo -e "|\x04  dGPU \x01"
 	else
 		echo -e ""
 	fi
