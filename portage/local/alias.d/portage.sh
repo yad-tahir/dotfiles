@@ -30,6 +30,7 @@ alias emerge-files='equery files $@'
 alias emerge-belong='equery belongs $@'
 alias emerge-time='sudo qlop -H $@'
 alias emerge-log='sudo elogv'
+
 emerge-info () {
 	equery m $@ 2> /dev/null
 	echo ''
@@ -40,44 +41,51 @@ emerge-info () {
 	echo 'Size:'
 	equery size $@ 2> /dev/null || echo "Not installed"
 }
+
 emerge-reinstall () {
 	sudo emerge --unmerge $@
 	sudo emerge -1 $@
-	# Ask whether add it to @world or not
+	# Ask whether add params to @world or not
 	sudo emerge $@
 }
+
 emerge-sync () {
-	pushd . > /dev/null
 	local cdate=$(date +'%b %d, %Y')
+	local SUDO='sudo -E'
+
+	pushd . > /dev/null
 	cd /var/db/repos/gentoo
-	sudo rm -R .tmp-unverified-download-quarantine 2> /dev/null
-	sudo git clean -fd
+
+	# Clean uncompleted syncs
+	$SUDO rm -R .tmp-unverified-download-quarantine 2> /dev/null
+	$SUDO git clean -fd
+
 	# Update mirror branch by fetching commits from the official gentoo repo
-	sudo -E git checkout master &&
-		sudo -E git reset --hard origin/master &&
-		sudo -E git pull gentoo master
-	sudo -E git push origin master
+	$SUDO git checkout master &&
+		$SUDO git pull gentoo master
+	$SUDO git push origin master
 
-	# Update without-manifest branch, which is a mirror sub-branch but without manifest files
-	sudo -E git checkout without-manifest &&
-		sudo -E git merge master
-		sudo -E find . -name 'Manifest' -delete
-		sudo -E find . -name 'Manifest.gz' -delete
-		sudo -E git commit -am "Merge master without manifest files $cdate"
-	sudo -E git push origin without-manifest
+	# Update without-manifest branch, which is a master sub-branch but it does
+	# not include manifest files
+	$SUDO git checkout without-manifest &&
+		$SUDO  git merge master --no-edit
+	$SUDO find . -name 'Manifest' -delete
+	$SUDO find . -name 'Manifest.gz' -delete
+	$SUDO git commit -am "Merge master without manifest files $cdate"
+	$SUDO git push origin without-manifest
 
-	sudo -E git checkout rsync &&
-		sudo -E git merge without-manifest
-		# Rsync and merge the new changes
-		sudo -E sudo emerge --sync | tee /tmp/rsync &&
-		local remote=$(cat /tmp/rsync | awk '/^rsync:/{gsub("?","",$1); print $1}') &&
-		# @TODO This adds manifest files back to master. However, other files
+	$SUDO git checkout rsync &&
+		$SUDO -E git merge without-manifest --no-edit
+
+	# Rsync and merge the new changes
+	$SUDO sudo emerge --sync | tee /tmp/rsync &&
+		local remote=$(awk '/^rsync:/{gsub("?","",$1); print $1}' /tmp/rsync) &&
+		# @TODO This adds manifest files back to git. However, other files
 		# may also be modified by rsync. We must merge everything, otherwise portage
 		# is going to complain about manifest files.
-		sudo -E git add . &&
-		sudo -E git commit -m "Merge $remote $cdate"
-	sudo -E git push origin rsync
+		$SUDO git commit -am "Merge $remote $cdate"
+	$SUDO git push origin rsync
 
-	sudo eix-update
+	$SUDO eix-update
 	popd > /dev/null
 }

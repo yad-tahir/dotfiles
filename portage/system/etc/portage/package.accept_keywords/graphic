@@ -4,10 +4,3 @@ media-gfx/blender ~amd64
 
 # Requested by firefox-71.0.1
 >=dev-libs/nspr-4.23 ~amd64
-
-# Intel-support for OpenCL
-dev-libs/intel-neo ~amd64
-dev-util/intel-graphics-compiler ~amd64
-dev-libs/opencl-clang ~amd64
-dev-util/spirv-llvm-translator ~amd64
-=media-libs/gmmlib-19.4.1 ~amd64
