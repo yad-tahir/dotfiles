@@ -40,4 +40,20 @@
   (global-display-line-numbers-mode))
 
 
+(defun do-line-numbers-to-visual ()
+  "Change the mode of line numbers for the current buffer to 'visual' mode"
+  (interactive)
+  (setq-local display-line-numbers-type 'visual)
+  (when display-line-numbers-mode
+	(display-line-numbers-mode 0))
+  (display-line-numbers-mode 1))
+
+(defun do-line-numbers-to-relative ()
+  "Change the mode of line numbers for the current buffer to 'relative' mode"
+  (interactive)
+  (setq-local display-line-numbers-type 'relative)
+  (when display-line-numbers-mode
+	(display-line-numbers-mode 0))
+  (display-line-numbers-mode 1))
+
 (provide 'do-line-numbering)

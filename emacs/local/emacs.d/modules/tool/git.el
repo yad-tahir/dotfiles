@@ -205,6 +205,9 @@
   (setq magit-status-show-hashes-in-headers t
 		magit-blame-echo-style 'margin)
 
+  (add-hook 'magit-status-mode-hook 'do-line-numbers-to-visual)
+  (add-hook 'magit-log-mode-hook 'do-line-numbers-to-visual)
+
   (set-face-attribute 'magit-section-heading nil
 					  :background nil
 					  :foreground chocolate-theme-element)
