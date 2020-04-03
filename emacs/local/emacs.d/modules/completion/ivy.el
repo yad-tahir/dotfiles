@@ -289,7 +289,7 @@
   (general-define-key
    :keymaps 'wgrep-mode-map
    :states 'normal
-   [remap evil-save-and-quit] 'wgrep-finish-edit
+   "SPC lw" 'wgrep-finish-edit
    "l <escape>" 'wgrep-abort-changes
    "lz" 'wgrep-remove-all-change)
 

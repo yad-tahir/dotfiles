@@ -105,8 +105,8 @@ separate frame."
    "W" 'evil-forward-WORD-begin
    "b" 'evil-backward-word-begin
    "B" 'evil-backward-WORD-begin
-   [remap evil-save-and-quit] 'wdired-finish-edit
-   [remap evil-quit] 'wdired-abort-changes)
+   "SPC lw" 'wdired-finish-edit
+   "SPC lq" 'wdired-abort-changes)
 
   (general-define-key
    :keymaps 'dired-mode-map

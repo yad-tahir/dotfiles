@@ -74,8 +74,8 @@
 					  :background chocolate-theme-shadow+1)
   (general-define-key
    :keymaps 'macrostep-keymap
-   [remap evil-save-and-quit] 'macrostep-collapse-all
-   [remap evil-quit] 'macrostep-collapse-all))
+   "SPC lw" 'macrostep-collapse-all
+   "SPC lq" 'macrostep-collapse-all))
 
 
 (provide 'do-elisp)

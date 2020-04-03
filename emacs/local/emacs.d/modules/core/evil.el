@@ -164,8 +164,8 @@
 
    "SPC a" '(:ignore t :which-key "app")
    "SPC l" '(:ignore t :which-key "local")
-   "SPC lq" 'evil-quit
-   "SPC lw" 'evil-save-and-quit
+   "SPC lq" 'ignore
+   "SPC lw" 'ignore
 
 
    "SPC lg" '(:ignore t :which-key "jump")
@@ -259,8 +259,8 @@
   (general-define-key
    :keymaps 'with-editor-mode-map
    :states 'normal
-   [remap evil-save-and-quit] 'with-editor-finish
-   [remap evil-quit] 'with-editor-cancel)
+   "SPC lw" 'with-editor-finish
+   "SPC lq" 'with-editor-cancel)
 
   (general-define-key
    :keymaps 'button-map

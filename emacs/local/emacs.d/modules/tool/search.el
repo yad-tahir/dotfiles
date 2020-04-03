@@ -36,7 +36,7 @@
    "TAB" 'deadgrep-toggle-file-results
    "N" 'deadgrep-forward
    "H" 'deadgrep-backward
-   [remap evil-quit] 'deadgrep-kill-process
+   "SPC lq" 'deadgrep-kill-process
    "le" 'deadgrep-edit-mode
    "<f5>" 'deadgrep-restart)
 

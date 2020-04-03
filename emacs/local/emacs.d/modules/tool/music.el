@@ -184,7 +184,7 @@
 	 "<RET>" 'simple-mpc-query-add-and-play
 	 "a" 'simple-mpc-query-add
 	 "ls" 'simple-mpc-query-sort
-	 [remap evil-quit] 'simple-mpc-query-quit))
+	 "SPC lq" 'simple-mpc-query-quit))
   (add-hook 'simple-mpc-query-mode-hook #'do--music-query-init))
 
 (provide 'do-music)

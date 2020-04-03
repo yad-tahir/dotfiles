@@ -49,8 +49,8 @@
   (general-define-key
    :keymaps 'magit-log-select-mode-map
    :states '(normal visual)
-   [remap evil-save-and-quit] 'magit-log-select-pick
-   [remap evil-quit] 'magit-log-select-quit)
+   "SPC lw" 'magit-log-select-pick
+   "SPC lq" 'magit-log-select-quit)
 
   (general-define-key
    :keymaps 'magit-log-mode-map
@@ -69,8 +69,8 @@
   (general-define-key
    :keymaps 'git-rebase-mode-map
    :states 'normal
-   [remap evil-quit] 'kill-buffer
-   [remap evil-save-and-quit] 'server-edit
+   "SPC lq" 'kill-buffer
+   "SPC lw" 'server-edit
    "<RET>" 'git-rebase-show-commit
    "lp"    'git-rebase-pick
    "l,"    'git-rebase-kill-line
@@ -150,7 +150,7 @@
   (general-define-key
    :keymaps 'magit-status-mode-map
    :states 'normal
-   [remap evil-quit] 'magit-mode-bury-buffer
+   "SPC lw" 'magit-mode-bury-buffer
    "l$" 'magit-process-buffer
    "l@" 'magit-checkout
    "lb" 'magit-branch

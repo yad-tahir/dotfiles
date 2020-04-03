@@ -109,16 +109,16 @@
    "lep" 'org-latex-export-to-pdf
    "leb" 'org-beamer-export-to-pdf
    "leh" 'org-html-export-to-html
-   [remap evil-save-and-quit] 'org-ctrl-c-ctrl-c
-   [remap evil-quit] 'org-kill-note-or-show-branches
+   "SPC lw" 'org-ctrl-c-ctrl-c
+   "SPC lq" 'org-kill-note-or-show-branches
    "l'"  'org-edit-src-code
    "ld" 'org-archive-subtree)
 
   (general-define-key
    :keymaps 'org-src-mode-map
    :states '(normal visual)
-   [remap evil-save-and-quit] 'org-edit-src-exit
-   [remap evil-quit] 'org-edit-src-abort)
+   "SPC lw" 'org-edit-src-exit
+   "SPC lq" 'org-edit-src-abort)
 
   (setq org-modules '(org-bbdb org-bibtex org-crypt org-docview
 							   org-gnus org-habit org-id
@@ -252,8 +252,8 @@
   (general-define-key
    :keymaps 'org-capture-mode-map
    :states '(normal visual)
-   [remap evil-quit] 'org-capture-kill
-   [remap evil-save-and-quit] 'org-capture-finalize)
+   "SPC lq" 'org-capture-kill
+   "SPC lw" 'org-capture-finalize)
 
   (setq
    org-capture-templates

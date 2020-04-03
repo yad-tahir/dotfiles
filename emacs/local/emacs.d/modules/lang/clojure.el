@@ -125,7 +125,7 @@
    "lj" 'cider-test-jump
    "ld" 'cider-test-ediff
    "ls" 'cider-test-stacktrace
-   [remap evil-quit] 'cider-popup-buffer-quit
+   "SPC lq" 'cider-popup-buffer-quit
    "lR" 'cider-test-rerun-tests
    "lr" 'cider-test-run-test
    "ln" 'cider-test-run-ns-tests)
