@@ -27,7 +27,13 @@ super + F5
 XF86AudioMute
 	pulsemixer --set-volume {0,20}; dwmbar-refresh
 
+super + m
+	pulsemixer --set-volume {0,20}; dwmbar-refresh
+
 {XF86AudioRaiseVolume,XF86AudioLowerVolume}
+	pulsemixer --change-volume {+5,-5} ; dwmbar-refresh
+
+super + {e,a}
 	pulsemixer --change-volume {+5,-5} ; dwmbar-refresh
 
 XF86AudioPlay
@@ -58,8 +64,8 @@ F12
 super + g
 	~/bin/dmenu/run.sh &
 
-super + e
-	~/bin/dmenu/emacs.sh &
+# super + e
+#	~/bin/dmenu/emacs.sh &
 
 super + p
 	~/bin/dmenu/pass.sh &
@@ -81,6 +87,7 @@ alt + space
 
 @Caps_Lock
 	dwmbar-refresh
+
 # Other applications
 super + w
 	~/bin/firefox-vpn &

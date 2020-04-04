@@ -27,9 +27,9 @@ EOF
 
 function util-setup-services {
 	# Restart apps that depend on environmental variables
-	feh --bg-fill $(ls ${HOME}/pictures/background/* | shuf -n 1) &
+	feh --bg-fill $(/bin/ls ${HOME}/pictures/background/* | shuf -n 1) &
 
-	systemctl --user restart emacs-27-vcs.service&
+	systemctl --user restart emacs-27-vcs.service &
 	systemctl --user restart urxvtd.service &
 }
 

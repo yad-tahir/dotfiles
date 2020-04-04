@@ -58,14 +58,14 @@ util-setup-services
 pacmd set-card-profile 0 "output:hdmi-stereo+input:analog-stereo"
 
 # Startup apps
-sleep 1 # small waiting time to ensure previous commands are done
+sleep 0.5 # small waiting time to ensure previous commands are done
 dwmc setnmasters 2
-dwmc setmfacts 0.15
+dwmc setmfacts 0.20
 urxvtc -hold -name visualizer -e vis &
-sleep 0.5
+sleep 0.7
 dwmc setnmasters 2
-dwmc setmfact 0.30
+dwmc setmfact 0.35
 urxvtc -hold -name log -e /bin/journalctl -fn 200 &
 urxvtc -hold -name htop -e /usr/bin/htop &
-sleep 0.5
+sleep 0.3
 dwmc focusmon 1
