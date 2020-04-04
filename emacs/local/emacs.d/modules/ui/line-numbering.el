@@ -23,8 +23,7 @@
   (setq display-line-numbers-current-absolute nil
 		;; Narrowing does not make sense in visual type
 		display-line-numbers-width 3
-		;; Visual really useful for the evil mode
-		display-line-numbers-type 'visual)
+		display-line-numbers-type 'relative)
 
   ;; Theme
   (set-face-attribute 'line-number nil

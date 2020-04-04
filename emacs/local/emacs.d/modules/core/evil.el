@@ -84,10 +84,10 @@
    ;; Navigation
    "h" 'evil-backward-char
    "n" 'evil-forward-char
-   "c" 'evil-previous-visual-line
-   "t" 'evil-next-visual-line
-   "gc" 'evil-previous-line
-   "gt" 'evil-next-line
+   "c" 'evil-previous-line
+   "t" 'evil-next-line
+   "gc" 'evil-previous-visual-line
+   "gt" 'evil-next-visual-line
 
    ;; Searching
    "/" 'evil-ex-search-forward
