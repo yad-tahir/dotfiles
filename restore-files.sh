@@ -43,6 +43,7 @@ mkdir ${HOME}/bin 2> /dev/null
 ./root/restore-linux.sh
 ./scripts/restore-linux.sh
 ./shell/restore-linux.sh
+./visualizer/restore-linux.sh
 ./urxvt/restore-linux.sh
 ./vm/restore-linux.sh
 ./vpn/restore-linux.sh

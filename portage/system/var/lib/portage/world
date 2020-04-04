@@ -8,6 +8,7 @@ app-editors/nano
 app-emulation/libvirt
 app-emulation/qemu
 app-emulation/virt-manager
+app-misc/cli-visualizer
 app-misc/figlet
 app-misc/neofetch
 app-office/libreoffice

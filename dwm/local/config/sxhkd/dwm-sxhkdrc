@@ -92,6 +92,8 @@ super + o; h
 	urxvtc -hold -name htop -e /usr/bin/htop &
 super + o; s
 	urxvtc -hold -name pulsemixer -e /usr/bin/pulsemixer &
+super + o; v
+	urxvtc -hold -name visualizer -e vis &
 super + o; l
 	urxvtc -hold -name log -e /bin/journalctl -fn 200 &
 super + shift + q

@@ -52,3 +52,6 @@ x11-apps/* -ipv6
 x11-libs/* -ipv6
 x11-org/* -ipv6
 media-sound/* -ipv6
+
+# Required by cli-visaulizer
+sci-libs/fftw -fortran
