@@ -54,6 +54,9 @@ fi
 
 util-setup-services
 
+# Divert sound to Dell 38" but keep XPS' mic as input
+pacmd set-card-profile 0 "output:hdmi-stereo+input:analog-stereo"
+
 # Startup apps
 sleep 1 # small waiting time to ensure previous commands are done
 dwmc setnmasters 2
