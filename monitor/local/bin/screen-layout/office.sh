@@ -32,7 +32,7 @@ dispwin -d 3 ~/.config/icc-profiles/U3415W#3-2018-10-21-1221.icc
 util-set-dpi 120
 
 # Set desktops
-if [ $(bspc config bottom_padding 0) ]; then
+if [ $(bspc config bottom_padding 0 2> /dev/null) ]; then
 	util-reset-desktops DP-1
 	bspc monitor DP-3  -d 1 2 3 4 5 &> /dev/null
 	bspc monitor DP-1  -d 6 7 8 9 10 &> /dev/null

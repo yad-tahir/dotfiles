@@ -35,7 +35,7 @@ xset s on
 util-set-dpi 120
 
 # Set desktop
-if [ $(bspc config bottom_padding 0) ]; then
+if [ $(bspc config bottom_padding 0 2> /dev/null) ]; then
 	util-reset-desktops DP-1
 	bspc monitor DP-1  -d 1 2 3 4 5 &> /dev/null
 	bspc monitor DP-3  -d 6 7 8 9 10 &> /dev/null

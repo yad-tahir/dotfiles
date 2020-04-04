@@ -18,7 +18,7 @@
 # 02110-1301, USA.
 
 # Check WM
-if [ $(bspc config bottom_padding 0) ]; then
+if [ $(bspc config bottom_padding 0 2> /dev/null) ]; then
 	# BSPWM case
 	serviceName=sxhkd-bspwm@${XDG_VTNR}.service
 else

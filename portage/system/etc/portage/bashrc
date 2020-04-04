@@ -18,7 +18,9 @@
 # 02110-1301, USA.
 
 
-if [ "${EBUILD_PHASE}" == "postinst" ] || [ "${EBUILD_PHASE}" == "postrm" ]; then
-	polybar-msg hook portage-world 2
-	polybar-msg hook portage-packages 2
-fi
+# if [ "${EBUILD_PHASE}" == "postinst" ] || [ "${EBUILD_PHASE}" == "postrm" ]; then
+#	if [ -z $(which polybar-msg) ]; then
+#		polybar-msg hook portage-world 2
+#		polybar-msg hook portage-packages 2
+#	fi
+# fi
