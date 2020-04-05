@@ -107,10 +107,15 @@ keyboard(){
 	local layout=$(setxkbmap -query |
 				   awk '/^layout/{split($2,arr,","); print toupper(arr[1])}')
 	caps=$(xset -q | awk '/Caps/{print $4}')
-	if [ "$caps" = 'off' ]; then
-		echo -e " $caps  $layout "
+	if [ "$layout" != "US" ]; then
+		layout="\x07  $layout \x01"
 	else
-		echo -e "\x05  $caps \x01  $layout "
+		layout=" $layout"
+	fi
+	if [ "$caps" = 'off' ]; then
+		echo -e "\x03 $caps\x01 $layout "
+	else
+		echo -e "\x05  $caps \x01 $layout "
 	fi
 }
 
@@ -126,6 +131,41 @@ vol(){
 	echo -e "$v"
 }
 
+uptime(){
+	local r=$(echo $(awk '{print $2}' /proc/loadavg)*100/$(nproc) | /usr/bin/bc)
+	if [ $r -ge 100 ]; then
+		echo -e "\x05  $r% \x01 "
+	elif [ $r -ge 50 ]; then
+		echo -e "\x04  $r% \x01 "
+	elif [ $r -ge 25 ]; then
+		echo -e "\x07  $r% \x01 "
+	else
+		echo -e " $r% "
+	fi
+}
+
+energy_profile(){
+	local v=$(cat /sys/devices/system/cpu/cpufreq/policy0/energy_performance_preference)
+	if [ $v = "power" ]; then
+		echo -e " SAVE "
+	elif [ $v = "performance" ]; then
+		echo -e "\x06  PRFM\x01 "
+	elif [ $v = "balance_performance" ]; then
+		echo -e " BLPR "
+	else
+		echo -e " $v "
+	fi
+}
+
+vpn(){
+	local v=$(ip route | head -n 1 | grep 'tun0')
+	if [ -z "$v" ]; then
+		echo -e "\x05  OFF \x01 "
+	else
+		echo -e "\x07  ON \x01 "
+	fi
+}
+
 battery(){
 	local code=$(acpi | awk '{print tolower(substr($3,1,length($3)-1))}')
 	local level=$(acpi |  awk '{gsub(",","",$0);gsub("%","",$0);print $4}')
@@ -138,14 +178,18 @@ battery(){
 	if [ "$code" = "discharging" ]; then
 		echo -e "\x04  ${level}%${time}\x01 "
 	elif [ "$code" = "charging" ]; then
-		echo -e " ${level}%${time}"
+		echo -e "\x07  ${level}%${time}\x01 "
 	else
 		echo -e " ${level}% "
 	fi
 }
 
+time_left(){
+	printf " %'d " $(life)
+}
+
 while [ 1 ]; do
-	status="$(fan)$(mem)$(emacs)$(insync)$(gpu)$(battery)$(vol)$(keyboard)$(date +'%a, %b %d %H:%M')"
+	status="$(fan)$(uptime)$(mem)$(emacs)$(vpn)$(insync)| $(gpu)$(energy_profile)$(battery)$(vol)$(keyboard)| $(time_left)| $(date +'%a, %b %d %H:%M')"
 	status=$(echo -e "$status" | tr '\n' ' ')
 	xsetroot -name "$status"
 	sleep 1m

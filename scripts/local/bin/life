@@ -25,7 +25,4 @@ target=$(date -d "2049-11-06" +%s)
 current=$(date +%s)
 diff=$(($target-$current))
 # Remove minutes and seconds
-hours=$(($diff/(60*60)))
-
-#Print with a fancy font
-/usr/bin/figlet $hours -f bubble
+echo $(($diff/(60*60)))

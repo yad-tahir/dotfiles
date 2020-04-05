@@ -34,7 +34,7 @@ source ~/bin/settings.sh
 # Adjust the path
 PATH="~/bin:${PATH}"
 
-life
+life | figlet -f bubble
 
 echo ''
 
