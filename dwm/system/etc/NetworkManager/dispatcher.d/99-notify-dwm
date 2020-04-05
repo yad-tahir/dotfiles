@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/sh
+
 # Copyright (C) 2020
 
 # This program is free software; you can redistribute it and/or
@@ -16,25 +17,4 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-cd `dirname $0`
-echo "* Execute ${PWD}/`basename $0`"
-. ../utils.sh
-
-# System-wide
-arr=( "/etc/NetworkManager/dispatcher.d"
-	  "/etc/udev/rules.d"
-	  "/usr/bin" )
-
-for i in "${arr[@]}"
-do
-	TARGET=$i
-	SOURCE=${PWD}/system${TARGET}
-	do-sync-sudo "$SOURCE" "$TARGET"
-done
-
-# Local
-do-ln-sync "${PWD}/local/config/sxhkd" "${HOME}/.config/sxhkd"
-do-ln-sync "${PWD}/local/config/dwm" "${HOME}/.config/dwm"
-
-TARGET=${HOME}/.config/systemd/user
-do-ln-sync "${PWD}/local/systemd/user/sxhkd-dwm@.service" "${TARGET}/sxhkd-dwm@.service"
+dwmbar-cli refresh

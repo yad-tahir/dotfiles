@@ -1,0 +1,2 @@
+# When an input device has been added or removed, refresh the status bar to update the keyboard layout
+SUBSYSTEM=="input", RUN+="/usr/bin/dwmbar-cli refresh"
