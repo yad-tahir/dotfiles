@@ -296,3 +296,6 @@ media-libs/gst-plugins-base X
 # required by @selected
 # required by @world (argument)
 dev-qt/* X
+
+# Required by cli-visaulizer
+sci-libs/fftw -fortran
