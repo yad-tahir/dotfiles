@@ -22,7 +22,6 @@ echo "* Execute ${PWD}/`basename $0`"
 
 do-ln-sync "${PWD}/local/config/sxhkd" "${HOME}/.config/sxhkd"
 do-ln-sync "${PWD}/local/config/dwm" "${HOME}/.config/dwm"
-do-ln-sync "${PWD}/local/bin/dwmbar-refresh" "${HOME}/bin/dwmbar-refresh"
 
 TARGET=${HOME}/.config/systemd/user
 do-ln-sync "${PWD}/local/systemd/user/sxhkd-dwm@.service" "${TARGET}/sxhkd-dwm@.service"

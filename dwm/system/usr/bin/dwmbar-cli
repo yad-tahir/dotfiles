@@ -17,4 +17,21 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-kill $(pstree -lp | grep dwmrc\([0-9] | sed "s/.*sleep(\([0-9]\+\)).*/\1/") 2> /dev/null
+
+function refresh {
+	kill $(pstree -lp | grep dwmrc\([0-9] |
+			   sed "s/.*sleep(\([0-9]\+\)).*/\1/") 2> /dev/null
+	return 0;
+}
+
+function help {
+cat <<EOF
+Help Menu:
+	'dwmbar-cli refresh'  to refresh the status bar
+EOF
+}
+
+case $1 in
+	"refresh") refresh ;;
+	*) help ;;
+esac
