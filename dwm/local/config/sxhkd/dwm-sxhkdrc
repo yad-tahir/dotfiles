@@ -64,9 +64,6 @@ F12
 super + g
 	~/bin/dmenu/run.sh &
 
-# super + e
-#	~/bin/dmenu/emacs.sh &
-
 super + p
 	~/bin/dmenu/pass.sh &
 
