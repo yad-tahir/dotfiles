@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Copyright (C) 2020
 
 # This program is free software; you can redistribute it and/or
@@ -17,10 +16,12 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
+cd `dirname $0`
+echo "* Execute ${PWD}/`basename $0`"
+. ../utils.sh
 
-# if [ "${EBUILD_PHASE}" == "postinst" ] || [ "${EBUILD_PHASE}" == "postrm" ]; then
-#	if [ -z $(which polybar-msg) ]; then
-#		polybar-msg hook portage-world 2
-#		polybar-msg hook portage-packages 2
-#	fi
-# fi
+do-ln-sync "${PWD}/local/config/bspwm" "${HOME}/.config/bspwm"
+do-ln-sync "${PWD}/local/config/sxhkd" "${HOME}/.config/sxhkd"
+
+TARGET=${HOME}/.config/systemd/user
+do-ln-sync "${PWD}/local/systemd/user/sxhkd-bspwm@.service" "${TARGET}/sxhkd-bspwm@.service"

@@ -17,7 +17,15 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-serviceName=sxhkd-dwm@${XDG_VTNR}.service
+# Check WM
+if [ $(bspc config bottom_padding 0 2> /dev/null) ]; then
+	# BSPWM case
+	serviceName=sxhkd-bspwm@${XDG_VTNR}.service
+else
+	# DWM case
+	serviceName=sxhkd-dwm@${XDG_VTNR}.service
+fi
+
 systemctl --user stop $serviceName
 
 state=$(setxkbmap -query |

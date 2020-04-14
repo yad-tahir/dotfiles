@@ -35,6 +35,7 @@
 				 "feature/project"
 				 "feature/text-adjust"
 				 "feature/spell-checker"
+				 ;; "feature/polybar"
 				 "feature/tramp"
 				 "feature/file-manager"
 				 "feature/diff"

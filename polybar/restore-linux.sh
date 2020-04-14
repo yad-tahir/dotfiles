@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Copyright (C) 2020
 
 # This program is free software; you can redistribute it and/or
@@ -17,10 +16,19 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
+cd `dirname $0`
+echo "* Execute ${PWD}/`basename $0`"
+. ../utils.sh
 
-# if [ "${EBUILD_PHASE}" == "postinst" ] || [ "${EBUILD_PHASE}" == "postrm" ]; then
-#	if [ -z $(which polybar-msg) ]; then
-#		polybar-msg hook portage-world 2
-#		polybar-msg hook portage-packages 2
-#	fi
-# fi
+arr=( "/etc/NetworkManager/dispatcher.d"
+	  "/etc/udev/rules.d"
+	)
+
+for i in "${arr[@]}"
+do
+	TARGET=$i
+	SOURCE=${PWD}/system${TARGET}
+	do-sync-sudo "$SOURCE" "$TARGET"
+done
+
+do-ln-sync "${PWD}/local/config" "${HOME}/.config"

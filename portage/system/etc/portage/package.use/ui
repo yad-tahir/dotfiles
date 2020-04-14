@@ -6,4 +6,5 @@ x11-themes/gtk-engines-murrine -themes
 gui-libs/wlroots X x11-backend
 
 x11-misc/dmenu xinerama # Add multi-monitor support
+x11-misc/polybar mpd ipc gcc
 media-gfx/feh xinerama

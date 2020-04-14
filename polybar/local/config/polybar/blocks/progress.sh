@@ -1,4 +1,5 @@
-#!/bin/bash
+#! /bin/sh
+#
 
 # Copyright (C) 2020
 
@@ -17,10 +18,25 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
+# A utility script to draw a progress using text underline.
 
-# if [ "${EBUILD_PHASE}" == "postinst" ] || [ "${EBUILD_PHASE}" == "postrm" ]; then
-#	if [ -z $(which polybar-msg) ]; then
-#		polybar-msg hook portage-world 2
-#		polybar-msg hook portage-packages 2
-#	fi
-# fi
+text="$1"
+progress="$2"
+
+if [ $progress -eq $progress 2> /dev/null ]; then
+	len="${#text}"
+	# Calculate the number of characters that needs to be underline
+	underline_num=$(($len*progress/100))
+
+	# Make sure $underline_num never exceeds the length
+	if [ "$underline_num" -gt $len ]; then
+		underline_num=$len
+	fi
+
+	output=$(echo "$text" |
+				 awk -v UNDER="$underline_num" \
+					 '{print "%{+u}"substr($0,0,UNDER) \
+				"%{-u}"substr($0,UNDER+1,length($0))}')
+
+	echo "$output"
+fi

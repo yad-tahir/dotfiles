@@ -31,6 +31,7 @@
   (declare-function simple-mpc-play-current-line nil)
   (declare-function simple-mpc-modify-volume-internal nil)
   (defvar do--music-process-update nil)
+  (defvar do--music-process-external nil)
   (defvar do--music-mpd-init nil)
   (defvar do--music-toggle-state nil)
 
@@ -56,8 +57,15 @@
 	  (setq do--music-mpd-init t))
 
 	(if (not do--music-toggle-state)
-	  (ignore-errors
-		(kill-process do--music-process-update))
+		(progn
+		  (ignore-errors
+			(kill-process do--music-process-update))
+		  (ignore-errors
+			(kill-process do--music-process-external)
+			(start-process-shell-command
+			 "polybar-disable-music"
+			 nil
+			 "polybar-msg hook music 1 &> /dev/null")))
 	  (progn
 
 		(ignore-errors
@@ -66,7 +74,14 @@
 				 "music-notify-process"
 				 nil
 				 "while [ 1 ]; do [[ $(mpc status | awk '/paused/{print $0}') != '' ]] && break; emacsclient -nqe '(do--music-refresh-buffer)'; mpc current --wait; done")))
-		))
+
+		;; Setup external notifier
+		(ignore-errors
+		  (setq do--music-process-external
+				(start-process-shell-command
+				 "music-notify-external-process"
+				 nil
+				 "while [ 1 ]; do [[ $(mpc status | awk '/paused/{print $0}') != '' ]] && polybar-msg hook music 1 &> /dev/null && break; polybar-msg hook music 2 2> /dev/null; sleep 1; done")))))
 	nil)
 
   (defun do--music-refresh-buffer()

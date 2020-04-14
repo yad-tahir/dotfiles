@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Copyright (C) 2020
 
@@ -17,10 +17,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
+status=$(cat /sys/bus/pci/devices/0000:01:00.0/power/runtime_status 2> /dev/null || echo igu)
 
-# if [ "${EBUILD_PHASE}" == "postinst" ] || [ "${EBUILD_PHASE}" == "postrm" ]; then
-#	if [ -z $(which polybar-msg) ]; then
-#		polybar-msg hook portage-world 2
-#		polybar-msg hook portage-packages 2
-#	fi
-# fi
+if [ $status == 'active' ]; then
+	COLOR=$(xrdb -query | awk '/\*color2:/{print $2}')
+	echo "%{F$COLOR} dGPU%{F-}"
+else
+	echo ""
+fi

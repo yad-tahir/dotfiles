@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Copyright (C) 2020
 
@@ -17,10 +17,4 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-
-# if [ "${EBUILD_PHASE}" == "postinst" ] || [ "${EBUILD_PHASE}" == "postrm" ]; then
-#	if [ -z $(which polybar-msg) ]; then
-#		polybar-msg hook portage-world 2
-#		polybar-msg hook portage-packages 2
-#	fi
-# fi
+polybar-msg hook public-ip 1 &> /dev/null

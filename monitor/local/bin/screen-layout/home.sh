@@ -33,6 +33,25 @@ xset +dpms
 xset s on
 
 util-set-dpi 120
+
+# Set desktop
+if [ $(bspc config bottom_padding 0 2> /dev/null) ]; then
+	util-reset-desktops DP-1
+	bspc monitor DP-1  -d 1 2 3 4 5 &> /dev/null
+	bspc monitor DP-3  -d 6 7 8 9 10 &> /dev/null
+	bspc monitor eDP-1 -r
+
+	# Reset padding
+	bspc config bottom_padding 0
+	bspc config right_padding 0
+
+	# Workspace 8 and 9 are use reading activities, it makes sense to use the
+	# monocle layout for portrait monitor
+	bspc desktop 8 -l monocle
+	bspc desktop 9 -l monocle
+	util-launch-polybar-all
+fi
+
 util-setup-services
 
 # Divert sound to Dell 38" but keep XPS' mic as input

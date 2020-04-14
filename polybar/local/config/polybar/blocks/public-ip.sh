@@ -1,4 +1,5 @@
-#!/bin/bash
+#! /bin/sh
+#
 
 # Copyright (C) 2020
 
@@ -18,9 +19,21 @@
 # 02110-1301, USA.
 
 
-# if [ "${EBUILD_PHASE}" == "postinst" ] || [ "${EBUILD_PHASE}" == "postrm" ]; then
-#	if [ -z $(which polybar-msg) ]; then
-#		polybar-msg hook portage-world 2
-#		polybar-msg hook portage-packages 2
-#	fi
-# fi
+
+warning=$(xrdb -query | awk '/\*color9:/{print $2}')
+error=$(xrdb -query | awk '/\*color11:/{print $2}')
+
+# Get the country code for the public IP. Highlight it if it is not US.
+curl ipinfo.io 2>&1 |
+	awk '/country/{
+		code=substr($2,2,2);
+		if (code == "US"){
+			print " " code
+		}else{
+			print "%{F'$warning'} " code "%{F-}"
+		}
+	}
+	# On error
+	/^curl/{
+		print "%{F'$error'} NO-NET%{F-}"
+	}'

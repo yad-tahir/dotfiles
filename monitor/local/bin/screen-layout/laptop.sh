@@ -27,4 +27,17 @@ xrandr --output DP-3 --off
 
 util-set-dpi 140
 
+# Set desktops
+if [ $(bspc config bottom_padding 0 2> /dev/null) ]; then
+	util-reset-desktops eDP-1
+	bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9 10 &> /dev/null
+	bspc monitor DP-1 -r
+	bspc monitor DP-3 -r
+
+	# Reset padding
+	bspc config bottom_padding 0
+	bspc config right_padding 0
+	util-launch-polybar-all
+fi
+
 util-setup-services
