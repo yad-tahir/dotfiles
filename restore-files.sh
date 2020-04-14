@@ -29,15 +29,15 @@ mkdir ${HOME}/bin 2> /dev/null
 ./gdrive/restore-linux.sh
 ./git/restore-linux.sh
 ./igpu/restore-linux.sh
-./journald/restore-linux.sh
+./logger/restore-linux.sh
 ./kernel/restore-linux.sh
 ./monitor/restore-linux.sh
 ./mpd/restore-linux.sh
-./network-manager/restore-linux.sh
+./network/restore-linux.sh
 ./nvidia/restore-linux.sh
 # ./pacman/restore-linux.sh
 ./portage/restore-linux.sh
-./power-management/restore-linux.sh
+./power/restore-linux.sh
 ./root/restore-linux.sh
 ./scripts/restore-linux.sh
 ./shell/restore-linux.sh
