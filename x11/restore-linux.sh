@@ -25,7 +25,11 @@ do-ln-sync "${PWD}/local/config/user-dirs.dirs" "${TARGET}/user-dirs.dirs"
 do-ln-sync "${PWD}/local/config/user-dirs.locale" "${TARGET}/user-dirs.locale"
 
 TARGET=${HOME}/.Xresources
-SOURCE=${PWD}/local/.Xresources
+SOURCE=${PWD}/local/Xresources
+do-ln-sync "$SOURCE" "$TARGET"
+
+TARGET=${HOME}/.xinitrc
+SOURCE=${PWD}/local/xinitrc
 do-ln-sync "$SOURCE" "$TARGET"
 
 TARGET=/etc/systemd/system/getty@tty1.service.d
