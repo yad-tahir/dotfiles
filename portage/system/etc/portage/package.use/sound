@@ -1,2 +1,2 @@
-media-sound/pulseaudio X alsa -ipv6
+media-sound/pulseaudio X alsa dbus -ipv6
 media-sound/mpd audiofile flac -ipv6 -network -dbus -curl -bzip2 -mad -eventfd

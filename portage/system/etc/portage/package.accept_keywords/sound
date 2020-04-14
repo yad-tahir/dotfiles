@@ -1,0 +1,2 @@
+# The unstable version is used to remove Python 3.6 dependency
+media-sound/pulsemixer ~amd64

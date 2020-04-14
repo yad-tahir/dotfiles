@@ -1,0 +1,11 @@
+# This set holds packages that are commonly used during source code compilation
+
+dev-util/cmake
+dev-util/ninja
+virtual/rust
+net-libs/nodejs
+
+
+# Preserved libraries
+# opencl
+dev-util/spirv-llvm-translator

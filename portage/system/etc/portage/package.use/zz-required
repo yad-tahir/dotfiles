@@ -2,13 +2,14 @@
 #### Requested USE flags
 ####
 
-# i3
+# General
 x11-libs/cairo xcb X
 x11-libs/libxcb xkb
 >=x11-libs/pango-1.30.0 X
+>=x11-libs/libxkbcommon-0.9.1 X
 
 # firefox
->=sys-devel/llvm-8.0.1 gold
+sys-devel/llvm gold
 media-libs/libpng apng
 media-libs/libvpx postproc
 dev-db/sqlite secure-delete
@@ -23,10 +24,9 @@ dev-lang/python sqlite
 # required by sys-kernel/genkernel-3.5.3.3
 >=sys-apps/util-linux-2.33.2 static-libs
 
-# required by file-roller (argument)
->=dev-libs/libxml2-2.9.9-r1 python
-
-## required by x11-drivers/nvidia-drivers-440.36-r1::gentoo[tools]
+# Graphic
+x11-libs/libdrm video_cards_intel
+# required by x11-drivers/nvidia-drivers-440.36-r1::gentoo[tools]
 # required by nvidia-drivers (argument)
 >=x11-libs/gdk-pixbuf-2.38.1-r1 X
 
@@ -214,5 +214,65 @@ dev-lang/python sqlite
 # required by app-text/texlive (argument)
 >=app-text/texlive-core-2019-r4 xetex
 
-
 # Misc
+# required by app-emulation/virt-manager-2.2.1::gentoo[gtk]
+# required by virt-manager (argument)
+>=net-misc/spice-gtk-0.35 usbredir
+>=dev-libs/libxml2-2.9.9-r1 python
+media-libs/gst-plugins-base X
+# required by app-emulation/libvirt-5.5.0-r1::gentoo[virt-network]
+# required by app-emulation/libvirt (argument)
+>=net-dns/dnsmasq-2.80-r1 script
+
+# required by dev-qt/qtcore-5.13.2-r1::gentoo
+# required by dev-qt/qtdbus-5.13.2::gentoo
+# required by dev-qt/qtgui-5.13.2::gentoo[dbus]
+# required by dev-qt/qtmultimedia-5.13.2-r1::gentoo
+# required by net-analyzer/wireshark-3.0.7::gentoo[qt5]
+# required by @selected
+# required by @world (argument)
+>=dev-libs/libpcre2-10.33-r1 pcre16
+
+# required by x11-libs/gtk+-3.24.11::gentoo
+# required by app-text/ghostscript-gpl-9.50::gentoo[gtk]
+# required by app-text/ps2eps-1.68::gentoo
+# required by app-text/texlive-2019-r1::gentoo
+# required by @selected
+# required by @world (argument)
+>=media-libs/libepoxy-1.5.4 X
+
+# required by media-libs/mesa-19.3.0::gentoo
+# required by media-libs/libepoxy-1.5.4::gentoo[egl]
+# required by media-libs/virglrenderer-0.6.0::gentoo
+# required by app-emulation/qemu-4.0.0-r50::gentoo[virgl]
+# required by @selected
+# required by @world (argument)
+>=dev-util/glslang-7.12.3353_pre20191027-r2 abi_x86_32
+
+# required by media-gfx/gimp-2.10.8-r1::gentoo
+# required by media-gfx/gimp (argument)
+>=media-libs/gegl-0.4.16 cairo
+>=app-text/poppler-0.82.0 cairo
+
+# required by sys-libs/pam-1.3.1-r1::gentoo
+# required by sys-apps/shadow-4.6::gentoo
+# required by virtual/shadow-0::gentoo
+# required by @system
+# required by @world (argument)
+>=virtual/libcrypt-1 abi_x86_32
+
+# required by dev-lang/php-7.4.3::gentoo
+# required by @selected
+# required by @world (argument)
+>=app-eselect/eselect-php-0.9.4-r5 apache2
+
+# required by media-gfx/blender-2.79b-r2::gentoo[ffmpeg]
+# required by media-gfx/blender (argument)
+>=media-video/ffmpeg-4.1.3 theora mp3
+
+# Required by cli-visaulizer
+sci-libs/fftw -fortran
+
+# Wayland
+# required by dev-qt/qtwayland-5.14.1-r3::gentoo
+>=dev-qt/qtgui-5.14.1-r4 egl

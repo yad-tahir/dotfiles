@@ -1,26 +1,29 @@
-net-print/cups X
-app-admin/pass X # @X adds clipboard support
-# @png, @jpeg, @svg to support common image formats
-# @tiff, @xpm to remove unused image formats
-app-editors/emacs X png jpeg svg -tiff -xpm
+net-print/cups X -acl
+net-print/cups-filters pdf png jpeg
+
+# Many applications, such as virt-manager and libraoffice, require @X internally
+sys-apps/dbus X
+
+# QT
+dev-qt/* X dbus
+
+# ~/bin/screen-lock
+media-libs/imlib2 X png jpeg
+media-gfx/imagemagick png -opencl
+
+# Fonts
 media-fonts/* X
 media-libs/freetype X
-x11-misc/dmenu xinerama # Add multi-monitor support
+# @cjk adds chinese, japanese and korean character sets
+media-fonts/noto cjk
 
-# lock-screen.sh
-media-libs/imlib2 X png jpeg
-media-gfx/imagemagick png
-media-gfx/feh xinerama
+# Fontforge - postscript font editor and converter
+media-gfx/fontforge X gif jpeg png svg tiff cairo
 
-# UI
-x11-libs/gtk+ X
-x11-misc/polybar mpd ipc gcc
-
-# Other
-app-office/libreoffice -accessibility -bluetooth -mariadb -branding
-app-text/texlive png truetype science publishers graphics epspdf
+# Office related
+app-text/texlive png truetype science graphics epspdf metapost
 dev-texlive/texlive-basic -luajittex
-
+app-text/mupdf -javascript
 
 # Disable ipv6 when it is not needed
 x11-apps/* -ipv6

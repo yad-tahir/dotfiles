@@ -1,6 +1,9 @@
-# @truetype adds support for true fonts
+# ffmpeg
 # @threads enables multi-threading
 # @vaapi enables HW accelarations API used internally by www-client/firefox
-# @x264 enables h264 enconding used by HTML 5
-virtual/ffmpeg X truetype threads vaapi x264
-media-video/ffmpeg X truetype vaapi x264
+virtual/ffmpeg X threads vaapi vdpau x264
+media-video/ffmpeg X vaapi libdrm openssl x264 openal vdpau opencl
+x11-libs/libva X opengl vdpau
+
+# @vulkan breaks mpv during compile time because nvidia driver is not set
+media-video/mpv X drm dvd vpdau vaapi lcms -vulkan

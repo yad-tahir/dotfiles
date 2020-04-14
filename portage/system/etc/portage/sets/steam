@@ -3,7 +3,7 @@ dev-libs/glib:2
 dev-libs/libgcrypt
 dev-libs/nspr
 dev-libs/nss
-gnome-base/gconf
+# gnome-base/gconf
 gnome-extra/zenity
 media-libs/alsa-lib
 media-libs/fontconfig

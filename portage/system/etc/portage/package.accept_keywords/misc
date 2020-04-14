@@ -1,11 +1,13 @@
 # WM
 x11-misc/lemonbar ~amd64
-x11-wm/bspwm
-x11-misc/sxhkd
-=x11-misc/polybar-9999 **
+# Power management
+sys-power/intel-undervolt ~amd64
 
-# Power Managment
-sys-power/intel-undervolt
+# Fontforge is required by LibreOffice. The unstable version is used to remove Python 3.6 dependency
+<=media-gfx/fontforge-20190317-r3 ~amd64
 
-# AVR
-cross-avr/gcc **
+# Other
+dev-libs/nss ~amd64
+
+# Required by DWM keybinding
+x11-misc/xdo ~amd64
