@@ -81,7 +81,6 @@ super + Escape
 alt + space
 	~/bin/keyboard-toggle; dwmbar-cli refresh
 
-
 @Caps_Lock
 	dwmbar-cli refresh
 
@@ -100,5 +99,3 @@ super + o; v
 	urxvtc -hold -name visualizer -e vis &
 super + o; l
 	urxvtc -hold -name log -e /bin/journalctl -fn 200 &
-super + shift + q
-	kill -9 $(xdo pid 2> /dev/null)
