@@ -22,7 +22,6 @@ cd $DIR
 
 mkdir ${HOME}/bin 2> /dev/null
 
-# ./bspwm/restore-linux.sh
 ./emacs/restore-linux.sh
 ./dmenu/restore-linux.sh
 ./dwm/restore-linux.sh
@@ -37,7 +36,6 @@ mkdir ${HOME}/bin 2> /dev/null
 ./network-manager/restore-linux.sh
 ./nvidia/restore-linux.sh
 # ./pacman/restore-linux.sh
-# ./polybar/restore-linux.sh
 ./portage/restore-linux.sh
 ./power-management/restore-linux.sh
 ./root/restore-linux.sh

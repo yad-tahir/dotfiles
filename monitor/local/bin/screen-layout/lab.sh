@@ -28,20 +28,6 @@ xrandr --output DP-3  --mode 1920x1200 --pos 0x0 --brightness 1
 # Adjust DPI
 util-set-dpi 120
 
-# Set desktops
-if [ $(bspc config bottom_padding 0 2> /dev/null) ]; then
-	util-reset-desktops eDP-1
-	bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9 10 &> /dev/null
-
-	# Fix resolution
-	bspc config right_padding 640
-	bspc config bottom_padding 210
-
-	# Launch polybar to eDP-1 only since we are using xrandr's mirror mode
-	killall polybar 2> /dev/null
-	MONITOR=eDP-1 polybar orange &
-fi
-
 # Stop turning off screens when idle
 xset -dpms
 xset s off

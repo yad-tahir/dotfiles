@@ -32,24 +32,3 @@ function util-setup-services {
 	systemctl --user restart emacs-27-vcs.service &
 	systemctl --user restart urxvtd.service &
 }
-
-function util-launch-polybar-all {
-	killall polybar 2> /dev/null
-	bspc query -M --names | xargs -I % -n 1 sh -c 'MONITOR=% polybar orange &' &
-}
-
-function util-reset-desktops {
-	local primary=$1
-
-	# Reset desktop layouts
-	bspc query -D | xargs -n 1 -I % bspc desktop % -l tiled
-
-	# Move all the existing nodes to the primary monitor
-	bspc query -D -m eDP-1 | xargs -n 1 -I % bspc desktop % --to-monitor $primary
-	bspc query -D -m DP-1 | xargs -n 1 -I % bspc desktop % --to-monitor $primary
-	bspc query -D -m DP-3 | xargs -n 1 -I % bspc desktop % --to-monitor $primary
-
-	# Move tiled nodes to one desktop. This is needed because sometimes
-	# BSPWM bugs out when we switch between various monitors.
-	bspc query -N -n .tiled | xargs -n 1 -I % bspc node % -d 1
-}
