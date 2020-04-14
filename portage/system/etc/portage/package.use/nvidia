@@ -1,0 +1,3 @@
+x11-drivers/nvidia-drivers X libglvnd abi_x86_32 acpi uvm -multilib
+media-gfx/blender cuda
+media-video/obs-studio nvenc

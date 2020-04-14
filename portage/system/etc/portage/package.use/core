@@ -2,8 +2,9 @@ sys-kernel/gentoo-sources
 sys-kernel/genkernel cryptsetup
 sys-fs/zfs rootfs
 
+# GCC
+sys-devel/gcc -fortran
+
 # @cgroup-hybrid is needed by virt-manager
 # Remove @gcrypt as the disk it is already fully encrypted
 sys-apps/systemd elfutils cgroup-hybrid -gcrypt
-# GCC
-sys-devel/gcc -fortran

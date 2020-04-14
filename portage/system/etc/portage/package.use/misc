@@ -1,17 +1,15 @@
 net-print/cups X -acl
 net-print/cups-filters pdf png jpeg
 
-app-admin/pass X # @X adds clipboard support
-# @png, @jpeg, @svg to support common image formats
-# @tiff, @xpm to remove unused image formats
-# @harfbuzz @cairo @json will be added in Emacs 27
-app-editors/emacs X png jpeg svg gfile harfbuzz cairo json -tiff -xpm
-x11-misc/dmenu xinerama # Add multi-monitor support
+# Many applications, such as virt-manager and libraoffice, require @X internally
+sys-apps/dbus X
+
+# QT
+dev-qt/* X dbus
 
 # ~/bin/screen-lock
 media-libs/imlib2 X png jpeg
 media-gfx/imagemagick png -opencl
-media-gfx/feh xinerama
 
 # Fonts
 media-fonts/* X
@@ -19,33 +17,13 @@ media-libs/freetype X
 # @cjk adds chinese, japanese and korean character sets
 media-fonts/noto cjk
 
-# UI
-x11-libs/gtk+ X
-x11-misc/polybar mpd ipc gcc
-
-# Other
-# Many applications, such as virt-manager and libraoffice, require @X internally
-sys-apps/dbus X
-
-app-office/libreoffice -accessibility -bluetooth -mariadb -branding
 # Fontforge - postscript font editor and converter
 media-gfx/fontforge X gif jpeg png svg tiff cairo
 
+# Office related
 app-text/texlive png truetype science graphics epspdf metapost
 dev-texlive/texlive-basic -luajittex
 app-text/mupdf -javascript
-
-# @spice used by virt for UI desktop sharing
-# @lzo enables lzo compression
-# @usb and @usbredir enables usb passthrough whether directly or indirectly, respectively
-# @virgl and @opengl to provide HW acceleration
-app-emulation/qemu spice usb usbredir lzo opengl virgl qemu_user_targets_x86_64 -curl -gnutls -vnc
-app-emulation/libvirt zfs virt-network pcap dbus -macvtap -vepa
-# TODO: Add @webdav in the future
-net-misc/spice-gtk lz4 dbus
-
-# @265-color @blink for UI enhancements
-x11-terms/rxvt-unicode 256-color blink
 
 # Disable ipv6 when it is not needed
 x11-apps/* -ipv6

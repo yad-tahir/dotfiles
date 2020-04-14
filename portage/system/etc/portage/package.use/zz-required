@@ -25,10 +25,10 @@ dev-lang/python sqlite
 >=sys-apps/util-linux-2.33.2 static-libs
 
 # Graphic
+x11-libs/libdrm video_cards_intel
 # required by x11-drivers/nvidia-drivers-440.36-r1::gentoo[tools]
 # required by nvidia-drivers (argument)
 >=x11-libs/gdk-pixbuf-2.38.1-r1 X
-x11-libs/libdrm video_cards_intel
 
 #
 # Steam and 32-bit games
@@ -220,17 +220,10 @@ x11-libs/libdrm video_cards_intel
 >=net-misc/spice-gtk-0.35 usbredir
 >=dev-libs/libxml2-2.9.9-r1 python
 media-libs/gst-plugins-base X
-
 # required by app-emulation/libvirt-5.5.0-r1::gentoo[virt-network]
 # required by app-emulation/libvirt (argument)
 >=net-dns/dnsmasq-2.80-r1 script
 
-# required by dev-qt/qtwidgets-5.13.2::gentoo[gtk]
-# required by dev-qt/qtprintsupport-5.13.2::gentoo
-# required by net-analyzer/wireshark-3.0.7::gentoo[qt5]
-# required by @selected
-# required by @world (argument)
->=dev-qt/qtgui-5.13.2 dbus
 # required by dev-qt/qtcore-5.13.2-r1::gentoo
 # required by dev-qt/qtdbus-5.13.2::gentoo
 # required by dev-qt/qtgui-5.13.2::gentoo[dbus]
@@ -247,6 +240,7 @@ media-libs/gst-plugins-base X
 # required by @selected
 # required by @world (argument)
 >=media-libs/libepoxy-1.5.4 X
+
 # required by media-libs/mesa-19.3.0::gentoo
 # required by media-libs/libepoxy-1.5.4::gentoo[egl]
 # required by media-libs/virglrenderer-0.6.0::gentoo
@@ -255,21 +249,10 @@ media-libs/gst-plugins-base X
 # required by @world (argument)
 >=dev-util/glslang-7.12.3353_pre20191027-r2 abi_x86_32
 
-
-# required by media-gfx/inkscape-0.92.4::gentoo
-# required by inkscape (argument)
->=app-text/poppler-0.82.0 cairo
-# required by dev-cpp/cairomm-1.12.0-r1::gentoo
-# required by dev-cpp/pangomm-2.42.0::gentoo
-# required by dev-cpp/gtkmm-2.24.5::gentoo
-# required by media-gfx/inkscape-0.92.4::gentoo
-# required by inkscape (argument)
->=x11-libs/cairo-1.16.0-r3 X aqua
->=dev-cpp/cairomm-1.12.0-r1 X aqua
-
 # required by media-gfx/gimp-2.10.8-r1::gentoo
 # required by media-gfx/gimp (argument)
 >=media-libs/gegl-0.4.16 cairo
+>=app-text/poppler-0.82.0 cairo
 
 # required by sys-libs/pam-1.3.1-r1::gentoo
 # required by sys-apps/shadow-4.6::gentoo
@@ -287,15 +270,9 @@ media-libs/gst-plugins-base X
 # required by media-gfx/blender (argument)
 >=media-video/ffmpeg-4.1.3 theora mp3
 
-# required by media-gfx/blender-2.79b-r2::gentoo[openvdb]
-# required by @selected
-# required by @world (argument)
->=media-gfx/openvdb-4.0.2-r3 -abi3-compat
-
-# required by x11-themes/adwaita-qt
-# required by @selected
-# required by @world (argument)
-dev-qt/* X
-
 # Required by cli-visaulizer
 sci-libs/fftw -fortran
+
+# Wayland
+# required by dev-qt/qtwayland-5.14.1-r3::gentoo
+>=dev-qt/qtgui-5.14.1-r4 egl

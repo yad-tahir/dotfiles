@@ -1,0 +1,10 @@
+# @xvfb is needed by firefox
+# @suid allows to run xorg-server under root!
+x11-base/xorg-server xvfb libglvnd -suid -ipv6
+x11-libs/gtk+ cups X
+x11-themes/gtk-engines-murrine -themes
+gui-libs/wlroots X x11-backend
+
+x11-misc/dmenu xinerama # Add multi-monitor support
+x11-misc/polybar mpd ipc gcc
+media-gfx/feh xinerama

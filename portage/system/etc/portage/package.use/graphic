@@ -1,18 +1,5 @@
-# @xvfb is needed by firefox
-# @suid allows to run xorg-server under root!
-x11-base/xorg-server xvfb libglvnd -suid -ipv6
-x11-base/xorg-drivers video_cards_nvidia
-x11-libs/gtk+ cups
-x11-themes/gtk-engines-murrine -themes
-
 # OpenGL
-# libglvnd provides automatic switching between using iGPU and dGPU. When you enable it, you need to unmerge manual switching performed by eselect-opengl
-media-libs/libglvnd X abi_x86_32
 # Mesa is an open source implementation for opengl
 media-libs/mesa X abi_x86_32 libglvnd vulkan vulkan-overlay
-
-# Used packages with vaapi use flag. We don't want to add nvidia driver here to perform HW acceleration via nvidia when it is not necessary
-x11-libs/libva X opengl
-
-# Use by Blender
-media-libs/openimageio ffmpeg
+# libglvnd provides automatic switching between using iGPU and dGPU. When you enable it, you should unmerge manual switching performed by eselect-opengl
+media-libs/libglvnd X abi_x86_32

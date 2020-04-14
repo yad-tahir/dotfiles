@@ -1,6 +1,1 @@
-x11-driver/nvidia-drivers **
-
-media-gfx/blender ~amd64
-
-# Requested by firefox-71.0.1
->=dev-libs/nspr-4.23 ~amd64
+virtual/opencl ~amd64

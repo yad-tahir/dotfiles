@@ -1,7 +1,4 @@
-# Required by blender 2.82
-media-libs/oidn **
-
-# To remove the needs fo Python 2.7
+# To remove the needs for Python 2.7 or Python 3.6
 =dev-libs/newt-0.52.21-r1 ~amd64
 =net-wireless/crda-4.14 ~amd64
 =media-libs/libmypaint-1.4.0-r1 ~amd64
