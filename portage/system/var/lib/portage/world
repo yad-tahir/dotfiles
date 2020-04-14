@@ -89,4 +89,4 @@ x11-misc/xdo
 x11-terms/rxvt-unicode
 x11-themes/adwaita-qt
 x11-themes/gtk-engines-murrine
-x11-wm/landwm
+x11-wm/dwm::drvegeta

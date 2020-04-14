@@ -30,6 +30,7 @@ alias emerge-files='equery files $@'
 alias emerge-belong='equery belongs $@'
 alias emerge-time='sudo qlop -H $@'
 alias emerge-log='sudo elogv'
+alias emerge-fetch='sudo tail -f /var/log/emerge-fetch.log'
 
 emerge-info () {
 	equery m $@ 2> /dev/null

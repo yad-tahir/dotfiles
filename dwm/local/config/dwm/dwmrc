@@ -29,7 +29,7 @@ xsetroot -xcf /usr/share/cursors/xorg-x11/Adwaita/cursors/left_ptr 16 &
 systemctl --user import-environment
 # Avoid using systemd 'enable' feature for Emacs as it can launch Emacs server
 # before importing most all env. variables. Instead, start Emacs service
-# manually in the beginning of a new BSPWM session.
+# manually in the beginning of a new dwm session.
 systemctl --user restart emacs-27-vcs.service &
 systemctl --user restart sxhkd-dwm@${XDG_VTNR}.service &
 
@@ -113,7 +113,7 @@ keyboard(){
 		layout=" $layout"
 	fi
 	if [ "$caps" = 'off' ]; then
-		echo -e "\x03 $caps\x01 $layout "
+		echo -e "$layout "
 	else
 		echo -e "\x05  $caps \x01 $layout "
 	fi
@@ -132,8 +132,8 @@ vol(){
 }
 
 uptime(){
-	local r=$(echo $(awk '{print $2}' /proc/loadavg)*100/$(nproc) | /usr/bin/bc)
-	if [ $r -ge 100 ]; then
+	local r=$(echo $(cut -f 1 -d ' ' /proc/loadavg)*100/$(nproc) | /usr/bin/bc)
+	if [ $r -ge 80 ]; then
 		echo -e "\x05  $r% \x01 "
 	elif [ $r -ge 50 ]; then
 		echo -e "\x04  $r% \x01 "
