@@ -8,6 +8,3 @@ sys-power/intel-undervolt ~amd64
 
 # Other
 dev-libs/nss ~amd64
-
-# Required by DWM keybinding
-x11-misc/xdo ~amd64
