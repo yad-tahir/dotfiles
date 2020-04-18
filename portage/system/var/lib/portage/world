@@ -50,6 +50,7 @@ media-video/mpv
 media-video/obs-studio
 net-analyzer/wireshark
 net-firewall/nftables
+net-im/zoom
 net-misc/networkmanager
 net-misc/ntp
 net-vpn/openvpn

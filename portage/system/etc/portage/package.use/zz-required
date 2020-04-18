@@ -276,3 +276,24 @@ sci-libs/fftw -fortran
 # Wayland
 # required by dev-qt/qtwayland-5.14.1-r3::gentoo
 >=dev-qt/qtgui-5.14.1-r4 egl
+
+
+# required by net-im/zoom-3.5.385850.0413::gentoo
+# required by net-im/zoom (argument)
+>=dev-qt/qtwebengine-5.14.1 widgets
+# required by dev-qt/qtwebengine-5.14.1::gentoo
+# required by net-im/zoom-3.5.385850.0413::gentoo
+# required by net-im/zoom (argument)
+>=dev-qt/qtwebchannel-5.14.1 qml
+# required by dev-qt/qtwebengine-5.14.1::gentoo
+# required by net-im/zoom-3.5.385850.0413::gentoo
+# required by net-im/zoom (argument)
+>=dev-libs/libxml2-2.9.9-r3 icu
+# required by dev-qt/qtwebengine-5.14.1::gentoo
+# required by net-im/zoom-3.5.385850.0413::gentoo
+# required by net-im/zoom (argument)
+>=media-libs/libvpx-1.7.0-r1 svc
+# required by dev-qt/qtwebengine-5.14.1::gentoo
+# required by net-im/zoom-3.5.385850.0413::gentoo
+# required by net-im/zoom (argument)
+>=sys-libs/zlib-1.2.11-r2 minizip

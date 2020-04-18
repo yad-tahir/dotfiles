@@ -2,3 +2,6 @@
 =dev-libs/newt-0.52.21-r1 ~amd64
 =net-wireless/crda-4.14 ~amd64
 =media-libs/libmypaint-1.4.0-r1 ~amd64
+
+# Zoom
+=dev-qt/qtdiag-5.14.1 ~amd64
