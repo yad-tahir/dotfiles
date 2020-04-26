@@ -60,6 +60,7 @@ emerge-sync () {
 	# Clean uncompleted syncs
 	$SUDO rm -R .tmp-unverified-download-quarantine 2> /dev/null
 	$SUDO git clean -fd
+	$SUDO git reset --hard
 
 	# Update mirror branch by fetching commits from the official gentoo repo
 	$SUDO git checkout master &&
@@ -81,6 +82,7 @@ emerge-sync () {
 	# Rsync and merge the new changes
 	$SUDO sudo emerge --sync | tee /tmp/rsync &&
 		local remote=$(awk '/^rsync:/{gsub("?","",$1); print $1}' /tmp/rsync) &&
+		$SUDO git add --all &&
 		# @TODO This adds manifest files back to git. However, other files
 		# may also be modified by rsync. We must merge everything, otherwise portage
 		# is going to complain about manifest files.
