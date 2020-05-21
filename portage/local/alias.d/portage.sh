@@ -59,7 +59,6 @@ emerge-sync () {
 
 	# Clean uncompleted syncs
 	$SUDO rm -R .tmp-unverified-download-quarantine 2> /dev/null
-	$SUDO git clean -fd
 	$SUDO git reset --hard
 
 	# Update mirror branch by fetching commits from the official gentoo repo
@@ -76,11 +75,10 @@ emerge-sync () {
 	$SUDO git commit -am "Merge master without manifest files $cdate"
 	$SUDO git push origin without-manifest
 
-	$SUDO git checkout rsync &&
-		$SUDO -E git merge without-manifest --no-edit
-
+	$SUDO git checkout rsync
+	$SUDO -E git merge without-manifest --no-edit
 	# Rsync and merge the new changes
-	$SUDO sudo emerge --sync | tee /tmp/rsync &&
+	$SUDO emerge --sync | tee /tmp/rsync &&
 		local remote=$(awk '/^rsync:/{gsub("?","",$1); print $1}' /tmp/rsync) &&
 		$SUDO git add --all &&
 		# @TODO This adds manifest files back to git. However, other files
@@ -88,7 +86,6 @@ emerge-sync () {
 		# is going to complain about manifest files.
 		$SUDO git commit -am "Merge $remote $cdate"
 	$SUDO git push origin rsync
-
 	$SUDO eix-update
 	popd > /dev/null
 }

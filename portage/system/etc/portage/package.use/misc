@@ -21,7 +21,7 @@ media-fonts/noto cjk
 media-gfx/fontforge X gif jpeg png svg tiff cairo
 
 # Office related
-app-text/texlive png truetype science graphics epspdf metapost
+app-text/texlive png science graphics epspdf metapost
 dev-texlive/texlive-basic -luajittex
 app-text/mupdf -javascript
 
