@@ -68,7 +68,6 @@ sys-kernel/genkernel
 sys-kernel/gentoo-sources
 sys-kernel/gentoo-sources:5.4.25
 sys-kernel/gentoo-sources:5.4.28
-sys-kernel/gentoo-sources:5.4.5
 sys-power/acpi
 sys-power/intel-undervolt
 sys-power/powertop
