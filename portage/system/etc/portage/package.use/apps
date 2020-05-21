@@ -10,7 +10,7 @@ x11-terms/rxvt-unicode 256-color blink
 # @lto adds link-time optimizations
 # @pgo uses gcc-4 to preform profile-guided optimazations
 # *NOTE*: do not enable hwaccel as it forces firefox to use a gpu. If you don't have a dGPU, video deconding is going to be very CPU intensive.
-www-client/firefox lto pgo bindist system-harfbuzz -screenshot -gmp-autoupdate -wayland
+www-client/firefox lto -pgo bindist system-harfbuzz -screenshot -gmp-autoupdate -wayland
 
 app-office/libreoffice -accessibility -bluetooth -mariadb -branding
 

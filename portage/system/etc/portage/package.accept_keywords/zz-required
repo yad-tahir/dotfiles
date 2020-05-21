@@ -5,3 +5,7 @@
 
 # Zoom
 =dev-qt/qtdiag-5.14.1 ~amd64
+
+# Firefox 76
+=media-libs/libvpx-1.8.2 ~amd64
+=media-libs/libwebp-1.1.0 ~amd64
