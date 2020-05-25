@@ -6,4 +6,4 @@ sys-power/intel-undervolt ~amd64
 
 # Other
 dev-libs/nss ~amd64
-=net-im/zoom-3.5.385850.0413 ~amd64
+=net-im/zoom-5.0.408598.0517 ~amd64
