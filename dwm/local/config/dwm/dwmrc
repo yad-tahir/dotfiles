@@ -73,9 +73,9 @@ insync() {
 }
 
 gpu(){
-	local status=$(cat /sys/bus/pci/devices/0000:01:00.0/power/runtime_status 2> /dev/null || echo igu)
+	local status=$(cat /sys/bus/pci/devices/0000:01:00.0/power/runtime_status 2> /dev/null || echo igpu)
 
-	if [ $status == 'active' ]; then
+	if [ "$status" == "active" ]; then
 		echo -e "\x04  dGPU \x01 "
 	else
 		echo -e ""
@@ -97,8 +97,8 @@ mem(){
 }
 
 emacs(){
-	local v=$(emacsclient -ne '(length (do-list-buffers))' 2> /dev/null | bc)
-	if [ $v -ge 0 ]; then
+	local v=$(emacsclient -a=/bin/true -ne '(length (do-list-buffers))' | bc)
+	if [ ! -z "$v" ]; then
 		echo -e " $v "
 	fi
 }
@@ -121,7 +121,7 @@ keyboard(){
 
 vol(){
 	local v=$(pulsemixer --get-volume | awk '{print $1}')
-	if [ $v -ge 100 ]; then
+	if [ $v -ge 101 ]; then
 		v="\x05  ${v}% \x01 "
 	elif [ $v = 0 ]; then
 		v="\x04  \x01 "

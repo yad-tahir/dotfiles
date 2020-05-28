@@ -32,7 +32,7 @@ dispwin -d 3 ~/.config/icc-profiles/U2718Q#3-2018-10-21-0034.icc
 xset +dpms
 xset s on
 
-util-set-dpi 120
+util-set-dpi 110
 util-setup-services
 
 # Divert sound to Dell 38" but keep XPS' mic as input

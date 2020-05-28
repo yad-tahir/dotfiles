@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-alias s="sudo su"
+alias s="sudo -E $@"
 alias c="clear"
 alias cleaor='clear'
 alias ls='ls -alih --color'

@@ -22,6 +22,12 @@ cd $DIR
 
 mkdir ${HOME}/bin 2> /dev/null
 
+echo sudo is required. Please enter your password.
+sudo /bin/true
+if [ $? -ne 0 ]; then
+	exit $?
+fi
+
 ./emacs/restore-linux.sh &
 ./dmenu/restore-linux.sh &
 ./dwm/restore-linux.sh &
