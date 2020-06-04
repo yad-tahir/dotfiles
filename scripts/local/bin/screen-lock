@@ -18,17 +18,4 @@
 # 02110-1301, USA.
 
 
-# Take a screen shot
-file=/tmp/screen.png
-
-# Remove the file if it exists
-rm "${file}" 2> /dev/null
-
-# Take a screenshot
-scrot "${file}"
-
-# Rescale it to make it blurry
-convert "${file}" -scale 15% -scale 667.5% "${file}"
-
-# Lock the screen and put the modified image in background
-i3lock -u -i "${file}" &
+i3lock -c 000000 -e -f &

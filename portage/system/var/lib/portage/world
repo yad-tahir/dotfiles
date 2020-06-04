@@ -37,9 +37,7 @@ media-fonts/noto
 media-gfx/blender
 media-gfx/feh
 media-gfx/gimp
-media-gfx/imagemagick
 media-gfx/optipng
-media-gfx/scrot
 media-libs/mesa
 media-sound/mpc
 media-sound/mpd
