@@ -304,3 +304,30 @@ sci-libs/fftw -fortran
 # required by net-im/zoom-3.5.385850.0413::gentoo
 # required by net-im/zoom (argument)
 >=sys-libs/zlib-1.2.11-r2 minizip
+
+
+# required by media-libs/mesa-19.3.5::gentoo[gallium,opencl]
+# required by @selected
+# required by @world (argument)
+>=dev-libs/ocl-icd-2.2.12-r3 abi_x86_32
+# required by x11-libs/libva-intel-driver-2.3.0::gentoo
+>=x11-libs/libva-2.5.0-r1 abi_x86_32
+# required by media-libs/mesa-19.3.5::gentoo[-video_cards_radeonsi,-video_cards_r600,gallium,opencl,llvm,-video_cards_radeon]
+# required by @selected
+# required by @world (argument)
+>=sys-devel/clang-9.0.1 abi_x86_32
+# required by x11-libs/libva-2.5.0-r1::gentoo[video_cards_nvidia,vdpau]
+# required by x11-libs/libva-intel-driver-2.3.0::gentoo
+>=x11-libs/libva-vdpau-driver-0.7.4-r5 abi_x86_32
+# required by x11-libs/libva-2.5.0-r1::gentoo[-video_cards_intel,video_cards_i965]
+# required by x11-libs/libva-vdpau-driver-0.7.4-r5::gentoo
+>=x11-libs/libva-intel-driver-2.3.0 abi_x86_32
+# required by media-libs/mesa-19.3.5::gentoo[-video_cards_radeonsi,-video_cards_r600,gallium,opencl,llvm,-video_cards_radeon]
+# required by @selected
+# required by @world (argument)
+>=virtual/libelf-3 abi_x86_32
+# required by virtual/libelf-3::gentoo
+# required by media-libs/mesa-19.3.5::gentoo[-video_cards_radeonsi,-video_cards_r600,gallium,opencl,llvm,-video_cards_radeon]
+# required by @selected
+# required by @world (argument)
+>=dev-libs/elfutils-0.177 abi_x86_32
