@@ -29,7 +29,6 @@ dev-lang/php
 dev-ruby/sass
 dev-vcs/git
 games-util/steam-launcher
-gui-libs/wlroots
 lxde-base/lxappearance
 media-fonts/corefonts
 media-fonts/dejavu
