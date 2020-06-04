@@ -9,7 +9,7 @@ dev-qt/* X dbus
 
 # ~/bin/screen-lock
 media-libs/imlib2 X png jpeg
-media-gfx/imagemagick png -opencl
+media-gfx/imagemagick X png -opencl
 
 # Fonts
 media-fonts/* X
