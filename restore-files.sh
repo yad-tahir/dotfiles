@@ -42,8 +42,10 @@ fi
 ./network/restore-linux.sh &
 ./nvidia/restore-linux.sh &
 # ./pacman/restore-linux.sh &
+./pam/restore-linux.sh &
 ./portage/restore-linux.sh &
 ./power/restore-linux.sh &
+./pulse/restore-linux.sh &
 ./root/restore-linux.sh &
 ./scripts/restore-linux.sh &
 ./shell/restore-linux.sh &
