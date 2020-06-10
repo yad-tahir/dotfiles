@@ -56,5 +56,6 @@ fi
 ./x11/restore-linux.sh
 ./zathura/restore-linux.sh
 ./zfs/restore-linux.sh
+./zoom/restore-linux.sh
 
 echo "Done."
