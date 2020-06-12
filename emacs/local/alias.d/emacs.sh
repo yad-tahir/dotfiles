@@ -18,3 +18,8 @@
 
 alias e="emacs"
 alias ec="emacsclient -cn"
+alias emacs-restart="systemctl --user restart emacs-27-vcs.service"
+alias emacs-stop="systemctl --user stop emacs-27-vcs.service"
+alias emacs-start="systemctl --user start emacs-27-vcs.service"
+alias emacs-mask="systemctl --user mask emacs-27-vcs.service"
+alias emacs-unmask="systemctl --user unmask emacs-27-vcs.service"

@@ -30,8 +30,7 @@ HEIGHT=$(xrdb -query | awk '/Panel.height:/{print $2}')
 
 run=$(
 	# Add custom commends to the demnu
-	extra_commands=( "steam~"
-					 "vm-manager~"
+	extra_commands=( "vm-manager~"
 					 "emacs"
 					 "firefox-novpn~"
 					 "firefox-vpn~"

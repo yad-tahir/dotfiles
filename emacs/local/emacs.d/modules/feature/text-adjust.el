@@ -18,7 +18,7 @@
 ;; 02110-1301, USA.
 
 (use-package fusion
-  :load-path "~/.emacs.d/local-packages/fusion"
+  :load-path "local-packages/fusion"
   :commands (fusion-join fusion-split fusion-resplit)
   :init
   (general-define-key

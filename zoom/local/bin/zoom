@@ -20,4 +20,4 @@
 # A small script to prepare a list of commands available in the system,
 # then use dmenu to show it.
 
-sudo -g no-vpn -E /usr/bin/zoom
+exec sudo -g no-vpn -E /usr/bin/zoom

@@ -21,6 +21,8 @@ alias c="clear"
 alias cleaor='clear'
 alias ls='ls -alih --color'
 alias bc='bc --mathlib'
+alias cp="cp -v $@"
+alias kt="keyboard-toggle"
 alias man='urxvtc -hold -name man -e /usr/bin/man $@'
 
 alias zip-compress='zip -r $1 $@'
