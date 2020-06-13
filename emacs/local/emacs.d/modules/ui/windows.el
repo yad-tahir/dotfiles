@@ -45,7 +45,7 @@
  :prefix "SPC wf"
  :states '(normal visual)
  "" '(:ignore t :which-key "frame")
- "n" 'do-new-frame
+ "n" 'do-make-frame
  "q" 'evil-quit
  "f" 'other-frame)
 
