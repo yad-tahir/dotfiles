@@ -21,12 +21,7 @@ app-text/dvisvgm
 app-text/texlive
 app-text/zathura
 app-text/zathura-pdf-mupdf
-cross-avr/avr-libc
-cross-avr/binutils
-cross-avr/gcc
-dev-embedded/dfu-programmer
 dev-lang/php
-dev-ruby/sass
 dev-vcs/git
 games-util/steam-launcher
 lxde-base/lxappearance
@@ -37,7 +32,6 @@ media-fonts/noto
 media-gfx/blender
 media-gfx/feh
 media-gfx/gimp
-media-gfx/optipng
 media-libs/mesa
 media-sound/mpc
 media-sound/mpd
@@ -54,10 +48,8 @@ net-vpn/openvpn
 net-wireless/bluez
 net-wireless/wpa_supplicant
 sys-apps/lm-sensors
-sys-apps/pciutils
 sys-apps/ripgrep
 sys-apps/systemd
-sys-devel/crossdev
 sys-firmware/intel-microcode
 sys-fs/cryptsetup
 sys-fs/zfs
@@ -65,8 +57,8 @@ sys-kernel/genkernel
 sys-kernel/gentoo-sources
 sys-kernel/gentoo-sources:5.4.25
 sys-kernel/gentoo-sources:5.4.28
+sys-kernel/gentoo-sources:5.4.38
 sys-power/acpi
-sys-power/acpid
 sys-power/intel-undervolt
 sys-power/powertop
 sys-process/glances
