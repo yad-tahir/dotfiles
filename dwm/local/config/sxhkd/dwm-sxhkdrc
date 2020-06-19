@@ -27,7 +27,7 @@ super + F5
 XF86AudioMute
 	pulsemixer --set-volume {0,20}; dwmbar-cli refresh
 
-super + m
+super + o
 	pulsemixer --set-volume {0,20}; dwmbar-cli refresh
 
 {XF86AudioRaiseVolume,XF86AudioLowerVolume}
@@ -48,6 +48,17 @@ XF86AudioPrev
 {XF86AudioNext,XF86AudioPrev} + shift
 	mpc seek {+00,-00}10 > /dev/null &
 
+super + i
+	emacsclient -nqe '(do-music-toggle)' > /dev/null &
+
+super + d
+	emacsclient -nqe '(do-music-next)' > /dev/null &
+
+super + u
+	emacsclient -nqe '(do-music-previous)' > /dev/null &
+
+super + {u,d} + shift
+	mpc seek {+00,-00}10 > /dev/null &
 
 # Program launcher
 # ----------------
@@ -67,7 +78,7 @@ super + g
 super + p
 	~/bin/dmenu/pass.sh &
 
-super + u
+super + m
 	~/bin/dmenu/monitor.sh &
 
 super + F3
@@ -89,13 +100,13 @@ super + w
 	~/bin/firefox-vpn &
 super + shift + w
 	~/bin/firefox-novpn &
-super + o; g
+super + semicolon; g
 	urxvtc -hold -name glances -e /usr/bin/glances &
-super + o; h
+super + semicolon; h
 	urxvtc -hold -name htop -e /usr/bin/htop &
-super + o; s
+super + semicolon; s
 	urxvtc -hold -name pulsemixer -e /usr/bin/pulsemixer &
-super + o; v
+super + semicolon; v
 	urxvtc -hold -name visualizer -e vis &
-super + o; l
+super + semicolon; l
 	urxvtc -hold -name log -e /bin/journalctl -fn 200 &
