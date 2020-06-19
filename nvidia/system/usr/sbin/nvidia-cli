@@ -23,7 +23,7 @@ function gpu_on {
 	sudo mv $BLACKLIST $BLACKLIST.disable 2> /dev/null
 	sudo cp $XORG_CONFIG $INSTALL_XORG_CONFIG 2> /dev/null
 
-	if [ "/sys/bus/pci/devices/${DEVICE_BUS_ID}/power/runtime_status" = "suspended" ]; then
+	if [[ $(lsmod | grep nvidia) ]]; then
 		echo "Error: $ERROR_RETURN_VALUE - Nvidia card loaded already" 1>&2
 		exit $ERROR_RETURN_VALUE
 	fi
@@ -60,7 +60,8 @@ function gpu_off {
 	sudo mv $BLACKLIST.disable $BLACKLIST 2> /dev/null
 	sudo rm $INSTALL_XORG_CONFIG 2> /dev/null
 
-	if [[ ! $(lsmod | grep nvidia) ]]; then
+
+	if [ "/sys/bus/pci/devices/${DEVICE_BUS_ID}/power/runtime_status" = "suspended" ]; then
 		echo "Error : $ERROR_RETURN_VALUE - No Nvidia card loaded" 1>&2
 		exit $ERROR_RETURN_VALUE
 	fi
