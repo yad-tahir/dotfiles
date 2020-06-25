@@ -1,2 +1,2 @@
-x11-driver/nvidia-drivers **
+x11-drivers/nvidia-drivers **
 dev-util/nvidia-cuda-toolkit ~amd64

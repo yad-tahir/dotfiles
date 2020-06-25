@@ -1,5 +1,4 @@
-#!/bin/sh
-
+#!/bin/bash
 # Copyright (C) 2020
 
 # This program is free software; you can redistribute it and/or
@@ -17,8 +16,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-. /home/$USER/bin/settings.sh
+cd `dirname $0`
+echo "* Execute ${PWD}/`basename $0`"
+. ../utils.sh
 
-/bin/rm /var/lib/pacman/db.lck 2> /dev/null;
-
-pacman -Syy
+TARGET="/etc/security/limits.d"
+SOURCE=${PWD}/system${TARGET}
+do-sync-sudo "$SOURCE" "$TARGET"

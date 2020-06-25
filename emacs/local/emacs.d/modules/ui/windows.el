@@ -32,8 +32,8 @@
  "r" 'evil-window-rotate-downwards
  "c" 'evil-window-increase-height
  "t" 'evil-window-decrease-height
- "h" 'evil-window-increase-width
- "n" 'evil-window-decrease-width
+ "h" 'evil-window-decrease-width
+ "n" 'evil-window-increase-width
  "C" 'evil-window-move-very-top
  "T" 'evil-window-move-very-bottom
  "H" 'evil-window-move-far-left
@@ -45,7 +45,7 @@
  :prefix "SPC wf"
  :states '(normal visual)
  "" '(:ignore t :which-key "frame")
- "n" 'do-new-frame
+ "n" 'do-make-frame
  "q" 'evil-quit
  "f" 'other-frame)
 

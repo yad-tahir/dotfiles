@@ -26,7 +26,7 @@ else
 	serviceName=sxhkd-dwm@${XDG_VTNR}.service
 fi
 
-systemctl --user stop $serviceName
+systemctl --user --force stop $serviceName
 
 state=$(setxkbmap -query |
 			awk '/^layout/{split($2,arr,","); print toupper(arr[1])}')
@@ -45,4 +45,4 @@ fi
 # various keyboard layouts. Make sure systemd's variables are up-to-date,
 # specially when there are multiple display sessions
 systemctl --user import-environment
-systemctl --user start $serviceName
+systemctl --user --force start $serviceName

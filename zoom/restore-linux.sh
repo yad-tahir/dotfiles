@@ -18,18 +18,6 @@
 
 cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
-
-arr=( "/etc/pacman.d/hooks"
-	  "/lib/systemd/system"
-	)
-
-for i in "${arr[@]}"
-do
-	TARGET=$i
-	SOURCE=${PWD}/system${TARGET}
-	do-sync-sudo "$SOURCE" "$TARGET"
-done
+. ../utils.sh
 
 do-ln-sync "${PWD}/local/bin" "${HOME}/bin"
-
-do-ln-sync "$PWD/local/alias.d" "$HOME/.config/alias.d"

@@ -153,6 +153,7 @@ buffer."
   :defer 10
   :after evil
   :config
+  (global-anzu-mode 1)
   (set-face-attribute 'anzu-mode-line nil
 					  :foreground chocolate-theme-element+4
 					  :background chocolate-theme-bg )

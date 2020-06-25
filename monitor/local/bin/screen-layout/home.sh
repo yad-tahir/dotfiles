@@ -32,7 +32,7 @@ dispwin -d 3 ~/.config/icc-profiles/U2718Q#3-2018-10-21-0034.icc
 xset +dpms
 xset s on
 
-util-set-dpi 120
+util-set-dpi 110
 
 # Set desktop
 if [ $(bspc config bottom_padding 0 2> /dev/null) ]; then

@@ -18,14 +18,12 @@
 ;; 02110-1301, USA.
 
 ;;; Code:
+
 (use-package latte
   :defer 5
-  :load-path "~/.emacs.d/local-packages/latte"
-
+  :load-path "local-packages/latte"
   :hook ((text-mode . latte-mode)
-		 (prog-mode . latte-mode)
-		 )
-
+		 (prog-mode . latte-mode))
   :commands (latte-files latte-search
 						 latte-insert-keyword latte-insert-org-tag
 						 latte-grep-topic latte-new-entry

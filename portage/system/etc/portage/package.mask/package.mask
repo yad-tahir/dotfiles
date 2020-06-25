@@ -9,3 +9,6 @@ app-eselect/eselect-opengl
 
 # Python 3.6 should be avoided as of Mar 17, 2020. Use Python 3.7 instead
 =dev-lang/python-3.6.10
+
+# Avoid re-compiling Google chromium
+>dev-qt/qtwebengine-5.14.2

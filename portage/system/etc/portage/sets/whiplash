@@ -1,0 +1,4 @@
+# This set holds all the packages needed to compile the whiplash themes
+
+dev-ruby/sass
+media-gfx/optipng

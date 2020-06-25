@@ -541,16 +541,12 @@ spawned in 'latte-insert-org-tag'."
 	(setq keyword (cdr keyword)))
 
   (let ((tags (org-get-tags)))
-	(if (and (s-blank? (car tags))
-			 (equal (length tags) 1))
-		(progn
-		  (org-set-tags-to keyword)
-		  (org-set-tags nil t))
-	  (unless (member keyword tags)
-		(push keyword (cdr (last tags)))
-		(org-set-tags-to tags)
-		;; Re-align the tags
-		(org-set-tags nil t)))))
+	(if tags
+		(unless (member keyword tags)
+		  (push keyword (cdr (last tags)))
+		  (org-set-tags-to tags))
+	  (progn
+		(org-set-tags-to keyword)))))
 
 
 (defun latte--insert-keyword-handler (keyword)

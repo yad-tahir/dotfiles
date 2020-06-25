@@ -7,10 +7,6 @@ sys-apps/dbus X
 # QT
 dev-qt/* X dbus
 
-# ~/bin/screen-lock
-media-libs/imlib2 X png jpeg
-media-gfx/imagemagick png -opencl
-
 # Fonts
 media-fonts/* X
 media-libs/freetype X
@@ -21,7 +17,7 @@ media-fonts/noto cjk
 media-gfx/fontforge X gif jpeg png svg tiff cairo
 
 # Office related
-app-text/texlive png truetype science graphics epspdf metapost
+app-text/texlive png science graphics epspdf metapost
 dev-texlive/texlive-basic -luajittex
 app-text/mupdf -javascript
 
@@ -30,3 +26,5 @@ x11-apps/* -ipv6
 x11-libs/* -ipv6
 x11-org/* -ipv6
 media-sound/* -ipv6
+
+dev-qt/* -wayland

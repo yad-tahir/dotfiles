@@ -25,9 +25,9 @@
    :states '(normal visual)
    ;; make a prefix-command and add description
    "SPC aA" '((lambda()
-		   (interactive)
-		   (find-file "~/notes/todo.org"))
-		 :which-key "todo.org"))
+				(interactive)
+				(find-file "~/notes/todo.org"))
+			  :which-key "todo.org"))
 
   (custom-set-variables
    '(org-format-latex-options
@@ -143,13 +143,19 @@
 		org-track-ordered-property-with-tag t ;; Add :ORDER:
 		org-enforce-todo-checkbox-dependencies t ;; Don't allow the super task
 		org-enforce-todo-dependencies t ;; Don't allow the super task to close
-		org-habit-graph-column 30)
+		org-habit-graph-column 80)
+
+  (add-hook 'org-mode-hook 'do-line-numbers-to-visual)
 
   ;; Open in a current window instead of a new frame
   ;; Source: https://bit.ly/2WX44mj
   (define-advice org-attach (:around (org-fn &rest args))
 	(let ((display-buffer-overriding-action '(display-buffer-same-window)))
 	  (apply org-fn args)))
+
+  (define-advice calendar (:around (org-fn &rest args))
+	  (let ((display-buffer-overriding-action '(display-buffer-pop-up-window)))
+		(apply org-fn args)))
 
   ;; Bug-Fix: Remove keybinding conflicts
   (define-advice org-completing-read (:around (org-fn &rest args))
@@ -276,7 +282,10 @@
 	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n")
 	 ("o" "Other TODO" entry
 	  (file+olp "~/notes/todo.org" "Other" "Inbox")
-	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n"))))
+	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n")))
+  (define-advice org-capture (:around (org-fn &rest args))
+	  (let ((display-buffer-overriding-action '(display-buffer-pop-up-frame)))
+		(apply org-fn args))))
 
 (use-package org-agenda
   :commands (org-agenda org-agenda-list)
@@ -284,7 +293,7 @@
   (general-define-key
    :keymaps 'override
    :states '(normal visual)
-   "SPC aa" 'org-agenda)
+   "SPC aa" 'org-agenda-list)
 
 ;;;###autoload
   (defun do-agenda()
@@ -293,97 +302,102 @@
 	(org-agenda-list))
 
   :config
-  (general-def 'org-agenda-mode-map
-	:states 'normal
-	"RET" 'org-agenda-switch-to
-	"q" 'org-agenda-quit
-	;; Ordering
-	"M-t" 'org-agenda-drag-line-forward
-	"M-c" 'org-agenda-drag-line-backward
-	"M-h" 'org-agenda-do-date-earlier
-	"M-n" 'org-agenda-do-date-later
-	;; Navigation
-	"H" 'org-agenda-earlier
-	"N" 'org-agenda-later
-	;; Shift keys
-	"C" 'org-agenda-priority-up
-	"T" 'org-agenda-priority-down
-	;; Go to
-	"f" 'org-agenda-goto
-	"gf" 'org-agenda-goto
-	"gf" 'org-agenda-goto
-	"gj" 'org-agenda-goto-date
-	"gt" 'org-agenda-goto-today
-	"F" 'org-agenda-follow-mode
-	"j" 'org-agenda-goto-date
-	;; View mode
-	"v" 'nil
-	"vd" 'org-agenda-day-view
-	"vw" 'org-agenda-week-view
-	"vm" 'org-agenda-month-view
-	"vy" 'org-agenda-year-view
-	"vf" 'org-agenda-fortnight-view
-	"vD" 'org-agenda-toggle-diary
-	"vl" 'org-agenda-log-mode
-	"vc" 'org-agenda-clockreport-mode
-	"vh" 'org-agenda-holidays
-	"vS" 'org-agenda-toggle-deadlines
-	"vq" 'org-agenda-reset-view
-	;; Searching
-	"/" 'nil
-	"/#" 'org-agenda-filter-by-tag
-	"//" 'evil-ex-search-forward
-	"/?" 'evil-ex-search-backward
-	"/%" 'org-agenda-filter-by-regexp
-	"/c" 'org-agenda-filter-by-category
-	"/h" 'org-agenda-filter-by-top-headline
-	"/e" 'org-agenda-filter-by-effort
-	"/q" 'org-agenda-filter-remove-all
-	;; Extra actions
-	"z" 'org-agenda-undo
-	"C-z" 'org-agenda-redo
-	"m" 'org-agenda-bulk-mark
-	"M" 'org-agenda-bulk-mark-all
-	"u" 'org-agenda-bulk-unmark
-	"U" 'org-agenda-bulk-unmark-all
-	"*" 'nil
-	"**" 'org-agenda-bulk-mark-all
-	"*t" 'org-agenda-bulk-toggle-all
-	"*%" 'org-agenda-bulk-mark-regexp
-	"*a" 'org-agenda-bulk-action
-	"*A" 'org-agenda-bulk-action
-	"lp" 'org-agenda-todo
-	"lk" 'org-agenda-kill
-	"l#" 'org-agenda-set-tags
-	"lu" 'org-agenda-add-note
-	"la" 'org-attach
-	"ls" 'org-agenda-schedule
-	"lS" 'org-agenda-deadline
-	"ld" 'org-agenda-date-prompt
-	"lg" 'org-agenda-open-link
-	"lt" 'nil
-	"lta" 'org-agenda-clock-in
-	"lti" 'org-agenda-clock-in
-	"ltq" 'org-agenda-clock-out
-	"ltx" 'org-agenda-clock-cancel
-	"ltg" 'org-agenda-clock-goto
-	"lx" 'org-agenda-archive)
+  (general-define-key
+   :keymaps 'org-agenda-mode-map
+   :states 'normal
+   "<RET>" 'org-agenda-switch-to
+   "l <RET>" '((lambda()(interactive)(do-make-frame)(org-agenda-switch-to))
+			   :which-key "org-agenda-switch-new-frame")
+   "<f5>" 'org-agenda-list
+   ;; Ordering
+   "M-t" 'org-agenda-drag-line-forward
+   "M-c" 'org-agenda-drag-line-backward
+   "M-h" 'org-agenda-do-date-earlier
+   "M-n" 'org-agenda-do-date-later
+   ;; Navigation
+   "C-H" 'org-agenda-earlier
+   "C-N" 'org-agenda-later
+   ;; Shift keys
+   "C-C" 'org-agenda-priority-up
+   "C-T" 'org-agenda-priority-down
+   ;; Go to
+   "lF" 'org-agenda-follow-mode
+   "lj" 'org-agenda-goto-date
+   "lJ" 'org-agenda-goto-today
+   ;; View mode
+   "lv" 'nil
+   "lvd" 'org-agenda-day-view
+   "lvw" 'org-agenda-week-view
+   "lvm" 'org-agenda-month-view
+   "lvy" 'org-agenda-year-view
+   "lvf" 'org-agenda-fortnight-view
+   "lvD" 'org-agenda-toggle-diary
+   "lvl" 'org-agenda-log-mode
+   "lvc" 'org-agenda-clockreport-mode
+   "lvh" 'org-agenda-holidays
+   "lvS" 'org-agenda-toggle-deadlines
+   "lvt" 'org-agenda-toggle-time-grid
+   "lve" 'org-agenda-entry-text-mode
+   "lvq" 'org-agenda-reset-view
+   ;; Searching
+   "l/" 'nil
+   "l/#" 'org-agenda-filter-by-tag
+   "l//" 'evil-ex-search-forward
+   "l/?" 'evil-ex-search-backward
+   "l/%" 'org-agenda-filter-by-regexp
+   "l/c" 'org-agenda-filter-by-category
+   "l/h" 'org-agenda-filter-by-top-headline
+   "l/e" 'org-agenda-filter-by-effort
+   "l/q" 'org-agenda-filter-remove-all
+   ;; Extra actions
+   "z" 'org-agenda-undo
+   "C-z" 'org-agenda-redo
+   "m" 'org-agenda-bulk-mark
+   "u" 'org-agenda-bulk-unmark
+   "l*" 'nil
+   "l**" 'org-agenda-bulk-mark-all
+   "l*t" 'org-agenda-bulk-toggle-all
+   "l*%" 'org-agenda-bulk-mark-regexp
+   "l*a" 'org-agenda-bulk-action
+   "l*!" 'org-agenda-bulk-unmark-all
+   "lp" 'org-agenda-todo
+   "lk" 'org-agenda-kill
+   "l#" 'org-agenda-set-tags
+   "lu" 'org-agenda-add-note
+   "la" 'org-attach
+   "ls" 'org-agenda-schedule
+   "lS" 'org-agenda-deadline
+   "ld" 'org-agenda-date-prompt
+   "lg" 'org-agenda-open-link
+   "lt" 'nil
+   "lta" 'org-agenda-clock-in
+   "lti" 'org-agenda-clock-in
+   "ltq" 'org-agenda-clock-out
+   "ltx" 'org-agenda-clock-cancel
+   "ltg" 'org-agenda-clock-goto
+   "lx" 'org-agenda-archive)
 
   (setq org-agenda-skip-deadline-if-done t
 		org-agenda-tags-column 0
 		org-agenda-dim-blocked-tasks t
 		org-agenda-weekend-days '(5 6)
 		org-agenda-start-on-weekday 0
-		org-agenda-use-time-grid nil
+		org-agenda-use-time-grid t
 		org-agenda-files (append
 						  (file-expand-wildcards "~/notes/*.org")
 						  (file-expand-wildcards "~/notes/archive/*.org")))
 
   ;; Open in a frame instead of a sub-window
   ;; Source: https://bit.ly/2WX44mj
+  (define-advice org-agenda (:around (org-fn &rest args))
+	(let ((display-buffer-overriding-action '(display-buffer-pop-up-window)))
+	  (apply org-fn args)))
+
   (define-advice org-agenda-list (:around (org-fn &rest args))
 	(let ((display-buffer-overriding-action '(display-buffer-pop-up-frame)))
-	  (apply org-fn args)))
+	  (apply org-fn args)
+	  ;; To forcefully enable text-scale-mode
+	  (text-scale-set 0)))
 
   (set-face-attribute 'org-agenda-done nil :foreground chocolate-theme-white+2)
   (set-face-attribute 'org-agenda-date-today nil

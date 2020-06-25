@@ -24,3 +24,8 @@ TARGET="/usr/src/linux"
 SOURCE=${PWD}/system${TARGET}
 # Avoid using soft links for security reasons
 do-sync-sudo "$SOURCE/config" "$TARGET/.config"
+
+
+TARGET="/etc/genkernel.conf"
+SOURCE=${PWD}/system${TARGET}
+do-sync-sudo "$SOURCE" "$TARGET"

@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/bash
 # Copyright (C) 2020
 
 # This program is free software; you can redistribute it and/or
@@ -16,21 +16,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-alias s="sudo -E $@"
-alias c="clear"
-alias cleaor='clear'
-alias ls='ls -alih --color'
-alias bc='bc --mathlib'
-alias cp="cp -v $@"
-alias kt="keyboard-toggle"
-alias man='urxvtc -hold -name man -e /usr/bin/man $@'
+cd `dirname $0`
+echo "* Execute ${PWD}/`basename $0`"
+. ../utils.sh
 
-alias zip-compress='zip -r $1 $@'
-alias zip-uncompress='unzip $@'
-
-# Other
-if [ -e "$HOME/.config/alias.d/" ]; then
-	for f in $HOME/.config/alias.d/* ; do
-			 source $f
-	done
-fi
+TARGET="/etc/pulse/daemon.conf"
+SOURCE=${PWD}/system${TARGET}
+do-sync-sudo "$SOURCE" "$TARGET"

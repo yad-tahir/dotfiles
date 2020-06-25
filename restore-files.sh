@@ -22,6 +22,12 @@ cd $DIR
 
 mkdir ${HOME}/bin 2> /dev/null
 
+echo sudo is required. Please enter your password.
+sudo /bin/true
+if [ $? -ne 0 ]; then
+	exit $?
+fi
+
 # ./bspwm/restore-linux.sh
 ./emacs/restore-linux.sh
 ./dmenu/restore-linux.sh
@@ -38,8 +44,10 @@ mkdir ${HOME}/bin 2> /dev/null
 ./nvidia/restore-linux.sh
 # ./pacman/restore-linux.sh
 # ./polybar/restore-linux.sh
+./pam/restore-linux.sh
 ./portage/restore-linux.sh
 ./power/restore-linux.sh
+./pulse/restore-linux.sh
 ./root/restore-linux.sh
 ./scripts/restore-linux.sh
 ./shell/restore-linux.sh
@@ -50,5 +58,6 @@ mkdir ${HOME}/bin 2> /dev/null
 ./x11/restore-linux.sh
 ./zathura/restore-linux.sh
 ./zfs/restore-linux.sh
+./zoom/restore-linux.sh
 
 echo "Done."

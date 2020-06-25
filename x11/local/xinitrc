@@ -1,0 +1,12 @@
+xrandr --auto
+
+# load Xresources if it exists
+[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
+
+# Startup commands
+# BSPWM
+# exec bspwm
+
+#DWM
+sleep 1 | $HOME/.config/dwm/dwmrc &
+exec dwm
