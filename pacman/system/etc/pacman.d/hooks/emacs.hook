@@ -1,0 +1,26 @@
+[Trigger]
+Operation=Install
+Operation=Upgrade
+Operation=Remove
+Type=Package
+Target=emacs
+Target=imagemagick
+Target=alsa-lib
+Target=desktop-file-utils
+Target=gconf
+Target=giflib
+Target=gnutls
+Target=gpm
+Target=gtk3
+Target=hicolor-icon-theme
+Target=libmagick6
+Target=libotf
+Target=librsvg
+Target=libxpm
+Target=m17n-lib
+
+[Action]
+Depends=emacs
+Description=Remove Emacs cache files
+When=PostTransaction
+Exec=/bin/sudo -u yad /bin/sh -c '$HOME/.emacs.d/clean.sh'

@@ -1,0 +1,12 @@
+[Unit]
+Description=Synchorize Pacman's DB
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Environment=USER=yad
+ExecStart=/bin/pacman-sync.sh
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
