@@ -41,7 +41,6 @@ fi
 ./mpd/restore-linux.sh
 ./network/restore-linux.sh
 ./nvidia/restore-linux.sh
-# ./pacman/restore-linux.sh
 ./pam/restore-linux.sh
 ./portage/restore-linux.sh
 ./power/restore-linux.sh
