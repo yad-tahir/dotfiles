@@ -150,12 +150,13 @@
   ;; Open in a current window instead of a new frame
   ;; Source: https://bit.ly/2WX44mj
   (define-advice org-attach (:around (org-fn &rest args))
-	(let ((display-buffer-overriding-action '(display-buffer-same-window)))
+	(let ((pop-up-frames 'nil))
 	  (apply org-fn args)))
 
   (define-advice calendar (:around (org-fn &rest args))
-	  (let ((display-buffer-overriding-action '(display-buffer-pop-up-window)))
-		(apply org-fn args)))
+	(let ((display-buffer-overriding-action '(display-buffer-at-bottom))
+		  (pop-up-frames 'nil))
+	  (apply org-fn args)))
 
   ;; Bug-Fix: Remove keybinding conflicts
   (define-advice org-completing-read (:around (org-fn &rest args))
@@ -246,7 +247,7 @@
   (general-define-key
    :keymaps 'override
    :states '(normal visual)
-   "SPC ac" #'org-capture)
+   "SPC ac" 'org-capture)
 
 ;;;###autoload
   (defun do-capture ()
@@ -257,7 +258,7 @@
   :config
   (general-define-key
    :keymaps 'org-capture-mode-map
-   :states '(normal visual)
+   :states 'normal
    "SPC lq" 'org-capture-kill
    "SPC lw" 'org-capture-finalize)
 
@@ -273,19 +274,25 @@
    ;; https://orgmode.org/manual/Template-expansion.html#Template-expansion
    '(("p" "Personal TODO" entry
 	  (file+olp "~/notes/todo.org" "Personal" "Inbox")
-	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n")
+	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:%^{REF}p\n"
+	  :kill-buffer t)
 	 ("a" "AUIS TODO" entry
 	  (file+olp "~/notes/todo.org" "AUIS" "Inbox")
-	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n")
+	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n%^{REF}p"
+	  :kill-buffer t)
 	 ("h" "Home TODO" entry
 	  (file+olp "~/notes/todo.org" "Home" "Inbox")
-	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n")
+	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n%^{REF}p"
+	  :kill-buffer t)
 	 ("o" "Other TODO" entry
 	  (file+olp "~/notes/todo.org" "Other" "Inbox")
-	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n")))
+	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n"
+	  :kill-buffer t)))
+
   (define-advice org-capture (:around (org-fn &rest args))
-	  (let ((display-buffer-overriding-action '(display-buffer-pop-up-frame)))
-		(apply org-fn args))))
+	(let ((display-buffer-overriding-action '((display-buffer-same-window)
+											  (inhibit-same-window . nil))))
+	  (apply org-fn args))))
 
 (use-package org-agenda
   :commands (org-agenda org-agenda-list)
@@ -293,7 +300,7 @@
   (general-define-key
    :keymaps 'override
    :states '(normal visual)
-   "SPC aa" 'org-agenda-list)
+   "SPC aa" 'org-agenda)
 
 ;;;###autoload
   (defun do-agenda()
@@ -387,14 +394,16 @@
 						  (file-expand-wildcards "~/notes/*.org")
 						  (file-expand-wildcards "~/notes/archive/*.org")))
 
-  ;; Open in a frame instead of a sub-window
-  ;; Source: https://bit.ly/2WX44mj
   (define-advice org-agenda (:around (org-fn &rest args))
-	(let ((display-buffer-overriding-action '(display-buffer-pop-up-window)))
-	  (apply org-fn args)))
+	(let ((display-buffer-overriding-action '((display-buffer-same-window)
+											  (inhibit-same-window . nil))))
+	  (apply org-fn args)
+	  ;; To forcefully enable text-scale-mode
+	  (text-scale-set 0)))
 
-  (define-advice org-agenda-list (:around (org-fn &rest args))
-	(let ((display-buffer-overriding-action '(display-buffer-pop-up-frame)))
+  (define-advice org-agenda-date-prompt (:around (org-fn &rest args))
+	(let ((display-buffer-overriding-action '(display-buffer-at-bottom))
+		  (pop-up-frames 'nil))
 	  (apply org-fn args)
 	  ;; To forcefully enable text-scale-mode
 	  (text-scale-set 0)))
@@ -442,6 +451,5 @@
 ;;				 :states '(normal)
 ;;				 "l" 'nil
 ;;				 "l" 'nil))))
-
 
 (provide 'do-org)
