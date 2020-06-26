@@ -23,7 +23,7 @@
   :preface
   (declare-function yas-reload-all nil)
   :config
-  (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
+  (add-to-list 'yas-snippet-dirs (concat user-emacs-directory "snippets"))
   (yas-global-mode 1)
   (yas-reload-all)
   (advice-add 'do--tab-complete
