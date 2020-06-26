@@ -20,13 +20,15 @@
 (use-package org
   :defer t
   :init
+  (defconst do--org-files-location "~/notes/")
+  (defconst do--org-todo-location (concat do--org-files-location "/todo.org"))
   (general-define-key
    :keymaps 'override
    :states '(normal visual)
    ;; make a prefix-command and add description
    "SPC aA" '((lambda()
 				(interactive)
-				(find-file "~/notes/todo.org"))
+				(find-file do--org-todo-location))
 			  :which-key "todo.org"))
 
   (custom-set-variables
@@ -89,8 +91,8 @@
    "gH"  'org-backward-element
    "gT"  'org-down-element
    "lt"  '(:ignore t :which-key "time")
-   "ltt" '(:ignore t :which-key "insert timestamp")
-   "ltt" '(lambda () (interactive) (org-time-stamp (current-time)))
+   "ltt" '((lambda () (interactive) (org-time-stamp (current-time)))
+		   :which-key "insert-timestamp")
    "lt(" 'org-clock-in
    "lt)" 'org-clock-out
    "ltq" 'org-clock-cancel
@@ -156,17 +158,17 @@
 							   ;; org-rmail
 							   ;; org-drill
 							   org-w3m)
-		org-id-locations-file "~/notes/org-id-location"
-		org-id-track-globally t
 		org-startup-with-inline-images t
-		org-directory "~/notes"
+		org-directory do--org-files-location
+		org-id-track-globally t
+		org-id-locations-file (concat org-directory "org-id-location")
+		org-default-notes-file do--org-todo-location
 		org-startup-indented nil
 		org-preview-latex-default-process 'dvisvgm
 		org-startup-with-latex-preview t
-		org-startup-folded "OVERVIEW"
+		org-startup-folded t
 		org-log-into-drawer "LOGBOOK"
 		org-refile-allow-creating-parent-nodes 'confirm
-		org-default-notes-file (concat org-directory "/todo.org")
 		org-log-done 'time ;;every time we close a todo, org will add
 		org-src-fontify-natively t
 		;; Ordered tasks
@@ -214,7 +216,7 @@
 
   ;; Theme
   (set-face-attribute 'org-special-keyword nil
-					  :inherit 'font-lock-comment-face)
+					  :inherit 'font-lock-builtin-face)
   (set-face-attribute 'org-level-1 nil
 					  :foreground chocolate-theme-white+2 :weight 'bold)
   (set-face-attribute 'org-level-2 nil
@@ -234,13 +236,19 @@
   (set-face-attribute 'org-block nil
 					  :foreground chocolate-theme-white+1)
   (set-face-attribute 'org-done nil
-					  :foreground chocolate-theme-element+4)
+					  :foreground chocolate-theme-highlight+2)
   (set-face-attribute 'org-todo nil
 					  :foreground chocolate-theme-element)
   (set-face-attribute 'org-table nil
 					  :foreground chocolate-theme-element+6)
   (set-face-attribute 'org-priority nil
 					  :foreground chocolate-theme-element+10)
+  (set-face-attribute 'org-drawer nil
+					  :foreground nil
+					  :inherit 'font-lock-comment-face)
+  (set-face-attribute 'org-date nil
+					  :foreground nil
+					  :inherit 'font-lock-string-face)
   (set-face-attribute 'org-scheduled-today nil
 					  :foreground chocolate-theme-white)
   (set-face-attribute 'org-scheduled nil
@@ -309,19 +317,19 @@
    ;; Further details can be found at
    ;; https://orgmode.org/manual/Template-expansion.html#Template-expansion
    '(("p" "Personal TODO" entry
-	  (file+olp "~/notes/todo.org" "Personal" "Inbox")
+	  (file+olp do--org-todo-location "Personal" "Inbox")
 	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:%^{REF}p\n"
 	  :kill-buffer t)
 	 ("a" "AUIS TODO" entry
-	  (file+olp "~/notes/todo.org" "AUIS" "Inbox")
+	  (file+olp do--org-todo-location  "AUIS" "Inbox")
 	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n%^{REF}p"
 	  :kill-buffer t)
 	 ("h" "Home TODO" entry
-	  (file+olp "~/notes/todo.org" "Home" "Inbox")
+	  (file+olp do--org-todo-location  "Home" "Inbox")
 	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n%^{REF}p"
 	  :kill-buffer t)
 	 ("o" "Other TODO" entry
-	  (file+olp "~/notes/todo.org" "Other" "Inbox")
+	  (file+olp do--org-todo-location  "Other" "Inbox")
 	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n"
 	  :kill-buffer t)))
 
@@ -351,7 +359,7 @@
    "<RET>" 'org-agenda-switch-to
    "l <RET>" '((lambda()(interactive)(do-make-frame)(org-agenda-switch-to))
 			   :which-key "org-agenda-switch-new-frame")
-   "<f5>" 'org-agenda-list
+   "<f5>" 'org-agenda
    ;; Ordering
    "M-t" 'org-agenda-drag-line-forward
    "M-c" 'org-agenda-drag-line-backward
@@ -427,8 +435,26 @@
 		org-agenda-start-on-weekday 0
 		org-agenda-use-time-grid t
 		org-agenda-files (append
-						  (file-expand-wildcards "~/notes/*.org")
-						  (file-expand-wildcards "~/notes/archive/*.org")))
+						  (file-expand-wildcards (concat do--org-files-location "*.org"))
+						  (file-expand-wildcards (concat do--org-files-location  "archive/*.org"))))
+ (add-to-list 'org-agenda-custom-commands
+			 '("d" "Daily View"
+			   ((tags-todo "urgent"
+					  ((org-agenda-overriding-header "Urgent Tasks")))
+			   (agenda "Today Overview"
+					   ((org-agenda-start-day "0d")
+						(org-agenda-span 2)
+						(org-agenda-start-on-weekday 1)
+						(org-agenda-start-with-log-mode '(closed))
+						(org-agenda-skip-function '(org-agenda-skip-entry-if 'regexp "*\\* DONE "))))
+			  (todo "WAITING"
+					 ((org-agenda-start-with-log-mode '(closed))
+					  (org-agenda-overriding-header "Waiting")
+					  (org-agenda-files '("~/notes/todo.org"))))
+			  (todo "DONE|CANCEL"
+					 ((org-agenda-start-with-log-mode '(closed))
+					  (org-agenda-overriding-header "Done")
+					  (org-agenda-files '("~/notes/todo.org")))) )))
 
   (define-advice org-agenda (:around (org-fn &rest args))
 	(let ((display-buffer-overriding-action '((display-buffer-same-window)
