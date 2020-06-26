@@ -97,6 +97,36 @@
    "ltg" 'org-clock-goto
    "lv"  '(:ignore t :which-key "view")
    "lvl" 'org-latex-preview
+   "lvc" '((lambda ()
+			 "Toggles between org-columns mode and not"
+			 (interactive)
+			 (unless (boundp 'do--org-columns-status)
+			   (with-eval-after-load 'org-colview
+				 (setq org-columns-map (make-sparse-keymap))
+				 (general-define-key
+				  :keymaps 'org-columns-map
+				  "C-+" 'org-columns-widen
+				  "C--" 'org-columns-narrow
+				  "l+" 'org-columns-widen
+				  "l-" 'org-columns-narrow
+				  "<enter>" 'org-columns-show-value
+				  "ld" 'org-columns-delete
+				  "lu" 'org-columns-edit-attributes
+				  "lE" 'org-columns-edit-allowed
+				  "le" 'org-columns-edit-value
+				  "ln" 'org-columns-new
+				  "l <tab>" 'org-columns-content
+				  "M-h" 'org-columns-move-left
+				  "M-n" 'org-columns-move-right))
+			   (setq do--org-columns-status nil))
+			 (if (eq do--org-columns-status t)
+				 (progn
+				   (setq do--org-columns-status nil)
+				   (org-columns-quit))
+			   (progn
+				 (setq do--org-columns-status t)
+				 (org-columns))))
+		   :which-key "org-columns")
    "ls"  'org-schedule
    "lS"  'org-deadline
    "lu"  'org-add-note ;;progress
@@ -215,6 +245,12 @@
 					  :foreground chocolate-theme-white)
   (set-face-attribute 'org-scheduled nil
 					  :foreground chocolate-theme-white)
+  (set-face-attribute 'org-column nil
+					  :background chocolate-theme-shadow+1
+					  :foreground chocolate-theme-white+2)
+  (set-face-attribute 'org-column-title nil
+					  :background chocolate-theme-shadow+1
+					  :foreground chocolate-theme-highlight+2)
   (with-eval-after-load 'org-habit
 	(set-face-attribute 'org-habit-alert-face nil
 						:foreground chocolate-theme-bg
