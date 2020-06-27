@@ -185,6 +185,11 @@
 	(let ((pop-up-frames 'nil))
 	  (apply org-fn args)))
 
+  (define-advice org-add-log-note (:around (org-fn &rest args))
+	(let ((display-buffer-overriding-action '(display-buffer-at-bottom))
+		  (pop-up-frames 'nil))
+	  (apply org-fn args)))
+
   (define-advice calendar (:around (org-fn &rest args))
 	(let ((display-buffer-overriding-action '(display-buffer-at-bottom))
 		  (pop-up-frames 'nil))
@@ -466,9 +471,7 @@
   (define-advice org-agenda-date-prompt (:around (org-fn &rest args))
 	(let ((display-buffer-overriding-action '(display-buffer-at-bottom))
 		  (pop-up-frames 'nil))
-	  (apply org-fn args)
-	  ;; To forcefully enable text-scale-mode
-	  (text-scale-set 0)))
+	  (apply org-fn args)))
 
   (set-face-attribute 'org-agenda-done nil :foreground chocolate-theme-white+2)
   (set-face-attribute 'org-agenda-date-today nil
