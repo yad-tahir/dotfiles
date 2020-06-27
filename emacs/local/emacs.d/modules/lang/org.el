@@ -467,13 +467,13 @@
 						(org-agenda-skip-function '(lambda (&rest args)
 													 (let ((result nil))
 													   (setq result (org-agenda-skip-entry-if 'regexp "*\\* WAITING "))
-													   (setq result (or result (org-agenda-skip-entry-if 'regexp "*\\* CANCEL ")))
+													   (setq result (or result (org-agenda-skip-entry-if 'regexp "*\\* CANCELED ")))
 													   (setq result (or result (org-agenda-skip-entry-if 'regexp "*\\* DONE "))))))))
 			  (todo "WAITING"
 					 ((org-agenda-start-with-log-mode '(closed))
 					  (org-agenda-overriding-header "Waiting")
 					  (org-agenda-files '("~/notes/todo.org"))))
-			  (todo "DONE|CANCEL"
+			  (todo "DONE|CANCELED"
 					 ((org-agenda-start-with-log-mode '(closed))
 					  (org-agenda-overriding-header "Done")
 					  (org-agenda-files '("~/notes/todo.org")))) )))
