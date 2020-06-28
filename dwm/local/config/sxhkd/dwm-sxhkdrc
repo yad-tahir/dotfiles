@@ -110,3 +110,6 @@ super + semicolon; v
 	urxvtc -hold -name visualizer -e vis &
 super + semicolon; l
 	urxvtc -hold -name log -e /bin/journalctl -fn 200 &
+F6
+	emacsclient -nqe "(progn (do-make-frame nil \"$DISPLAY\") (funcall-interactively 'org-capture))"\\
+		-a='/usr/bin/urxvt -e nano' > /dev/null &
