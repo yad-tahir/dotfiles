@@ -249,10 +249,10 @@
   (set-face-attribute 'org-priority nil
 					  :foreground chocolate-theme-element+10)
   (set-face-attribute 'org-drawer nil
-					  :foreground nil
+					  :foreground chocolate-theme-shadow+3
 					  :inherit 'font-lock-comment-face)
   (set-face-attribute 'org-date nil
-					  :foreground nil
+					  :foreground chocolate-theme-highlight+3
 					  :inherit 'font-lock-string-face)
   (set-face-attribute 'org-scheduled-today nil
 					  :foreground chocolate-theme-white)
