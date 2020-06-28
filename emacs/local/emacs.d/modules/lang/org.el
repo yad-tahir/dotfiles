@@ -92,7 +92,9 @@
    "gT"  'org-down-element
    "lt"  '(:ignore t :which-key "time")
    "ltt" '((lambda () (interactive) (org-time-stamp (current-time)))
-		   :which-key "insert-timestamp")
+		   :which-key "org-time-stamp")
+   "ltT" '((lambda () (interactive) (org-time-stamp (current-time) t))
+		   :which-key "org-time-stamp-inactive")
    "lt(" 'org-clock-in
    "lt)" 'org-clock-out
    "ltq" 'org-clock-cancel
@@ -169,7 +171,8 @@
 		org-startup-folded t
 		org-log-into-drawer "LOGBOOK"
 		org-refile-allow-creating-parent-nodes 'confirm
-		org-log-done 'time ;;every time we close a todo, org will add
+		org-log-done 'time ;; Every time we close a todo, org will add
+		org-todo-keywords '((sequence "TODO(t!)" "STARTED(s!)" "WAITING(w@)" "|" "CANCELED(c@)" "DONE(d@)"))
 		org-src-fontify-natively t
 		;; Ordered tasks
 		org-track-ordered-property-with-tag t ;; Add :ORDER:
@@ -438,10 +441,9 @@
    "ld" 'org-agenda-date-prompt
    "lg" 'org-agenda-open-link
    "lt" 'nil
-   "lta" 'org-agenda-clock-in
-   "lti" 'org-agenda-clock-in
-   "ltq" 'org-agenda-clock-out
-   "ltx" 'org-agenda-clock-cancel
+   "lt(" 'org-agenda-clock-in
+   "lt)" 'org-agenda-clock-out
+   "ltq" 'org-agenda-clock-cancel
    "ltg" 'org-agenda-clock-goto
    "lx" 'org-agenda-archive)
 
@@ -450,6 +452,7 @@
 		org-agenda-dim-blocked-tasks t
 		org-agenda-weekend-days '(5 6)
 		org-agenda-start-on-weekday 0
+		org-agenda-log-mode-items '(state)
 		org-agenda-use-time-grid t
 		;; This is a work around to fix the UI because Org Agenda uses
 		;; `window-width` even if the display-line-numbers mode is on.
@@ -457,29 +460,25 @@
 		org-agenda-files (append
 						  (file-expand-wildcards (concat do--org-files-location "*.org"))
 						  (file-expand-wildcards (concat do--org-files-location  "archive/*.org"))))
- (add-to-list 'org-agenda-custom-commands
-			 '("d" "Daily View"
-			   ((tags-todo "urgent"
-					  ((org-agenda-overriding-header "Urgent Tasks")))
-			   (agenda "Today Overview"
-					   ((org-agenda-start-day "0d")
-						(org-agenda-span 2)
-						(org-agenda-start-on-weekday 1)
-						(org-agenda-start-with-log-mode '(closed))
-						(org-agenda-overriding-header "Agenda")
-						(org-agenda-skip-function '(lambda (&rest args)
-													 (let ((result nil))
-													   (setq result (org-agenda-skip-entry-if 'regexp "*\\* WAITING "))
-													   (setq result (or result (org-agenda-skip-entry-if 'regexp "*\\* CANCELED ")))
-													   (setq result (or result (org-agenda-skip-entry-if 'regexp "*\\* DONE "))))))))
-			  (todo "WAITING"
-					 ((org-agenda-start-with-log-mode '(closed))
-					  (org-agenda-overriding-header "Waiting")
-					  (org-agenda-files '("~/notes/todo.org"))))
-			  (todo "DONE|CANCELED"
-					 ((org-agenda-start-with-log-mode '(closed))
-					  (org-agenda-overriding-header "Done")
-					  (org-agenda-files '("~/notes/todo.org")))) )))
+  (add-to-list 'org-agenda-custom-commands
+			   '("d" "Daily View"
+				 ((agenda "Today Overview"
+						  ((org-agenda-start-day "0d")
+						   (org-agenda-span 2)
+						   (org-agenda-overriding-header "Agenda")
+						   (org-agenda-skip-function '(lambda (&rest args)
+														(let ((result nil))
+														  (setq result (org-agenda-skip-entry-if 'regexp "*\\* WAITING "))
+														  (setq result (or result (org-agenda-skip-entry-if 'regexp "*\\* CANCELED ")))
+														  (setq result (or result (org-agenda-skip-entry-if 'regexp "*\\* DONE "))))))))
+				  (todo "WAITING"
+						((org-agenda-start-with-log-mode '(closed))
+						 (org-agenda-overriding-header "Waiting")
+						 (org-agenda-files '("~/notes/todo.org"))))
+				  (todo "DONE|CANCELED"
+						((org-agenda-start-with-log-mode '(closed))
+						 (org-agenda-overriding-header "Done")
+						 (org-agenda-files '("~/notes/todo.org")))) )))
 
   (define-advice org-agenda (:around (org-fn &rest args))
 	(let ((display-buffer-overriding-action '((display-buffer-same-window)
