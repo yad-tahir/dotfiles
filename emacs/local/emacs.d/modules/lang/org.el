@@ -323,31 +323,31 @@
    ;; https://orgmode.org/manual/Template-expansion.html#Template-expansion
    '(("p" "Personal TODO" entry
 	  (file+olp do--org-todo-location "Personal" "Inbox")
-	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n"
+	  "* TODO %?\n SCHEDULED:%^t\n  :PROPERTIES:\n  :END:\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n"
 	  :kill-buffer t)
 	 ("P" "Personal TODO with reference" entry
 	  (file+olp do--org-todo-location "Personal" "Inbox")
-	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :REF: %^{Reference}\n  :END:\n"
+	  "* TODO %?\n SCHEDULED:%^t\n  :PROPERTIES:\n  :REF:  %^{Reference}\n  :END:\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n"
 	  :kill-buffer t)
 	 ("a" "AUIS TODO" entry
 	  (file+olp do--org-todo-location  "AUIS" "Inbox")
-	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n"
+	  "* TODO %?\n SCHEDULED:%^t\n  :PROPERTIES:\n  :END:\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n"
 	  :kill-buffer t)
 	 ("A" "AUIS TODO with reference" entry
 	  (file+olp do--org-todo-location  "AUIS" "Inbox")
-	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :REF: %^{Reference}\n  :END:\n"
+	  "* TODO %?\n SCHEDULED:%^t\n  :PROPERTIES:\n  :REF:  %^{Reference}\n  :END:\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n"
 	  :kill-buffer t)
 	 ("h" "Home TODO" entry
 	  (file+olp do--org-todo-location  "Home" "Inbox")
-	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n"
+	  "* TODO %?\n SCHEDULED:%^t\n  :PROPERTIES:\n  :END:\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n"
 	  :kill-buffer t)
 	 ("H" "Home TODO with reference" entry
 	  (file+olp do--org-todo-location  "Home" "Inbox")
-	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :REF: %^{Reference}\n  :END:\n"
+	  "* TODO %?\n SCHEDULED:%^t\n  :PROPERTIES:\n  :REF:  %^{Reference}\n  :END:\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n"
 	  :kill-buffer t)
 	 ("o" "Other TODO" entry
 	  (file+olp do--org-todo-location  "Other" "Inbox")
-	  "* TODO %?\n SCHEDULED:%^t\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n"
+	  "* TODO %?\n SCHEDULED:%^t\n  :PROPERTIES:\n  :END:\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n"
 	  :kill-buffer t)))
 
   (define-advice org-capture (:around (org-fn &rest args))
