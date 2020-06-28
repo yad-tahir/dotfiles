@@ -451,6 +451,9 @@
 		org-agenda-weekend-days '(5 6)
 		org-agenda-start-on-weekday 0
 		org-agenda-use-time-grid t
+		;; This is a work around to fix the UI because Org Agenda uses
+		;; `window-width` even if the display-line-numbers mode is on.
+		org-agenda-block-separator ""
 		org-agenda-files (append
 						  (file-expand-wildcards (concat do--org-files-location "*.org"))
 						  (file-expand-wildcards (concat do--org-files-location  "archive/*.org"))))
