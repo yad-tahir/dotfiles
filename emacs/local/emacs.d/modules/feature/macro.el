@@ -21,8 +21,8 @@
  :prefix "q"
  :states '(normal visual)
  "" nil
- "(" 'start-kbd-macro
- ")" 'end-kbd-macro
+ "[" 'start-kbd-macro
+ "]" 'end-kbd-macro
  "@" 'evil-record-macro
  "u" 'kmacro-edit-macro
  "q" 'call-last-kbd-macro

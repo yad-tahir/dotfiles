@@ -95,8 +95,8 @@
 		   :which-key "org-time-stamp")
    "ltT" '((lambda () (interactive) (org-time-stamp (current-time) t))
 		   :which-key "org-time-stamp-inactive")
-   "lt(" 'org-clock-in
-   "lt)" 'org-clock-out
+   "lt[" 'org-clock-in
+   "lt]" 'org-clock-out
    "ltq" 'org-clock-cancel
    "ltg" 'org-clock-goto
    "lv"  '(:ignore t :which-key "view")
@@ -441,8 +441,8 @@
    "ld" 'org-agenda-date-prompt
    "lg" 'org-agenda-open-link
    "lt" 'nil
-   "lt(" 'org-agenda-clock-in
-   "lt)" 'org-agenda-clock-out
+   "lt[" 'org-agenda-clock-in
+   "lt]" 'org-agenda-clock-out
    "ltq" 'org-agenda-clock-cancel
    "ltg" 'org-agenda-clock-goto
    "lx" 'org-agenda-archive)
