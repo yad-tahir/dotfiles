@@ -22,4 +22,4 @@
 # activated, then Firefox sends that data through VPN. Otherwise, data is
 # sent directly.
 
-exec echo "$@" | bc
+exec echo "$@" | bc --mathlib
