@@ -12,3 +12,6 @@ app-eselect/eselect-opengl
 
 # Avoid re-compiling Google chromium
 >dev-qt/qtwebengine-5.14.2
+
+# Uncessary packages
+dev-lang/vala
