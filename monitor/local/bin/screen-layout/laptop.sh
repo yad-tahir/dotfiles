@@ -27,4 +27,4 @@ xrandr --output DP-3 --off
 
 util-set-dpi 140
 
-util-setup-services
+util-launch

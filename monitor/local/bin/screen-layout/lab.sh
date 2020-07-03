@@ -33,4 +33,4 @@ xset -dpms
 xset s off
 
 # Restart apps that depend on environmental variables
-util-setup-services
+util-launch

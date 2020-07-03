@@ -25,10 +25,11 @@ EOF
 	xrandr --dpi $dpi
 }
 
-function util-setup-services {
+function util-launch {
 	# Restart apps that depend on environmental variables
 	feh --bg-fill $(/bin/ls ${HOME}/pictures/background/* | shuf -n 1) &
 
+	# Start services
 	systemctl --user restart emacs-27-vcs.service &
 	systemctl --user restart urxvtd.service &
 }
