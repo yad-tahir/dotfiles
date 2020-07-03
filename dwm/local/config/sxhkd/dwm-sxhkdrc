@@ -57,7 +57,7 @@ super + d
 super + u
 	emacsclient -nqe '(do-music-previous)' > /dev/null &
 
-super + {u,d} + shift
+super + shift + {d,u}
 	mpc seek {+00,-00}10 > /dev/null &
 
 # Program launcher
