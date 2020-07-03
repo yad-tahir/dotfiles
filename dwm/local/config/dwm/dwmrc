@@ -23,9 +23,6 @@ xrandr --auto
 # Set the background color
 feh --bg-fill $(/bin/ls ${HOME}/pictures/background/* | shuf -n 1) &
 
-# Fix the mouse size
-xsetroot -xcf /usr/share/cursors/xorg-x11/Adwaita/cursors/left_ptr 16 &
-
 systemctl --user import-environment
 # Avoid using systemd 'enable' feature for Emacs as it can launch Emacs server
 # before importing most all env. variables. Instead, start Emacs service

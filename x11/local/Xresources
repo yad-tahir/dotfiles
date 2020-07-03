@@ -17,6 +17,7 @@
 
 !! General settings
 Xcursor.size: 24
+Xcursor.theme: Adwaita
 
 *background: #000000
 *foreground: #e6beae
