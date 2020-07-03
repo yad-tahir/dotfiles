@@ -46,7 +46,7 @@
 	  ;; Start MPD
 	  (ignore-errors
 		(let ((b (get-buffer "*Messages*")))
-		  (shell-command "mpd" b b)))
+		  (shell-command "mpd; ps Hh -q `pidof -s mpd` -o 'tid' | xargs -n 1 -I % chrt --rr -p 5 %" b b)))
 	  ;; Wait for mpd to initialize.
 	  ;; FIX-ME: Remove the sleep command
 	  (sit-for 1)
