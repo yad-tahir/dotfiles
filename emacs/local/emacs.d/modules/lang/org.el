@@ -177,6 +177,7 @@
 		org-refile-allow-creating-parent-nodes 'confirm
 		org-log-done 'time ;; Every time we close a todo, org will add
 		org-todo-keywords '((sequence "TODO(t!)" "STARTED(s!)" "WAITING(w@)" "|" "CANCELED(c@)" "DONE(d@)"))
+		org-default-priority ?C
 		org-src-fontify-natively t
 		;; Ordered tasks
 		org-track-ordered-property-with-tag t ;; Add :ORDER:
