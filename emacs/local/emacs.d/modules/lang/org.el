@@ -22,6 +22,7 @@
   :init
   (defconst do--org-files-location "~/notes/")
   (defconst do--org-todo-location (concat do--org-files-location "/todo.org"))
+  (defconst do--org-spending-location (concat do--org-files-location "/spending.org"))
   (general-define-key
    :keymaps 'override
    :states '(normal visual)
@@ -351,6 +352,14 @@
 	 ("o" "Other TODO" entry
 	  (file+olp do--org-todo-location  "Other" "Inbox")
 	  "* TODO %?\n SCHEDULED:%^t\n  :PROPERTIES:\n  :END:\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n"
+	  :kill-buffer t)
+	 ("s" "Spending record" entry
+	  (file+datetree do--org-spending-location)
+	  "* %?\n SCHEDULED:%^u\n  :PROPERTIES:\n  :AMOUNT:  %^{Amount|0}\n  :CURRENCY: USD\n  :END:\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n"
+	  :kill-buffer t)
+	 ("S" "Spending record with reference" entry
+	  (file+datetree do--org-spending-location)
+	  "* %?\n SCHEDULED:%^u\n  :PROPERTIES:\n  :REF:  %^{Reference}\n  :AMOUNT:  %^{Amount|0}\n  :CURRENCY: USD\n  :END:\n  :LOGBOOK:\n  - Captured at %U\n  :END:\n"
 	  :kill-buffer t)))
 
   (define-advice org-capture (:around (org-fn &rest args))
