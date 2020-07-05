@@ -474,11 +474,15 @@
 				  (todo "WAITING"
 						((org-agenda-start-with-log-mode '(closed))
 						 (org-agenda-overriding-header "Waiting")
+						 (org-agenda-files (file-expand-wildcards (concat do--org-files-location "*.org")))))
+				  (todo "DONE|CANCELED"
+						((org-agenda-start-with-log-mode '(closed))
+						 (org-agenda-overriding-header "Finished Tasks")
 						 (org-agenda-files '("~/notes/todo.org"))))
 				  (todo "DONE|CANCELED"
 						((org-agenda-start-with-log-mode '(closed))
-						 (org-agenda-overriding-header "Done")
-						 (org-agenda-files '("~/notes/todo.org")))) )))
+						 (org-agenda-overriding-header "Finished Goals")
+						 (org-agenda-files '("~/notes/goals.org")))))))
 
   (define-advice org-agenda (:around (org-fn &rest args))
 	(let ((display-buffer-overriding-action '((display-buffer-same-window)
