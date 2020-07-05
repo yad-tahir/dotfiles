@@ -174,6 +174,7 @@
 		org-startup-with-latex-preview t
 		org-startup-folded t
 		org-log-into-drawer "LOGBOOK"
+		org-startup-folded "OVERVIEW"
 		org-refile-allow-creating-parent-nodes 'confirm
 		org-log-done 'time ;; Every time we close a todo, org will add
 		org-todo-keywords '((sequence "TODO(t!)" "STARTED(s!)" "WAITING(w@)" "|" "CANCELED(c@)" "DONE(d@)"))
