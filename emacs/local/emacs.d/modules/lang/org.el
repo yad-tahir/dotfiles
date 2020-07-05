@@ -112,15 +112,16 @@
 				  :keymaps 'org-columns-map
 				  "C-+" 'org-columns-widen
 				  "C--" 'org-columns-narrow
-				  "l+" 'org-columns-widen
-				  "l-" 'org-columns-narrow
-				  "<enter>" 'org-columns-show-value
-				  "ld" 'org-columns-delete
-				  "lu" 'org-columns-edit-attributes
-				  "lE" 'org-columns-edit-allowed
-				  "le" 'org-columns-edit-value
-				  "ln" 'org-columns-new
-				  "l <tab>" 'org-columns-content
+				  "lk" '(:ignore t :which-key "columns")
+				  "lk <return>" 'org-columns-show-value
+				  "lk <tab>" 'org-columns-content
+				  "lk+" 'org-columns-widen
+				  "lk-" 'org-columns-narrow
+				  "lkd" 'org-columns-delete
+				  "lku" 'org-columns-edit-attributes
+				  "lkE" 'org-columns-edit-allowed
+				  "lke" 'org-columns-edit-value
+				  "lkn" 'org-columns-new
 				  "M-h" 'org-columns-move-left
 				  "M-n" 'org-columns-move-right))
 			   (setq do--org-columns-status nil))
@@ -132,14 +133,16 @@
 				 (setq do--org-columns-status t)
 				 (org-columns))))
 		   :which-key "org-columns")
-   "ls"  'org-schedule
-   "lS"  'org-deadline
-   "lu"  'org-add-note ;;progress
-   "la"  'org-attach
-   "lg"  'org-open-at-point
-   "lc"  'org-ctrl-c-ctrl-c
-   "li"  'org-id-get-create
-   "l@"  'org-toggle-ordered-property
+   "ls" 'org-schedule
+   "ld" 'org-deadline
+   "lu" 'org-add-note
+   "ly" 'org-property-action
+   "la" 'org-attach
+   "lb" 'org-dynamic-block-insert-dblock
+   "lg" 'org-open-at-point
+   "lc" 'org-ctrl-c-ctrl-c
+   "li" 'org-id-get-create
+   "l@" 'org-toggle-ordered-property
    "lel" 'org-export-dispatch
    "lep" 'org-latex-export-to-pdf
    "leb" 'org-beamer-export-to-pdf
@@ -147,7 +150,7 @@
    "SPC lw" 'org-ctrl-c-ctrl-c
    "SPC lq" 'org-kill-note-or-show-branches
    "l'"  'org-edit-src-code
-   "ld" 'org-archive-subtree)
+   "lx" 'org-archive-subtree)
 
   (general-define-key
    :keymaps 'org-src-mode-map
@@ -441,13 +444,12 @@
    "l*a" 'org-agenda-bulk-action
    "l*!" 'org-agenda-bulk-unmark-all
    "lp" 'org-agenda-todo
-   "lk" 'org-agenda-kill
+   "lb" 'org-agenda-kill
    "l#" 'org-agenda-set-tags
    "lu" 'org-agenda-add-note
    "la" 'org-attach
    "ls" 'org-agenda-schedule
-   "lS" 'org-agenda-deadline
-   "ld" 'org-agenda-date-prompt
+   "ld" 'org-agenda-deadline
    "lg" 'org-agenda-open-link
    "lt" 'nil
    "lt[" 'org-agenda-clock-in
