@@ -179,11 +179,19 @@
    "SPC '"  'counsel-bookmark
    ;; make a prefix-command and add description
    "SPC s" '(:ignore t :which-key "search")
-   "SPC sf" '(lambda () (interactive) (counsel-fzf nil nil "file " ))
+   "SPC sf" '((lambda ()
+				(interactive)
+				(let ((counsel-fzf-cmd "rg --color never --files -g '*%s*'"))
+				  (counsel-fzf nil nil "file " )))
+			 :which-key "file")
+   "SPC sF" '((lambda ()
+				(interactive)
+				(let ((counsel-fzf-cmd "rg --color never -u --files -g '*%s*'"))
+				  (counsel-fzf nil nil "file " )))
+			  :which-key "hidden-file")
    "SPC sj" 'counsel-dired-jump
    "SPC sv" 'counsel-describe-variable
    "SPC sl" 'counsel-find-library
-   "SPC sF" 'counsel-describe-function
    "SPC si" 'counsel-info-lookup-symbol
    "SPC su" 'counsel-unicode-char
    "SPC sg" 'counsel-rg)
@@ -213,7 +221,7 @@
 		counsel-rg-base-command "rg -S --no-binary --no-heading --line-number -uu --color never %s "
 		;; Configure counsel-fzf to use rg instead.
 		counsel-fzf-dir-function 'counsel-fzf-dir-function-projectile
-		counsel-fzf-cmd "rg --color never -uu --files -g '*%s*' ")
+		counsel-fzf-cmd "rg --color never -u --files -g '*%s*' ")
 
 	;;; Enable rg export by ignoring counsel's fzf internal processing.
   (defun do--counsel-fzf-occur (&rest args)
@@ -240,13 +248,10 @@
 	[remap projectile-find-file]      #'counsel-projectile-find-file)
 
   (general-define-key
-   :prefix "SPC s"
    :keymaps 'override
    :states '(normal visual)
-   ;; make a prefix-command and add description
-   "" '(:ignore t :which-key "search")
-   "F" 'counsel-projectile-find-file
-   "D" 'counsel-projectile-find-dir)
+   "SPC sp" 'counsel-projectile-find-file
+   "SPC sP" 'counsel-projectile-find-dir)
 
   :config
   (require 'projectile)
