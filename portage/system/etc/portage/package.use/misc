@@ -17,7 +17,8 @@ media-fonts/noto cjk
 media-gfx/fontforge X gif jpeg png svg tiff cairo
 
 # Office related
-app-text/texlive png science graphics epspdf metapost
+# @extra is required when exporting Org files as PDFs
+app-text/texlive png science graphics epspdf metapost extra
 dev-texlive/texlive-basic -luajittex
 app-text/mupdf -javascript
 
