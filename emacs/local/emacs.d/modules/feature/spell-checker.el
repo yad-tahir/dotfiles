@@ -21,13 +21,18 @@
 (use-package ispell
   :defer t
   :config
+  (evil-define-operator do--evil-spell (beginning end &optional type)
+	(ignore type)
+	(ispell-region beginning end))
 
   (general-define-key
    :states 'normal
+   "SPC ls" 'do--evil-spell
    "SPC lS" 'ispell-buffer)
 
   (general-define-key
    :states 'visual
+   "SPC ls" 'do--evil-spell
    "SPC lS" 'ispell-region)
 
   ;; Prog-mode overrides
@@ -67,14 +72,6 @@
    :keymaps 'flyspell-mouse-map
    :states 'normal
    "SPC ly" 'ispell-word)
-
-  (general-define-key
-   :states 'normal
-   "SPC ls" 'flyspell-buffer)
-
-  (general-define-key
-   :states 'visual
-   "SPC ls" 'flyspell-region)
 
   (setq flyspell-issue-message-flag nil
 		flyspell-delay 5
