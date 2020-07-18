@@ -38,6 +38,7 @@ media-sound/mpc
 media-sound/mpd
 media-sound/pulseaudio
 media-sound/pulsemixer
+media-sound/spotify
 media-video/mpv
 media-video/obs-studio
 net-analyzer/wireshark
