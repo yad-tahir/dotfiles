@@ -33,6 +33,7 @@ media-gfx/blender
 media-gfx/feh
 media-gfx/gimp
 media-libs/mesa
+media-sound/easytag
 media-sound/mpc
 media-sound/mpd
 media-sound/pulseaudio

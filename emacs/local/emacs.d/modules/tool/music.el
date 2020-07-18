@@ -78,13 +78,12 @@
 	(simple-mpc-view-current-playlist))
 
   :config
+  ;; Micro functions to encapsulate simple-mpc
   (defun do-music-stop ()
 	(interactive)
 	(setq do--music-toggle-state t)
 	(do--music-setup-process)
 	(start-process-shell-command "mpc" 'nil "/usr/bin/mpc stop"))
-
-  ;; Micro functions to encapsulate simple-mpc
   (defun do-music-play-selected ()
 	(interactive)
 	(simple-mpc-play-current-line)
@@ -123,7 +122,9 @@
 
   (setq simple-mpc-mode-map (make-sparse-keymap)
 		simple-mpc-query-mode-map (make-sparse-keymap)
-		simple-mpc-current-playlist-mode-map (make-sparse-keymap))
+		simple-mpc-current-playlist-mode-map (make-sparse-keymap)
+		simple-mpc-table-separator "="
+		simple-mpc-playlist-format "%file%=%album% / %artist% ")
 
   (general-define-key
    :keymaps 'simple-mpc-mode-map

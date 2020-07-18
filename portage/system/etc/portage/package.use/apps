@@ -24,3 +24,4 @@ media-gfx/blender llvm ffmpeg color-management openal openimageio cycles tiff op
 
 # Other
 app-admin/pass X # @X adds clipboard support
+media-sound/easytag flac mp3
