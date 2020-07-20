@@ -486,14 +486,17 @@
 														  (setq result (or result (org-agenda-skip-entry-if 'regexp "*\\* DONE "))))))))
 				  (todo "WAITING"
 						((org-agenda-start-with-log-mode '(closed))
+						 (org-agenda-sorting-strategy '(timestamp-down))
 						 (org-agenda-overriding-header "Waiting")
 						 (org-agenda-files (file-expand-wildcards (concat do--org-files-location "*.org")))))
 				  (todo "DONE|CANCELED"
 						((org-agenda-start-with-log-mode '(closed))
+						 (org-agenda-sorting-strategy '(tsia-down))
 						 (org-agenda-overriding-header "Finished Tasks")
 						 (org-agenda-files '("~/notes/todo.org"))))
 				  (todo "DONE|CANCELED"
 						((org-agenda-start-with-log-mode '(closed))
+						 (org-agenda-sorting-strategy '(tsia-down))
 						 (org-agenda-overriding-header "Finished Goals")
 						 (org-agenda-files '("~/notes/goals.org")))))))
 
