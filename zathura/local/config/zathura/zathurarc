@@ -5,6 +5,7 @@ set page-padding 5
 set scroll-wrap "false"
 set statusbar-home-tilde "true"
 set selection-clipboard clipboard
+set window-title-progress "true"
 
 map gg goto top
 map C scroll page-top
