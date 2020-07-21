@@ -48,10 +48,10 @@ do
 	do-ln-sync-sudo "$SOURCE" "$TARGET"
 done
 
-REPO_PATH="/var/db/repos/drvegeta"
+REPO_PATH="/var/db/repos/private"
 if [ ! -e $REPO_PATH ]; then
-	echo "-> Download DrVegeta portage overlay"
-	sudo -E git clone git@github.com:yad-tahir/gentoo-overlay.git "$REPO_PATH"
+	echo "-> Download my private overlay"
+	sudo -E git clone git@github.com:yad-tahir/personal-overlay.git "$REPO_PATH"
 fi
 
 REPO_PATH="/var/db/repos/gentoo"
