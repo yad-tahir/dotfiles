@@ -54,6 +54,12 @@ if [ ! -e $REPO_PATH ]; then
 	sudo -E git clone git@github.com:yad-tahir/personal-overlay.git "$REPO_PATH"
 fi
 
+REPO_PATH="/var/db/repos/public"
+if [ ! -e $REPO_PATH ]; then
+	echo "-> Download my public overlay"
+	sudo -E git clone git@github.com:yad-tahir/gentoo-overlay.git "$REPO_PATH"
+fi
+
 REPO_PATH="/var/db/repos/gentoo"
 if [ ! -e $REPO_PATH ]; then
 	echo "-> Download Gentoo Github mirror"
