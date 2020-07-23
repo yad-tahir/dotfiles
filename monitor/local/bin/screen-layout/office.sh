@@ -26,8 +26,8 @@ xrandr --output DP-1  --mode 3440x1440 --pos 0x0 --rotate normal --brightness 1
 xrandr --output DP-3  --mode 3440x1440 --pos 3440x0 --rotate normal --primary --brightness 1
 
 # Set the icc profile of each screen
-dispwin -d 1 ~/.config/icc-profiles/U3415W#2-2018-10-21-1137.icc
-dispwin -d 3 ~/.config/icc-profiles/U3415W#3-2018-10-21-1221.icc
+dispwin -d 1 $HOME/config/icc-profiles/U3415W#2-2018-10-21-1137.icc
+dispwin -d 3 $HOME/config/icc-profiles/U3415W#3-2018-10-21-1221.icc
 
 util-set-dpi 120
 

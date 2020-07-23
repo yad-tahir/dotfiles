@@ -30,10 +30,10 @@ HEIGHT=$(xrdb -query | awk '/Panel.height:/{print $2}')
 
 run=$(
 	# Add custom commends to the demnu
-	extra_commands=( "vm-manager~"
+	extra_commands=( "vm-manager"
 					 "emacs"
-					 "firefox-novpn~"
-					 "firefox-vpn~"
+					 "firefox-novpn"
+					 "firefox-vpn"
 					 )
 	echo_string=
 	for i in "${extra_commands[@]}"; do
@@ -63,9 +63,6 @@ case "$run" in
 	# If it ends with '!', run it in a terminal instead
 	*!)
 		exec $(echo "$TERMINAL -hold -e $run" | sed -e 's/!$//') &
-		;;
-	*~)
-		exec $(echo "$HOME/bin/$run" | sed 's/~//') &
 		;;
 	*?*)
 		# Run the local version first, if it is failed then switch to the system one.

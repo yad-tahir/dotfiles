@@ -25,8 +25,8 @@ xrandr --output eDP-1 --off
 xrandr --output DP-3  --mode 3840x2160 --pos 0x0 --rotate left --brightness 1
 xrandr --output DP-1  --mode 3840x1600 --pos 2160x980 --rotate normal --primary --brightness 1
 
-dispwin -d 1 ~/.config/icc-profiles/U3818DW#2-2018-10-20-2347.icc
-dispwin -d 3 ~/.config/icc-profiles/U2718Q#3-2018-10-21-0034.icc
+dispwin -d 1 $HOME/.config/icc-profiles/U3818DW#2-2018-10-20-2347.icc
+dispwin -d 3 $HOME/.config/icc-profiles/U2718Q#3-2018-10-21-0034.icc
 
 # Enable energy-saving modes
 xset +dpms

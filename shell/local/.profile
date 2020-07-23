@@ -30,9 +30,9 @@ stty -ixon # Disable ctrl-s and ctrl-q
 source $HOME/dotfiles/shell/other/aliases.sh
 
 # Other variables
-source ~/bin/settings.sh
+source $HOME/bin/settings.sh
 # Adjust the path
-PATH="~/bin:${PATH}"
+PATH="$HOME/bin:${PATH}"
 
 life | figlet -f bubble
 
@@ -42,5 +42,5 @@ echo ''
 # the virtual tty 1, and this is the first login after a cold boot
 if [[ -z $DISPLAY && $XDG_VTNR -eq 1 && ! -f /tmp/init-startx ]]; then
 	touch /tmp/init-startx
-	exec ~/bin/startx
+	exec $HOME/bin/startx
 fi

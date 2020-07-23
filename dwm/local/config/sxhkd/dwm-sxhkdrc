@@ -73,16 +73,16 @@ F12
 
 # Dmenu
 super + g
-	~/bin/dmenu/run.sh &
+	$HOME/bin/dmenu/run.sh &
 
 super + p
-	~/bin/dmenu/pass.sh &
+	$HOME/bin/dmenu/pass.sh &
 
 super + m
-	~/bin/dmenu/monitor.sh &
+	$HOME/bin/dmenu/monitor.sh &
 
 super + F3
-	~/bin/screen-lock &
+	$HOME/bin/screen-lock &
 
 # Terminal
 super + Escape
@@ -90,16 +90,16 @@ super + Escape
 
 # Toggle between Dvorak and Qwerty
 alt + space
-	~/bin/keyboard-toggle; dwmbar-cli refresh
+	$HOME/bin/keyboard-toggle; dwmbar-cli refresh
 
 @Caps_Lock
 	dwmbar-cli refresh
 
 # Other applications
 super + w
-	~/bin/firefox-vpn &
+	$HOME/bin/firefox-vpn &
 super + shift + w
-	~/bin/firefox-novpn &
+	$HOME/bin/firefox-novpn &
 super + semicolon; g
 	urxvtc -hold -name glances -e /usr/bin/glances &
 super + semicolon; h

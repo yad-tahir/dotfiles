@@ -1,7 +1,7 @@
 xrandr --auto
 
 # load Xresources if it exists
-[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
+[[ -f $HOME/.Xresources ]] && xrdb -merge -I$HOME $HOME/.Xresources
 
 # Startup commands
 # BSPWM

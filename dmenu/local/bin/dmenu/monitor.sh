@@ -44,5 +44,5 @@ run=$(echo -e "${echo_string}" |
 
 
 if [ ! -z "${run}" -a "${run}" != "" ]; then
-	exec ~/bin/screen-layout/"${run}.sh" > /dev/null
+	exec $HOME/bin/screen-layout/"${run}.sh" > /dev/null
 fi
