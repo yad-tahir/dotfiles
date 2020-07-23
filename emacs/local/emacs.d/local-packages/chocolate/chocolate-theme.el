@@ -92,7 +92,7 @@
 (defcustom chocolate-theme-element+9 "#6fd8ff"
   "Palette - element class 5"
   :type 'string :group 'chocolate-theme)
-(defcustom chocolate-theme-element+10 "#6fd8ff"
+(defcustom chocolate-theme-element+10 "#3ee2b4"
   "Palette - element class 6"
   :type 'string :group 'chocolate-theme)
 (defcustom chocolate-theme-element+11 "#bef6d4"
@@ -125,7 +125,7 @@
 							:weight bold))))
  `(bold ((t (:background nil :foreground ,chocolate-theme-highlight+3
 						 :weight bold))))
- `(success ((t (:foreground ,chocolate-theme-element+10))))
+ `(success ((t (:foreground ,chocolate-theme-element+9))))
  `(error ((t (:background nil :foreground ,chocolate-theme-highlight
 						  :weight bold))))
  `(highlight ((t (:foreground ,chocolate-theme-element+4 :underline t))))
@@ -133,9 +133,10 @@
 						   :foreground ,chocolate-theme-highlight+2))))
  `(secondary-selection ((t (:background ,chocolate-theme-shadow))))
  `(lazy-highlight ((t (:inherit secondary-selection
-								:background ,chocolate-theme-shadow+3
-								:foreground ,chocolate-theme-white))))
- `(header-line ((t (:inherit lazy-highlight))))
+								:background ,chocolate-theme-shadow
+								:foreground ,chocolate-theme-white+3))))
+ `(header-line ((t (:inherit lazy-highlight
+							 :background ,chocolate-theme-bg))))
  `(link ((t (:inherit highlight :underline nil))))
  `(link-visited ((t (:foreground ,chocolate-theme-element+8))))
  `(button ((t (:inherit (link) :underline t))))
@@ -158,20 +159,20 @@
  `(completions-annotations ((t (:foreground ,chocolate-theme-shadow+3))))
  `(completions-common-part ((t (:foreground ,chocolate-theme-shadow+3))))
  `(widget-documentation ((t (:foreground ,chocolate-theme-white+1))))
- `(widget-field ((t (:background ,chocolate-theme-shadow+3
-								 :foreground ,chocolate-theme-white+2))))
+ `(widget-field ((t (:background ,chocolate-theme-shadow
+								 :foreground ,chocolate-theme-white+3))))
  `(widget-button ((t (:inherit button))))
  `(widget-single-line-field ((t (:inherit widget-field))))
 
  ;; font-lock
- `(font-lock-builtin-face ((t (:foreground ,chocolate-theme-highlight))))
+ `(font-lock-builtin-face ((t (:foreground ,chocolate-theme-element+8))))
  `(font-lock-comment-delimiter-face ((t (:inherit
 										 (font-lock-comment-face)))))
  `(font-lock-comment-face ((t (:inherit shadow :foreground nil))))
  `(font-lock-warning-face ((t (:inherit warning :foreground nil :weight normal))))
  `(font-lock-function-name-face ((t (:foreground ,chocolate-theme-element+2))))
  `(font-lock-variable-name-face ((t (:foreground ,chocolate-theme-white))))
- `(font-lock-constant-face ((t (:foreground ,chocolate-theme-element+10))))
+ `(font-lock-constant-face ((t (:foreground ,chocolate-theme-element+9))))
  `(font-lock-keyword-face ((t (:foreground ,chocolate-theme-element+4))))
  `(font-lock-type-face ((t (:foreground ,chocolate-theme-highlight+3))))
  `(font-lock-preprocessor-face ((t (:foreground ,chocolate-theme-element+8))))
@@ -212,7 +213,7 @@
  `(isearch-fail ((t (:background ,chocolate-theme-highlight))))
 
  ;; diff
- `(diff-header ((t (:background ,chocolate-theme-shadow+3))))
+ `(diff-header ((t (:background ,chocolate-theme-shadow))))
  `(diff-file-header ((t (:background nil :inherit diff-header))))
  `(diff-index ((t (:background ,chocolate-theme-shadow+1 :inherit diff-header))))
  `(diff-context ((t (:foreground ,chocolate-theme-shadow+3))))
@@ -259,7 +260,7 @@
 
  ;; whitespace
  `(whitespace-trailing ((t (:background nil
-										:foreground ,chocolate-theme-element+9))))
+										:foreground ,chocolate-theme-highlight+1))))
  `(whitespace-empty ((t (:foreground ,chocolate-theme-shadow+1))))
  `(whitespace-hspace ((t (:inherit (whitespace-empty)))))
  `(whitespace-indentation ((t (:inherit (whitespace-empty)))))

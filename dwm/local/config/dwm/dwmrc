@@ -144,9 +144,9 @@ uptime(){
 energy_profile(){
 	local v=$(cat /sys/devices/system/cpu/cpufreq/policy0/energy_performance_preference)
 	if [ $v = "power" ]; then
-		echo -e "\x06 SAVE\x01 "
+		echo -e "\x06  SAVE \x01 "
 	elif [ $v = "performance" ]; then
-		echo -e "\x06 PRFM\x01 "
+		echo -e "\x06  PRFM \x01 "
 	elif [ $v = "balance_performance" ]; then
 		echo -e " BLPR "
 	else

@@ -256,7 +256,7 @@
   (set-face-attribute 'org-table nil
 					  :foreground chocolate-theme-element+6)
   (set-face-attribute 'org-priority nil
-					  :foreground chocolate-theme-element+10)
+					  :foreground chocolate-theme-element+9)
   (set-face-attribute 'org-drawer nil
 					  :foreground chocolate-theme-shadow+3
 					  :inherit 'font-lock-comment-face)
@@ -267,6 +267,8 @@
 					  :foreground chocolate-theme-white)
   (set-face-attribute 'org-scheduled nil
 					  :foreground chocolate-theme-white)
+  (set-face-attribute 'org-scheduled-previously nil
+					  :foreground chocolate-theme-highlight+3)
   (set-face-attribute 'org-column nil
 					  :background chocolate-theme-shadow+1
 					  :foreground chocolate-theme-white+2)
@@ -279,7 +281,7 @@
 						:background chocolate-theme-highlight+2)
 	(set-face-attribute 'org-habit-alert-future-face nil
 						:foreground chocolate-theme-bg
-						:background chocolate-theme-highlight+3)
+						:background chocolate-theme-highlight+2)
 	(set-face-attribute 'org-habit-clear-face nil
 						:foreground chocolate-theme-white
 						:background chocolate-theme-shadow+3)
@@ -287,11 +289,11 @@
 						:foreground chocolate-theme-white
 						:background chocolate-theme-shadow)
 	(set-face-attribute 'org-habit-overdue-face nil
-						:foreground chocolate-theme-bg
-						:background chocolate-theme-highlight)
+						:foreground chocolate-theme-white+3
+						:background chocolate-theme-element+5)
 	(set-face-attribute 'org-habit-overdue-future-face nil
 						:foreground chocolate-theme-bg
-						:background chocolate-theme-highlight+1)
+						:background chocolate-theme-element+10)
 	(set-face-attribute 'org-habit-ready-face nil
 						:foreground chocolate-theme-bg
 						:background chocolate-theme-element)
@@ -514,11 +516,14 @@
 
   (set-face-attribute 'org-agenda-done nil :foreground chocolate-theme-white+2)
   (set-face-attribute 'org-agenda-date-today nil
-					  :foreground chocolate-theme-element+4)
+					  :foreground chocolate-theme-white+2)
+  (set-face-attribute 'org-agenda-dimmed-todo-face nil
+					  :inherit font-lock-comment-face
+					  :foreground 'nil)
   (set-face-attribute 'org-agenda-date nil
 					  :foreground chocolate-theme-white+1)
   (set-face-attribute 'org-agenda-structure nil
-					  :foreground chocolate-theme-highlight+2))
+					  :foreground chocolate-theme-element+4))
 
 (use-package org-bullets
   :ensure t

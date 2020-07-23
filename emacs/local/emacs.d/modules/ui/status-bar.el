@@ -55,7 +55,7 @@
 					  :foreground chocolate-theme-shadow+3)
   (set-face-attribute 'telephone-line-warning nil
 					  :background 'nil
-					  :foreground chocolate-theme-element+10 :weight 'bold)
+					  :foreground chocolate-theme-element+9 :weight 'bold)
 
   (setq telephone-line-faces
 		'((evil . telephone-line-modal-face)
