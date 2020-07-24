@@ -22,13 +22,17 @@ app-text/texlive png science graphics epspdf metapost extra
 dev-texlive/texlive-basic -luajittex
 app-text/mupdf -javascript
 
+# master-pdf-editor
+media-gfx/sane-backends -ipv6 -zeroconf
+
 # Disable ipv6 when it is not needed
 x11-apps/* -ipv6
 x11-libs/* -ipv6
 x11-org/* -ipv6
 media-sound/* -ipv6
 
-dev-qt/* -wayland
+# Disable local mail messaging
+*/* -sendmail
 
-# master-pdf-editor
-media-gfx/sane-backends -ipv6 -zeroconf
+# No wayland for now
+dev-qt/* -wayland

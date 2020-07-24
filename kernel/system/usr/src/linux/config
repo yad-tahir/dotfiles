@@ -1,10 +1,10 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86 5.4.48-gentoo Kernel Configuration
+# Linux/x86 5.4.53 Kernel Configuration
 #
 
 #
-# Compiler: gcc (Gentoo 9.3.0 p2) 9.3.0
+# Compiler: gcc (Gentoo 9.3.0-r1 p3) 9.3.0
 #
 CONFIG_CC_IS_GCC=y
 CONFIG_GCC_VERSION=90300
@@ -618,6 +618,7 @@ CONFIG_APPLE_PROPERTIES=y
 
 CONFIG_EFI_DEV_PATH_PARSER=y
 CONFIG_EFI_EARLYCON=y
+# CONFIG_EFI_CUSTOM_SSDT_OVERLAYS is not set
 
 #
 # Tegra firmware driver
@@ -1797,7 +1798,6 @@ CONFIG_SCSI_PROC_FS=y
 CONFIG_BLK_DEV_SD=y
 # CONFIG_CHR_DEV_ST is not set
 CONFIG_BLK_DEV_SR=y
-CONFIG_BLK_DEV_SR_VENDOR=y
 CONFIG_CHR_DEV_SG=y
 # CONFIG_CHR_DEV_SCH is not set
 # CONFIG_SCSI_CONSTANTS is not set
@@ -5183,18 +5183,3 @@ CONFIG_X86_DEBUG_FPU=y
 CONFIG_UNWINDER_ORC=y
 # CONFIG_UNWINDER_FRAME_POINTER is not set
 # end of Kernel hacking
-
-#
-# Gentoo Linux
-#
-CONFIG_GENTOO_LINUX=y
-CONFIG_GENTOO_LINUX_UDEV=y
-CONFIG_GENTOO_LINUX_PORTAGE=y
-
-#
-# Support for init systems, system and service managers
-#
-# CONFIG_GENTOO_LINUX_INIT_SCRIPT is not set
-CONFIG_GENTOO_LINUX_INIT_SYSTEMD=y
-# end of Support for init systems, system and service managers
-# end of Gentoo Linux
