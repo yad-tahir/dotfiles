@@ -80,7 +80,19 @@ gpu(){
 }
 
 fan(){
-	sensors | awk '/^fan1/{print " "$2}/^fan2/{print $2" "}'
+	local fan1=$(sensors | awk '/^fan1/{print $2}')
+	local fan2=$(sensors | awk '/^fan2/{print $2}')
+	# local fan1=$(sensors | awk '/^fan1/{print " "$2}/^fan2/{print $2" "}')
+
+	if [ $fan1 -ge 4000 ]; then
+		echo -e "\x05  $fan1 $fan2 \x01 "
+	elif [ $fan1 -ge 3500 ]; then
+		echo -e "\x04  $fan1 $fan2 \x01 "
+	elif [ $fan1 -ge 2500 ]; then
+		echo -e "\x07  $fan1 $fan2 \x01 "
+	else
+		echo -e " $fan1 $fan2 "
+	fi
 }
 
 mem(){
