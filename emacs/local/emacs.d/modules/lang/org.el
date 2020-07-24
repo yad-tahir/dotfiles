@@ -184,6 +184,8 @@
 		org-track-ordered-property-with-tag t ;; Add :ORDER:
 		org-enforce-todo-checkbox-dependencies t ;; Don't allow the super task
 		org-enforce-todo-dependencies t ;; Don't allow the super task to close
+		org-habit-following-days 1
+		org-habit-preceding-days 30
 		org-habit-graph-column 80)
 
   (add-hook 'org-mode-hook 'do-line-numbers-to-visual)
