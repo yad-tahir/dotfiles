@@ -34,10 +34,6 @@ source $HOME/bin/settings.sh
 # Adjust the path
 PATH="$HOME/bin:${PATH}"
 
-life | figlet -f bubble
-
-echo ''
-
 # Starts GUI automatically if this is the DISPLAY variable is empty, we are on
 # the virtual tty 1, and this is the first login after a cold boot
 if [[ -z $DISPLAY && $XDG_VTNR -eq 1 && ! -f /tmp/init-startx ]]; then
