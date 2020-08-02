@@ -69,6 +69,7 @@ sys-process/glances
 sys-process/htop
 www-client/firefox
 x11-apps/setxkbmap
+x11-apps/xmodmap
 x11-apps/xrdb
 x11-apps/xsetroot
 x11-base/xorg-server

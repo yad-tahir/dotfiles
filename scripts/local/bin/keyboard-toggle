@@ -31,6 +31,10 @@ else
 	setxkbmap dvorak
 	# Selected options from /usr/share/X11/xkb/rules/base.lst
 	setxkbmap -option 'ctrl:swapcaps'
+	xmodmap -e "keycode 119 = Delete"
+	xmodmap -e "keycode 118 = F5"
+	xmodmap -e "keycode 108 = F2"
+	xmodmap -e "keycode 105 = F3"
 fi
 
 # Refresh system-wide keybindings to accommodate any changes in key codes for
