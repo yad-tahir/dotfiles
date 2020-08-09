@@ -79,6 +79,11 @@ gpu(){
 	fi
 }
 
+temp(){
+	local r=$(sensors | awk '/Package id/{gsub("+", "",$4); print $4}')
+	echo -e " $r "
+}
+
 fan(){
 	local fan1=$(sensors | awk '/^fan1/{print $2}')
 	local fan2=$(sensors | awk '/^fan2/{print $2}')
@@ -116,8 +121,8 @@ keyboard(){
 	local layout=$(setxkbmap -query |
 				   awk '/^layout/{split($2,arr,","); print toupper(arr[1])}')
 	caps=$(xset -q | awk '/Caps/{print $4}')
-	if [ "$layout" != "US" ]; then
-		layout="\x07  $layout \x01"
+	if [ "$layout" = "US" ]; then
+		layout="\x04  $layout \x01"
 	else
 		layout=" $layout"
 	fi
@@ -171,7 +176,7 @@ vpn(){
 	if [ -z "$v" ]; then
 		echo -e "\x05  OFF \x01 "
 	else
-		echo -e "\x07  ON \x01 "
+		echo -e " ON "
 	fi
 }
 
@@ -198,7 +203,7 @@ time_left(){
 }
 
 while [ 1 ]; do
-	status="$(fan)$(uptime)$(mem)$(emacs)$(vpn)$(insync)| $(gpu)$(energy_profile)$(battery)$(vol)$(keyboard)| $(time_left)| $(date +'%a, %b %d %H:%M')"
+	status="$(fan)$(temp)$(uptime)$(mem)$(emacs)$(vpn)$(insync)| $(gpu)$(energy_profile)$(battery)$(vol)$(keyboard)| $(time_left)| $(date +'%a, %b %d %H:%M')"
 	status=$(echo -e "$status" | tr '\n' ' ')
 	xsetroot -name "$status"
 	sleep 1m
