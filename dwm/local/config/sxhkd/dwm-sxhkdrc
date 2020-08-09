@@ -68,8 +68,14 @@ F2
 	emacsclient -nqe "(do-make-frame nil \"$DISPLAY\")" -a='/usr/bin/urxvt -e nano' > /dev/null &
 
 # Screen brightness
-F12
-	xrandr --output eDP-1 --brightness {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1}
+{F12, F11}
+	[ ! -f /tmp/screen-brightness ] && echo 0 > /tmp/screen-brightness; \
+	brightness=$(echo $(cat /tmp/screen-brightness){+,-}0.05| bc); \
+	echo $brightness > /tmp/screen-brightness; \
+	[ $(echo $(cat /tmp/screen-brightness)'>1' | bc) = 1 ] && brightness=1.0; \
+	[ $(echo $(cat /tmp/screen-brightness)'<0' | bc) = 1 ] && brightness=0; \
+	echo $brightness > /tmp/screen-brightness; \
+	xrandr --output eDP-1 --brightness $brightness
 
 # Dmenu
 super + g
