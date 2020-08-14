@@ -23,6 +23,9 @@ xrandr --auto
 # Set the background color
 feh --bg-fill $(/bin/ls ${HOME}/pictures/background/* | shuf -n 1) &
 
+# Set default keyboard layout
+~/bin/keyboard-toggle us dvorak
+
 systemctl --user import-environment
 # Avoid using systemd 'enable' feature for Emacs as it can launch Emacs server
 # before importing most all env. variables. Instead, start Emacs service
@@ -35,7 +38,6 @@ xset r off
 
 # Startup commands
 gpg-connect-agent /bye
-
 
 insync() {
 	local tmp=$(insync-headless get_sync_progress 2> /dev/null | head -n1)
@@ -120,16 +122,19 @@ emacs(){
 keyboard(){
 	local layout=$(setxkbmap -query |
 				   awk '/^layout/{split($2,arr,","); print toupper(arr[1])}')
-	caps=$(xset -q | awk '/Caps/{print $4}')
-	if [ "$layout" = "US" ]; then
-		layout="\x04  $layout \x01"
+	local variant=$(setxkbmap -query |
+				   awk '/^variant/{split($2,arr,","); print toupper(arr[1])}')
+	local caps=$(xset -q | awk '/Caps/{print $4}')
+	local state=''
+	if [ "$variant" != "DVORAK" ]; then
+		state="\x04  $layout \x01"
 	else
-		layout=" $layout"
+		state=" $variant"
 	fi
 	if [ "$caps" = 'off' ]; then
-		echo -e "$layout "
+		echo -e "$state "
 	else
-		echo -e "\x05  CAPS \x01 $layout "
+		echo -e "\x05  CAPS \x01 $state "
 	fi
 }
 

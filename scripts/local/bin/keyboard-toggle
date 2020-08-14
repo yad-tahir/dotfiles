@@ -20,22 +20,27 @@
 serviceName=sxhkd-dwm@${XDG_VTNR}.service
 systemctl --user --force stop $serviceName
 
-state=$(setxkbmap -query |
+variant=$(setxkbmap -query |
+			awk '/^variant/{split($2,arr,","); print toupper(arr[1])}')
+layout=$(setxkbmap -query |
 			awk '/^layout/{split($2,arr,","); print toupper(arr[1])}')
 
-if [ $state = "DVORAK" ]; then
-	# Switch back to QWERTY
+if [ ! -z "$1" ]; then
+	setxkbmap $1 $2
+elif [ "$variant" = "DVORAK" ]; then
 	setxkbmap us
-	setxkbmap -option
+elif [ "$layout" = "US" -a -z "$variant" ]; then
+	setxkbmap ar
 else
-	setxkbmap dvorak
-	# Selected options from /usr/share/X11/xkb/rules/base.lst
-	setxkbmap -option 'ctrl:swapcaps'
-	xmodmap -e "keycode 119 = Delete"
-	xmodmap -e "keycode 118 = F5"
-	xmodmap -e "keycode 108 = F2"
-	xmodmap -e "keycode 105 = F3"
+	setxkbmap us dvorak
 fi
+
+# Selected options from /usr/share/X11/xkb/rules/base.lst
+setxkbmap -option 'ctrl:swapcaps'
+# Custom layout
+xmodmap -e "keycode 118 = F5"
+xmodmap -e "keycode 108 = F2"
+xmodmap -e "keycode 105 = F3"
 
 # Refresh system-wide keybindings to accommodate any changes in key codes for
 # various keyboard layouts. Make sure systemd's variables are up-to-date,
