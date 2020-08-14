@@ -1,9 +1,10 @@
 # Core
 sys-fs/zfs ~amd64
 sys-fs/zfs-kmod ~amd64
-<sys-kernel/vanilla-sources-5.5.0 ~amd64
+<sys-kernel/vanilla-sources-5.4.54 ~amd64
 x11-wm/dwm ~amd64
 x11-misc/dmenu ~amd64
+
 # Apps
 <=app-editors/emacs-28 **
 <www-client/firefox-79.0 ~amd64
@@ -15,7 +16,7 @@ games-util/steam-launcher ~amd64
 # The unstable version is used to remove Python 3.6 dependency
 media-sound/pulsemixer ~amd64
 x11-drivers/nvidia-drivers **
-=net-im/zoom-5.0.408598.0517 ~amd64
+
 # Misc
 cross-avr/gcc **
 virtual/opencl ~amd64

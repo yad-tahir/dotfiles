@@ -7,4 +7,4 @@ sys-devel/gcc -fortran
 
 # @cgroup-hybrid is needed by virt-manager
 # Remove @gcrypt as the disk it is already fully encrypted
-sys-apps/systemd elfutils cgroup-hybrid -gcrypt
+sys-apps/systemd cgroup-hybrid -elfutils -gcrypt -pcre -abi_x86_32
