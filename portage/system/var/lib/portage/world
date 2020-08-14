@@ -55,6 +55,8 @@ sys-apps/ripgrep
 sys-apps/systemd
 sys-firmware/intel-microcode
 sys-fs/cryptsetup
+sys-fs/exfat-utils
+sys-fs/fuse-exfat
 sys-fs/zfs
 sys-kernel/genkernel
 sys-kernel/gentoo-sources
