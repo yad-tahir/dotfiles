@@ -5,7 +5,4 @@ dev-util/ninja
 virtual/rust
 net-libs/nodejs
 
-
 # Preserved libraries
-# opencl
-dev-util/spirv-llvm-translator
