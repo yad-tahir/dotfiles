@@ -1,6 +1,7 @@
 # OpenGL
 # Mesa is an open source implementation for opengl
-media-libs/mesa X abi_x86_32 libglvnd vulkan vulkan-overlay vdpau vaapi opencl
+media-libs/mesa X libglvnd vulkan vulkan-overlay vdpau vaapi opencl
 
 # libglvnd provides automatic switching between using iGPU and dGPU. When you enable it, you should unmerge manual switching performed by eselect-opengl
-media-libs/libglvnd X abi_x86_32
+media-libs/libglvnd X
+# media-libs/libglvnd X abi_x86_32

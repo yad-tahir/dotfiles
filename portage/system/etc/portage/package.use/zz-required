@@ -31,179 +31,6 @@ x11-libs/libdrm video_cards_intel
 # required by nvidia-drivers (argument)
 >=x11-libs/gdk-pixbuf-2.38.1-r1 X
 
-#
-# Steam and 32-bit games
-#
-# required by x11-drivers/nvidia-drivers-440.36-r1::gentoo[X]
-# required by nvidia-drivers (argument)
->=x11-libs/libX11-1.6.9 abi_x86_32
-# required by x11-drivers/nvidia-drivers-440.36-r1::gentoo[X]
-# required by nvidia-drivers (argument)
->=x11-libs/libXext-1.3.4 abi_x86_32
-# required by x11-drivers/nvidia-drivers-440.36-r1::gentoo[X]
-# required by nvidia-drivers (argument)
->=x11-libs/libvdpau-1.2 abi_x86_32
-# required by x11-drivers/nvidia-drivers-440.36-r1::gentoo[X]
-# required by nvidia-drivers (argument)
->=sys-libs/zlib-1.2.11-r2 abi_x86_32
-# required by x11-libs/libX11-1.6.9::gentoo
-# required by x11-libs/gdk-pixbuf-2.38.1-r1::gentoo[X]
-# required by x11-drivers/nvidia-drivers-440.36-r1::gentoo[tools]
-# required by nvidia-drivers (argument)
->=x11-libs/libxcb-1.13.1 abi_x86_32
-# required by x11-libs/libxcb-1.13.1::gentoo
-# required by x11-libs/libX11-1.6.9::gentoo
-# required by x11-libs/gdk-pixbuf-2.38.1-r1::gentoo[X]
-# required by x11-drivers/nvidia-drivers-440.36-r1::gentoo[tools]
-# required by nvidia-drivers (argument)
->=dev-libs/libpthread-stubs-0.4-r1 abi_x86_32
-# required by x11-libs/libxcb-1.13.1::gentoo
-# required by x11-libs/libX11-1.6.9::gentoo
-# required by x11-libs/gdk-pixbuf-2.38.1-r1::gentoo[X]
-# required by x11-drivers/nvidia-drivers-440.36-r1::gentoo[tools]
-# required by nvidia-drivers (argument)
->=x11-libs/libXau-1.0.9 abi_x86_32
-# required by x11-libs/libxcb-1.13.1::gentoo
-# required by x11-libs/libX11-1.6.9::gentoo
-# required by x11-libs/gdk-pixbuf-2.38.1-r1::gentoo[X]
-# required by x11-drivers/nvidia-drivers-440.36-r1::gentoo[tools]
-# required by nvidia-drivers (argument)
->=x11-libs/libXdmcp-1.1.3 abi_x86_32
-# required by x11-libs/libXdmcp-1.1.3::gentoo
-# required by x11-libs/libxcb-1.13.1::gentoo
-# required by x11-libs/libX11-1.6.9::gentoo
-# required by x11-libs/gdk-pixbuf-2.38.1-r1::gentoo[X]
-# required by x11-drivers/nvidia-drivers-440.36-r1::gentoo[tools]
-# required by nvidia-drivers (argument)
->=virtual/pkgconfig-1 abi_x86_32
-# required by virtual/pkgconfig-1::gentoo
-# required by x11-libs/libXext-1.3.4::gentoo
-# required by x11-libs/libvdpau-1.2::gentoo[dri]
-# required by x11-drivers/nvidia-drivers-440.36-r1::gentoo[X]
-# required by nvidia-drivers (argument)
->=dev-util/pkgconf-1.6.3 abi_x86_32
-# required by x11-libs/libxcb-1.13.1::gentoo
-# required by x11-libs/libX11-1.6.9::gentoo
-# required by x11-libs/gdk-pixbuf-2.38.1-r1::gentoo[X]
-# required by x11-drivers/nvidia-drivers-440.36-r1::gentoo[tools]
-# required by nvidia-drivers (argument)
->=x11-base/xcb-proto-1.13 abi_x86_32
-# required by media-plugins/alsa-plugins-1.1.8::gentoo[pulseaudio]
->=media-sound/pulseaudio-12.2-r2 abi_x86_32
-# required by media-sound/pulseaudio-12.2-r2::gentoo
-# required by media-plugins/alsa-plugins-1.1.8::gentoo[pulseaudio]
->=media-libs/libsndfile-1.0.28-r4 abi_x86_32
-# required by media-sound/pulseaudio-12.2-r2::gentoo[X]
-# required by media-plugins/alsa-plugins-1.1.8::gentoo[pulseaudio]
->=x11-libs/libSM-1.2.3 abi_x86_32
-# required by x11-libs/libSM-1.2.3::gentoo
-# required by media-sound/pulseaudio-12.2-r2::gentoo[X]
-# required by media-plugins/alsa-plugins-1.1.8::gentoo[pulseaudio]
->=x11-libs/libICE-1.0.10 abi_x86_32
-# required by media-sound/pulseaudio-12.2-r2::gentoo[X]
-# required by media-plugins/alsa-plugins-1.1.8::gentoo[pulseaudio]
->=x11-libs/libXtst-1.2.3-r1 abi_x86_32
-# required by sys-apps/systemd-243-r2::gentoo
-# required by net-print/cups-2.2.12::gentoo[systemd]
-# required by @steam
-# required by @selected
-# required by @world (argument)
->=sys-libs/libcap-2.26-r2 abi_x86_32
-# required by media-sound/pulseaudio-12.2-r2::gentoo[tcpd]
-# required by media-plugins/alsa-plugins-1.1.8::gentoo[pulseaudio]
->=sys-apps/tcp-wrappers-7.6.22-r1 abi_x86_32
-# required by media-sound/pulseaudio-12.2-r2::gentoo[asyncns]
-# required by media-plugins/alsa-plugins-1.1.8::gentoo[pulseaudio]
->=net-libs/libasyncns-0.8-r4 abi_x86_32
-# required by virtual/libudev-232-r3::gentoo
-# required by sys-apps/util-linux-2.33.2::gentoo[udev]
-# required by media-libs/fontconfig-2.13.0-r4::gentoo
-# required by x11-libs/gtk+-2.24.32-r1::gentoo
-# required by @steam
-# required by @selected
-# required by @world (argument)
->=sys-apps/systemd-243-r2 abi_x86_32
-# required by media-sound/pulseaudio-12.2-r2::gentoo[alsa,alsa-plugin]
-# required by media-libs/openal-1.19.1::gentoo[pulseaudio]
-# required by @steam
-# required by @selected
-# required by @world (argument)
->=media-plugins/alsa-plugins-1.1.8 abi_x86_32
-# required by media-plugins/alsa-plugins-1.1.8::gentoo
-# required by media-sound/pulseaudio-12.2-r2::gentoo[alsa,alsa-plugin]
-# required by media-libs/openal-1.19.1::gentoo[pulseaudio]
-# required by @steam
-# required by @selected
-# required by @world (argument)
->=media-libs/alsa-lib-1.1.8 abi_x86_32
-# required by sys-apps/systemd-243-r2::gentoo[gcrypt]
-# required by net-print/cups-2.2.12::gentoo[systemd]
-# required by @steam
-# required by @selected
-# required by @world (argument)
->=dev-libs/libgcrypt-1.8.5 abi_x86_32
-# required by sys-apps/systemd-243-r2::gentoo[lz4]
-# required by net-print/cups-2.2.12::gentoo[systemd]
-# required by @steam
-# required by @selected
-# required by @world (argument)
->=app-arch/lz4-1.9.2 abi_x86_32
-# required by sys-apps/systemd-243-r2::gentoo[pam]
-# required by net-print/cups-2.2.12::gentoo[systemd]
-# required by @steam
-# required by @selected
-# required by @world (argument)
->=sys-libs/pam-1.3.0-r2 abi_x86_32
-# required by sys-libs/pam-1.3.0-r2::gentoo[cracklib]
-# required by net-print/cups-2.2.12::gentoo[pam]
-# required by @steam
-# required by @selected
-# required by @world (argument)
->=sys-libs/cracklib-2.9.7 abi_x86_32
-# required by sys-libs/pam-1.3.0-r2::gentoo[berkdb]
-# required by net-print/cups-2.2.12::gentoo[pam]
-# required by @steam
-# required by @selected
-# required by @world (argument)
->=sys-libs/db-5.3.28-r2 abi_x86_32
-# required by sys-libs/pam-1.3.0-r2::gentoo
-# required by net-print/cups-2.2.12::gentoo[pam]
-# required by @steam
-# required by @selected
-# required by @world (argument)
->=sys-devel/flex-2.6.4-r1 abi_x86_32
-# required by dev-libs/libgcrypt-1.8.5::gentoo
-# required by sys-apps/systemd-243-r2::gentoo[gcrypt]
-# required by net-print/cups-2.2.12::gentoo[systemd]
-# required by @steam
-# required by @selected
-# required by @world (argument)
->=dev-libs/libgpg-error-1.36 abi_x86_32
-# required by media-libs/libsndfile-1.0.28-r4::gentoo[-minimal]
-# required by media-sound/pulseaudio-12.2-r2::gentoo
-# required by media-plugins/alsa-plugins-1.1.8::gentoo[pulseaudio]
->=media-libs/flac-1.3.3 abi_x86_32
-# required by media-libs/libsndfile-1.0.28-r4::gentoo[-minimal]
-# required by media-sound/pulseaudio-12.2-r2::gentoo
-# required by media-plugins/alsa-plugins-1.1.8::gentoo[pulseaudio]
->=media-libs/libogg-1.3.3 abi_x86_32
-# required by media-libs/libsndfile-1.0.28-r4::gentoo[-minimal]
-# required by media-sound/pulseaudio-12.2-r2::gentoo
-# required by media-plugins/alsa-plugins-1.1.8::gentoo[pulseaudio]
->=media-libs/libvorbis-1.3.6 abi_x86_32
-# required by sys-devel/gettext-0.19.8.1::gentoo
-# required by media-libs/mesa-19.1.8::gentoo
-# required by x11-libs/cairo-1.16.0-r3::gentoo[opengl]
-# required by x11-libs/gtk+-2.24.32-r1::gentoo
-# required by @steam
-# required by @selected
-# required by @world (argument)
->=virtual/libintl-0-r2 abi_x86_32
-#
-# End of Steam and 32-bit games
-#
-
-
 # required by app-text/texlive-core-2019-r4::gentoo
 # required by dev-texlive/texlive-latex-2019::gentoo
 # required by dev-texlive/texlive-latexrecommended-2019-r2::gentoo
@@ -234,13 +61,6 @@ media-libs/gst-plugins-base X
 # required by @world (argument)
 >=dev-libs/libpcre2-10.33-r1 pcre16
 
-# required by media-libs/libsndfile-1.0.29_pre2_p20191024::gentoo[-minimal]
-# required by media-sound/pulseaudio-13.0::gentoo
-# required by app-emulation/qemu-4.2.0-r6::gentoo[-static,pulseaudio]
-# required by @selected
-# required by @world (argument)
->=media-libs/opus-1.3.1-r1 abi_x86_32
-
 # required by x11-libs/gtk+-3.24.11::gentoo
 # required by app-text/ghostscript-gpl-9.50::gentoo[gtk]
 # required by app-text/ps2eps-1.68::gentoo
@@ -249,25 +69,10 @@ media-libs/gst-plugins-base X
 # required by @world (argument)
 >=media-libs/libepoxy-1.5.4 X
 
-# required by media-libs/mesa-19.3.0::gentoo
-# required by media-libs/libepoxy-1.5.4::gentoo[egl]
-# required by media-libs/virglrenderer-0.6.0::gentoo
-# required by app-emulation/qemu-4.0.0-r50::gentoo[virgl]
-# required by @selected
-# required by @world (argument)
->=dev-util/glslang-7.12.3353_pre20191027-r2 abi_x86_32
-
 # required by media-gfx/gimp-2.10.8-r1::gentoo
 # required by media-gfx/gimp (argument)
 >=media-libs/gegl-0.4.16 cairo
 >=app-text/poppler-0.82.0 cairo
-
-# required by sys-libs/pam-1.3.1-r1::gentoo
-# required by sys-apps/shadow-4.6::gentoo
-# required by virtual/shadow-0::gentoo
-# required by @system
-# required by @world (argument)
->=virtual/libcrypt-1 abi_x86_32
 
 # required by dev-lang/php-7.4.3::gentoo
 # required by @selected
@@ -305,44 +110,6 @@ sci-libs/fftw -fortran
 # required by net-im/zoom-3.5.385850.0413::gentoo
 # required by net-im/zoom (argument)
 >=sys-libs/zlib-1.2.11-r2 minizip
-
-
-# required by media-libs/mesa-19.3.5::gentoo[gallium,opencl]
-# required by @selected
-# required by @world (argument)
->=dev-libs/ocl-icd-2.2.12-r3 abi_x86_32
-# required by x11-libs/libva-intel-driver-2.3.0::gentoo
->=x11-libs/libva-2.5.0-r1 abi_x86_32
-# required by media-libs/mesa-19.3.5::gentoo[-video_cards_radeonsi,-video_cards_r600,gallium,opencl,llvm,-video_cards_radeon]
-# required by @selected
-# required by @world (argument)
->=sys-devel/clang-9.0.1 abi_x86_32
-# required by x11-libs/libva-2.5.0-r1::gentoo[video_cards_nvidia,vdpau]
-# required by x11-libs/libva-intel-driver-2.3.0::gentoo
->=x11-libs/libva-vdpau-driver-0.7.4-r5 abi_x86_32
-# required by x11-libs/libva-2.5.0-r1::gentoo[-video_cards_intel,video_cards_i965]
-# required by x11-libs/libva-vdpau-driver-0.7.4-r5::gentoo
->=x11-libs/libva-intel-driver-2.3.0 abi_x86_32
-# required by media-libs/mesa-19.3.5::gentoo[-video_cards_radeonsi,-video_cards_r600,gallium,opencl,llvm,-video_cards_radeon]
-# required by @selected
-# required by @world (argument)
->=virtual/libelf-3 abi_x86_32
-# required by virtual/libelf-3::gentoo
-# required by media-libs/mesa-19.3.5::gentoo[-video_cards_radeonsi,-video_cards_r600,gallium,opencl,llvm,-video_cards_radeon]
-# required by @selected
-# required by @world (argument)
->=dev-libs/elfutils-0.177 abi_x86_32
-
-# required by media-libs/mesa-20.0.8::gentoo[zstd]
-# required by x11-base/xorg-server-1.20.8::gentoo[-minimal]
-# required by @selected
-# required by @world (argument)
->=app-arch/zstd-1.4.4-r4 abi_x86_32
-# required by media-libs/mesa-20.0.8::gentoo[gallium,opencl]
-# required by x11-base/xorg-server-1.20.8::gentoo[-minimal]
-# required by @selected
-# required by @world (argument)
->=virtual/opencl-3-r1 abi_x86_32
 
 # media-sound/easytag
 media-libs/libcanberra -udev -sound -gtk
