@@ -20,6 +20,7 @@ dev-lang/python sqlite
 >=dev-libs/xmlsec-1.2.28 nss
 >=app-text/ghostscript-gpl-9.50 cups
 >=app-text/xmlto-0.0.28-r1 text
+dev-libs/boost nls
 
 # required by sys-kernel/genkernel-3.5.3.3
 >=sys-apps/util-linux-2.33.2 static-libs

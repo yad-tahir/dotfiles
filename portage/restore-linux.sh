@@ -21,6 +21,7 @@ echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
 arr=( "/etc/portage/bashrc"
+	  "/etc/portage/common.conf"
 	  "/etc/portage/make.conf"
 	  "/etc/portage/repos.conf"
 	  "/etc/portage/sets"
@@ -71,6 +72,5 @@ if [ ! -e $REPO_PATH ]; then
 	sudo -E git remote add gentoo https://anongit.gentoo.org/git/repo/gentoo.git
 	popd
 fi
-
 
 do-ln-sync "$PWD/local/alias.d" "$HOME/.config/alias.d"
