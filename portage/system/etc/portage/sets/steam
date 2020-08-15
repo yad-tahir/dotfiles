@@ -1,4 +1,5 @@
 # mandatory!
+games-util/steam-launcher
 dev-libs/glib:2
 dev-libs/libgcrypt
 dev-libs/nspr
