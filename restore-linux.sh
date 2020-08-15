@@ -34,7 +34,7 @@ fi
 ./firewall/restore-linux.sh
 ./gdrive/restore-linux.sh
 ./git/restore-linux.sh
-./igpu/restore-linux.sh
+./intel/restore-linux.sh
 ./logger/restore-linux.sh
 ./kernel/restore-linux.sh
 ./monitor/restore-linux.sh
