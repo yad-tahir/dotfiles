@@ -23,14 +23,13 @@ xrandr --auto
 # Set the background color
 feh --bg-fill $(/bin/ls ${HOME}/pictures/background/* | shuf -n 1) &
 
-# Set default keyboard layout
-~/bin/keyboard-toggle us dvorak
-
 systemctl --user import-environment
 # Avoid using systemd 'enable' feature for Emacs as it can launch Emacs server
 # before importing most all env. variables. Instead, start Emacs service
 # manually in the beginning of a new dwm session.
 systemctl --user restart emacs-27-vcs.service &
+
+setxkbmap # Make sure X11 keymap is loaded properly before starting sxhkd
 systemctl --user restart sxhkd-dwm@${XDG_VTNR}.service &
 
 # Disable key stroke repeating

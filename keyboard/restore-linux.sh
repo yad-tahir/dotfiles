@@ -20,25 +20,13 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
-TARGET=${HOME}/.config/
-do-ln-sync "${PWD}/local/config/user-dirs.dirs" "${TARGET}/user-dirs.dirs"
-do-ln-sync "${PWD}/local/config/user-dirs.locale" "${TARGET}/user-dirs.locale"
+do-ln-sync "${PWD}/local/bin" "${HOME}/bin"
 
-TARGET=${HOME}/.Xresources
-SOURCE=${PWD}/local/Xresources
-do-ln-sync "$SOURCE" "$TARGET"
-
-TARGET=${HOME}/.xinitrc
-SOURCE=${PWD}/local/xinitrc
-do-ln-sync "$SOURCE" "$TARGET"
-
-TARGET=/etc/systemd/system/getty@tty1.service.d
-SOURCE=${PWD}/system${TARGET}
-do-sync-sudo "${SOURCE}" "$TARGET"
-TARGET=/etc/systemd/system/getty@tty2.service.d
-SOURCE=${PWD}/system${TARGET}
-do-sync-sudo "${SOURCE}" "$TARGET"
-
-TARGET=/etc/X11/xorg.conf.d
-SOURCE=${PWD}/system${TARGET}
-do-sync-sudo "${SOURCE}" "$TARGET"
+arr=( "/usr/share/X11/xkb/symbols"
+	  "/etc/X11/xorg.conf.d"
+	  "/etc/conf.d" )
+for i in "${arr[@]}"; do
+	TARGET=$i
+	SOURCE=${PWD}/system${TARGET}
+	do-sync-sudo "$SOURCE" "$TARGET"
+done

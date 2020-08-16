@@ -37,6 +37,7 @@ fi
 ./intel/restore-linux.sh
 ./logger/restore-linux.sh
 ./kernel/restore-linux.sh
+./keyboard/restore-linux.sh
 ./monitor/restore-linux.sh
 ./mpd/restore-linux.sh
 ./network/restore-linux.sh
