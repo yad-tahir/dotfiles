@@ -3,7 +3,3 @@
 =sys-kernel/linux-firmware-20191108 linux-fw-redistributable no-source-code
 
 >=x11-drivers/nvidia-drivers-440.31 NVIDIA-r2
->=dev-util/nvidia-cuda-toolkit-10.2.89-r1 NVIDIA-CUDA
-
->=media-fonts/font-bh-ttf-1.0.3-r1 bh-luxi
->=media-fonts/font-bh-type1-1.0.3-r1 bh-luxi
