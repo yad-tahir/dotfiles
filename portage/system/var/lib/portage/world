@@ -59,10 +59,10 @@ sys-fs/fuse-exfat
 sys-fs/zfs
 sys-kernel/genkernel
 sys-kernel/gentoo-sources
-sys-kernel/gentoo-sources:5.4.48
 sys-kernel/vanilla-sources
 sys-kernel/vanilla-sources:5.4.53
 sys-kernel/vanilla-sources:5.4.55
+sys-kernel/vanilla-sources:5.4.61
 sys-power/acpi
 sys-power/intel-undervolt
 sys-power/powertop
