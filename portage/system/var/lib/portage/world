@@ -24,6 +24,7 @@ app-text/zathura
 app-text/zathura-pdf-mupdf
 dev-lang/php
 dev-vcs/git
+gnome-extra/zenity
 lxde-base/lxappearance
 media-fonts/corefonts
 media-fonts/dejavu

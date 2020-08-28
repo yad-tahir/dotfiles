@@ -11,13 +11,12 @@ media-video/obs-studio ~amd64
 media-sound/spotify ~amd64
 app-text/master-pdf-editor ~amd64
 games-util/steam-launcher ~amd64
-# The unstable version is used to remove Python 3.6 dependency
 media-sound/pulsemixer ~amd64
-x11-drivers/nvidia-drivers **
 
 # Misc
 cross-avr/gcc **
 virtual/opencl ~amd64
+x11-drivers/nvidia-drivers **
 dev-util/nvidia-cuda-toolkit ~amd64
 sys-power/intel-undervolt ~amd64
 
