@@ -113,3 +113,8 @@ sci-libs/fftw -fortran
 
 # media-sound/easytag
 media-libs/libcanberra -udev -sound -gtk
+
+# required by app-editors/emacs-27.1.9999-r1::gentoo
+# required by @selected
+# required by @world (argument)
+>=app-emacs/emacs-common-gentoo-1.6-r4 gui

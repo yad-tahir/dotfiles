@@ -1,6 +1,12 @@
 net-print/cups X -acl
 net-print/cups-filters pdf png jpeg
 
+# Enable built-in emacs support
+app-admin/eselect emacs
+sys-devel/gettext emacs
+app-crypt/pinentry emacs
+dev-vcs/git emacs
+
 # Many applications, such as virt-manager and libraoffice, require @X internally
 sys-apps/dbus X
 

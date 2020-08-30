@@ -1,7 +1,7 @@
 # @png, @jpeg, @svg to support common image formats
 # @tiff, @xpm to remove unused image formats
 # @harfbuzz @cairo @json will be added in Emacs 27
-app-editors/emacs X png jpeg svg gfile harfbuzz cairo json -tiff -xpm
+app-editors/emacs X gui png jpeg svg gfile harfbuzz cairo json -tiff -xpm
 
 # @265-color @blink for UI enhancements
 x11-terms/rxvt-unicode 256-color blink
