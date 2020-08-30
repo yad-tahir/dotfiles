@@ -37,8 +37,5 @@ x11-libs/* -ipv6
 x11-org/* -ipv6
 media-sound/* -ipv6
 
-# Disable local mail messaging
-*/* -sendmail
-
 # No wayland for now
 dev-qt/* -wayland
