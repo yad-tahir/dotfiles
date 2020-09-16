@@ -39,9 +39,10 @@ media-sound/mpc
 media-sound/mpd
 media-sound/pulseaudio
 media-sound/pulsemixer
-media-sound/spotify
+media-sound/qjackctl
 media-video/mpv
 media-video/obs-studio
+media-video/vlc
 net-analyzer/wireshark
 net-firewall/nftables
 net-im/zoom

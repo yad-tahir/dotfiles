@@ -1,2 +1,7 @@
-media-sound/pulseaudio X alsa dbus -ipv6 -tcpd -gtk
+media-sound/pulseaudio X alsa dbus jack -ipv6 -tcpd -gtk
+media-sound/jack-audio-connection-kit alsa oss
+
+# App
 media-sound/mpd audiofile flac -ipv6 -network -dbus -curl -bzip2 -mad -eventfd
+media-sound/qjackctl alsa dbus
+media-sound/easytag flac mp3
