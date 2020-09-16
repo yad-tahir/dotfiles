@@ -7,9 +7,6 @@
 # Avoid re-compiling Google chromium
 >dev-qt/qtwebengine-5.14.2
 
-# Unstable packages
-=sys-kernel/linux-firmware-20200817
-
 # Uncessary packages
 dev-lang/vala
 app-editors/xemacs
