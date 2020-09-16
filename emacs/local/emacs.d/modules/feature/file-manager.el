@@ -312,6 +312,9 @@ separate frame."
 		 (dired-mode . openwith-mode))
   :config
   (setq openwith-associations '(("\\.pdf\\'" "zathura" (file))
+								("\\.jpg\\'" "gimp" (file))
+								("\\.png\\'" "gimp" (file))
+								("\\.cr2\\'" "gimp" (file))
 								("\\.mp4\\'" "mpv" (file)))))
 
 
