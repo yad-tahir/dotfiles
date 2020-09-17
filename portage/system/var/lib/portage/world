@@ -62,9 +62,9 @@ sys-fs/zfs
 sys-kernel/genkernel
 sys-kernel/gentoo-sources
 sys-kernel/vanilla-sources
-sys-kernel/vanilla-sources:5.4.55
 sys-kernel/vanilla-sources:5.4.61
 sys-kernel/vanilla-sources:5.4.63
+sys-kernel/vanilla-sources:5.4.65
 sys-power/acpi
 sys-power/intel-undervolt
 sys-power/powertop
