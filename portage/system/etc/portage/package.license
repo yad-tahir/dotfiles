@@ -1,5 +1,0 @@
-# required by sys-kernel/genkernel-3.5.3.3::gentoo[firmware]
-# required by genkernel (argument)
-=sys-kernel/linux-firmware-20191108 linux-fw-redistributable no-source-code
-
->=x11-drivers/nvidia-drivers-440.31 NVIDIA-r2
