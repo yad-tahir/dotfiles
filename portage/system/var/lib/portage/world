@@ -1,6 +1,5 @@
 app-admin/pass
 app-admin/sudo
-app-arch/unrar
 app-backup/insync
 app-backup/znapzend
 app-editors/emacs
@@ -26,7 +25,6 @@ dev-lang/php
 dev-vcs/git
 gnome-extra/zenity
 lxde-base/lxappearance
-media-fonts/corefonts
 media-fonts/dejavu
 media-fonts/fontawesome
 media-fonts/noto
