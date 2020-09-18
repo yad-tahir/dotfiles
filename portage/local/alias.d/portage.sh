@@ -32,6 +32,7 @@ alias emerge-belong='equery belongs $@'
 alias emerge-time='sudo qlop -H $@'
 alias emerge-log='sudo elogv'
 alias emerge-fetch='sudo tail -f /var/log/emerge-fetch.log'
+alias emerge-status='(cd /var/db/repos/gentoo && exec git show -2 --summary)'
 
 emerge-info () {
 	equery m $@ 2> /dev/null
