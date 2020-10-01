@@ -1,10 +1,10 @@
 # ffmpeg
 # @threads enables multi-threading
 # @vaapi enables HW accelarations API used internally by www-client/firefox
-virtual/ffmpeg X threads vaapi vdpau x264
-media-video/ffmpeg X vaapi libdrm openssl x264 openal vdpau opencl
-x11-libs/libva X opengl vdpau
+virtual/ffmpeg X threads x264
+media-video/ffmpeg X libdrm openssl x264 openal opencl
+x11-libs/libva X
 
 # @vulkan breaks mpv during compile time because nvidia driver is not set
-media-video/mpv X drm vpdau vaapi lcms -vulkan
-media-video/vlc dvbpsi encode ffmpeg gcrypt libsamplerate ncurses pulseaudio ssl udev X aom archive flac mp3 mpeg vaapi vdpau vnc vpx x264 x265 qt5
+media-video/mpv X drm lcms -vulkan
+media-video/vlc dvbpsi encode ffmpeg gcrypt libsamplerate ncurses pulseaudio ssl udev X aom archive flac mp3 mpeg vnc vpx x264 x265 qt5
