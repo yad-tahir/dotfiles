@@ -40,13 +40,15 @@ pacmd set-card-profile 0 "output:hdmi-stereo+input:analog-stereo"
 # Startup apps
 util-launch
 sleep 0.5 # small waiting time to ensure previous commands are done
+dwmc focusmon 2
 dwmc setnmasters 2
-dwmc setmfacts 0.67
-urxvtc -hold -name visualizer -e vis &
-sleep 0.7
-dwmc setnmasters 2
-dwmc setmfact 0.9
+dwmc setmfact 0.8
 urxvtc -hold -name log -e /bin/journalctl -fn 200 &
+sleep 0.1
+# We use the command 'watch', instead the option 'c', to clear the terminal
+# between refreshes.
+urxvtc -hold -name netstat -e /usr/bin/watch /bin/netstat -ntpu &
+sleep 0.1
 urxvtc -hold -name htop -e /usr/bin/htop &
-sleep 0.3
+sleep 0.1
 dwmc focusmon 1
