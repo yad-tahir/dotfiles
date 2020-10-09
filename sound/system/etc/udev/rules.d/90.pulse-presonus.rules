@@ -1,0 +1,2 @@
+ATTRS{idVendor}=="194f", ATTRS{idProduct}=="010c", ENV{PULSE_IGNORE}="1"
+ATTRS{idVendor}=="194f", ATTRS{idProduct}=="010c", GROUP="audio"

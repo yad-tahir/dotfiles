@@ -20,6 +20,8 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
+do-ln-sync "${PWD}/local/bin" "${HOME}/bin"
+
 TARGET="/etc/pulse/daemon.conf"
 SOURCE=${PWD}/system${TARGET}
 do-sync-sudo "$SOURCE" "$TARGET"

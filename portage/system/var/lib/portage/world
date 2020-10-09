@@ -32,6 +32,7 @@ media-gfx/blender
 media-gfx/feh
 media-gfx/gimp
 media-libs/mesa
+media-sound/alsa-utils
 media-sound/easytag
 media-sound/mpc
 media-sound/mpd
@@ -53,6 +54,7 @@ net-wireless/wpa_supplicant
 sys-apps/lm-sensors
 sys-apps/ripgrep
 sys-apps/systemd
+sys-apps/usbutils
 sys-firmware/intel-microcode
 sys-fs/cryptsetup
 sys-fs/exfat-utils
