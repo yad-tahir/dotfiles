@@ -34,7 +34,7 @@ function setup-vpn-routing () {
 }
 
 case "$1" in
-	wlp59s0)
+	wlp*)
 		case "$2" in
 			up)
 				systemctl start openvpn-client@personal-udp.service
