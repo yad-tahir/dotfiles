@@ -25,3 +25,13 @@ do-ln-sync "${PWD}/local/bin" "${HOME}/bin"
 TARGET="/etc/pulse/daemon.conf"
 SOURCE=${PWD}/system${TARGET}
 do-sync-sudo "$SOURCE" "$TARGET"
+
+
+TARGET="/etc/udev/rules.d"
+SOURCE=${PWD}/system${TARGET}
+do-sync-sudo "$SOURCE" "$TARGET"
+
+
+TARGET="/etc/udev/rules.d"
+SOURCE=${PWD}/system${TARGET}
+do-sync-sudo "$SOURCE" "$TARGET"

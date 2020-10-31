@@ -1,8 +1,9 @@
 #!/bin/sh
 
 SUDO='sudo -g audio -E'
-$SUDO jackd -dalsa -dhw:S1810c,0 -r192000 -p1024 -n2 -m -M -i8 -o6 &
-sleep 2
-pactl load-module module-jack-sink channels=2 client_name=presonus-pulse-sink > /dev/null &
-pactl load-module module-jack-source channels=2 client_name=presonus-pulse-source > /dev/null &
-exec $SUDO qjackctl
+
+$SUDO qjackctl &
+sleep 3 && pactl load-module module-jack-sink channels=2 client_name=presonus-pulse-sink > /dev/null &
+sleep 3 && pactl load-module module-jack-source channels=2 client_name=presonus-pulse-source > /dev/null &
+killall -9 jackd &> /dev/null
+$SUDO jackd -d alsa -d hw:S1810c,0 -r 192000 -p 512 -n 2 -m -M -i 8 -o 6
