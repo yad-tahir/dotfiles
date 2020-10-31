@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Copyright (C) 2020
 
 # This program is free software; you can redistribute it and/or
@@ -17,19 +16,13 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-function util-set-dpi {
-	local dpi=$1
-	xrdb -merge <<EOF
-	Xft.dpi: $dpi
-EOF
-	xrandr --dpi $dpi
-}
+cd `dirname $0`
+echo "* Execute ${PWD}/`basename $0`"
+. ../utils.sh
 
-function util-launch {
-	# Restart apps that depend on environmental variables
-	feh --bg-fill --no-fehbg -Nq $(/bin/ls ${HOME}/pictures/background/* | shuf -n 1) &
+do-ln-sync "${PWD}/local/config" "${HOME}/.config"
 
-	# Start services
-	systemctl --user restart emacs-27.service &
-	systemctl --user restart urxvtd.service &
-}
+TARGET="${HOME}/bin/screen-layout"
+[ ! -e "${TARGET}" ] && mkdir --parents "${TARGET}"
+do-ln-sync "${PWD}/local/bin/screen-layout/util.sh" "$TARGET/util.sh"
+do-ln-sync "${PWD}/local/bin/screen-layout/home-vault.sh" "$TARGET/home.sh"

@@ -21,4 +21,11 @@ echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
 do-ln-sync "${PWD}/local/config" "${HOME}/.config"
-do-ln-sync "${PWD}/local/bin" "${HOME}/bin"
+
+TARGET="${HOME}/bin/screen-layout"
+[ ! -e "${TARGET}" ] && mkdir --parents "${TARGET}"
+do-ln-sync "${PWD}/local/bin/screen-layout/util.sh" "$TARGET/util.sh"
+do-ln-sync "${PWD}/local/bin/screen-layout/home-xps.sh" "$TARGET/home.sh"
+do-ln-sync "${PWD}/local/bin/screen-layout/laptop-xps.sh" "$TARGET/laptop.sh"
+do-ln-sync "${PWD}/local/bin/screen-layout/office-xps.sh" "$TARGET/office.sh"
+do-ln-sync "${PWD}/local/bin/screen-layout/lab-xps.sh" "$TARGET/lab.sh"
