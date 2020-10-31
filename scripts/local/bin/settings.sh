@@ -17,6 +17,9 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
+
+source /etc/profile.env
+
 USER=yad
 
 # General
@@ -43,3 +46,6 @@ export RXVT_SOCKET=/run/user/1000/urxvtd-pipeline
 
 # GUI-based sudo
 export SUDO_ASKPASS="/home/${USER}/bin/ask-ssh"
+
+# Beloved PATH
+export PATH="$HOME/bin:${PATH}"

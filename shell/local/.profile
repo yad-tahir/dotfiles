@@ -31,8 +31,6 @@ source $HOME/dotfiles/shell/other/aliases.sh
 
 # Other variables
 source $HOME/bin/settings.sh
-# Adjust the path
-PATH="$HOME/bin:${PATH}"
 
 # Starts GUI automatically if this is the DISPLAY variable is empty, we are on
 # the virtual tty 1, and this is the first login after a cold boot
