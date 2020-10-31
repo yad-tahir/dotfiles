@@ -29,21 +29,21 @@ if [ $? -ne 0 ]; then
 fi
 
 ./emacs/restore-linux.sh
-./dmenu/restore-linux.sh
-./dwm/restore-linux.sh
-./firewall/restore-linux.sh
+./dmenu/restore-xps.sh
+./dwm/restore-xps.sh
+./firewall/restore-xps.sh
 ./gdrive/restore-linux.sh
 ./git/restore-linux.sh
 ./intel/restore-linux.sh
 ./logger/restore-linux.sh
 ./kernel/restore-linux.sh
 ./keyboard/restore-linux.sh
-./monitor/restore-linux.sh
+./monitor/restore-xps.sh
 ./mpd/restore-linux.sh
 ./network/restore-linux.sh
 ./nvidia/restore-linux.sh
 ./pam/restore-linux.sh
-./portage/restore-linux.sh
+./portage/restore-xps.sh
 ./power/restore-linux.sh
 ./sound/restore-linux.sh
 ./root/restore-linux.sh
@@ -55,7 +55,7 @@ fi
 ./vpn/restore-linux.sh
 ./x11/restore-linux.sh
 ./zathura/restore-linux.sh
-./zfs/restore-linux.sh
+./zfs/restore-xps.sh
 ./zoom/restore-linux.sh
 
 echo "Done."
