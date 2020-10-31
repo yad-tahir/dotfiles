@@ -34,7 +34,9 @@ done
 
 # Local
 do-ln-sync "${PWD}/local/config/sxhkd" "${HOME}/.config/sxhkd"
-do-ln-sync "${PWD}/local/config/dwm" "${HOME}/.config/dwm"
+TARGET="${HOME}/.config/dwm"
+[ ! -e "${TARGET}" ] && mkdir --parents "${TARGET}"
+do-ln-sync "${PWD}/local/config/dwm/dwmrc-vault" "${TARGET}/dwmrc"
 
-TARGET=${HOME}/.config/systemd/user
+TARGET="${HOME}/.config/systemd/user"
 do-ln-sync "${PWD}/local/systemd/user/sxhkd-dwm@.service" "${TARGET}/sxhkd-dwm@.service"

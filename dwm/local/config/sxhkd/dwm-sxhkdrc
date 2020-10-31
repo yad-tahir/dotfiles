@@ -19,7 +19,7 @@
 #
 
 # Reload SXHKD config file
-super + F5
+super + shift + F5
 	pkill -USR1 -x sxhkd
 
 # Media control
@@ -64,7 +64,7 @@ super + shift + {d,u}
 # ----------------
 
 # Beloved Emacs
-F2
+super + F2
 	emacsclient -nqe "(do-make-frame nil \"$DISPLAY\")" -a='/usr/bin/urxvt -e nano' > /dev/null &
 
 # Screen brightness
@@ -87,7 +87,7 @@ super + p
 super + m
 	$HOME/bin/dmenu/monitor.sh &
 
-super + F3
+super + shift + F3
 	$HOME/bin/screen-lock &
 
 # Terminal
@@ -116,6 +116,6 @@ super + semicolon; v
 	urxvtc -hold -name visualizer -e vis &
 super + semicolon; l
 	urxvtc -hold -name log -e /bin/journalctl -fn 200 &
-F6
+super + F6
 	emacsclient -nqe "(progn (do-make-frame nil \"$DISPLAY\") (funcall-interactively 'org-capture))"\\
 		-a='/usr/bin/urxvt -e nano' > /dev/null &

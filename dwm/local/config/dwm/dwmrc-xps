@@ -27,7 +27,7 @@ systemctl --user import-environment
 # Avoid using systemd 'enable' feature for Emacs as it can launch Emacs server
 # before importing most all env. variables. Instead, start Emacs service
 # manually in the beginning of a new dwm session.
-systemctl --user restart emacs-27-vcs.service &
+systemctl --user restart emacs-27.service &
 
 setxkbmap # Make sure X11 keymap is loaded properly before starting sxhkd
 systemctl --user restart sxhkd-dwm@${XDG_VTNR}.service &
@@ -81,7 +81,7 @@ gpu(){
 }
 
 temp(){
-	local r=$(sensors | awk '/Package id/{gsub("+", "",$4); print $4}')
+	local r=$(sensors k10temp-pci-00c3 | awk '/Tdie/{gsub("+", "",$2); print $2}')
 	echo -e " $r "
 }
 
@@ -207,7 +207,8 @@ time_left(){
 }
 
 while [ 1 ]; do
-	status="$(fan)$(temp)$(uptime)$(mem)$(emacs)$(vpn)$(insync)| $(gpu)$(energy_profile)$(battery)$(vol)$(keyboard)| $(time_left)| $(date +'%a, %b %d %H:%M')"
+	# status="$(fan)$(temp)$(uptime)$(mem)$(emacs)$(vpn)$(insync)| $(gpu)$(energy_profile)$(battery)$(vol)$(keyboard)| $(time_left)| $(date +'%a, %b %d %H:%M')"
+	status="$(temp)$(uptime)$(mem)$(emacs)$(vpn)$(insync)| $(vol)$(keyboard)| $(time_left)| $(date +'%a, %b %d %H:%M')"
 	status=$(echo -e "$status" | tr '\n' ' ')
 	xsetroot -name "$status"
 	sleep 1m
