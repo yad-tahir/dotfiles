@@ -22,7 +22,6 @@ echo "* Execute ${PWD}/`basename $0`"
 
 arr=( "/etc/iproute2"
 	  "/etc/modprobe.d"
-	  "/etc/nftables.conf"
 	  "/lib/systemd/system"
 	)
 
@@ -32,3 +31,5 @@ do
 	SOURCE=${PWD}/system${TARGET}
 	do-sync-sudo "$SOURCE" "$TARGET"
 done
+
+do-sync-sudo "${PWD}/system/etc/nftables-vault.conf" "/etc/nftables.conf"
