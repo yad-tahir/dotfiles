@@ -20,8 +20,7 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
-arr=( "/usr/sbin"
-	  "/lib/systemd/system"
+arr=( "/lib/systemd/system"
 	  )
 
 for i in "${arr[@]}"
@@ -30,3 +29,7 @@ do
 	SOURCE=${PWD}/system${TARGET}
 	do-sync-sudo "$SOURCE" "$TARGET"
 done
+
+TARGET=/usr/sbin/zfs-export
+SOURCE=${PWD}/system${TARGET}-xps
+do-sync-sudo $SOURCE $TARGET
