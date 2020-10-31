@@ -20,7 +20,8 @@ media-video/obs-studio speex v4l
 
 # Blender
 # @openal enables sound encoding/decoding
-media-gfx/blender llvm ffmpeg color-management openal openimageio cycles tiff opencl
+# media-gfx/blender llvm ffmpeg color-management openal openimageio cycles tiff opencl
+media-gfx/blender llvm color-management openal openimageio cycles tiff opencl
 media-libs/openimageio color-management
 
 # Other

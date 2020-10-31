@@ -4,7 +4,7 @@ x11-wm/dwm ~amd64
 x11-misc/dmenu ~amd64
 
 # Apps
-<=app-editors/emacs-28 **
+<=app-editors/emacs-28 ~amd64
 <www-client/firefox-81.0 ~amd64
 media-gfx/blender ~amd64
 media-video/obs-studio ~amd64
@@ -13,6 +13,7 @@ app-text/master-pdf-editor ~amd64
 games-util/steam-launcher ~amd64
 media-sound/pulsemixer ~amd64
 net-im/zoom ~amd64
+app-misc/OpenRGB ~amd64
 
 # Misc
 cross-avr/gcc **
@@ -20,6 +21,8 @@ virtual/opencl ~amd64
 x11-drivers/nvidia-drivers **
 dev-util/nvidia-cuda-toolkit ~amd64
 sys-power/intel-undervolt ~amd64
+app-admin/rasdaemon ~amd64
+app-benchmarks/stress-ng ~amd64
 
 # ZZZ
 # To remove the needs for Python 2.7 or Python 3.6

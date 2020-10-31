@@ -5,10 +5,12 @@
 =dev-lang/python-3.6.10
 
 # Avoid re-compiling Google chromium
->dev-qt/qtwebengine-5.14.2
+>dev-qt/qtwebengine-5.15.2
 
 # Uncessary packages
 dev-lang/vala
 app-editors/xemacs
 # Disable eselect opengl because we are using libglvnd
 app-eselect/eselect-opengl
+
+<x11-libs/libdrm-2.4.102

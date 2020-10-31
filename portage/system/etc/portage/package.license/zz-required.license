@@ -1,1 +1,4 @@
 # Liceneses required by packages installed to meet portage's world set
+
+# required by geekbench (argument)
+=app-benchmarks/geekbench-5.2.3 geekbench

@@ -22,7 +22,6 @@ echo "* Execute ${PWD}/`basename $0`"
 
 arr=( "/etc/portage/bashrc"
 	  "/etc/portage/common.conf"
-	  "/etc/portage/make.conf"
 	  "/etc/portage/repos.conf"
 	  "/etc/portage/sets"
 	  "/etc/portage/package.license"
@@ -30,10 +29,8 @@ arr=( "/etc/portage/bashrc"
 	  "/etc/portage/package.use/core"
 	  "/etc/portage/package.use/cross-avr"
 	  "/etc/portage/package.use/graphic"
-	  "/etc/portage/package.use/intel"
 	  "/etc/portage/package.use/misc"
 	  "/etc/portage/package.use/networking"
-	  "/etc/portage/package.use/nvidia"
 	  "/etc/portage/package.use/server"
 	  "/etc/portage/package.use/sound"
 	  "/etc/portage/package.use/ui"
@@ -51,6 +48,10 @@ do
 	do-sync-sudo "$SOURCE" "$TARGET"
 done
 
+TARGET="/etc/portage/make.conf"
+SOURCE="${PWD}/system/etc/portage/make-vault.conf"
+do-sync-sudo "$SOURCE" "$TARGET"
+
 arr=( "/var/lib/portage/world"
 	  "/var/lib/portage/world_sets"
 	)
@@ -59,7 +60,7 @@ for i in "${arr[@]}"
 do
 	TARGET=$i
 	SOURCE=${PWD}/system${TARGET}
-	do-ln-sync-sudo "$SOURCE" "$TARGET"
+	do-ln-sync-sudo "${SOURCE}-vault" "$TARGET"
 done
 
 REPO_PATH="/var/db/repos/private"

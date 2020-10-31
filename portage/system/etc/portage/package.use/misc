@@ -39,3 +39,15 @@ media-sound/* -ipv6
 
 # No wayland for now
 dev-qt/* -wayland
+
+# Other
+sys-apps/lm-sensors contrib
+
+# To solve problems
+dev-vcs/git -emacs
+dev-libs/openssl bindist
+dev-qt/qtnetwork bindist
+net-wireless/wpa_supplicant bindist
+media-libs/openimageio -color-management
+media-libs/mesa -vaapi
+x11-libs/libva opengl

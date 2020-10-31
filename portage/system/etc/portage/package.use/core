@@ -8,4 +8,4 @@ sys-devel/gcc graphite -fortran
 
 # @cgroup-hybrid is needed by virt-manager
 # Remove @gcrypt as the disk it is already fully encrypted
-sys-apps/systemd cgroup-hybrid -elfutils -gcrypt -pcre
+sys-apps/systemd cgroup-hybrid gnuefi -elfutils -gcrypt -pcre

@@ -26,7 +26,6 @@ dev-libs/boost nls
 >=sys-apps/util-linux-2.33.2 static-libs
 
 # Graphic
-x11-libs/libdrm video_cards_intel
 # required by x11-drivers/nvidia-drivers-440.36-r1::gentoo[tools]
 # required by nvidia-drivers (argument)
 >=x11-libs/gdk-pixbuf-2.38.1-r1 X
@@ -81,7 +80,7 @@ media-libs/gst-plugins-base X
 
 # required by media-gfx/blender-2.79b-r2::gentoo[ffmpeg]
 # required by media-gfx/blender (argument)
->=media-video/ffmpeg-4.1.3 theora mp3
+>=media-video/ffmpeg-4.1.3 mp3 abi_x86_32
 
 # Required by cli-visaulizer
 sci-libs/fftw -fortran
@@ -118,3 +117,29 @@ media-libs/libcanberra -udev -sound -gtk
 # required by @selected
 # required by @world (argument)
 >=app-emacs/emacs-common-gentoo-1.6-r4 gui
+
+# required by net-misc/openssh-8.1_p1-r4::gentoo[-static,-libressl,ssl]
+# required by virtual/ssh-0::gentoo[-minimal]
+# required by @system
+# required by @world (argument)
+dev-libs/openssl bindist
+net-misc/openssh bindist
+media-libs/dav1d abi_x86_32
+media-libs/openjpeg abi_x86_32
+media-libs/dav1d abi_x86_32
+media-libs/libglvnd abi_x86_32
+virtual/opencl abi_x86_32
+virtual/libcrypt abi_x86_32
+virtual/jpeg abi_x86_32
+media-libs/libjpeg-turbo abi_x86_32
+media-sound/jack2 abi_x86_32
+virtual/jack abi_x86_32
+net-libs/nghttp2 abi_x86_32
+
+# required by www-client/chromium-86.0.4240.111-r1::gentoo
+# required by chromium (argument)
+>=net-libs/nodejs-14.11.0 inspector
+
+# required by dev-db/phpmyadmin-4.9.5::gentoo
+# required by phpmyadmin (argument)
+>=dev-lang/php-7.4.11 mysqli

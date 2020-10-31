@@ -60,7 +60,7 @@ emerge-sync () {
 	cd /var/db/repos/gentoo
 
 	# Clean uncompleted syncs
-	$SUDO rm -R .tmp-unverified-download-quarantine 2> /dev/null
+	$SUDO rm -R .tmp-unverified-download-quarantine 2> /dev/null &&
 	$SUDO git reset --hard
 
 	# Update mirror branch by fetching commits from the official gentoo repo

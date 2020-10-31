@@ -264,6 +264,9 @@ x11-proto/xproto abi_x86_32
 # required by @selected
 # required by @world (argument)
 >=virtual/libintl-0-r2 abi_x86_32
+
+media-libs/libtheora abi_x86_32
+
 #
 # End of Steam and 32-bit games
 #
