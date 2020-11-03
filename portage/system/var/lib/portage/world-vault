@@ -24,8 +24,6 @@ app-text/master-pdf-editor
 app-text/texlive
 app-text/zathura
 app-text/zathura-pdf-mupdf
-dev-db/mariadb
-dev-db/phpmyadmin
 dev-lang/php
 dev-vcs/git
 gnome-extra/zenity
@@ -33,11 +31,11 @@ lxde-base/lxappearance
 media-fonts/dejavu
 media-fonts/fontawesome
 media-fonts/noto
+media-gfx/blender
 media-gfx/feh
 media-gfx/gimp
 media-libs/mesa
 media-sound/alsa-utils
-media-sound/easytag
 media-sound/mpc
 media-sound/mpd
 media-sound/pulseaudio
