@@ -14,6 +14,7 @@ games-util/steam-launcher ~amd64
 media-sound/pulsemixer ~amd64
 net-im/zoom ~amd64
 app-misc/OpenRGB ~amd64
+app-text/zathura-pdf-mupdf ~amd64
 
 # Misc
 cross-avr/gcc **
