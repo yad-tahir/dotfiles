@@ -22,4 +22,4 @@
 # activated, then Firefox sends that data through VPN. Otherwise, data is
 # sent directly.
 
-exec sudo -g no-vpn -E /usr/bin/firefox -P "no-vpn" &> /dev/null
+exec sudo -u yad -g no-vpn -E /usr/bin/firefox -P "no-vpn" &> /dev/null
