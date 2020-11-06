@@ -141,6 +141,12 @@ virtual/jpeg abi_x86_32
 media-libs/libjpeg-turbo abi_x86_32
 dev-util/glslang abi_x86_32
 
+# bdeps - Tested with the '--emptytree' option
+virtual/rust abi_x86_32
+dev-lang/rust abi_x86_32
+virtual/libelf abi_x86_32
+app-arch/zstd abi_x86_32
+
 #
 # End of Steam and 32-bit games
 #
