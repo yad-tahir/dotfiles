@@ -18,6 +18,4 @@
 
 . ${HOME}/bin/settings.sh
 
-sudo --askpass systemctl start libvirtd.service
-
 exec /usr/bin/virt-manager
