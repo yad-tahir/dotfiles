@@ -21,7 +21,6 @@ echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
 arr=( "/etc/iproute2"
-	  "/etc/modprobe.d"
 	  "/lib/systemd/system"
 	)
 

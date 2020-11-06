@@ -1,2 +1,10 @@
 dev-libs/openssl bindist
 net-misc/openssh bindist
+
+# To solve problems
+dev-vcs/git -emacs
+dev-qt/qtnetwork bindist
+net-wireless/wpa_supplicant bindist
+media-libs/openimageio -color-management
+media-libs/mesa -vaapi
+x11-libs/libva opengl

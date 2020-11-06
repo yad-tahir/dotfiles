@@ -2,4 +2,4 @@ x11-libs/libva-intel-driver X
 sys-firmware/intel-microcode initramfs
 
 # ZZ
-x11-libs/libdrm video_cards_intel
+>=dev-libs/openssl-1.1.1g -bindist
