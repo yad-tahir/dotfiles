@@ -1,7 +1,7 @@
 # @png, @jpeg, @svg to support common image formats
 # @tiff, @xpm to remove unused image formats
 # @harfbuzz @cairo @json will be added in Emacs 27
-app-editors/emacs X gui png jpeg svg gfile harfbuzz cairo json -tiff -xpm
+app-editors/emacs X gui dynamic-loading svg gfile harfbuzz cairo json -tiff -xpm
 
 # @265-color @blink for UI enhancements
 x11-terms/rxvt-unicode 256-color blink
@@ -10,7 +10,7 @@ x11-terms/rxvt-unicode 256-color blink
 # @lto adds link-time optimizations
 # @pgo uses gcc-4 to preform profile-guided optimazations
 # *NOTE*: do not enable hwaccel as it forces firefox to use a gpu. If you don't have a dGPU, video deconding is going to be very CPU intensive.
-www-client/firefox lto -pgo bindist system-harfbuzz -screenshot -gmp-autoupdate -wayland
+www-client/firefox lto bindist system-harfbuzz -screenshot -gmp-autoupdate -wayland
 
 app-office/libreoffice pdfimport -accessibility -bluetooth -mariadb -branding
 
@@ -20,9 +20,10 @@ media-video/obs-studio speex v4l
 
 # Blender
 # @openal enables sound encoding/decoding
-# media-gfx/blender llvm ffmpeg color-management openal openimageio cycles tiff opencl
-media-gfx/blender llvm color-management openal openimageio cycles tiff opencl
-media-libs/openimageio color-management
+media-gfx/blender llvm openal opencl cycles openimageio ffmpeg fftw tiff -color-management
+# required by media-gfx/blender-2.79b-r2::gentoo[ffmpeg]
+>=media-video/ffmpeg-4.1.3 theora
+
 
 # Other
 app-admin/pass X # @X adds clipboard support
