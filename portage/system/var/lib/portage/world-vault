@@ -6,6 +6,7 @@ app-benchmarks/geekbench
 app-editors/emacs
 app-editors/nano
 app-emulation/libvirt
+app-emulation/lxd
 app-emulation/qemu
 app-emulation/virt-manager
 app-misc/OpenRGB

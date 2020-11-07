@@ -20,29 +20,16 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
+
 TARGET="/etc/portage/repos.conf"
 [ ! -e "${TARGET}" ] && sudo mkdir --parents "${TARGET}"
 
 arr=( "/etc/portage/bashrc"
-	  "/etc/portage/common.conf"
+	  "/etc/portage/common-lxd.conf"
+	  "/etc/portage/package.license"
+	  "/etc/portage/package.use/core-lxd"
 	  "/etc/portage/repos.conf/gentoo.conf"
 	  "/etc/portage/repos.conf/public.conf"
-	  "/etc/portage/repos.conf/private.conf"
-	  "/etc/portage/sets"
-	  "/etc/portage/package.license"
-	  "/etc/portage/package.use/apps"
-	  "/etc/portage/package.use/core"
-	  "/etc/portage/package.use/graphic"
-	  "/etc/portage/package.use/misc"
-	  "/etc/portage/package.use/networking"
-	  "/etc/portage/package.use/server"
-	  "/etc/portage/package.use/steam"
-	  "/etc/portage/package.use/sound"
-	  "/etc/portage/package.use/ui"
-	  "/etc/portage/package.use/video"
-	  "/etc/portage/package.use/vault"
-	  "/etc/portage/package.use/vm"
-	  "/etc/portage/package.use/zz-required"
 	  "/etc/portage/package.mask"
 	  "/etc/portage/package.accept_keywords"
 	)
@@ -55,41 +42,22 @@ do
 done
 
 TARGET="/etc/portage/make.conf"
-SOURCE="${PWD}/system/etc/portage/make-vault.conf"
+SOURCE="${PWD}/system/etc/portage/make-vault-lxd.conf"
 do-sync-sudo "$SOURCE" "$TARGET"
-
-arr=( "/var/lib/portage/world"
-	  "/var/lib/portage/world_sets"
-	)
-
-for i in "${arr[@]}"
-do
-	TARGET=$i
-	SOURCE=${PWD}/system${TARGET}
-	do-ln-sync-sudo "${SOURCE}-vault" "$TARGET"
-done
-
-REPO_PATH="/var/db/repos/private"
-if [ ! -e $REPO_PATH ]; then
-	echo "-> Download my private overlay"
-	sudo -E git clone git@github.com:yad-tahir/personal-overlay.git "$REPO_PATH"
-fi
 
 REPO_PATH="/var/db/repos/public"
 if [ ! -e $REPO_PATH ]; then
 	echo "-> Download my public overlay"
-	sudo -E git clone git@github.com:yad-tahir/gentoo-overlay.git "$REPO_PATH"
+	sudo -E git clone --depth=1 https://github.com/yad-tahir/gentoo-overlay.git "$REPO_PATH"
 fi
 
 REPO_PATH="/var/db/repos/gentoo"
 if [ ! -e $REPO_PATH ]; then
 	echo "-> Download Gentoo Github mirror"
-	sudo -E git clone git@github.com:yad-tahir/gentoo-mirror.git "$REPO_PATH"
+	sudo -E git clone --depth=1 https://github.com/yad-tahir/gentoo-mirror.git "$REPO_PATH"
 	pushd .
 	cd $REPO_PATH
-	sudo -E git checkout without-manifest
 	sudo -E git checkout rsync
-	sudo -E git remote add gentoo https://anongit.gentoo.org/git/repo/gentoo.git
 	popd
 fi
 

@@ -20,9 +20,14 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
+TARGET="/etc/portage/repos.conf"
+[ ! -e "${TARGET}" ] && sudo mkdir --parents "${TARGET}"
+
 arr=( "/etc/portage/bashrc"
 	  "/etc/portage/common.conf"
-	  "/etc/portage/repos.conf"
+	  "/etc/portage/repos.conf/gentoo.conf"
+	  "/etc/portage/repos.conf/public.conf"
+	  "/etc/portage/repos.conf/private.conf"
 	  "/etc/portage/sets"
 	  "/etc/portage/package.license"
 	  "/etc/portage/package.use/apps"
