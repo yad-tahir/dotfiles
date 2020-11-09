@@ -46,6 +46,7 @@ net-im/zoom
 net-misc/networkmanager
 net-misc/ntp
 net-misc/telnet-bsd
+net-p2p/syncthing
 net-vpn/openvpn
 net-wireless/bluez
 net-wireless/wpa_supplicant
@@ -53,9 +54,10 @@ sys-apps/lm-sensors
 sys-apps/ripgrep
 sys-apps/systemd
 sys-apps/usbutils
+sys-boot/efibootmgr
+sys-devel/distcc
 sys-firmware/intel-microcode
 sys-fs/cryptsetup
-sys-boot/efibootmgr
 sys-fs/exfat-utils
 sys-fs/fuse-exfat
 sys-fs/zfs
