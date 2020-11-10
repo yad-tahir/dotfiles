@@ -43,6 +43,7 @@ media-sound/qjackctl
 media-video/mpv
 media-video/obs-studio
 media-video/vlc
+net-analyzer/iftop
 net-analyzer/wireshark
 net-firewall/nftables
 net-im/zoom
