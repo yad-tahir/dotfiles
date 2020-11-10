@@ -52,6 +52,22 @@ emerge-reinstall () {
 	sudo emerge $@
 }
 
+emerge-pull () {
+	local SUDO='sudo -E'
+	pushd . > /dev/null
+
+	cd /var/db/repos/gentoo &&
+		$SUDO git checkout rsync &&
+		$SUDO git pull
+	cd /var/db/repos/public &&
+		$SUDO git pull
+	cd /var/db/repos/private &&
+		$SUDO git pull
+
+	$SUDO eix-update
+	popd > /dev/null
+}
+
 emerge-sync () {
 	local cdate=$(date +'%b %d, %Y')
 	local SUDO='sudo -E'
