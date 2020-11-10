@@ -5,7 +5,7 @@ x11-misc/dmenu ~amd64
 
 # Apps
 <=app-editors/emacs-28 ~amd64
-<www-client/firefox-83.0 ~amd64
+<www-client/firefox-82.0.3 ~amd64
 media-gfx/blender ~amd64
 media-video/obs-studio ~amd64
 media-sound/spotify ~amd64
