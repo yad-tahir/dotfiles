@@ -40,7 +40,7 @@ fi
 # ./keyboard/restore-linux.sh
 # ./monitor/restore-vault.sh
 # ./mpd/restore-linux.sh
-# ./network/restore-linux.sh
+# ./network/restore-vault.sh
 # ./pam/restore-linux.sh
 # ./sound/restore-linux.sh
 # ./radeon/restore-linux.sh
