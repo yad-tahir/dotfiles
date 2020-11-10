@@ -81,7 +81,7 @@ gpu(){
 }
 
 temp(){
-	local r=$(sensors k10temp-pci-00c3 | awk '/Tdie/{gsub("+", "",$2); print $2}')
+	local r=$(sensors | awk '/Package id/{gsub("+", "",$4); print $4}')
 	echo -e " $r "
 }
 
@@ -207,8 +207,7 @@ time_left(){
 }
 
 while [ 1 ]; do
-	# status="$(fan)$(temp)$(uptime)$(mem)$(emacs)$(vpn)$(insync)| $(gpu)$(energy_profile)$(battery)$(vol)$(keyboard)| $(time_left)| $(date +'%a, %b %d %H:%M')"
-	status="$(temp)$(uptime)$(mem)$(emacs)$(vpn)$(insync)| $(vol)$(keyboard)| $(time_left)| $(date +'%a, %b %d %H:%M')"
+	status="$(fan)$(temp)$(uptime)$(mem)$(emacs)$(vpn)$(insync)| $(gpu)$(energy_profile)$(battery)$(vol)$(keyboard)| $(time_left)| $(date +'%a, %b %d %H:%M')"
 	status=$(echo -e "$status" | tr '\n' ' ')
 	xsetroot -name "$status"
 	sleep 1m
