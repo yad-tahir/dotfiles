@@ -20,8 +20,7 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
-arr=( "/etc/iproute2"
-	  "/lib/systemd/system"
+arr=( "/lib/systemd/system"
 	)
 
 for i in "${arr[@]}"

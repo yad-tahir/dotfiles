@@ -3,6 +3,7 @@
 #
 100 personal
 150 no-vpn
+160 no-wan
 255	local
 254	main
 253	default

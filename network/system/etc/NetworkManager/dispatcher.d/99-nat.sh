@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # Copyright (C) 2020
 
 # This program is free software; you can redistribute it and/or
@@ -16,18 +17,21 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-cd `dirname $0`
-echo "* Execute ${PWD}/`basename $0`"
-. ../utils.sh
-
-arr=( "/lib/systemd/system"
-	)
-
-for i in "${arr[@]}"
-do
-	TARGET=$i
-	SOURCE=${PWD}/system${TARGET}
-	do-sync-sudo "$SOURCE" "$TARGET"
-done
-
-do-sync-sudo "${PWD}/system/etc/nftables-xps.conf" "/etc/nftables.conf"
+case "$1" in
+	wlp*)
+		case "$2" in
+			up)
+				ip address add 192.168.1.125 dev "$1" 2> /dev/null
+				ip address add 192.168.1.126 dev "$1" 2> /dev/null
+				ip address add 192.168.1.127 dev "$1" 2> /dev/null
+				ip address add 192.168.1.128 dev "$1" 2> /dev/null
+				ip address add 192.168.1.129 dev "$1" 2> /dev/null
+				true;
+				;;
+			down)
+				;;
+			connectivity-change)
+				;;
+		esac
+		;;
+esac

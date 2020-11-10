@@ -21,7 +21,8 @@ echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
 arr=( "/etc/NetworkManager/dispatcher.d"
-	  "/etc/modprobe.d/"
+	  "/etc/modprobe.d"
+	  "/etc/iproute2"
 	)
 
 for i in "${arr[@]}"
