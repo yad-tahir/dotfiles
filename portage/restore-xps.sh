@@ -84,12 +84,10 @@ fi
 REPO_PATH="/var/db/repos/gentoo"
 if [ ! -e $REPO_PATH ]; then
 	echo "-> Download Gentoo Github mirror"
-	sudo -E git clone git@github.com:yad-tahir/gentoo-mirror.git "$REPO_PATH"
+	sudo -E git clone --depth=1 https://github.com/yad-tahir/gentoo-mirror.git "$REPO_PATH"
 	pushd .
 	cd $REPO_PATH
-	sudo -E git checkout without-manifest
 	sudo -E git checkout rsync
-	sudo -E git remote add gentoo https://anongit.gentoo.org/git/repo/gentoo.git
 	popd
 fi
 
