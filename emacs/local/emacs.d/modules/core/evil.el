@@ -329,6 +329,7 @@
 		evil-emacs-state-cursor `(box)
 		evil-replace-state-cursor `((bar . 2))
 		evil-operator-state-cursor `(box)
+		evil-undo-system 'undo-tree
 		evil-motion-state-cursor `(box))
 
   (with-eval-after-load 'chocolate-theme-theme
@@ -370,7 +371,13 @@ avoid navigating with the insert state."
 		(abort-recursive-edit))))
 
   ;; Start Evil mode
-  (evil-mode 1))
+  (evil-mode 1)
+  )
 
+(use-package undo-tree
+  :ensure t
+  :demand t
+  :config
+  (global-undo-tree-mode 1))
 
 (provide 'do-evil)
