@@ -42,3 +42,7 @@ do-sync-sudo "${SOURCE}" "$TARGET"
 TARGET=/etc/X11/xorg.conf.d
 SOURCE=${PWD}/system${TARGET}
 do-sync-sudo "${SOURCE}" "$TARGET"
+
+TARGET=/etc/X11/xinit
+SOURCE=${PWD}/system${TARGET}
+do-sync-sudo "${SOURCE}" "$TARGET"
