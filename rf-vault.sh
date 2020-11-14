@@ -17,8 +17,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-DIR="$HOME/dotfiles"
-cd $DIR
+cd `dirname $0`
 
 mkdir ${HOME}/bin 2> /dev/null
 
