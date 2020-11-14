@@ -1,1 +1,1 @@
-exec /usr/bin/startx
+exec /usr/bin/startx $@
