@@ -21,9 +21,7 @@
 cd `dirname $0`
 . $PWD/util.sh
 
-
-xrandr --output DisplayPort-0 --mode 3440x1440 --pos 200x1600 --rotate inverted
-xrandr --output HDMI-A-0 --mode 3840x1600 --pos 0x0 --rotate normal --primary
+xrandr --output DisplayPort-0 --mode 3840x2160 --pos 0x0 --rotate left --output DisplayPort-1 --mode 3440x1440 --pos 2160x0 --rotate inverted --output DisplayPort-2 --off --output HDMI-A-0 --primary --mode 3840x1600 --pos 2160x1440 --rotate normal
 
 # dispwin -d 1 $HOME/.config/icc-profiles/U3818DW#2-2018-10-20-2347.icc
 # dispwin -d 3 $HOME/.config/icc-profiles/U2718Q#3-2018-10-21-0034.icc
@@ -40,17 +38,19 @@ util-set-dpi 110
 # Startup apps
 util-launch
 sleep 0.5 # small waiting time to ensure previous commands are done
-dwmc focusmon 2
-dwmc setnmasters 0
-dwmc setmfact 0.66
-urxvtc -hold -name htop -e /usr/bin/htop &
+dwmc focusmon -1
+dwmc focusmon -1
+dwmc setnmasters 1
+dwmc setmfact 0.5
+urxvtc -hold -name netstat -e /usr/bin/watch /bin/netstat -ntpu &
 sleep 0.1
 # We use the command 'watch', instead the option 'c', to clear the terminal
 # between refreshes.
-# urxvtc -hold -name netstat -e /usr/bin/watch /bin/netstat -ntpu &
-# sleep 0.1
 urxvtc -hold -name log -e /bin/journalctl -fn 200 &
 sleep 0.1
+urxvtc -hold -name htop -e /usr/bin/htop &
+sleep 0.1
 dwmc focusmon 1
+
 dwmc setnmasters 2
 dwmc setmfact 0.66

@@ -21,7 +21,7 @@ echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
 arr=( "/etc/NetworkManager/dispatcher.d/90-vpn.sh"
-	 "/etc/NetworkManager/dispatcher.d/90-nat.sh"
+	 "/etc/NetworkManager/dispatcher.d/99-nat.sh"
 	  "/etc/modprobe.d"
 	  "/etc/iproute2"
 	)
