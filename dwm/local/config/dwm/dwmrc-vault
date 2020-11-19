@@ -23,6 +23,10 @@ xrandr --auto
 # Set the background color
 feh --bg-fill $(/bin/ls ${HOME}/pictures/background/* | shuf -n 1) &
 
+# Allow gui containers to access the Xorg session!
+setfacl -m u:lxd-gui-uid:rw ./.Xauthority
+
+
 systemctl --user import-environment
 # Avoid using systemd 'enable' feature for Emacs as it can launch Emacs server
 # before importing most all env. variables. Instead, start Emacs service
