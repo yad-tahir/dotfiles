@@ -62,8 +62,8 @@ sys-fs/fuse-exfat
 sys-fs/zfs
 sys-kernel/genkernel
 sys-kernel/vanilla-sources
-sys-kernel/vanilla-sources:5.4.72
 sys-kernel/vanilla-sources:5.5.19
+sys-kernel/vanilla-sources:5.9.11
 sys-power/powertop
 sys-process/glances
 sys-process/htop
