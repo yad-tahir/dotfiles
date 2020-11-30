@@ -81,26 +81,6 @@ media-libs/gst-plugins-base X
 # required by @world (argument)
 >=app-eselect/eselect-php-0.9.4-r5 apache2
 
-# required by net-im/zoom-3.5.385850.0413::gentoo
-# required by net-im/zoom (argument)
->=dev-qt/qtwebengine-5.14.1 widgets
-# required by dev-qt/qtwebengine-5.14.1::gentoo
-# required by net-im/zoom-3.5.385850.0413::gentoo
-# required by net-im/zoom (argument)
->=dev-qt/qtwebchannel-5.14.1 qml
-# required by dev-qt/qtwebengine-5.14.1::gentoo
-# required by net-im/zoom-3.5.385850.0413::gentoo
-# required by net-im/zoom (argument)
->=dev-libs/libxml2-2.9.9-r3 icu
-# required by dev-qt/qtwebengine-5.14.1::gentoo
-# required by net-im/zoom-3.5.385850.0413::gentoo
-# required by net-im/zoom (argument)
->=media-libs/libvpx-1.7.0-r1 svc
-# required by dev-qt/qtwebengine-5.14.1::gentoo
-# required by net-im/zoom-3.5.385850.0413::gentoo
-# required by net-im/zoom (argument)
->=sys-libs/zlib-1.2.11-r2 minizip
-
 # required by app-editors/emacs-27.1.9999-r1::gentoo
 # required by @selected
 # required by @world (argument)
@@ -108,3 +88,6 @@ media-libs/gst-plugins-base X
 
 # Required by mupdf opengl
 app-text/mupdf javascript
+
+# Required by media-video/vlc
+sys-libs/zlib minizip

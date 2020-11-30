@@ -2,7 +2,6 @@ app-admin/pass
 app-admin/sudo
 app-backup/insync
 app-backup/znapzend
-app-editors/emacs
 app-editors/nano
 app-emulation/libvirt
 app-emulation/qemu
@@ -46,6 +45,7 @@ net-im/zoom
 net-misc/networkmanager
 net-misc/ntp
 net-misc/telnet-bsd
+net-p2p/syncthing
 net-vpn/openvpn
 net-wireless/bluez
 net-wireless/wpa_supplicant

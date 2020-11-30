@@ -46,13 +46,11 @@ fi
 ./root/restore-linux.sh
 ./scripts/restore-linux.sh
 ./shell/restore-linux.sh
-#./visualizer/restore-linux.sh
 ./urxvt/restore-linux.sh
 ./vm/restore-linux.sh
 ./vpn/restore-linux.sh
 ./x11/restore-linux.sh
 ./zathura/restore-linux.sh
 ./zfs/restore-vault.sh
-./zoom/restore-linux.sh
 
 echo "Done."
