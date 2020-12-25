@@ -1,6 +1,3 @@
-# Don't switch to version 5 as it is going to break my setup!
->media-fonts/fontawesome-4.9.9
-
 # Python 3.6 should be avoided as of Mar 17, 2020. Use Python 3.7 instead
 =dev-lang/python-3.6.10
 

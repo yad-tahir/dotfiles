@@ -43,7 +43,7 @@ insync() {
 	local status=$(insync-headless get_status 2> /dev/null)
 
 	if [ "$tmp" == "No syncing activities" -a "$status" == "SHARE" ]; then
-		echo -e " "
+		echo -e " "
 	else
 		# Calculate the mean of the progress' percentage. Insync shares this data
 		# when uploading or downloading files.
@@ -61,11 +61,11 @@ insync() {
 							printf ("%d\n", s/n)
 					}' 2> /dev/null)
 		if [ "$tmp" == "Download" ]; then
-			echo -e "\x04  Downloading ${per}% \x01 "
+			echo -e "\x04  Downloading ${per}% \x01 "
 		elif [ "$tmp" == "Uploading" ]; then
-			echo -e "\x04  Uploading ${per}% \x01 "
+			echo -e "\x04  Uploading ${per}% \x01 "
 		else
-			echo -e "\x05  $status \x01 "
+			echo -e "\x05  $status \x01 "
 		fi
 	fi
 }
