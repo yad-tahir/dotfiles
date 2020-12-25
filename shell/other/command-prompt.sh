@@ -61,7 +61,7 @@ prompt_generator() {
 		# \w to print current working directory
 		PS1="${delta} \[\033[1;33m\]\w \\$"
 	else
-		PS1="${delta} \[\033[1;36m\]\w \[\033[1;34m\]\\$"
+		PS1="${delta} \[\033[1;36m\]\w \[\033[1;35m\]\\$"
 	fi
 
 	# Reset the font color back to default

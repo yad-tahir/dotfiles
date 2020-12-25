@@ -76,7 +76,7 @@
 (defcustom chocolate-theme-element+4 "#da70d6"
   "Palette - element class 9"
   :type 'string :group 'chocolate-theme)
-(defcustom chocolate-theme-element+5 "#9932cc"
+(defcustom chocolate-theme-element+5 "#7818b4"
   "Palette - element class 10"
   :type 'string :group 'chocolate-theme)
 (defcustom chocolate-theme-element+6 "#fa8072"
