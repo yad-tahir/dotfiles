@@ -64,6 +64,7 @@ sys-kernel/genkernel
 sys-kernel/vanilla-sources
 sys-kernel/vanilla-sources:5.5.19
 sys-kernel/vanilla-sources:5.9.11
+sys-kernel/vanilla-sources:5.9.15
 sys-power/powertop
 sys-process/glances
 sys-process/htop
