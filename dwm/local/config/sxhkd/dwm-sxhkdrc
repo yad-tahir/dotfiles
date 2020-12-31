@@ -116,6 +116,8 @@ super + semicolon; v
 	urxvtc -hold -name visualizer -e vis &
 super + semicolon; l
 	urxvtc -hold -name log -e /bin/journalctl -fn 200 &
-super + F6
+super + F3
+	feh --bg-fill $(/bin/ls ${HOME}/pictures/background/* | shuf -n 1) &
+super + shift + F2
 	emacsclient -nqe "(progn (do-make-frame nil \"$DISPLAY\") (funcall-interactively 'org-capture))"\\
 		-a='/usr/bin/urxvt -e nano' > /dev/null &
