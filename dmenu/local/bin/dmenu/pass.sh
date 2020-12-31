@@ -18,11 +18,8 @@
 # 02110-1301, USA.
 
 # Get the settings
-COLOR_BG=$(xrdb -query | awk '/\*background:/{print $2}')
-COLOR_FG=$(xrdb -query | awk '/\*foreground:/{print $2}')
-COLOR_SEL=$(xrdb -query | awk '/\*color3:/{print $2}')
-FONT=$(xrdb -query | awk '/Panel.font1:/{$1="";print $0}')
-HEIGHT=$(xrdb -query | awk '/Panel.height:/{print $2}')
+source "`dirname $0`/dmenu-util"
+COLOR_SEL="#ff6347"
 
 prefix="${PASSWORD_STORE_DIR}/"
 # Get the files

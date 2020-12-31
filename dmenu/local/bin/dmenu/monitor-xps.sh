@@ -20,11 +20,8 @@
 # A small menu to choose the monitor setup
 
 # Get the settings
-COLOR_BG=$(xrdb -query | awk '/\*background:/{print $2}')
-COLOR_FG=$(xrdb -query | awk '/\*foreground:/{print $2}')
-COLOR_SEL=$(xrdb -query | awk '/\*color10:/{print $2}')
-FONT=$(xrdb -query | awk '/Panel.font1:/{$1="";print $0}')
-HEIGHT=$(xrdb -query | awk '/Panel.height:/{print $2}')
+source "`dirname $0`/dmenu-util"
+COLOR_SEL="#c0ff3e"
 
 layouts="lab office home laptop"
 for i in $layouts; do

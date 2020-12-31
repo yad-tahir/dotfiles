@@ -1,0 +1,6 @@
+#! /bin/sh
+
+COLOR_BG="#000000"
+COLOR_FG="#e6beae"
+FONT="DejaVu Sans Mono-12"
+HEIGHT="30"
