@@ -72,7 +72,7 @@ insync() {
 		elif [ "$tmp" == "Uploading" ]; then
 			echo -e "\x04  Uploading ${per}% \x01 "
 		else
-			echo -e "\x05  $status \x01 "
+			echo -e "\x05  \x01 "
 		fi
 	fi
 }
@@ -192,24 +192,6 @@ vpn(){
 	fi
 }
 
-battery(){
-	local code=$(acpi | awk '{print tolower(substr($3,1,length($3)-1))}')
-	local level=$(acpi |  awk '{gsub(",","",$0);gsub("%","",$0);print $4}')
-	local time=$(acpi | awk '{print " "$5" "}')
-
-	if [ "$time" = " rate " ]; then
-		time=" 0:00:00 "
-	fi
-
-	if [ "$code" = "discharging" ]; then
-		echo -e "\x04  ${level}%${time}\x01 "
-	elif [ "$code" = "charging" ]; then
-		echo -e "\x07  ${level}%${time}\x01 "
-	else
-		echo -e " ${level}% "
-	fi
-}
-
 time_left(){
 	printf " %'d " $(life)
 }
@@ -243,6 +225,7 @@ while [ 1 ]; do
 	status="$(temp)$(uptime)$(mem)$(emacs)$(vpn)$(insync)| $(vol)$(keyboard)| $(time_left)| $(date +'%a, %b %d %H:%M')"
 	status=$(echo -e "$status" | tr '\n' ' ')
 	xsetroot -name "$status"
-	motherboard_color
+	# FIX-ME: Change the location
+	motherboard_color &
 	sleep 1m
 done
