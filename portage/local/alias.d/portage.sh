@@ -34,7 +34,7 @@ alias emerge-log='sudo elogv'
 alias emerge-fetch='sudo tail -f /var/log/emerge-fetch.log'
 alias emerge-status='(cd /var/db/repos/gentoo && exec git show -2 --summary)'
 
-emerge-info () {
+emerge-info() {
 	equery m $@ 2> /dev/null
 	echo ''
 	eix -e $@ 2> /dev/null
@@ -45,56 +45,65 @@ emerge-info () {
 	equery size $@ 2> /dev/null || echo "Not installed"
 }
 
-emerge-reinstall () {
+emerge-reinstall() {
 	sudo emerge --unmerge $@
 	sudo emerge -1 $@
 	# Ask whether add params to @world or not
 	sudo emerge $@
 }
 
-emerge-pull () {
+emerge-pull() {
 	local SUDO='sudo -E'
-	pushd . > /dev/null
-
-	cd /var/db/repos/gentoo &&
-		$SUDO git checkout rsync &&
-		$SUDO git pull
-	cd /var/db/repos/public &&
-		$SUDO git pull
-	cd /var/db/repos/private &&
-		$SUDO git pull
-
-	$SUDO eix-update
-	popd > /dev/null
+	(cd /var/db/repos/gentoo &&
+		 $SUDO git checkout rsync &&
+		 $SUDO git pull --force &&
+		 $SUDO git reset --hard origin/rsync) &
+	(cd /var/db/repos/public &&
+		 $SUDO git pull --force &&
+		 $SUDO git reset --hard origin/master) &
+	(cd /var/db/repos/private &&
+		 $SUDO git pull --force &&
+		 $SUDO git reset --hard origin/master) &
+	wait
+	sudo eix-update
 }
 
-emerge-sync () {
+emerge-sync() (
 	local cdate=$(date +'%b %d, %Y')
 	local SUDO='sudo -E'
 
-	pushd . > /dev/null
 	cd /var/db/repos/gentoo
-
 	# Clean uncompleted syncs
-	$SUDO rm -R .tmp-unverified-download-quarantine 2> /dev/null &&
-	$SUDO git reset --hard
+	FILE=".tmp-unverified-download-quarantine"
+	if [ -f "$FILE" ]; then
+		$SUDO rm -R "$FILE"
+		$SUDO git reset --hard
+	fi
 
 	# Update mirror branch by fetching commits from the official gentoo repo
 	$SUDO git checkout master &&
-		$SUDO git pull gentoo master
-	$SUDO git push origin master
+		($SUDO git pull gentoo master &&
+			 $SUDO git push origin master)
 
-	# Update without-manifest branch, which is a master sub-branch but it does
-	# not include manifest files
+	# Update without-manifest branch, a master sub-branch that it does have
+	# manifest files
 	$SUDO git checkout without-manifest &&
-		$SUDO  git merge master --no-edit
-	$SUDO find . -name 'Manifest' -delete
-	$SUDO find . -name 'Manifest.gz' -delete
-	$SUDO git commit -am "Merge master without manifest files $cdate"
-	$SUDO git push origin without-manifest
+		($SUDO  git merge master --no-edit
+		 $SUDO find . -name 'Manifest' -delete
+		 $SUDO find . -name 'Manifest.gz' -delete
+		 $SUDO git commit -am "Merge master without manifest files $cdate"
+		 $SUDO git push origin without-manifest)
+
+	emerge-rsync
+)
+
+emerge-rsync() (
+	local cdate=$(date +'%b %d, %Y')
+	local SUDO='sudo -E'
+	cd /var/db/repos/gentoo
 
 	$SUDO git checkout rsync
-	$SUDO -E git merge without-manifest --no-edit
+	$SUDO git merge without-manifest --no-edit
 	# Rsync and merge the new changes
 	$SUDO emerge --sync | tee /tmp/rsync &&
 		local remote=$(awk '/^rsync:/{gsub("?","",$1); print $1}' /tmp/rsync) &&
@@ -102,8 +111,8 @@ emerge-sync () {
 		# @TODO This adds manifest files back to git. However, other files
 		# may also be modified by rsync. We must merge everything, otherwise portage
 		# is going to complain about manifest files.
-		$SUDO git commit -am "Merge $remote $cdate"
-	$SUDO git push origin rsync
+		$SUDO git commit -am "Merge $remote $cdate" &&
+		$SUDO git push origin rsync
+
 	$SUDO eix-update
-	popd > /dev/null
-}
+)
