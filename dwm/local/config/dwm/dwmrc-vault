@@ -199,10 +199,11 @@ time_left(){
 motherboard_color(){
 	# Setup LED
 	local h=$(/bin/date +'%H')
+	local old_h=$(/bin/cat /tmp/dwm-status-lhour)
 	if [ "$old_h" == $h ]; then
 		return
 	fi
-	old_h=$h
+	echo $h > /tmp/dwm-status-lhour
 
 	if [ $h -ge 18 ]; then
 		# LED strips
