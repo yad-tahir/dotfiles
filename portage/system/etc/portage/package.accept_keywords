@@ -2,6 +2,7 @@
 <sys-kernel/vanilla-sources-5.10 ~amd64
 x11-wm/dwm ~amd64
 x11-misc/dmenu ~amd64
+sys-apps/apparmor ~amd64
 
 # Apps
 <=app-editors/emacs-28 ~amd64
@@ -38,4 +39,7 @@ app-benchmarks/stress-ng ~amd64
 # Fontforge is required by LibreOffice. The unstable version is used to remove Python 3.6 dependency
 <=media-gfx/fontforge-20190317-r3 ~amd64
 # Fix old dependency
-=media-libs/opencolorio-1.1.1 ~amd64
+=media-libs/opencolorio-1.1.1 ~amd64# Required by apparmor
+sys-libs/libapparmor ~amd64
+sys-apps/apparmor-utils ~amd64
+sec-policy/apparmor-profiles ~amd64

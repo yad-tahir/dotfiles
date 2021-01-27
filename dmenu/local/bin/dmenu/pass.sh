@@ -39,5 +39,6 @@ value=$(printf '%s\n' "$password_files" |
 				  -l 0 -p "Password" "$@")
 
 if [ "$value" != "" ]; then
-	sudo -u $USER -g no-net /bin/sh -c ". $HOME/bin/settings.sh && pass show -c $value" > /dev/null
+	. $HOME/bin/settings.sh
+	pass show -c $value > /dev/null
 fi
