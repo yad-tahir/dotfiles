@@ -43,7 +43,7 @@ urxvtc -hold -name log -e /bin/journalctl -fn 200 &
 sleep 0.1
 urxvtc -hold -name htop -e /usr/bin/htop &
 sleep 0.1
-urxvtc -hold -name sensors -e /usr/bin/watch 'sensors 2> /dev/null | grep -v energy' &
+urxvtc -hold -name sensors -e /sbin/zpool iostat 1 -v &
 sleep 0.1
 dwmc focusmon 1
 
