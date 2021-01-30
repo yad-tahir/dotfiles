@@ -40,6 +40,8 @@ app-benchmarks/stress-ng ~amd64
 <=media-gfx/fontforge-20190317-r3 ~amd64
 # Fix old dependency
 =media-libs/opencolorio-1.1.1 ~amd64# Required by apparmor
+
+# Required by apparmor
 sys-libs/libapparmor ~amd64
 sys-apps/apparmor-utils ~amd64
 sec-policy/apparmor-profiles ~amd64

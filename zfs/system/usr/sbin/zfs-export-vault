@@ -30,13 +30,21 @@ fi
 key="$(cat $GNUPGHOME/usage/zfs-backup.encrypt.key)"
 
 # ZFS sets
-backup_sets=( "vault/sys/gentoo/root"
+backup_sets=( "vault-ssd/sys/gentoo/root"
+			  "vault/data/liza/default"
+			  "vault/data/liza/desktop"
+			  "vault/data/liza/music"
+			  "vault/data/liza/archive"
+			  "vault/data/liza/pictures"
+			  "vault/data/liza/videos"
+			  "vault/data/yad/archive"
 			  "vault/data/yad/default"
 			  "vault/data/yad/documents"
-			  "vault/data/yad/notes"
-			  "vault/data/yad/archive"
+			  "vault/data/yad/dotfiles"
+			  "vault/data/yad/downloads"
+			  "vault/data/yad/git"
 			  "vault/data/yad/music"
-			)
+			  "vault/data/yad/notes" )
 
 # Get the target location
 if [ "$#" -eq 1 ]; then
