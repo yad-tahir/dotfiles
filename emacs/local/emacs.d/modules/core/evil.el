@@ -371,8 +371,7 @@ avoid navigating with the insert state."
 		(abort-recursive-edit))))
 
   ;; Start Evil mode
-  (evil-mode 1)
-  )
+  (evil-mode 1))
 
 (use-package undo-tree
   :ensure t
