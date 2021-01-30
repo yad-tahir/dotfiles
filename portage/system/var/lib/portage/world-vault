@@ -55,10 +55,14 @@ net-wireless/wpa_supplicant
 sec-policy/apparmor-profiles
 sys-apps/apparmor
 sys-apps/apparmor-utils
+sys-apps/ethtool
+sys-apps/hdparm
 sys-apps/lm-sensors
 sys-apps/ripgrep
+sys-apps/smartmontools
 sys-apps/systemd
 sys-apps/usbutils
+sys-block/parted
 sys-boot/efibootmgr
 sys-fs/exfat-utils
 sys-fs/fuse-exfat
@@ -70,6 +74,8 @@ sys-kernel/vanilla-sources:5.9.11
 sys-kernel/vanilla-sources:5.9.15
 sys-process/glances
 sys-process/htop
+sys-process/iotop
+sys-process/lsof
 www-client/firefox
 x11-apps/mesa-progs
 x11-apps/setxkbmap
