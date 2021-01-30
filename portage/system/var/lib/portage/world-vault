@@ -43,6 +43,7 @@ media-video/mpv
 media-video/vlc
 net-analyzer/iftop
 net-analyzer/wireshark
+net-dns/dnsmasq
 net-firewall/nftables
 net-im/zoom
 net-misc/networkmanager
