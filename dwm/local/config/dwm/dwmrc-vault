@@ -207,18 +207,19 @@ motherboard_color(){
 
 	if [ $h -ge 18 ]; then
 		# LED strips
-		openrgb -d 0 -m static -c FF2200 --client &> /dev/null &
-		# The color scheme should follow the Green-Red-Blue format!
-		openrgb -d 1 -m static -c 44FF00 --client &> /dev/null &
+		# For d 2, the color scheme should follow the Green-Red-Blue format!
+		openrgb -d 2 -m static -c 22FF00 &> /dev/null &
+		# For d 1, the color scheme should follow the normal RGB format!
+		openrgb -d 1 -m static -c FF2200 &> /dev/null &
 	elif [ $h -ge 12 ]; then
-		openrgb -d 0 -m static -c FF0020 --client &> /dev/null &
-		openrgb -d 1 -m static -c 3333FF --client &> /dev/null &
+		openrgb -d 2 -m static -c 00FF20 &> /dev/null &
+		openrgb -d 1 -m static -c 3333FF &> /dev/null &
 	elif [ $h -ge 8 ]; then
-		openrgb -d 0 -m static -c FFFFFF --client &> /dev/null &
-		openrgb -d 1 -m static -c FF0000 --client &> /dev/null &
+		openrgb -d 2 -m static -c FFFFFF &> /dev/null &
+		openrgb -d 1 -m static -c FF0000 &> /dev/null &
 	else
-		openrgb -d 0 -m static -c FF0020 --client &> /dev/null &
-		openrgb -d 1 -m static -c 00FF20 --client &> /dev/null &
+		openrgb -d 2 -m static -c 00FF20 &> /dev/null &
+		openrgb -d 1 -m static -c FF0020 &> /dev/null &
 	fi
 }
 
