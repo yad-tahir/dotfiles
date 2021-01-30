@@ -90,7 +90,16 @@ media-libs/gst-plugins-base X
 app-text/mupdf javascript
 
 # Required by media-video/vlc
-sys-libs/zlib minizip# Required by Apparmor
+sys-libs/zlib minizip
+
+# Required by Chromium
+# required by www-client/chromium-87.0.4280.141::gentoo
+# required by chromium (argument)
+>=dev-libs/libxml2-2.9.10-r4 icu
+# required by www-client/chromium-87.0.4280.141::gentoo
+# required by chromium (argument)
+>=net-libs/nodejs-14.15.4 inspector
+
 # Required by Dbus [user-session]
 net-wireless/bluez user-session
 

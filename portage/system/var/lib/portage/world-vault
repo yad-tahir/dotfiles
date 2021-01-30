@@ -14,7 +14,6 @@ app-misc/OpenRGB
 app-misc/figlet
 app-misc/neofetch
 app-office/libreoffice
-app-portage/cpuid2cpuflags
 app-portage/eix
 app-portage/elogv
 app-portage/gentoolkit
@@ -25,7 +24,6 @@ app-text/master-pdf-editor
 app-text/texlive
 app-text/zathura
 app-text/zathura-pdf-mupdf
-dev-lang/php
 dev-vcs/git
 lxde-base/lxappearance
 media-fonts/dejavu
@@ -76,6 +74,7 @@ sys-process/glances
 sys-process/htop
 sys-process/iotop
 sys-process/lsof
+www-client/chromium
 www-client/firefox
 x11-apps/mesa-progs
 x11-apps/setxkbmap

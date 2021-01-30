@@ -49,6 +49,7 @@ net-p2p/syncthing
 net-vpn/openvpn
 net-wireless/bluez
 net-wireless/wpa_supplicant
+sys-apps/ethtool
 sys-apps/lm-sensors
 sys-apps/ripgrep
 sys-apps/systemd
