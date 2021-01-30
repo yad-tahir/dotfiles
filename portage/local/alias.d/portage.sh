@@ -54,6 +54,11 @@ emerge-reinstall() {
 
 emerge-pull() {
 	local SUDO='sudo -E'
+
+	if ! $SUDO true > /dev/null; then
+		return $?
+	fi
+
 	(cd /var/db/repos/gentoo &&
 		 $SUDO git checkout rsync &&
 		 $SUDO git pull --force &&
@@ -65,7 +70,7 @@ emerge-pull() {
 		 $SUDO git pull --force &&
 		 $SUDO git reset --hard origin/master) &
 	wait
-	sudo eix-update
+	$SUDO eix-update
 }
 
 emerge-sync() (
@@ -83,16 +88,24 @@ emerge-sync() (
 	# Update mirror branch by fetching commits from the official gentoo repo
 	$SUDO git checkout master &&
 		($SUDO git pull gentoo master &&
-			 $SUDO git push origin master)
+			 $SUDO chown $USER .git -R &&
+			 git push origin master &&
+			 $SUDO chown root .git -R)
 
 	# Update without-manifest branch, a master sub-branch that it does have
 	# manifest files
 	$SUDO git checkout without-manifest &&
 		($SUDO  git merge master --no-edit
 		 $SUDO find . -name 'Manifest' -delete
-		 $SUDO find . -name 'Manifest.gz' -delete
-		 $SUDO git commit -am "Merge master without manifest files $cdate"
-		 $SUDO git push origin without-manifest)
+		 $SUDO find . -name 'Manifest*.gz' -delete
+		 # Change the user ownership to the current user temporarily, so that GPG
+		 # work correctly. Otherwise, GPG complains about TTY ownership when
+		 # signing the commit and pushing it via ssh.
+		 $SUDO chown $USER .git -R &&
+		 git add --all &&
+		 git commit -am "Merge master without manifest files $cdate" &&
+		 git push origin without-manifest &&
+		 $SUDO chown root .git -R)
 
 	emerge-rsync
 )
@@ -100,6 +113,7 @@ emerge-sync() (
 emerge-rsync() (
 	local cdate=$(date +'%b %d, %Y')
 	local SUDO='sudo -E'
+
 	cd /var/db/repos/gentoo
 
 	$SUDO git checkout rsync
@@ -108,11 +122,16 @@ emerge-rsync() (
 	$SUDO emerge --sync | tee /tmp/rsync &&
 		local remote=$(awk '/^rsync:/{gsub("?","",$1); print $1}' /tmp/rsync) &&
 		$SUDO git add --all &&
+		# Change the user ownership to the current user temporarily, so that GPG
+		# work correctly. Otherwise, GPG complains about TTY ownership when
+		# signing the commit and pushing it via ssh.
+		$SUDO chown $USER .git -R &&
 		# @TODO This adds manifest files back to git. However, other files
 		# may also be modified by rsync. We must merge everything, otherwise portage
 		# is going to complain about manifest files.
-		$SUDO git commit -am "Merge $remote $cdate" &&
-		$SUDO git push origin rsync
+		git commit -am "Merge $remote $cdate" &&
+		git push origin rsync &&
+		$SUDO chown root .git -R
 
 	$SUDO eix-update
 )

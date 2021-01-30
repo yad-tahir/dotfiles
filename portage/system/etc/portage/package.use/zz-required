@@ -91,6 +91,8 @@ app-text/mupdf javascript
 
 # Required by media-video/vlc
 sys-libs/zlib minizip# Required by Apparmor
+# Required by Dbus [user-session]
+net-wireless/bluez user-session
 
 # Required by Apparmor
 app-admin/rsyslog openssl

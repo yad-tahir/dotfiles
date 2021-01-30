@@ -20,8 +20,6 @@
 
 source /etc/profile.env
 
-USER=yad
-
 # General
 # $EDITOR and $VISUAL are managed by eselect
 export ALTERNATE_EDITOR="nano"
@@ -35,6 +33,7 @@ export MPD_PORT="6600"
 # gpg & ssh
 export GNUPGHOME=/home/${USER}/.config/gpg
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpgconf --launch gpg-agent
 
 # Pass
 export PASSWORD_STORE_DIR=$HOME/documents/shadows
