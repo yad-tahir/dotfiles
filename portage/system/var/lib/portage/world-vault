@@ -9,6 +9,7 @@ app-emulation/libvirt
 app-emulation/lxd
 app-emulation/qemu
 app-emulation/virt-manager
+app-metrics/node_exporter
 app-misc/OpenRGB
 app-misc/figlet
 app-misc/neofetch
