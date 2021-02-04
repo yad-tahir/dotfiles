@@ -46,15 +46,15 @@ gpg-connect-agent /bye
 ${HOME}/bin/screen-layout/home.sh
 
 insync() {
-	local tmp=$(insync-headless get_sync_progress 2> /dev/null | head -n1)
-	local status=$(insync-headless get_status 2> /dev/null)
+	local tmp=$(lxc exec insync -- sudo -u lxd insync-headless get_sync_progress 2> /dev/null | head -n1)
+	local status=$(lxc exec insync -- sudo -u lxd insync-headless get_status 2> /dev/null)
 
 	if [ "$tmp" == "No syncing activities" -a "$status" == "SHARE" ]; then
 		echo -e " "
 	else
 		# Calculate the mean of the progress' percentage. Insync shares this data
 		# when uploading or downloading files.
-		per=$(insync-headless get_sync_progress |
+		per=$(lxc exec insync -- sudo -u lxd insync-headless get_sync_progress |
 				  awk '/[:number:]?%/{
 						p=$2;
 						gsub("\\(","",p);

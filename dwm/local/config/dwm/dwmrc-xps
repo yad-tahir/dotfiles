@@ -207,7 +207,7 @@ time_left(){
 }
 
 while [ 1 ]; do
-	status="$(fan)$(temp)$(uptime)$(mem)$(emacs)$(vpn)$(insync)| $(gpu)$(energy_profile)$(battery)$(vol)$(keyboard)| $(time_left)| $(date +'%a, %b %d %H:%M')"
+	status="$(fan)$(temp)$(uptime)$(mem)$(emacs)$(vpn)| $(gpu)$(energy_profile)$(battery)$(vol)$(keyboard)| $(time_left)| $(date +'%a, %b %d %H:%M')"
 	status=$(echo -e "$status" | tr '\n' ' ')
 	xsetroot -name "$status"
 	sleep 1m

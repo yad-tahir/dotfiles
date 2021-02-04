@@ -30,7 +30,6 @@ fi
 ./dmenu/restore-xps.sh
 ./dwm/restore-xps.sh
 ./firewall/restore-xps.sh
-./gdrive/restore-linux.sh
 ./git/restore-linux.sh
 ./intel/restore-linux.sh
 ./logger/restore-linux.sh

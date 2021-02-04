@@ -32,6 +32,9 @@ arr=( "/etc/portage/bashrc"
 	  "/etc/portage/repos.conf/public.conf"
 	  "/etc/portage/package.mask"
 	  "/etc/portage/package.accept_keywords"
+	  "/etc/portage/repos.conf/gentoo.conf"
+	  "/etc/portage/repos.conf/public.conf"
+	  "/etc/portage/repos.conf/private.conf"
 	)
 
 for i in "${arr[@]}"

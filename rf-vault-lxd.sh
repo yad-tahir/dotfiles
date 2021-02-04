@@ -32,7 +32,6 @@ fi
 # ./dmenu/restore-vault.sh
 # ./dwm/restore-vault.sh
 # ./firewall/restore-vault.sh
-# ./gdrive/restore-linux.sh
 # ./git/restore-linux.sh
 # ./logger/restore-linux.sh
 ./kernel/restore-vault.sh

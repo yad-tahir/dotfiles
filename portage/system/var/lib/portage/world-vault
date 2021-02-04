@@ -1,7 +1,6 @@
 app-admin/pass
 app-admin/rsyslog
 app-admin/sudo
-app-backup/insync
 app-backup/znapzend
 app-editors/emacs
 app-editors/nano
