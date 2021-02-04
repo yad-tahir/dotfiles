@@ -5,6 +5,7 @@ x11-misc/dmenu ~amd64
 <sys-fs/zfs-2.0.2 ~amd64
 <sys-fs/zfs-kmod-2.0.2 ~amd64
 sys-apps/apparmor ~amd64
+app-metrics/node_exporter ~amd64
 
 # Apps
 <=app-editors/emacs-28 ~amd64
