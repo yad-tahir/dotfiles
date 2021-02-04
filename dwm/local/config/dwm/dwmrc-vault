@@ -215,8 +215,8 @@ motherboard_color(){
 		openrgb -d 2 -m static -c 00FF20 &> /dev/null &
 		openrgb -d 1 -m static -c 3333FF &> /dev/null &
 	elif [ $h -ge 8 ]; then
-		openrgb -d 2 -m static -c FFFFFF &> /dev/null &
-		openrgb -d 1 -m static -c FF0000 &> /dev/null &
+		openrgb -d 2 -m static -c FF0000 &> /dev/null &
+		openrgb -d 1 -m static -c FFFFFF &> /dev/null &
 	else
 		openrgb -d 2 -m static -c 00FF20 &> /dev/null &
 		openrgb -d 1 -m static -c FF0020 &> /dev/null &
