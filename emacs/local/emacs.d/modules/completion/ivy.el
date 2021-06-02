@@ -193,7 +193,7 @@
    "SPC sv" 'counsel-describe-variable
    "SPC sl" 'counsel-find-library
    "SPC si" 'counsel-info-lookup-symbol
-   "SPC su" 'counsel-unicode-char
+   ;; "SPC su" 'counsel-unicode-char
    "SPC sg" 'counsel-rg)
 
   (general-define-key

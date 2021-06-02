@@ -25,8 +25,8 @@
   (general-define-key
    :keymaps 'override
    :prefix "SPC s"
-   :states 'normal
-   "u" #'do-sudo-current-file)
+   :states '(normal visual)
+   "u" 'do-sudo-current-file)
   :config
   (setenv "CDPATH" ".:/usr/bin")
 
@@ -46,7 +46,7 @@
 
   (defun do--sudo-find-file (file-name)
 	"Like find file, but opens the file as root."
-	(interactive "FSudo Find File: ")
+	(interactive "Sudo Find File: ")
 	(let ((tramp-file-name (concat "/sudo::" (expand-file-name file-name))))
 	  (find-file tramp-file-name)))
 
@@ -58,10 +58,11 @@
 	(let ((name (buffer-file-name)))
 	  (when (null name)
 		(setq name default-directory))
-	  (when (not (s-contains? "sudo" name))
-		(do--sudo-find-file name))))
+	  (if (not (s-contains? "sudo" name))
+		  (do--sudo-find-file name)
+		(find-file (s-replace ":" "" (nth 1 (s-slice-at ":/" name)))))))
 
-  (add-hook 'eshell-mode-hook #'(lambda () (require 'em-tramp))))
+  (add-hook 'eshell-mode-hook '(lambda () (require 'em-tramp))))
 
 
 (provide 'do-tramp)
