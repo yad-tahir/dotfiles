@@ -1,5 +1,5 @@
 # Core
-<sys-kernel/vanilla-sources-5.10 ~amd64
+<sys-kernel/vanilla-sources-5.11 ~amd64
 x11-wm/dwm ~amd64
 x11-misc/dmenu ~amd64
 <sys-fs/zfs-2.0.2 ~amd64
