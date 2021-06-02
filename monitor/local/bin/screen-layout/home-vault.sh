@@ -27,8 +27,9 @@ xrandr --output DisplayPort-1 --mode 3440x1440 --pos 2360x196 --rotate inverted
 xrandr --output DisplayPort-2 --off
 xrandr --output HDMI-A-0 --primary --mode 3840x1600 --pos 2160x1637 --rotate normal
 
-# dispwin -d 1 $HOME/.config/icc-profiles/U3818DW#2-2018-10-20-2347.icc
-# dispwin -d 3 $HOME/.config/icc-profiles/U2718Q#3-2018-10-21-0034.icc
+sleep 30 && lxc exec displaycal -- sudo -u lxd argyll-dispwin -d 1 '/home/lxd/.local/share/DisplayCAL/storage/U3818DW-2021-04-02-100cdm²/U3818DW-2021-04-02-100cdm².cal' &
+sleep 35 && lxc exec displaycal -- sudo -u lxd argyll-dispwin -d 2 '/home/lxd/.local/share/DisplayCAL/storage/U2718Q-2021-04-03-100cdm²/U2718Q-2021-04-03-100cdm².cal' &
+sleep 40 && lxc exec displaycal -- sudo -u lxd argyll-dispwin -d 3 '/home/lxd/.local/share/DisplayCAL/storage/U3415W-2021-04-02-100cdm²/U3415W-2021-04-02-100cdm².cal' &
 
 # Enable energy-saving modes
 xset +dpms
