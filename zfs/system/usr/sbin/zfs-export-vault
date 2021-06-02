@@ -44,7 +44,8 @@ backup_sets=( "vault-ssd/sys/gentoo/root"
 			  "vault/data/yad/downloads"
 			  "vault/data/yad/git"
 			  "vault/data/yad/music"
-			  "vault/data/yad/notes" )
+			  "vault/data/yad/notes"
+			  "vault/data/yad/work" )
 
 # Get the target location
 if [ "$#" -eq 1 ]; then
