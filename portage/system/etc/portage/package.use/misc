@@ -1,4 +1,4 @@
-net-print/cups X -acl
+net-print/cups -acl
 net-print/cups-filters pdf png jpeg
 
 # Enable built-in emacs support
@@ -8,19 +8,18 @@ app-crypt/pinentry emacs
 dev-vcs/git emacs
 
 # Many applications, such as virt-manager and libraoffice, require @X internally
-sys-apps/dbus X
+sys-apps/dbus user-session
 
 # QT
-dev-qt/* X dbus
+dev-qt/* dbus
 
 # Fonts
-media-fonts/* X
-media-libs/freetype X
 # @cjk adds chinese, japanese and korean character sets
 media-fonts/noto cjk
 
 # Fontforge - postscript font editor and converter
-media-gfx/fontforge X gif jpeg png svg tiff cairo
+# Remove @unicode because media-libs/libuninameslist is broken
+media-gfx/fontforge gif jpeg png svg tiff cairo -unicode
 
 # Office related
 # @extra is required when exporting Org files as PDFs

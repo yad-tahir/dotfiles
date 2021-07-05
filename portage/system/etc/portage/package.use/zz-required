@@ -2,12 +2,6 @@
 #### Requested USE flags
 ####
 
-# General
-x11-libs/cairo xcb X
-x11-libs/libxcb xkb
->=x11-libs/pango-1.30.0 X
->=x11-libs/libxkbcommon-0.9.1 X
-
 # firefox
 sys-devel/llvm gold
 media-libs/libpng apng
@@ -28,7 +22,6 @@ dev-libs/boost nls
 # Graphic
 # required by x11-drivers/nvidia-drivers-440.36-r1::gentoo[tools]
 # required by nvidia-drivers (argument)
->=x11-libs/gdk-pixbuf-2.38.1-r1 X
 
 # required by app-text/texlive-core-2019-r4::gentoo
 # required by dev-texlive/texlive-latex-2019::gentoo
@@ -46,7 +39,6 @@ dev-libs/boost nls
 # required by virt-manager (argument)
 >=net-misc/spice-gtk-0.35 usbredir
 >=dev-libs/libxml2-2.9.9-r1 python
-media-libs/gst-plugins-base X
 # required by app-emulation/libvirt-5.5.0-r1::gentoo[virt-network]
 # required by app-emulation/libvirt (argument)
 >=net-dns/dnsmasq-2.80-r1 script
@@ -59,14 +51,6 @@ media-libs/gst-plugins-base X
 # required by @selected
 # required by @world (argument)
 >=dev-libs/libpcre2-10.33-r1 pcre16
-
-# required by x11-libs/gtk+-3.24.11::gentoo
-# required by app-text/ghostscript-gpl-9.50::gentoo[gtk]
-# required by app-text/ps2eps-1.68::gentoo
-# required by app-text/texlive-2019-r1::gentoo
-# required by @selected
-# required by @world (argument)
->=media-libs/libepoxy-1.5.4 X
 
 # required by media-gfx/gimp-2.10.8-r1::gentoo
 # required by media-gfx/gimp (argument)
@@ -82,9 +66,9 @@ media-libs/gst-plugins-base X
 >=app-eselect/eselect-php-0.9.4-r5 apache2
 
 # required by app-editors/emacs-27.1.9999-r1::gentoo
-# required by @selected
-# required by @world (argument)
 >=app-emacs/emacs-common-gentoo-1.6-r4 gui
+# required by app-editors/emacs-27.2::gentoo
+>=app-emacs/emacs-common-1.8 gui
 
 # Required by mupdf opengl
 app-text/mupdf javascript
@@ -92,16 +76,19 @@ app-text/mupdf javascript
 # Required by media-video/vlc
 sys-libs/zlib minizip
 
-# Required by Chromium
-# required by www-client/chromium-87.0.4280.141::gentoo
-# required by chromium (argument)
->=dev-libs/libxml2-2.9.10-r4 icu
-# required by www-client/chromium-87.0.4280.141::gentoo
-# required by chromium (argument)
->=net-libs/nodejs-14.15.4 inspector
-
 # Required by Dbus [user-session]
 net-wireless/bluez user-session
 
 # Required by Apparmor
 app-admin/rsyslog openssl
+sys-libs/libapparmor perl
+
+# required by x11-misc/urxvt-font-size-1.3::gentoo
+# required by @selected
+# required by @world (argument)
+>=x11-terms/rxvt-unicode-9.22-r9 perl
+
+# required by app-misc/neofetch-7.1.0::gentoo[X]
+# required by @selected
+# required by @world (argument)
+>=www-client/w3m-0.5.3_p20180125 imlib

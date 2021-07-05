@@ -8,6 +8,10 @@ app-emulation/libvirt zfs pcap dbus numa vepa audit macvtap virt-network fuse lv
 # TODO: Add @webdav in the future
 net-misc/spice-gtk lz4 dbus
 
+# LXD/LXC
+# Some images use lz4 or lzo compressions
+sys-fs/squashfs-tools lz4 lzo
+
 # ZZZ
 # Required by LXD's .xz images
 sys-fs/squashfs-tools lzma

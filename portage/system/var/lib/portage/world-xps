@@ -22,7 +22,6 @@ app-text/zathura
 app-text/zathura-pdf-mupdf
 dev-vcs/git
 gnome-extra/zenity
-lxde-base/lxappearance
 media-fonts/dejavu
 media-fonts/fontawesome
 media-fonts/noto
@@ -63,9 +62,8 @@ sys-fs/fuse-exfat
 sys-fs/zfs
 sys-kernel/genkernel
 sys-kernel/vanilla-sources
-sys-kernel/vanilla-sources:5.5.19
-sys-kernel/vanilla-sources:5.9.11
-sys-kernel/vanilla-sources:5.9.15
+sys-kernel/vanilla-sources:5.10.19
+sys-kernel/vanilla-sources:5.10.27
 sys-power/powertop
 sys-process/glances
 sys-process/htop

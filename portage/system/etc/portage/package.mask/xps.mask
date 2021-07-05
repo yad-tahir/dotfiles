@@ -1,0 +1,11 @@
+# Python 3.6 should be avoided as of Mar 17, 2020. Use Python 3.7 instead
+=dev-lang/python-3.6.10
+
+# Uncessary packages
+dev-lang/vala
+app-editors/xemacs
+# Disable eselect opengl because we are using libglvnd
+app-eselect/eselect-opengl
+
+# 460 breaks XPS' iGPU
+>x11-drivers/nvidia-drivers-451

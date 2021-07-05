@@ -1,9 +1,1 @@
 # Liceneses required by packages installed to meet portage's world set
-
-# required by geekbench (argument)
-=app-benchmarks/geekbench-5.2.3 geekbench
-
-# required by media-libs/openimageio-2.2.8.0::gentoo
-# required by media-gfx/blender-2.90.1-r1::gentoo[openimageio]
-# required by @__auto_slot_operator_replace_installed__ (argument)
->=sci-libs/dcmtk-3.6.5 OFFIS

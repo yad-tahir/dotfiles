@@ -1,4 +1,4 @@
-media-sound/pulseaudio X alsa dbus jack -ipv6 -tcpd -gtk
+media-sound/pulseaudio alsa dbus jack -ipv6 -tcpd -gtk
 media-sound/jack-audio-connection-kit alsa oss
 
 # App

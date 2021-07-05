@@ -20,21 +20,13 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
+./restore-common.sh
 
-TARGET="/etc/portage/repos.conf"
-[ ! -e "${TARGET}" ] && sudo mkdir --parents "${TARGET}"
-
-arr=( "/etc/portage/bashrc"
+arr=(
 	  "/etc/portage/common-lxd.conf"
-	  "/etc/portage/package.license"
 	  "/etc/portage/package.use/core-lxd"
-	  "/etc/portage/repos.conf/gentoo.conf"
-	  "/etc/portage/repos.conf/public.conf"
-	  "/etc/portage/package.mask"
-	  "/etc/portage/package.accept_keywords"
-	  "/etc/portage/repos.conf/gentoo.conf"
-	  "/etc/portage/repos.conf/public.conf"
-	  "/etc/portage/repos.conf/private.conf"
+	  "/etc/portage/package.mask/lxd.mask"
+	  "/etc/portage/package.accept_keywords/lxd"
 	)
 
 for i in "${arr[@]}"
@@ -44,24 +36,7 @@ do
 	do-sync-sudo "$SOURCE" "$TARGET"
 done
 
+
 TARGET="/etc/portage/make.conf"
 SOURCE="${PWD}/system/etc/portage/make-vault-lxd.conf"
 do-sync-sudo "$SOURCE" "$TARGET"
-
-REPO_PATH="/var/db/repos/public"
-if [ ! -e $REPO_PATH ]; then
-	echo "-> Download my public overlay"
-	sudo -E git clone --depth=1 https://github.com/yad-tahir/gentoo-overlay.git "$REPO_PATH"
-fi
-
-REPO_PATH="/var/db/repos/gentoo"
-if [ ! -e $REPO_PATH ]; then
-	echo "-> Download Gentoo Github mirror"
-	sudo -E git clone --depth=1 https://github.com/yad-tahir/gentoo-mirror.git "$REPO_PATH"
-	pushd .
-	cd $REPO_PATH
-	sudo -E git checkout rsync
-	popd
-fi
-
-do-ln-sync "$PWD/local/alias.d" "$HOME/.config/alias.d"

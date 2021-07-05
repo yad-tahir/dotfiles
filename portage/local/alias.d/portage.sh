@@ -92,20 +92,29 @@ emerge-sync() (
 			 git push origin master &&
 			 $SUDO chown root .git -R)
 
+	git status
+	echo "Press Enter to continue"
+	read enter
+
 	# Update without-manifest branch, a master sub-branch that it does have
 	# manifest files
 	$SUDO git checkout without-manifest &&
-		($SUDO  git merge master --no-edit
+		($SUDO git merge master --no-edit
 		 $SUDO find . -name 'Manifest' -delete
 		 $SUDO find . -name 'Manifest*.gz' -delete
+		 $SUDO find . -name 'Manifest*master' -delete
 		 # Change the user ownership to the current user temporarily, so that GPG
 		 # work correctly. Otherwise, GPG complains about TTY ownership when
 		 # signing the commit and pushing it via ssh.
 		 $SUDO chown $USER .git -R &&
-		 git add --all &&
+			 git add --all
 		 git commit -am "Merge master without manifest files $cdate" &&
-		 git push origin without-manifest &&
-		 $SUDO chown root .git -R)
+			 git push origin without-manifest &&
+			 $SUDO chown root .git -R
+		 $SUDO git status)
+
+	echo "Press Enter to continue"
+	read enter
 
 	emerge-rsync
 )
@@ -117,21 +126,24 @@ emerge-rsync() (
 	cd /var/db/repos/gentoo
 
 	$SUDO git checkout rsync
-	$SUDO git merge without-manifest --no-edit
-	# Rsync and merge the new changes
-	$SUDO emerge --sync | tee /tmp/rsync &&
-		local remote=$(awk '/^rsync:/{gsub("?","",$1); print $1}' /tmp/rsync) &&
-		$SUDO git add --all &&
-		# Change the user ownership to the current user temporarily, so that GPG
-		# work correctly. Otherwise, GPG complains about TTY ownership when
-		# signing the commit and pushing it via ssh.
-		$SUDO chown $USER .git -R &&
-		# @TODO This adds manifest files back to git. However, other files
-		# may also be modified by rsync. We must merge everything, otherwise portage
-		# is going to complain about manifest files.
-		git commit -am "Merge $remote $cdate" &&
-		git push origin rsync &&
-		$SUDO chown root .git -R
 
+	# Rsync and merge the new changes
+	$SUDO git merge without-manifest --no-edit
+	$SUDO emerge --sync | tee /tmp/rsync &&
+		local remote=$(awk '/^rsync:/{gsub("?","",$1); print $1}' /tmp/rsync)
+
+	# Change the user ownership to the current user temporarily, so that GPG
+	# work correctly. Otherwise, GPG complains about TTY ownership when
+	# signing the commit and pushing it via ssh.
+	$SUDO chown $USER .git -R &&
+		git add --all &&
+		git commit -am "Merge $remote $cdate"
+
+	git status
+	echo "Press Enter to continue"
+	read enter
+
+	git push origin rsync
+	$SUDO chown root .git -R
 	$SUDO eix-update
 )

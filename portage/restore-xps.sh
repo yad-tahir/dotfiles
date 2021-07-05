@@ -20,15 +20,11 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
-TARGET="/etc/portage/repos.conf"
-[ ! -e "${TARGET}" ] && sudo mkdir --parents "${TARGET}"
+./restore-common.sh
 
-arr=( "/etc/portage/bashrc"
-	  "/etc/portage/common.conf"
-	  "/etc/portage/repos.conf/gentoo.conf"
-	  "/etc/portage/repos.conf/public.conf"
-	  "/etc/portage/repos.conf/private.conf"
+arr=( "/etc/portage/common.conf"
 	  "/etc/portage/sets"
+	  "/etc/portage/repos.conf/gentoo.conf"
 	  "/etc/portage/package.license"
 	  "/etc/portage/package.use/apps"
 	  "/etc/portage/package.use/core"
@@ -43,8 +39,8 @@ arr=( "/etc/portage/bashrc"
 	  "/etc/portage/package.use/vm"
 	  "/etc/portage/package.use/xps"
 	  "/etc/portage/package.use/zz-required"
-	  "/etc/portage/package.mask"
-	  "/etc/portage/package.accept_keywords"
+	  "/etc/portage/package.mask/xps.mask"
+	  "/etc/portage/package.accept_keywords/xps"
 	)
 
 for i in "${arr[@]}"
@@ -90,5 +86,3 @@ if [ ! -e $REPO_PATH ]; then
 	sudo -E git checkout rsync
 	popd
 fi
-
-do-ln-sync "$PWD/local/alias.d" "$HOME/.config/alias.d"

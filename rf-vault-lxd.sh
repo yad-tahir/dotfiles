@@ -27,31 +27,7 @@ if [ $? -ne 0 ]; then
 	exit $?
 fi
 
-./portage/restore-vault-lxd.sh
-# ./emacs/restore-linux.sh
-# ./dmenu/restore-vault.sh
-# ./dwm/restore-vault.sh
-# ./firewall/restore-vault.sh
-# ./git/restore-linux.sh
-# ./logger/restore-linux.sh
+./portage/restore-lxd.sh
 ./kernel/restore-vault.sh
-# ./keyboard/restore-linux.sh
-# ./monitor/restore-vault.sh
-# ./mpd/restore-linux.sh
-# ./network/restore-vault.sh
-# ./pam/restore-linux.sh
-# ./sound/restore-linux.sh
-# ./radeon/restore-linux.sh
-# ./root/restore-linux.sh
-# ./scripts/restore-linux.sh
-# ./shell/restore-linux.sh
-#./visualizer/restore-linux.sh
-# ./urxvt/restore-linux.sh
-# ./vm/restore-linux.sh
-# ./vpn/restore-linux.sh
-# ./x11/restore-linux.sh
-# ./zathura/restore-linux.sh
-# ./zfs/restore-vault.sh
-# ./zoom/restore-linux.sh
 
 echo "Done."
