@@ -41,7 +41,6 @@ backup_sets=( "vault-ssd/sys/gentoo/root"
 			  "vault/data/yad/default"
 			  "vault/data/yad/documents"
 			  "vault/data/yad/dotfiles"
-			  "vault/data/yad/downloads"
 			  "vault/data/yad/git"
 			  "vault/data/yad/music"
 			  "vault/data/yad/notes"
@@ -103,16 +102,6 @@ for i in "${backup_sets[@]}"; do
 	# Create a zfs snapshot for the new backup if it does not exist.
 	zfs snap -r "${i}@${new}" 2> /dev/null
 
-	case "$(date +%a)" in
-		# If it is Friday, create a backup starting from the beginning of the
-		# month instead. This is a safety feature to avoid data loss caused by
-		# corrupted incremental backups.
-		Fri)
-			backup "$i" "${major}" "${new}"
-			;;
-		*)
-			# Perform an incremental backup.
-			backup "$i" "${prev}" "${new}"
-			;;
-	esac
+	# Perform an incremental backup.
+	backup "$i" "${prev}" "${new}"
 done
