@@ -17,9 +17,4 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-# Desktop-aware launcher for Firefox. We launch Firefox either in the VPN mode
-# or not depending on the current focused desktop. If the VPN mode is
-# activated, then Firefox sends that data through VPN. Otherwise, data is
-# sent directly.
-
 exec echo "$@" | bc --mathlib

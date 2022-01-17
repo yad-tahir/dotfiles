@@ -27,7 +27,7 @@ export TERMINAL="urxvtc"
 export BROWSER="firefox"
 
 # mpd
-export MPD_HOST="localhost"
+export MPD_HOST="127.0.0.1"
 export MPD_PORT="6600"
 
 # gpg & ssh

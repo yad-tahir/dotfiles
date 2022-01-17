@@ -59,7 +59,7 @@ Panel.font1: DejaVu Sans Mono-12
 Panel.height: 30
 
 !! URxvt settings
-URxvt.font: xft:DejaVu Sans Mono-14
+URxvt.font: xft:DejaVu Sans Mono-16
 URxvt.depth: 32
 URxvt.scrollBar: false
 URxvt.letterSpace: -1

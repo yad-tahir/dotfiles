@@ -36,4 +36,3 @@ systemctl list-units -t service --failed --quiet --no-pager
 echo ''
 
 source $HOME/dotfiles/shell/other/command-prompt.sh
-
