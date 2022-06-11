@@ -60,7 +60,7 @@ Panel.height: 30
 
 !! URxvt settings
 URxvt.font: xft:DejaVu Sans Mono-16
-URxvt.depth: 32
+URxvt.depth: 24
 URxvt.scrollBar: false
 URxvt.letterSpace: -1
 !! Extensions
