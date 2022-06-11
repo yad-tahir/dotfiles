@@ -47,7 +47,7 @@
   "Palette - shadow class 4"
   :type 'string :group 'chocolate-theme)
 
-(defcustom chocolate-theme-highlight "#ff009e"
+(defcustom chocolate-theme-highlight "#ff00ff"
   "Palette - default highlight"
   :type 'string :group 'chocolate-theme)
 (defcustom chocolate-theme-highlight+1 "#ff6347"
@@ -86,7 +86,7 @@
   "Palette - element class 8"
   :type 'string :group 'chocolate-theme)
 
-(defcustom chocolate-theme-element+8 "#00f5ff"
+(defcustom chocolate-theme-element+8 "#00ffff"
   "Palette - element class 4"
   :type 'string :group 'chocolate-theme)
 (defcustom chocolate-theme-element+9 "#6fd8ff"

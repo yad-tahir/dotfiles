@@ -30,7 +30,7 @@ Xcursor.theme: Adwaita
 *color2: #a7e23e
 *color10: #c0ff3e
 *color3: #ff6347
-*color11: #ff009e
+*color11: #ff00ff
 *color4: #da70d6
 *color12: #7818b4
 *color5: #efd5cb
@@ -45,7 +45,7 @@ Xcursor.theme: Adwaita
 *colorBD: #ffa500
 *colorIT: #3ee2b4
 *colorUL: #a7e23e
-*coloRV: #00f5ff
+*coloRV: #00ffff
 
 !! Emacs settings
 Emacs.cursorBlink: 0
