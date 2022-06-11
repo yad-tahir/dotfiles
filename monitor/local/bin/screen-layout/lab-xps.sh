@@ -21,12 +21,10 @@
 cd `dirname $0`
 . $PWD/util.sh
 
-xrandr --output eDP-1 --mode 2560x1440 --pos 0x0 --brightness 0.5
-xrandr --output DP-1  --mode 1920x1200 --pos 0x0 --brightness 1
-xrandr --output DP-3  --mode 1920x1200 --pos 0x0 --brightness 1
+xrandr --output eDP-1 --primary --mode 2560x1440 --pos 0x0 --rotate normal --output DP-1 --mode 1920x1080 --pos 0x0 --rotate normal --output DP-2 --off --output DP-3 --off
 
 # Adjust DPI
-util-set-dpi 120
+util-set-dpi 110
 
 # Stop turning off screens when idle
 xset -dpms

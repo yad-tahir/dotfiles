@@ -21,15 +21,19 @@
 cd `dirname $0`
 . $PWD/util.sh
 
-xrandr --auto
-xrandr --output DisplayPort-0 --mode 3840x2160 --pos 0x0 --rotate left
-xrandr --output DisplayPort-1 --mode 3440x1440 --pos 2360x196 --rotate inverted
 xrandr --output DisplayPort-2 --off
 xrandr --output HDMI-A-0 --primary --mode 3840x1600 --pos 2160x1637 --rotate normal
+sleep 1
+xrandr --output DisplayPort-0 --mode 3840x2160 --pos 0x0 --rotate right
+sleep 1
+xrandr --output DisplayPort-1 --mode 3440x1440 --pos 2360x196 --rotate inverted
+sleep 1
 
-sleep 30 && lxc exec displaycal -- sudo -u lxd argyll-dispwin -d 1 '/home/lxd/.local/share/DisplayCAL/storage/U3818DW-2021-04-02-100cdm²/U3818DW-2021-04-02-100cdm².cal' &
-sleep 35 && lxc exec displaycal -- sudo -u lxd argyll-dispwin -d 2 '/home/lxd/.local/share/DisplayCAL/storage/U2718Q-2021-04-03-100cdm²/U2718Q-2021-04-03-100cdm².cal' &
-sleep 40 && lxc exec displaycal -- sudo -u lxd argyll-dispwin -d 3 '/home/lxd/.local/share/DisplayCAL/storage/U3415W-2021-04-02-100cdm²/U3415W-2021-04-02-100cdm².cal' &
+sleep 60 && lxc exec displaycal -- sudo -u lxd argyll-dispwin -d 1 '/home/lxd/.local/share/DisplayCAL/storage/U3818DW-2022-01-23/2022-01-23-100.icc' &
+
+sleep 70 && lxc exec displaycal -- sudo -u lxd argyll-dispwin -d 2 '/home/lxd/.local/share/DisplayCAL/storage/U2718Q-2022-01-23-8/2022-01-23-100.icc' &
+
+sleep 80 && lxc exec displaycal -- sudo -u lxd argyll-dispwin -d 3 '/home/lxd/.local/share/DisplayCAL/storage/W3415W-2022-01-23/2022-01-23-100.icc' &
 
 # Enable energy-saving modes
 xset +dpms
@@ -38,17 +42,17 @@ xset s on
 util-set-dpi 110
 
 # Startup apps
-util-launch
-sleep 0.5 # small waiting time to ensure previous commands are done
-dwmc focusmon -1
-dwmc focusmon -1
-dwmc setnmasters 1
-dwmc setmfact 0.5
-urxvtc -hold -name log -e /bin/journalctl -fn 200 &
-sleep 0.1
-urxvtc -hold -name htop -e /usr/bin/htop &
-sleep 0.1
-dwmc focusmon 1
+util-launch && sleep 0.1
 
 dwmc setnmasters 2
 dwmc setmfact 0.66
+dwmc focusmon -1 && sleep 0.1
+dwmc setnmasters 2
+dwmc setmfact 0.66
+dwmc focusmon -1 && sleep 0.1
+dwmc setnmasters 2
+dwmc setmfact 0.66
+
+
+dwmc focusmon 1 && sleep 0.1
+exec urxvtc -hold -name log -e /bin/journalctl -fn 200

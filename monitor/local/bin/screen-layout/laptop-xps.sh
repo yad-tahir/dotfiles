@@ -25,6 +25,6 @@ xrandr --output eDP-1 --auto --primary --brightness 0.5
 xrandr --output DP-1 --off
 xrandr --output DP-3 --off
 
-util-set-dpi 140
+util-set-dpi 100
 
 util-launch
