@@ -194,7 +194,8 @@
    "SPC sl" 'counsel-find-library
    "SPC si" 'counsel-info-lookup-symbol
    ;; "SPC su" 'counsel-unicode-char
-   "SPC sg" 'counsel-rg)
+   ;; "SPC sg" 'counsel-rg
+   )
 
   (general-define-key
    :keymaps 'ivy-mode-map

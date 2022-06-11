@@ -25,7 +25,7 @@
   (general-define-key
    :keymaps 'override
    :states '(normal visual)
-   "SPC sG" 'deadgrep)
+   "SPC sg" 'deadgrep)
 
   :config
   (general-define-key
