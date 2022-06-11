@@ -25,7 +25,7 @@ systemctl --user import-environment
 # Avoid using systemd 'enable' feature for Emacs as it can launch Emacs server
 # before importing most all env. variables. Instead, start Emacs service
 # manually in the beginning of a new dwm session.
-systemctl --user restart emacs-27.service &
+systemctl --user restart emacs-28.service &
 
 setxkbmap # Make sure X11 keymap is loaded properly before starting sxhkd
 systemctl --user restart sxhkd-dwm@${XDG_VTNR}.service &

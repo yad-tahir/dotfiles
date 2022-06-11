@@ -589,7 +589,7 @@ spawned in 'latte-insert-org-tag'."
   "Minor mode highlights notebook's keywords throughout the buffer.
 
 Initially, highlighting takes place after 'latte-scan-idle-delay'."
-  nil
+  :init-value nil
   :lighter latte
   :keymap nil
   :require 'latte
