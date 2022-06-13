@@ -47,13 +47,6 @@ Xcursor.theme: Adwaita
 *colorUL: #a7e23e
 *coloRV: #00ffff
 
-!! Emacs settings
-Emacs.cursorBlink: 0
-Emacs.menuBar: 0
-Emacs.toolBar: 0
-Emacs.verticalScrollBars: off
-Emacs.font: DejaVu Sans Mono 14
-
 !! Dmenu...etc
 Panel.font1: DejaVu Sans Mono-12
 Panel.height: 30

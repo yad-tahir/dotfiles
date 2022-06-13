@@ -92,3 +92,7 @@ sys-libs/libapparmor perl
 # required by @selected
 # required by @world (argument)
 >=www-client/w3m-0.5.3_p20180125 imlib
+# required by app-editors/emacs-28.1::gentoo[jit]
+# required by @selected
+# required by @world (argument)
+>=sys-devel/gcc-11.3.0 jit

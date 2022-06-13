@@ -22,3 +22,4 @@ emacs/local/emacs.d/url
 emacs/local/emacs.d/workspace
 emacs/local/emacs.d/eclipse.jdt.*
 emacs/local/emacs.d/speed-type
+emacs/local/emacs.d/eln-cache

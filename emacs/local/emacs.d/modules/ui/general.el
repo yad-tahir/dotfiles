@@ -87,17 +87,25 @@
 (setq-default fill-column 80
 			  tab-width 4
 			  tooltip-delay 5
-			  indent-tabs-mode t)
+			  indent-tabs-mode t
+			  native-comp-async-report-warnings-errors nil
+			  warning-suppress-log-types '((with-editor) (with-editor))
+			  warning-suppress-types '((with-editor))
+			  )
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (desktop-save-mode 0)
+;; Default font size
+(set-face-attribute 'default nil :font "DejaVu Sans Mono 14" :height 160)
+
+;; Keep base UI clean
+(blink-cursor-mode 0)
+(scroll-bar-mode 0)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
 (tooltip-mode nil) ;; Redirect tool-tip messages to the echo area
 
-;; Disabled by .Xresources
-;; (scroll-bar-mode 0)
-;; (tool-bar-mode -1)
-(unless (display-graphic-p)
-  (menu-bar-mode -1))
+(global-visual-line-mode 1)
 
 (provide 'do-general)

@@ -73,10 +73,12 @@ The aim of this function is to minimize duplicated windows as much as possible."
 	;; Otherwise, continue
 	(apply org-fun args)))
 
-(advice-add 'find-file :around 'do--switch-to-buffer)
-(advice-add 'switch-to-buffer :around #'do--switch-to-buffer)
-(with-eval-after-load 'ivy
-  (advice-add 'ivy--switch-buffer-action :around #'do--switch-to-buffer))
+;; Disable our switch function because (raise-frame) does not work with pgtk
+(unless (boundp 'pgtk-initialized)
+  (advice-add 'find-file :around #'do--switch-to-buffer)
+  (advice-add 'switch-to-buffer :around #'do--switch-to-buffer)
+  (with-eval-after-load 'ivy
+	(advice-add 'ivy--switch-buffer-action :around #'do--switch-to-buffer)))
 
 
 ;;;###autoload

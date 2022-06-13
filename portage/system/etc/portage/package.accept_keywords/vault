@@ -16,9 +16,9 @@ x11-wm/dwm ~amd64
 x11-misc/dmenu ~amd64
 
 # Apps
-<=app-editors/emacs-28 ~amd64
-media-video/obs-studio ~amd64
-app-text/master-pdf-editor ~amd64
+<app-editors/emacs-29.0 ~amd64
+=app-editors/emacs-29.0.9999 **
+
 media-sound/pulsemixer ~amd64
 app-text/zathura-pdf-mupdf ~amd64
 # firefox

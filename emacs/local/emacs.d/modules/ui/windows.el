@@ -72,12 +72,13 @@ The third optional argument PROPS indicates the properties of the frame"
   (when (null display)
 	(setq display (getenv "DISPLAY")))
   ;; Construct the properties of the new frame
-  (let ((fp (or props (list (cons 'name fname)
+  (let ((fp (list (cons 'name fname)
 							(cons 'display display)
-							'(window-system . x)
+							(unless (boundp 'pgtk-initialized)
+								'(window-system . x))
 							'(minibuffer . t)
 							props
-							))))
+							)))
 	;; Create the frame and switch to it
 	(select-frame-set-input-focus (make-frame fp))))
 

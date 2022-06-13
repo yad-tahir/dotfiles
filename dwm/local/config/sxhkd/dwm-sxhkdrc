@@ -65,7 +65,7 @@ super + shift + {d,u}
 
 # Beloved Emacs
 super + F2
-	emacsclient -nqe "(do-make-frame nil \"$DISPLAY\")" -a='/usr/bin/urxvt -e nano' > /dev/null &
+	emacsclient -nqe "(do-make-frame)" -a='/usr/bin/urxvt -e nano' > /dev/null &
 
 # Screen brightness
 {F12, F11}
@@ -103,9 +103,9 @@ alt + space
 
 # Other applications
 super + w
-	$HOME/bin/firefox-vpn &
+	$HOME/bin/firefox-lxc &
 super + shift + w
-	$HOME/bin/firefox-novpn &
+	$HOME/bin/firefox-novpn-lxc &
 super + semicolon; g
 	urxvtc -hold -name glances -e /usr/bin/glances &
 super + semicolon; h
@@ -119,5 +119,5 @@ super + semicolon; l
 super + F3
 	feh --bg-fill $(/bin/ls ${HOME}/pictures/background/* | shuf -n 1) &
 super + shift + F2
-	emacsclient -nqe "(progn (do-make-frame nil \"$DISPLAY\") (funcall-interactively 'org-capture))"\\
+	emacsclient -nqe "(progn (do-make-frame) (funcall-interactively 'org-capture))"\\
 		-a='/usr/bin/urxvt -e nano' > /dev/null &
