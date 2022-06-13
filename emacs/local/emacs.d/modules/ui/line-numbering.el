@@ -18,7 +18,6 @@
 ;; 02110-1301, USA.
 
 (use-package display-line-numbers
-  :demand t
   :config
   (setq display-line-numbers-current-absolute nil
 		;; Narrowing does not make sense in visual type

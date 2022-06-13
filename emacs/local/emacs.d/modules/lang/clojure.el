@@ -144,9 +144,9 @@
   (advice-add 'cider-popup-buffer :around #'do--cider-window)
 
   (add-hook 'clojure-mode-hook
-			'(lambda ()
+			#'(lambda ()
 			   (add-hook 'after-save-hook
-						 '(lambda ()
+						 #'(lambda ()
 							(cider-eval-buffer))
 						 nil t ))))
 

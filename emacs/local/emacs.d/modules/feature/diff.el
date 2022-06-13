@@ -17,10 +17,10 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
+
 (use-package diff-hl
   :ensure t
-  :hook ((magit-file-mode . diff-hl-mode)
-		 (dired-mode . diff-hl-dired-mode))
+  :after (:any magit dired)
   :config
   (general-define-key
    :kemaps 'diff-hl-mode-map
@@ -43,10 +43,18 @@
 					  :inherit 'diff-removed
 					  :background chocolate-theme-highlight)
 
+  (setq diff-hl-disable-on-remote t)
+  (global-diff-hl-mode)
+
+  (with-eval-after-load 'dired
+	(add-hook 'dired-mode-hook 'diff-hl-dired-mode))
+
   (with-eval-after-load 'magit
+	(add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
 	(add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)))
 
 (use-package smerge-mode
+  :disabled t
   :defer t
   :config
   (general-define-key

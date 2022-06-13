@@ -49,7 +49,7 @@
 
   ;; Refresh speed-type's generated buffers using F5
   (advice-add 'speed-type--setup :after
-			  '(lambda (&rest args)
+			  #'(lambda (&rest args)
 				 (interactive)
 				 (general-define-key
 				  :keymaps 'local

@@ -20,6 +20,7 @@
 
 (use-package projectile
   :ensure t
+  :defer t
   :commands (projectile-mode)
   :config
   ;; Basic settings

@@ -20,13 +20,9 @@
 (defconst emacs-start-time (current-time))
 
 ;; GC optimizations
-(defvar original-gc-cons-threshold gc-cons-threshold)
-(defvar original-gc-cons-percentage gc-cons-percentage)
-(setq gc-cons-threshold 402653184
-	  gc-cons-percentage 0.6)
+(setq gc-cons-threshold (* 100 1000 1000)) ;; 100 MB
 (add-hook 'emacs-startup-hook
-		  '(lambda () (setq gc-cons-threshold original-gc-cons-threshold
-							gc-cons-percentage original-gc-cons-percentage)) t)
+		  #'(lambda () (setq gc-cons-threshold (* 50 1000 1000)) t))
 
 ;; Bootstrap 'use-package'
 (eval-and-compile
@@ -66,9 +62,10 @@ This function automatically byte compiles module files as necessary. Modules are
 	  (byte-recompile-file (concat d m ".el") nil 0 t))))
 
 (defun display-startup-echo-area-message ()
-  (message "Loading done in %.3fs"
+  (message "Loading done in %.3f seconds. %d GC operations are performed."
 		   (float-time
-			(time-subtract (current-time) emacs-start-time))))
+			(time-subtract (current-time) emacs-start-time))
+		   gcs-done))
 
 ;; Core packages
 (use-package general

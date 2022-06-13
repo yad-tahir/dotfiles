@@ -25,7 +25,7 @@
   (general-define-key
    :keymaps 'override
    :states '(normal visual)
-   "SPC sg" 'deadgrep)
+   "SPC sG" 'deadgrep)
 
   :config
   (general-define-key
@@ -46,7 +46,7 @@
    "<RET>" 'deadgrep-visit-result)
 
   (add-hook 'deadgrep-mode-hook
-			'(lambda ()
+			#'(lambda ()
 			   ;; Show hidden files by default
 			   (setq deadgrep--file-type (cons 'glob "*")))))
 

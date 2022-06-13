@@ -17,7 +17,6 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
-;; To silent warnings
 (use-package company
   :ensure t
   :hook ((find-file . company-mode))
@@ -26,7 +25,7 @@
   (defun do--tab-complete ()
 	(interactive)
 	(if (or (save-excursion (looking-at "\\_>")) ;; end of symbol
-			(save-excursion (looking-at "\\."))  ;; ends with dot
+			;; (save-excursion (looking-at "\\."))  ;; ends with dot
 			(save-excursion (looking-at "->")))  ;; ends with ->
 		(company-complete-common)
 	  ;; Otherwise, the company completion list is most likely useless
@@ -165,10 +164,10 @@
    "C-h" 'company-quickhelp-manual-begin))
 
 ;; Language server client as a company-backend
-(use-package company-lsp
-  :ensure t
-  :commands (company-lsp)
-  :config
-  (setq company-lsp-enable-snippet nil))
+;; (use-package company-lsp
+;;   :ensure t
+;;   :commands (company-lsp)
+;;   :config
+;;   (setq company-lsp-enable-snippet nil))
 
 (provide 'do-company)

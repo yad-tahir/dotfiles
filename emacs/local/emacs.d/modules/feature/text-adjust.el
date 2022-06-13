@@ -157,7 +157,7 @@
 
 (use-package whitespace
   :config
-  (add-hook 'before-save-hook '(lambda ()
+  (add-hook 'before-save-hook #'(lambda ()
 								 (when whitespace-mode
 								   (whitespace-cleanup)))))
 

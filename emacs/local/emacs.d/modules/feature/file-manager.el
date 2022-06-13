@@ -243,8 +243,9 @@ separate frame."
 (use-package dired-ranger
   ;; :disabled t
   :ensure t
-  :after (dired)
-  :config
+  :commands (dired-ranger-copy dired-ranger-move dired-ranger-paste)
+  :after dired
+  :init
   (general-define-key
    :keymaps 'dired-mode-map
    :states 'normal
@@ -310,13 +311,12 @@ separate frame."
   :ensure t
   :hook ((org-mode . openwith-mode)
 		 (dired-mode . openwith-mode))
+  :after (:any dired org)
   :config
   (setq openwith-associations '(("\\.pdf\\'" "zathura" (file))
-								("\\.jpg\\'" "gimp" (file))
-								("\\.png\\'" "gimp" (file))
+								("\\.cr3\\'" "gimp" (file))
 								("\\.cr2\\'" "gimp" (file))
 								("\\.mp4\\'" "mpv" (file)))))
-
 
 ;; For large file
 (use-package vlf

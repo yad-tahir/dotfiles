@@ -18,8 +18,8 @@
 ;; 02110-1301, USA.
 
 (use-package ivy
-  :demand t
   :ensure t
+  :after (chocolate-theme)
   :config
   ;; Remove compile warnings
   (declare-function ivy-set-actions nil)
@@ -150,8 +150,6 @@
 
 (use-package counsel
   :ensure t
-  :defer 5
-  ;; @SPEED: Un-comment to improve startup time
   :commands
   (counsel-dired-jump counsel-git-grep counsel-describe-variable
 					  counsel-find-library counsel-describe-function
@@ -194,7 +192,7 @@
    "SPC sl" 'counsel-find-library
    "SPC si" 'counsel-info-lookup-symbol
    ;; "SPC su" 'counsel-unicode-char
-   ;; "SPC sg" 'counsel-rg
+   "SPC sg" 'counsel-rg
    )
 
   (general-define-key

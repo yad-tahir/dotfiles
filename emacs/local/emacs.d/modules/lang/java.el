@@ -17,27 +17,26 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
-(use-package eclim
-  :disabled t
-  :hook ((java-mode-hook . eclim-mode))
-  :init
-  (custom-set-variables '(eclim-eclipse-dirs '("/usr/lib/eclipse"))
-						'(eclim-executable "/usr/lib/eclipse/eclim")
-						'(eclimd-default-workspace "/home/yad/project/eclipse"))
-  :config
-  (setq eclim-autostart t))
+;; (use-package eclim
+;;   :hook ((java-mode-hook . eclim-mode))
+;;   :ensure t
+;;   :init
+;;   (custom-set-variables '(eclim-eclipse-dirs '("/usr/lib/eclipse"))
+;;						'(eclim-executable "/usr/lib/eclipse/eclim")
+;;						'(eclimd-default-workspace "/home/yad/project/eclipse"))
+;;   :config
+;;   (setq eclim-autostart t))
 
-(use-package company-emacs-eclim
-	:disabled t
-	:after (:all company eclim)
-	:ensure t
-	:config
-	(company-emacs-eclim-setup))
+;; (use-package company-emacs-eclim
+;;	:after (:all company eclim)
+;;	:ensure t
+;;	:config
+;;	(company-emacs-eclim-setup))
 
 
-(use-package lsp-java
-  :after (lsp-mode)
-  :ensure t)
+;; (use-package lsp-java
+;;   :after (lsp-mode)
+;;   :ensure t)
 
 
 (provide 'do-java)

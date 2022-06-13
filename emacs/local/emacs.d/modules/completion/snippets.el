@@ -28,7 +28,7 @@
   (yas-reload-all)
   (advice-add 'do--tab-complete
 			  :around
-			  '(lambda (org-fn  &rest args)
+			  #'(lambda (org-fn  &rest args)
 				 (unless (yas-expand)
 				   (apply org-fn args)))))
 

@@ -27,16 +27,11 @@
 								spaces space-mark
 								space-before-tab space-after-tab))))
 
-(use-package simple
-  :preface
-  (declare-function global-visual-line-mode nil)
-  :demand t
-  :config
-  (global-visual-line-mode 1))
-
+;; A meta package to abstract the fold functionality from evil.el
 (use-package evil-commands
   :hook ((prog-mode . hs-minor-mode))
-  :config
+  :commands (evil-toggle-fold evil-open-folds evil-close-folds)
+  :init
   (defvar do--fold-global-toggle t)
 
   (defun do--fold-toggle-all ()
@@ -52,15 +47,12 @@
    "TAB" 'evil-toggle-fold
    "C-M-i" 'do--fold-toggle-all))
 
-(use-package rainbow-mode
-  :ensure t
-  :commands (rainbow-mode))
-
 (use-package highlight-parentheses
-  :hook ((prog-mode . highlight-parentheses-mode))
   :ensure t
+  :hook ((prog-mode . highlight-parentheses-mode))
+  :after (chocolate-theme)
   :config
-  (setq hl-paren-colors
+  (setq highlight-parentheses-colors
 		(list chocolate-theme-highlight chocolate-theme-element
 			  chocolate-theme-element+4 chocolate-theme-element+8
 			  chocolate-theme-highlight+1 chocolate-theme-element+1
@@ -69,7 +61,7 @@
 			  chocolate-theme-element+6 chocolate-theme-element+10
 			  chocolate-theme-highlight+2 chocolate-theme-element+3
 			  chocolate-theme-element+7 chocolate-theme-element+11)
-		hl-paren-highlight-adjacent t))
+		highlight-parentheses-highlight-adjacent t))
 
 (use-package evil-quickscope
   :ensure t

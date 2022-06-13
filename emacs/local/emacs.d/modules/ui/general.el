@@ -36,7 +36,7 @@
 	  delete-auto-save-files t
 	  coding-system-for-read 'utf-8
 	  coding-system-for-write 'utf-8
-	  large-file-warning-threshold 100000000 ;; 100MB!
+	  large-file-warning-threshold 10000000 ;; 10MB!
 
 	  ;; Mouse
 	  mode-line-default-help-echo nil ; disable mode-line mouseovers
@@ -89,9 +89,8 @@
 			  tooltip-delay 5
 			  indent-tabs-mode t
 			  native-comp-async-report-warnings-errors nil
-			  warning-suppress-log-types '((with-editor) (with-editor))
-			  warning-suppress-types '((with-editor))
-			  )
+			  warning-suppress-log-types '((with-editor))
+			  warning-suppress-types '((with-editor)))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 

@@ -28,21 +28,21 @@
    :states '(normal visual)
    "u" 'do-sudo-current-file)
   :config
-  (setenv "CDPATH" ".:/usr/bin")
+  (setenv "ESHELL" "/bin/bash")
 
-  (setq explicit-shell-file-name "/bin/bash"
-		password-cache t ; enable password caching
+  (setq	password-cache t ; enable password caching
 		password-cache-expiry 7200 ;in seconds
 		tramp-connection-timeout 200
-		tramp-default-method "ssh")
+		tramp-default-method "ssh"
+		)
 
-  (connection-local-set-profile-variables
-   'remote-bash
-   '((explicit-shell-file-name . "/bin/bash")
-	 (explicit-bash-args . ("-i"))))
-  (connection-local-set-profiles
-   '(:application tramp :protocol "ssh" :machine "localhost")
-   'remote-bash)
+  ;; (connection-local-set-profile-variables
+  ;;  'remote-bash
+  ;;  '((explicit-shell-file-name . "/bin/bash")
+  ;;	 (explicit-bash-args . ("-i"))))
+  ;; (connection-local-set-profiles
+  ;;  '(:application tramp :protocol "ssh" :machine "localhost")
+  ;;  'remote-bash)
 
   (defun do--sudo-find-file (file-name)
 	"Like find file, but opens the file as root."
@@ -62,7 +62,18 @@
 		  (do--sudo-find-file name)
 		(find-file (s-replace ":" "" (nth 1 (s-slice-at ":/" name)))))))
 
-  (add-hook 'eshell-mode-hook '(lambda () (require 'em-tramp))))
-
+  (with-eval-after-load "tramp"
+	(setq vc-ignore-dir-regexp
+		  (rx (seq bos
+				   (or (seq (any "/\\") (any "/\\")
+							(one-or-more (not (any "/\\")))
+							(any "/\\"))
+					   (seq "/" (or "net" "afs" "...") "/")
+					   ;; Ignore all tramp paths.
+					   (seq "/"
+							(eval (cons 'or (mapcar #'car tramp-methods)))
+							":"
+							(zero-or-more anything)))
+				   eos)))))
 
 (provide 'do-tramp)

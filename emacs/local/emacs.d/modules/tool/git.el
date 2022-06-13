@@ -18,11 +18,9 @@
 ;; 02110-1301, USA.
 
 (use-package magit
-  :defer 10
   :ensure t
   :functions evil-set-initial-state
   :commands (magit-status magit-file-dispatch magit-dispatch)
-
   :init
   (general-define-key
    :keymaps 'override

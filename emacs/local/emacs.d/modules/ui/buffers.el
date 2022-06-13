@@ -64,16 +64,16 @@ The aim of this function is to minimize duplicated windows as much as possible."
 	;; emacs for some reason.
 	(unless (equal "*scratch*" (buffer-name b))
 	  ;; Get the window if the buffer exists
-	  (let ((win (get-buffer-window b t)))
-		  (when win
+	  (let ((frm (window-frame (get-buffer-window b t))))
+		  (when frm
 			;; Get the frame
-			(raise-frame (window-frame win))
+			(raise-frame frm)
 			;; Select the window
-			(select-frame-set-input-focus (window-frame win)))))
+			(select-frame-set-input-focus frm))))
 	;; Otherwise, continue
 	(apply org-fun args)))
 
-;; Disable our switch function because (raise-frame) does not work with pgtk
+;; Disable our custom switch function as (raise-frame) does not work with PGTK
 (unless (boundp 'pgtk-initialized)
   (advice-add 'find-file :around #'do--switch-to-buffer)
   (advice-add 'switch-to-buffer :around #'do--switch-to-buffer)

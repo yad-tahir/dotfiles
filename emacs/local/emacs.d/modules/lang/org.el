@@ -31,13 +31,6 @@
 				(interactive)
 				(find-file do--org-todo-location))
 			  :which-key "todo.org"))
-
-  (custom-set-variables
-   '(org-format-latex-options
-	 `(:foreground ,chocolate-theme-white
-				   :background ,chocolate-theme-bg
-				   :scale 1.8
-				   :html-scale 1.8)))
   :config
   ;; Remove compiler warnings
   (eval-when-compile
@@ -46,6 +39,10 @@
 	(require 'org-habit)
 	(require 'org-agenda)
 	(require 'org-capture))
+
+  (plist-put org-format-latex-options :background "Transparent")
+  (plist-put org-format-latex-options :scale 1.5)
+  (plist-put org-format-latex-options :html-scale 1.5)
 
   (general-define-key
    :keymaps 'org-mode-map

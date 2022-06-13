@@ -181,6 +181,8 @@
 											,chocolate-theme-highlight+1))))
  `(font-lock-string-face ((t (:foreground ,chocolate-theme-highlight+3))))
  `(font-lock-doc-face ((t (:inherit font-lock-string-face :foreground nil))))
+ `(show-paren-match ((t (:background ,chocolate-theme-element+5))))
+ `(show-paren-mismatch ((t (:background ,chocolate-theme-highlight))))
 
  `(hi-blue ((t (:foreground ,chocolate-theme-bg
 							:background ,chocolate-theme-element+8))))

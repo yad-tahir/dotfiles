@@ -138,10 +138,8 @@
    "I" 'do-evil-insert
    "A" 'do-evil-append
 
-   "z" 'undo
-   "C-Z" 'redo
-   "M-z" 'undo-tree-visualize
-   "Z" 'undo-tree-visualize
+   "z" 'evil-undo
+   "C-Z" 'evil-redo
 
    "=" 'do-evil-indent
    "g=" 'evil-indent
@@ -176,14 +174,13 @@
    "SPC lgt" 'evil-jump-to-tag
    "SPC lgc" 'evil-goto-column
    "SPC lgd" 'evil-goto-definition
-   "SPC lgl" 'evil-show-jumps
-   "SPC lgs" 'evil-jump-backward-swap
+   "SPC lgl" 'evil-lookup
    "SPC l-" 'do-evil-narrow
    "SPC l+" 'widen)
 
   (general-define-key
    :states 'visual
-   "@" '(lambda ()
+   "@" #'(lambda ()
 		  (interactive)
 		  ;; Make micros more useful in visual mode
 		  ;; @TODO: Does not work in Visual Block Mode
@@ -305,6 +302,7 @@
 		evil-kbd-macro-suppress-motion-error t
 		evil-mode-line-format nil
 		evil-cross-lines t
+		evil-lookup-func #'(lambda() (call-interactively 'eldoc-doc-buffer))
 		;; evil-ex-substitute-global t
 		;; More vim-like behavior
 		evil-ex-search-vim-style-regexp t
@@ -329,10 +327,11 @@
 		evil-emacs-state-cursor `(box)
 		evil-replace-state-cursor `((bar . 2))
 		evil-operator-state-cursor `(box)
-		evil-undo-system 'undo-tree
+		evil-undo-system 'undo-redo
+		evil-redo-function 'undo-redo
 		evil-motion-state-cursor `(box))
 
-  (with-eval-after-load 'chocolate-theme-theme
+  (with-eval-after-load 'chocolate-theme
 	(set-face-attribute 'evil-ex-substitute-replacement nil
 						:background nil :foreground chocolate-theme-element+6))
 
@@ -349,7 +348,7 @@ avoid navigating with the insert state."
 
   ;; Don't move cursor on indent
   (advice-add 'evil-indent
-			  :around '(lambda (org-func &rest args)
+			  :around #'(lambda (org-func &rest args)
 						 (save-excursion (apply org-func args))))
 
   (defun do-evil-escape-abort ()
@@ -375,8 +374,25 @@ avoid navigating with the insert state."
 
 (use-package undo-tree
   :ensure t
-  :demand t
+  :after (evil)
   :config
-  (global-undo-tree-mode 1))
+  (setq evil-redo-function (default-value 'evil-redo-function)
+		evil-undo-system 'undo-tree
+		undo-limit 78643200
+		undo-outer-limit 104857600
+		undo-strong-limit 157286400
+		undo-tree-history-directory-alist '(("." . "/tmp/emacs.d/undo"))
+		undo-tree-auto-save-history nil)
+
+  (general-define-key
+   :states '(normal visual)
+   "M-z" 'undo-tree-visualize
+   "Z" 'undo-tree-visualize)
+
+  (add-hook 'undo-tree-visualizer-mode-hook
+			(lambda ()
+			  (setq display-line-numbers nil)))
+
+   (global-undo-tree-mode 1))
 
 (provide 'do-evil)
