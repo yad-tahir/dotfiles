@@ -20,7 +20,11 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
-do-ln-sync "${PWD}/local/config" "${HOME}/.config"
+# Copy the configuration file
+do-sync "${PWD}/local/config/zathura" "${HOME}/.config/zathura"
 
 do-sync-sudo "${PWD}/system/usr/share/applications" "/usr/share/applications"
 sudo update-desktop-database
+
+# Make it the default PDF viewer
+xdg-mime default zathura.desktop application/pdf
