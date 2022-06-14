@@ -25,7 +25,7 @@ media-gfx/fontforge gif jpeg png svg tiff cairo -unicode
 # @extra is required when exporting Org files as PDFs
 app-text/texlive png science graphics epspdf metapost extra
 dev-texlive/texlive-basic -luajittex
-app-text/mupdf -javascript
+app-text/mupdf -javascript -opengl
 
 # master-pdf-editor
 media-gfx/sane-backends -ipv6 -zeroconf

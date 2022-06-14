@@ -2,26 +2,16 @@
 #### Requested USE flags
 ####
 
+# required by app-editors/emacs-28.1::gentoo[jit]
+# required by @selected
+# required by @world (argument)
+>=sys-devel/gcc-11.3.0 jit
+
 # firefox
 sys-devel/llvm gold
-media-libs/libpng apng
-media-libs/libvpx postproc
-dev-db/sqlite secure-delete
-dev-lang/python sqlite
 
 # libra-office
 >=media-libs/harfbuzz-2.6.4 icu
->=dev-libs/xmlsec-1.2.28 nss
->=app-text/ghostscript-gpl-9.50 cups
->=app-text/xmlto-0.0.28-r1 text
-dev-libs/boost nls
-
-# required by sys-kernel/genkernel-3.5.3.3
->=sys-apps/util-linux-2.33.2 static-libs
-
-# Graphic
-# required by x11-drivers/nvidia-drivers-440.36-r1::gentoo[tools]
-# required by nvidia-drivers (argument)
 
 # required by app-text/texlive-core-2019-r4::gentoo
 # required by dev-texlive/texlive-latex-2019::gentoo
@@ -34,44 +24,15 @@ dev-libs/boost nls
 # required by app-text/texlive (argument)
 >=app-text/texlive-core-2019-r4 xetex
 
-# Misc
 # required by app-emulation/virt-manager-2.2.1::gentoo[gtk]
 # required by virt-manager (argument)
 >=net-misc/spice-gtk-0.35 usbredir
->=dev-libs/libxml2-2.9.9-r1 python
 # required by app-emulation/libvirt-5.5.0-r1::gentoo[virt-network]
 # required by app-emulation/libvirt (argument)
 >=net-dns/dnsmasq-2.80-r1 script
 
-# required by dev-qt/qtcore-5.13.2-r1::gentoo
-# required by dev-qt/qtdbus-5.13.2::gentoo
-# required by dev-qt/qtgui-5.13.2::gentoo[dbus]
-# required by dev-qt/qtmultimedia-5.13.2-r1::gentoo
-# required by net-analyzer/wireshark-3.0.7::gentoo[qt5]
-# required by @selected
-# required by @world (argument)
->=dev-libs/libpcre2-10.33-r1 pcre16
-
-# required by media-gfx/gimp-2.10.8-r1::gentoo
-# required by media-gfx/gimp (argument)
->=media-libs/gegl-0.4.16 cairo
->=app-text/poppler-0.82.0 cairo
-
-# required by dev-db/phpmyadmin-4.9.5::gentoo
-# required by phpmyadmin (argument)
->=dev-lang/php-7.4.11 mysqli
-# required by dev-lang/php-7.4.3::gentoo
-# required by @selected
-# required by @world (argument)
->=app-eselect/eselect-php-0.9.4-r5 apache2
-
-# required by app-editors/emacs-27.1.9999-r1::gentoo
->=app-emacs/emacs-common-gentoo-1.6-r4 gui
-# required by app-editors/emacs-27.2::gentoo
->=app-emacs/emacs-common-1.8 gui
-
 # Required by mupdf opengl
-app-text/mupdf javascript
+#app-text/mupdf javascript
 
 # Required by media-video/vlc
 sys-libs/zlib minizip
@@ -80,7 +41,6 @@ sys-libs/zlib minizip
 net-wireless/bluez user-session
 
 # Required by Apparmor
-app-admin/rsyslog openssl
 sys-libs/libapparmor perl
 
 # required by x11-misc/urxvt-font-size-1.3::gentoo
@@ -88,33 +48,8 @@ sys-libs/libapparmor perl
 # required by @world (argument)
 >=x11-terms/rxvt-unicode-9.22-r9 perl
 
-# required by app-misc/neofetch-7.1.0::gentoo[X]
-# required by @selected
-# required by @world (argument)
->=www-client/w3m-0.5.3_p20180125 imlib
-
-# required by app-emulation/lxd-4.0.7::gentoo
-# required by @selected
-# required by @world (argument)
->=dev-libs/raft-0.11.1 lz4
-# required by app-emulation/lxd-4.0.7::gentoo
-# required by @selected
-# required by @world (argument)
->=dev-util/xdelta-3.0.11 lzma
-
 # required by virtual/rust-1.53.0::gentoo
 # required by @build-deps
 # required by @selected
 # required by @world (argument)
 >=dev-lang/rust-1.53.0 rustfmt
-
-# required by app-text/tesseract-4.1.1::gentoo[opencl]
-# required by app-text/zathura-pdf-mupdf-0.3.8-r1::gentoo
-# required by @selected
-# required by @world (argument)
->=media-libs/leptonica-1.80.0 tiff
-
-# required by app-editors/emacs-28.1::gentoo[jit]
-# required by @selected
-# required by @world (argument)
->=sys-devel/gcc-11.3.0 jit
