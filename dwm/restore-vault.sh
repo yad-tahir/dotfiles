@@ -27,16 +27,18 @@ arr=( "/etc/NetworkManager/dispatcher.d"
 
 for i in "${arr[@]}"
 do
-	TARGET=$i
-	SOURCE=${PWD}/system${TARGET}
-	do-sync-sudo "$SOURCE" "$TARGET"
+	dst=$i
+	src=${PWD}/system${dst}
+	sudo-do-sync "$src" "$dst"
 done
 
 # Local
-do-ln-sync "${PWD}/local/config/sxhkd" "${HOME}/.config/sxhkd"
-TARGET="${HOME}/.config/dwm"
-[ ! -e "${TARGET}" ] && mkdir --parents "${TARGET}"
-do-ln-sync "${PWD}/local/config/dwm/dwmrc-vault" "${TARGET}/dwmrc"
+do-sync "${PWD}/local/config/sxhkd" "${HOME}/.config/sxhkd"
 
-TARGET="${HOME}/.config/systemd/user"
-do-ln-sync "${PWD}/local/systemd/user/sxhkd-dwm@.service" "${TARGET}/sxhkd-dwm@.service"
+dst="${HOME}/.config/dwm"
+[ ! -e "${dst}" ] && mkdir --parents "${dst}"
+do-sync "${PWD}/local/config/dwm/dwmrc-vault" "${dst}" "dwmrc"
+do-sync "${PWD}/local/config/dwm/dwmbar-vault" "${dst}" "dwmbar"
+
+dst="${HOME}/.config/systemd/user"
+do-sync "${PWD}/local/systemd/user" "${dst}"

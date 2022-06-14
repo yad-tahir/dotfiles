@@ -31,8 +31,10 @@
 [ -r /usr/share/bash-completion/bash_completion ] &&
 	. /usr/share/bash-completion/bash_completion
 
-systemctl list-units -t service --failed --quiet --no-pager
+sys-status() {
+	systemctl list-units -t service --failed --quiet --no-pager
+}
 
-echo ''
+sys-status
 
 source $HOME/dotfiles/shell/other/command-prompt.sh

@@ -22,21 +22,24 @@ echo "* Execute ${PWD}/`basename $0`"
 
 ./restore-common.sh
 
-arr=(
-	  "/etc/portage/common-lxd.conf"
-	  "/etc/portage/package.use/core-lxd"
-	  "/etc/portage/package.mask/lxd.mask"
-	  "/etc/portage/package.accept_keywords/lxd"
-	)
+dst="/etc/portage"
+src="${PWD}/system${dst}/common-lxd.conf"
+sudo-do-sync "$src" "$dst" "common.conf"
 
-for i in "${arr[@]}"
-do
-	TARGET=$i
-	SOURCE=${PWD}/system${TARGET}
-	do-sync-sudo "$SOURCE" "$TARGET"
-done
+dst="/etc/portage/package.use/core-lxd"
+src="${PWD}/system${dst}"
+sudo-do-sync "$src" "/etc/portage/package.use"
 
+dst="/etc/portage/package.mask/lxd.mask"
+src="${PWD}/system${dst}"
+sudo-do-sync "$src" "/etc/portage/package.mask"
 
-TARGET="/etc/portage/make.conf"
-SOURCE="${PWD}/system/etc/portage/make-vault-lxd.conf"
-do-sync-sudo "$SOURCE" "$TARGET"
+dst="/etc/portage/package.accept_keywords/lxd"
+src="${PWD}/system${dst}"
+sudo-do-sync "$src" "/etc/portage/package.accept_keywords"
+
+dst="/etc/portage"
+src="${PWD}/system/etc/portage/make-vault-lxd.conf"
+sudo-do-sync "$src" "$dst" "make.conf"
+
+touch "/etc/portage/package.use/zz-required"

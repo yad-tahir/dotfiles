@@ -24,7 +24,7 @@ TARGET=${HOME}/.config/emacs
 rm ${TARGET} 2> /dev/null
 ln -s ${PWD}/local/emacs.d ${TARGET}
 
-do-ln-sync "$PWD/local/alias.d" "$HOME/.config/alias.d"
+do-sync "$PWD/local/alias.d" "$HOME/.config/alias.d"
 
-do-sync-sudo "$PWD/system/usr/share/applications" "/usr/share/applications"
+sudo-do-sync "$PWD/system/usr/share/applications" "/usr/share/applications"
 sudo update-desktop-database

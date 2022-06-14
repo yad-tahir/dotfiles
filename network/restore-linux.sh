@@ -20,4 +20,16 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
-do-ln-sync "$PWD/local/bin" "$HOME/bin"
+arr=( "/etc/NetworkManager/dispatcher.d"
+	  "/etc/modprobe.d"
+	  "/etc/iproute2"
+	)
+
+for i in "${arr[@]}"
+do
+	dst=$i
+	src=${PWD}/system${dst}
+	sudo-do-sync "$src" "$dst"
+done
+
+do-sync "$PWD/local/alias.d" "$HOME/.config/alias.d"

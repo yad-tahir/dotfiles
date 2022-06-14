@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # Copyright (C) 2020
 
 # This program is free software; you can redistribute it and/or
@@ -16,20 +17,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-cd `dirname $0`
-echo "* Execute ${PWD}/`basename $0`"
-. ../utils.sh
+# Desktop-aware launcher for Firefox. We launch Firefox either in the VPN mode
+# or not depending on the current focused desktop. If the VPN mode is
+# activated, then Firefox sends that data through VPN. Otherwise, data is
+# sent directly.
 
-arr=( "/etc/NetworkManager/dispatcher.d/90-vpn.sh"
-	  "/etc/modprobe.d"
-	  "/etc/iproute2"
-	)
+# exec /usr/bin/firefox -P "vpn" &> /dev/null
 
-for i in "${arr[@]}"
-do
-	TARGET=$i
-	SOURCE=${PWD}/system${TARGET}
-	do-sync-sudo "$SOURCE" "$TARGET"
-done
-
-do-ln-sync "$PWD/local/alias.d" "$HOME/.config/alias.d"
+exec lxc exec browser-novpn -- sudo -u lxd --login firefox

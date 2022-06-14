@@ -28,9 +28,9 @@ arr=( "/etc/modprobe.d"
 
 for i in "${arr[@]}"
 do
-	TARGET=$i
-	SOURCE=${PWD}/system${TARGET}
-	do-sync-sudo "$SOURCE" "$TARGET"
+	dst=$i
+	src=${PWD}/system${dst}
+	sudo-do-sync "$src" "$dst"
 done
 
-do-ln-sync "${PWD}/local/bin" "${HOME}/bin"
+do-sync "${PWD}/local/bin" "${HOME}/bin"

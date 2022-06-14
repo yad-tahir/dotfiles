@@ -20,6 +20,6 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
-TARGET="/etc/security/limits.d"
-SOURCE=${PWD}/system${TARGET}
-do-sync-sudo "$SOURCE" "$TARGET"
+dst="/etc/security/limits.d"
+src=${PWD}/system${dst}
+sudo-do-sync "$src" "$dst"

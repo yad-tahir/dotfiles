@@ -20,9 +20,9 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
-do-ln-sync "${PWD}/local/config" "${HOME}/.config"
+do-sync "${PWD}/local/config/icc-profiles" "${HOME}/.config/icc-profiles"
 
-TARGET="${HOME}/bin/screen-layout"
-[ ! -e "${TARGET}" ] && mkdir --parents "${TARGET}"
-do-ln-sync "${PWD}/local/bin/screen-layout/util.sh" "$TARGET/util.sh"
-do-ln-sync "${PWD}/local/bin/screen-layout/home-vault.sh" "$TARGET/home.sh"
+dst="${HOME}/bin/screen-layout"
+[ ! -e "${dst}" ] && mkdir --parents "${dst}"
+do-sync "${PWD}/local/bin/screen-layout/util.sh" "$dst"
+do-sync "${PWD}/local/bin/screen-layout/home-vault.sh" "$dst" "home.sh"

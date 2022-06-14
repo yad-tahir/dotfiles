@@ -20,14 +20,6 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
-arr=( "/etc/X11/xorg.conf.d"
-	)
-
-for i in "${arr[@]}"
-do
-	TARGET=$i
-	SOURCE=${PWD}/system${TARGET}
-	do-sync-sudo "$SOURCE" "$TARGET"
-done
-
-do-ln-sync "${PWD}/local/bin" "${HOME}/bin"
+dst="/etc/X11/xorg.conf.d"
+src=${PWD}/system${dst}
+sudo-do-sync $src $dst

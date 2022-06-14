@@ -20,6 +20,5 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
-TARGET=${HOME}
-do-ln-sync "${PWD}/local/.bashrc" "${TARGET}/.bashrc"
-do-ln-sync "${PWD}/local/.profile" "${TARGET}/.profile"
+do-sync "${PWD}/local/.bashrc" "${HOME}"
+do-sync "${PWD}/local/.profile" "${HOME}"

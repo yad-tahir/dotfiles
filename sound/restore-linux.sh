@@ -20,18 +20,13 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
-do-ln-sync "${PWD}/local/bin" "${HOME}/bin"
+do-sync "${PWD}/local/bin" "${HOME}/bin"
 
-TARGET="/etc/pulse/daemon.conf"
-SOURCE=${PWD}/system${TARGET}
-do-sync-sudo "$SOURCE" "$TARGET"
-
-
-TARGET="/etc/udev/rules.d"
-SOURCE=${PWD}/system${TARGET}
-do-sync-sudo "$SOURCE" "$TARGET"
+dst="/etc/pulse"
+src=${PWD}/system${dst}
+sudo-do-sync "$src" "$dst"
 
 
-TARGET="/etc/udev/rules.d"
-SOURCE=${PWD}/system${TARGET}
-do-sync-sudo "$SOURCE" "$TARGET"
+dst="/etc/udev/rules.d"
+src=${PWD}/system${dst}
+sudo-do-sync "$src" "$dst"

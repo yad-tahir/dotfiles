@@ -20,14 +20,8 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
-arr=( "/lib/systemd/system"
-	)
+dst="/lib/systemd/system"
+src="${PWD}/system${dst}"
+sudo-do-sync $src $dst
 
-for i in "${arr[@]}"
-do
-	TARGET=$i
-	SOURCE=${PWD}/system${TARGET}
-	do-sync-sudo "$SOURCE" "$TARGET"
-done
-
-do-sync-sudo "${PWD}/system/etc/nftables-xps.conf" "/etc/nftables.conf"
+sudo-do-sync "${PWD}/system/etc/nftables-xps.conf" "/etc" "nftables.conf"

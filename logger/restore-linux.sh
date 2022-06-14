@@ -20,6 +20,6 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
-TARGET=/etc/systemd/journald.conf
-SOURCE=${PWD}/system${TARGET}
-do-sync-sudo "${SOURCE}" "$TARGET"
+dst=/etc/systemd
+src=${PWD}/system${dst}/journald.conf
+sudo-do-sync "$src" "$dst"

@@ -20,6 +20,5 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
-TARGET=${HOME}/.config/systemd/user
-do-ln-sync "${PWD}/local/systemd/user/urxvtd.service" "${TARGET}/urxvtd.service"
-do-ln-sync "${PWD}/local/systemd/user/urxvtd.socket" "${TARGET}/urxvtd.socket"
+dst=${HOME}/.config/systemd/user
+do-sync "${PWD}/local/systemd/user" "$dst"

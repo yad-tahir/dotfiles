@@ -19,10 +19,18 @@
 
 function setup-vpn-routing () {
 	local currentIP=$(ip route | grep default | awk '{print $3}')
-	# Setup no-vpn routing table
+	# Delete old records
 	ip route del default table no-vpn
-	# Add the default root to the no-vpn routing table
-	echo "current IP is $currentIP"
+	ip route del 169.254.0.0/24 table no-vpn
+	ip route del 192.168.0.128/25 table no-vpn
+	ip route del 192.168.3.0/24 table no-vpn
+	ip route del 192.168.2.0/24 table no-vpn
+
+	ip route add 169.254.0.0/24 src 169.254.0.1 dev lxdbr2 table no-vpn
+	ip route add 192.168.0.128/25 src 192.168.0.254 dev lxdbr1 table no-vpn
+	ip route add 192.168.3.0/24 dev enp67s0f1 table no-vpn
+	ip route add 192.168.2.0/24 dev enp67s0f0 table no-vpn
+
 	ip route add default via "$currentIP" dev $1 table no-vpn
 	ip rule add fwmark 1 table no-vpn prior 1000
 

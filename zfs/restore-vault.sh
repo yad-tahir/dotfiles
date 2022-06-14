@@ -20,10 +20,10 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
-TARGET="/lib/systemd/system"
-SOURCE=${PWD}/system${TARGET}
-do-sync-sudo "$SOURCE" "$TARGET"
+dst="/lib/systemd/system"
+src=${PWD}/system${dst}
+sudo-do-sync "$src" "$dst"
 
-TARGET=/usr/sbin/zfs-export
-SOURCE=${PWD}/system${TARGET}-vault
-do-sync-sudo $SOURCE $TARGET
+dst=/usr/sbin
+src=${PWD}/system${dst}/zfs-export-vault
+sudo-do-sync $src $dst 'zfs-export'

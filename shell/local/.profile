@@ -36,5 +36,5 @@ source $HOME/bin/settings.sh
 # the virtual tty 1, and this is the first login after a cold boot
 if [[ -z $DISPLAY && $XDG_VTNR -eq 1 && ! -f /tmp/init-startx ]]; then
 	touch /tmp/init-startx
-	exec $HOME/bin/startx
+	exec startx
 fi

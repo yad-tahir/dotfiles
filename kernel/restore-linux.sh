@@ -20,12 +20,9 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
-TARGET="/usr/src/linux"
-SOURCE=${PWD}/system${TARGET}
-# Avoid using soft links for security reasons
-do-sync-sudo "$SOURCE/config" "$TARGET/.config"
 
+dst="/usr/src/linux"
+src=${PWD}/system${dst}
+sudo-do-sync "$src/config" "$dst" ".config"
 
-TARGET="/etc/genkernel.conf"
-SOURCE=${PWD}/system${TARGET}
-do-sync-sudo "$SOURCE" "$TARGET"
+sudo-do-sync "${PWD}/system/etc/genkernel.conf" "/etc"

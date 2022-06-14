@@ -47,4 +47,4 @@ export RXVT_SOCKET=/run/user/1000/urxvtd-pipeline
 export SUDO_ASKPASS="/home/${USER}/bin/ask-ssh"
 
 # Beloved PATH
-export PATH="$HOME/bin:${PATH}"
+export PATH="$HOME/bin:$HOME/.local/go/bin:${PATH}"

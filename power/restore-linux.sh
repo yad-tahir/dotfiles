@@ -27,7 +27,7 @@ arr=( "/usr/bin"
 
 for i in "${arr[@]}"
 do
-	TARGET=$i
-	SOURCE=${PWD}/system${TARGET}
-	do-sync-sudo "$SOURCE" "${TARGET}"
+	dst=$i
+	src=${PWD}/system${dst}
+	sudo-do-sync "$src" "$dst"
 done

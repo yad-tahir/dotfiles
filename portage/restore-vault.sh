@@ -22,11 +22,27 @@ echo "* Execute ${PWD}/`basename $0`"
 
 ./restore-common.sh
 
-arr=( "/etc/portage/common.conf"
-	  "/etc/portage/sets"
-	  "/etc/portage/repos.conf/gentoo.conf"
-	  "/etc/portage/package.license"
-	  "/etc/portage/package.use/apps"
+dst="/etc/portage/sets"
+src="${PWD}/system${dst}"
+sudo-do-sync "$src" "$dst"
+
+dst="/etc/portage"
+src="${PWD}/system${dst}/common.conf"
+sudo-do-sync "$src" "$dst"
+
+dst="/etc/portage/package.license"
+src="${PWD}/system${dst}"
+sudo-do-sync "$src" "$dst"
+
+dst="/etc/portage/package.mask"
+src="${PWD}/system${dst}/vault.mask"
+sudo-do-sync "$src" "$dst"
+
+dst="/etc/portage/package.accept_keywords"
+src="${PWD}/system${dst}/vault"
+sudo-do-sync "$src" "$dst"
+
+arr=( "/etc/portage/package.use/apps"
 	  "/etc/portage/package.use/core"
 	  "/etc/portage/package.use/graphic"
 	  "/etc/portage/package.use/misc"
@@ -38,31 +54,25 @@ arr=( "/etc/portage/common.conf"
 	  "/etc/portage/package.use/vault"
 	  "/etc/portage/package.use/vm"
 	  "/etc/portage/package.use/zz-required"
-	  "/etc/portage/package.mask/vault.mask"
-	  "/etc/portage/package.accept_keywords/vault"
 	)
 
 for i in "${arr[@]}"
 do
-	TARGET=$i
-	SOURCE=${PWD}/system${TARGET}
-	do-sync-sudo "$SOURCE" "$TARGET"
+	src=${PWD}/system${i}
+	sudo-do-sync "$src" "/etc/portage/package.use"
 done
 
-TARGET="/etc/portage/make.conf"
-SOURCE="${PWD}/system/etc/portage/make-vault.conf"
-do-sync-sudo "$SOURCE" "$TARGET"
+dst="/etc/portage"
+src="${PWD}/system/etc/portage/make-vault.conf"
+sudo-do-sync "$src" "$dst" "make.conf"
 
-arr=( "/var/lib/portage/world"
-	  "/var/lib/portage/world_sets"
-	)
+dst="/var/lib/portage"
+src="${PWD}/system${dst}/world-vault"
+sudo-do-sync "$src" "$dst" "world"
 
-for i in "${arr[@]}"
-do
-	TARGET=$i
-	SOURCE=${PWD}/system${TARGET}
-	do-ln-sync-sudo "${SOURCE}-vault" "$TARGET"
-done
+dst="/var/lib/portage"
+src="${PWD}/system${dst}/world_sets-vault"
+sudo-do-sync "$src" "$dst" "world_sets"
 
 REPO_PATH="/var/db/repos/private"
 if [ ! -e $REPO_PATH ]; then

@@ -20,4 +20,4 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
-do-ln-sync "${PWD}/local/config" "${HOME}/.config"
+do-sync "${PWD}/local/config/mpd" "${HOME}/.config/mpd"

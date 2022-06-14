@@ -26,10 +26,9 @@ COLOR_SEL="#ffa500"
 
 run=$(
 	# Add custom commends to the demnu
-	extra_commands=( "vm-manager"
-					 "emacs"
-					 "firefox-novpn"
-					 "firefox-vpn"
+	extra_commands=( "chromium-lxc"
+					 "vm-manager"
+					 "firefox-lxc"
 					 )
 	echo_string=
 	for i in "${extra_commands[@]}"; do

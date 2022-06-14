@@ -21,9 +21,6 @@ echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
 # For security reasons, avoid creating soft links as much as possible
-sudo mkdir /root/bin 2> /dev/null
-do-sync-sudo "$PWD/../shell/other/command-prompt.sh" "/root/bin/command-prompt.sh"
-do-sync-sudo "$PWD/local/.profile" "/root/.profile"
-do-sync-sudo "$PWD/local/.bashrc" "/root/.bashrc"
-sudo rm /root/.emacs.d 2> /dev/null
-sudo ln -s "/home/yad/dotfiles/emacs/local/emacs.d" "/root/.emacs.d"
+sudo-do-sync "$PWD/../shell/other/command-prompt.sh" "/root/bin"
+sudo-do-sync "$PWD/local/.profile" "/root"
+sudo-do-sync "$PWD/local/.bashrc" "/root"

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+exec xfreerdp  /d:RDPWINDOWS /u:Yad /v:win-adobe.vault.home /cert:ignore -themes -sec-tls -sec-rdp /dynamic-resolution /p:2223322233 +auto-reconnect /auto-reconnect-max-retries:0 /drive:home,/home -wallpaper /disp /scale:100 /gfx /relax-order-checks $@
+
+# exec xfreerdp  /d:RDPWINDOWS /u:Yad /v:win-adobe.vault.home /cert:ignore -themes -sec-tls -sec-rdp /dynamic-resolution /p:2223322233 +auto-reconnect /auto-reconnect-max-retries:0 /drive:home,/home -wallpaper /disp /scale:100 /gfx /relax-order-checks /audio-mode:0 /sound:sys:pulse $@
+
+#/microphone:sys:pluse

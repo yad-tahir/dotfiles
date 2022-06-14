@@ -20,5 +20,5 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
-do-ln-sync "${PWD}/local/.gitconfig" "${HOME}/.gitconfig"
-do-ln-sync "$PWD/local/alias.d" "$HOME/.config/alias.d"
+do-sync "${PWD}/local/.gitconfig" "${HOME}"
+do-sync "$PWD/local/alias.d" "$HOME/.config/alias.d"

@@ -20,10 +20,8 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 source ../utils.sh
 
-TARGET="${HOME}/bin/dmenu"
-[ ! -e "${TARGET}" ] && mkdir --parents "${TARGET}"
-
-do-ln-sync "${PWD}/local/bin/dmenu/dmenu-util" "${TARGET}/dmenu-util"
-do-ln-sync "${PWD}/local/bin/dmenu/run.sh" "${TARGET}/run.sh"
-do-ln-sync "${PWD}/local/bin/dmenu/pass.sh" "${TARGET}/pass.sh"
-do-ln-sync "${PWD}/local/bin/dmenu/monitor-xps.sh" "${TARGET}/monitor.sh"
+dst="${HOME}/bin/dmenu"
+do-sync "${PWD}/local/bin/dmenu/dmenu-util" "${dst}"
+do-sync "${PWD}/local/bin/dmenu/run.sh" "${dst}"
+do-sync "${PWD}/local/bin/dmenu/pass.sh" "${dst}"
+do-sync "${PWD}/local/bin/dmenu/monitor-xps.sh" "${dst}" "monitor.sh"

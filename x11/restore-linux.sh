@@ -20,29 +20,27 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
-TARGET=${HOME}/.config/
-do-ln-sync "${PWD}/local/config/user-dirs.dirs" "${TARGET}/user-dirs.dirs"
-do-ln-sync "${PWD}/local/config/user-dirs.locale" "${TARGET}/user-dirs.locale"
+dst="${HOME}/.config"
+do-sync "${PWD}/local/config" "$dst"
 
-TARGET=${HOME}/.Xresources
-SOURCE=${PWD}/local/Xresources
-do-ln-sync "$SOURCE" "$TARGET"
+src=${PWD}/local/Xresources
+do-sync "$src" "${HOME}" ".Xresources"
 
-TARGET=${HOME}/.xinitrc
-SOURCE=${PWD}/local/xinitrc
-do-ln-sync "$SOURCE" "$TARGET"
+src=${PWD}/local/xinitrc
+do-sync "$src" "${HOME}" ".xinitrc"
 
-TARGET=/etc/systemd/system/getty@tty1.service.d
-SOURCE=${PWD}/system${TARGET}
-do-sync-sudo "${SOURCE}" "$TARGET"
-TARGET=/etc/systemd/system/getty@tty2.service.d
-SOURCE=${PWD}/system${TARGET}
-do-sync-sudo "${SOURCE}" "$TARGET"
+dst=/etc/systemd/system/getty@tty1.service.d
+src=${PWD}/system${dst}
+sudo-do-sync "$src" "$dst"
 
-TARGET=/etc/X11/xorg.conf.d
-SOURCE=${PWD}/system${TARGET}
-do-sync-sudo "${SOURCE}" "$TARGET"
+dst=/etc/systemd/system/getty@tty2.service.d
+src=${PWD}/system${dst}
+sudo-do-sync "$src" "$dst"
 
-TARGET=/etc/X11/xinit
-SOURCE=${PWD}/system${TARGET}
-do-sync-sudo "${SOURCE}" "$TARGET"
+dst=/etc/X11/xorg.conf.d
+src=${PWD}/system${dst}
+sudo-do-sync "$src" "$dst"
+
+dst=/etc/X11/xinit
+src=${PWD}/system${dst}
+sudo-do-sync "$src" "$dst"

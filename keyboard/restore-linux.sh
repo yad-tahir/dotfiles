@@ -20,13 +20,13 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
-do-ln-sync "${PWD}/local/bin" "${HOME}/bin"
+do-sync "${PWD}/local/bin" "${HOME}/bin"
 
 arr=( "/usr/share/X11/xkb/symbols"
 	  "/etc/X11/xorg.conf.d"
 	  "/etc/conf.d" )
 for i in "${arr[@]}"; do
-	TARGET=$i
-	SOURCE=${PWD}/system${TARGET}
-	do-sync-sudo "$SOURCE" "$TARGET"
+	dst=$i
+	SOURCE=${PWD}/system${dst}
+	sudo-do-sync "$SOURCE" "$dst"
 done

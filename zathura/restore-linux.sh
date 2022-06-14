@@ -21,9 +21,13 @@ echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
 # Copy the configuration file
-do-sync "${PWD}/local/config/zathura" "${HOME}/.config/zathura"
+src="${PWD}/local/config/zathura"
+dst="${HOME}/.config/zathura"
+do-sync $src $dst
 
-do-sync-sudo "${PWD}/system/usr/share/applications" "/usr/share/applications"
+src="${PWD}/system/usr/share/applications"
+dst="/usr/share/applications"
+sudo-do-sync $src $dst
 sudo update-desktop-database
 
 # Make it the default PDF viewer

@@ -37,7 +37,7 @@ fi
 ./keyboard/restore-linux.sh
 ./monitor/restore-xps.sh
 ./mpd/restore-linux.sh
-./network/restore-xps.sh
+./network/restore-linux.sh
 ./nvidia/restore-linux.sh
 ./pam/restore-linux.sh
 ./portage/restore-xps.sh
