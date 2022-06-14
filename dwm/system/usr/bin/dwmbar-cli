@@ -19,8 +19,7 @@
 
 
 function refresh {
-	kill $(pstree -lp | grep dwmrc\([0-9] |
-			   sed "s/.*sleep(\([0-9]\+\)).*/\1/") 2> /dev/null
+	systemctl --user start dwmbar.service
 	return 0;
 }
 
