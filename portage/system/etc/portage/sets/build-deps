@@ -2,7 +2,5 @@
 
 dev-util/cmake
 dev-util/ninja
-virtual/rust
-net-libs/nodejs
 
 # Preserved libraries

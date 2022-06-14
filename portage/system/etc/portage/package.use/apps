@@ -11,7 +11,3 @@ x11-terms/rxvt-unicode 256-color blink
 www-client/firefox bindist system-harfbuzz -screenshot -gmp-autoupdate -wayland -lto
 
 app-office/libreoffice pdfimport -accessibility -bluetooth -mariadb -branding
-
-# @speex adds noise suppression filter
-# @v4l allows webcam integration
-media-video/obs-studio speex v4l

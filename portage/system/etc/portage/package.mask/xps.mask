@@ -7,5 +7,5 @@ app-editors/xemacs
 # Disable eselect opengl because we are using libglvnd
 app-eselect/eselect-opengl
 
-# 460 breaks XPS' iGPU
->x11-drivers/nvidia-drivers-451
+# Fix dependency loop
+=virtual/libcrypt-2

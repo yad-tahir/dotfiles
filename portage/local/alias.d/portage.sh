@@ -62,13 +62,13 @@ emerge-pull() {
 	(cd /var/db/repos/gentoo &&
 		 $SUDO git checkout rsync &&
 		 $SUDO git pull --force &&
-		 $SUDO git reset --hard origin/rsync) &
+		 $SUDO git reset --hard origin/rsync)
 	(cd /var/db/repos/public &&
 		 $SUDO git pull --force &&
-		 $SUDO git reset --hard origin/master) &
+		 $SUDO git reset --hard origin/master)
 	(cd /var/db/repos/private &&
 		 $SUDO git pull --force &&
-		 $SUDO git reset --hard origin/master) &
+		 $SUDO git reset --hard origin/master)
 	wait
 	$SUDO eix-update
 }
@@ -86,6 +86,8 @@ emerge-sync() (
 	fi
 
 	# Update mirror branch by fetching commits from the official gentoo repo
+	$SUDO git checkout rsync &&
+		$SUDO git reset --hard origin/rsync; $SUDO git clean -d -f
 	$SUDO git checkout master &&
 		($SUDO git pull gentoo master &&
 			 $SUDO chown $USER .git -R &&
@@ -99,19 +101,18 @@ emerge-sync() (
 	# Update without-manifest branch, a master sub-branch that it does have
 	# manifest files
 	$SUDO git checkout without-manifest &&
-		($SUDO git merge master --no-edit
-		 $SUDO find . -name 'Manifest' -delete
-		 $SUDO find . -name 'Manifest*.gz' -delete
-		 $SUDO find . -name 'Manifest*master' -delete
-		 # Change the user ownership to the current user temporarily, so that GPG
-		 # work correctly. Otherwise, GPG complains about TTY ownership when
-		 # signing the commit and pushing it via ssh.
-		 $SUDO chown $USER .git -R &&
-			 git add --all
-		 git commit -am "Merge master without manifest files $cdate" &&
-			 git push origin without-manifest &&
-			 $SUDO chown root .git -R
-		 $SUDO git status)
+		 ($SUDO git reset --hard origin/without-manifest
+		  $SUDO git clean -d -f
+		  $SUDO git merge master --no-edit
+		  $SUDO find . -name 'Manifest*' -type f -delete
+		  # Change the user ownership to the current user temporarily, so that GPG
+		  # work correctly. Otherwise, GPG complains about TTY ownership when
+		  # signing the commit and pushing it via ssh.
+		  $SUDO chown $USER .git -R && git add --all
+		  git commit -am "Merge master without manifest files $cdate" &&
+			  git push origin without-manifest
+		  $SUDO chown root .git -R
+		  $SUDO git status)
 
 	echo "Press Enter to continue"
 	read enter
@@ -126,6 +127,8 @@ emerge-rsync() (
 	cd /var/db/repos/gentoo
 
 	$SUDO git checkout rsync
+	$SUDO git reset --hard origin/rsync
+	$SUDO git clean -d -f
 
 	# Rsync and merge the new changes
 	$SUDO git merge without-manifest --no-edit

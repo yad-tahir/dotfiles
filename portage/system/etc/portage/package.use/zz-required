@@ -92,6 +92,28 @@ sys-libs/libapparmor perl
 # required by @selected
 # required by @world (argument)
 >=www-client/w3m-0.5.3_p20180125 imlib
+
+# required by app-emulation/lxd-4.0.7::gentoo
+# required by @selected
+# required by @world (argument)
+>=dev-libs/raft-0.11.1 lz4
+# required by app-emulation/lxd-4.0.7::gentoo
+# required by @selected
+# required by @world (argument)
+>=dev-util/xdelta-3.0.11 lzma
+
+# required by virtual/rust-1.53.0::gentoo
+# required by @build-deps
+# required by @selected
+# required by @world (argument)
+>=dev-lang/rust-1.53.0 rustfmt
+
+# required by app-text/tesseract-4.1.1::gentoo[opencl]
+# required by app-text/zathura-pdf-mupdf-0.3.8-r1::gentoo
+# required by @selected
+# required by @world (argument)
+>=media-libs/leptonica-1.80.0 tiff
+
 # required by app-editors/emacs-28.1::gentoo[jit]
 # required by @selected
 # required by @world (argument)
