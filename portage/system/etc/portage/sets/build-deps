@@ -3,4 +3,7 @@
 dev-util/cmake
 dev-util/ninja
 
+dev-lang/rust
+dev-lang/go
+
 # Preserved libraries
