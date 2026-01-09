@@ -56,5 +56,6 @@
 				 "tool/git"
 				 "tool/search"
 				 "tool/music"
+				 "tool/man"
 
 				 )

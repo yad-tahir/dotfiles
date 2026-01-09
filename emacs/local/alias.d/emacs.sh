@@ -23,3 +23,7 @@ alias emacs-stop="systemctl --user stop emacs.service"
 alias emacs-start="systemctl --user start emacs.service"
 alias emacs-mask="systemctl --user mask emacs.service"
 alias emacs-unmask="systemctl --user unmask emacs.service"
+
+man() {
+	emacsclient -nqe "(do-man \"$1\")"
+}
