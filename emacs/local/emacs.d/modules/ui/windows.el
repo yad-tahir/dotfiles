@@ -108,25 +108,6 @@ display line number."
 
 (add-hook 'text-scale-mode-hook #'do--fix-zoom-layout)
 
-(defun do--on-buffer-text-scaling (frame-or-window)
-  "Function to handle buffer default text scaling.
-
-We apply default text scaling except to mini-buffer."
-  (let ((window (if (windowp frame-or-window)
-					frame-or-window
-				  (frame-selected-window frame-or-window))))
-	(when (and (window-live-p window)
-			   (not do--line-number-remap-cookie)
-			   (not (window-minibuffer-p window)))
-	  (with-selected-window window
-		(do-zoom-in)))))
-(add-hook 'window-buffer-change-functions #'do--on-buffer-text-scaling)
-
-(defun do--on-after-revert ()
-  (unless do--line-number-remap-cookie
-	(do-zoom-in)))
-(add-hook 'after-revert-hook #'do--on-after-revert)
-
 ;;;###autoload
 (defun do-make-frame (&optional fname display props)
   "Create a new frame and switch to it. This function can be called by Shells
