@@ -27,22 +27,22 @@ if [ $? -ne 0 ]; then
 	exit $?
 fi
 
-emacs/restore-linux.sh
-portage/restore-linear.sh
-git/restore-linux.sh
-dwm/restore-linear.sh
 dmenu/restore-linear.sh
+dwm/restore-linear.sh
+emacs/restore-linux.sh
+firewall/restore-linear.sh
+git/restore-linux.sh
 keyboard/restore-linux.sh
 logger/restore-linux.sh
-firewall/restore-linear.sh
-network/restore-linux.sh
-zathura/restore-linux.sh
-urxvt/restore-linux.sh
 mpd/restore-linux.sh
-shell/restore-linux.sh
-scripts/restore-linear.sh
-root/restore-linux.sh
+network/restore-linux.sh
 pam/restore-linux.sh
+portage/restore-linear.sh
+root/restore-linux.sh
+scripts/restore-linear.sh
+shell/restore-linux.sh
+urxvt/restore-linux.sh
 x11/restore-linear.sh
+zathura/restore-linux.sh
 
 echo "Done."

@@ -27,6 +27,6 @@ if [ $? -ne 0 ]; then
 	exit $?
 fi
 
-./portage/restore-lxd.sh
+portage/restore-lxd.sh
 
 echo "Done."

@@ -27,23 +27,23 @@ if [ $? -ne 0 ]; then
 	exit $?
 fi
 
-emacs/restore-linux.sh
-portage/restore-vault.sh
-git/restore-linux.sh
-dwm/restore-vault.sh
 dmenu/restore-vault.sh
+dwm/restore-vault.sh
+emacs/restore-linux.sh
+firewall/restore-vault.sh
+git/restore-linux.sh
 keyboard/restore-linux.sh
 logger/restore-linux.sh
-firewall/restore-vault.sh
-vpn/restore-linux.sh
-network/restore-linux.sh
-zathura/restore-linux.sh
-urxvt/restore-linux.sh
 mpd/restore-linux.sh
-shell/restore-linux.sh
-scripts/restore-vault.sh
-root/restore-linux.sh
+network/restore-linux.sh
 pam/restore-linux.sh
+portage/restore-vault.sh
+root/restore-linux.sh
+scripts/restore-vault.sh
+shell/restore-linux.sh
+urxvt/restore-linux.sh
+vpn/restore-linux.sh
 x11/restore-vault.sh
+zathura/restore-linux.sh
 
 echo "Done."
