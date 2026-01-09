@@ -1,0 +1,51 @@
+#!/bin/sh
+
+# Copyright (C) 2020
+
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
+
+serviceName=sxhkd@${XDG_VTNR}.service
+systemctl --user --force stop $serviceName
+
+variant=$(setxkbmap -query |
+			awk '/^variant/{split($2,arr,","); print toupper(arr[1])}')
+layout=$(setxkbmap -query |
+			awk '/^layout/{split($2,arr,","); print toupper(arr[1])}')
+
+layout=""
+if [ "$variant" = "DVORAK" ]; then
+	setxkbmap evil topre
+	layout="topre"
+elif [ "$variant" = "TOPRE" ]; then
+	setxkbmap us
+	layout="us"
+else
+	setxkbmap evil dvorak
+	layout="dvorak"
+fi
+
+setxkbmap -option ""
+setxkbmap -option "ctrl:swapcaps"
+
+# Selected options from /usr/share/X11/xkb/rules/base.lst
+# setxkbmap -option 'ctrl:swapcaps'
+# setxkbmap -option "altwin:swap_lalt_lwin"
+
+# Refresh system-wide keybindings to accommodate any changes in key codes for
+# various keyboard layouts. Make sure systemd's variables are up-to-date,
+# specially when there are multiple display sessions
+systemctl --user import-environment DISPLAY
+systemctl --user --force start $serviceName

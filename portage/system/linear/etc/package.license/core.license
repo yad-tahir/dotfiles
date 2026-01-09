@@ -1,0 +1,2 @@
+sys-kernel/linux-firmware no-source-code
+sys-firmware/intel-microcode intel-ucode

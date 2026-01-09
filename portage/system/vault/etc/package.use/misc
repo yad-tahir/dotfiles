@@ -1,0 +1,41 @@
+net-print/cups -acl
+net-print/libcupsfilters pdf png jpeg postscript
+app-text/ghostscript-gpl -gtk
+
+# Enable built-in emacs support
+app-admin/eselect emacs
+sys-devel/gettext emacs
+app-crypt/pinentry emacs
+dev-vcs/git emacs
+
+# Many applications, such as virt-manager and libraoffice, require @X internally
+sys-apps/dbus user-session
+
+# QT
+dev-qt/* dbus
+
+# Fonts
+# @cjk adds chinese, japanese and korean character sets
+media-fonts/noto cjk
+
+# Fontforge - postscript font editor and converter
+# Remove @unicode because media-libs/libuninameslist is broken
+media-gfx/fontforge gif jpeg png svg tiff cairo -unicode
+
+# Office related
+# @extra is required when exporting Org files as PDFs
+app-text/texlive png science graphics epspdf metapost extra
+dev-texlive/texlive-basic -luajittex
+app-text/mupdf -javascript -opengl
+
+# master-pdf-editor
+media-gfx/sane-backends -ipv6 -zeroconf
+
+# Disable ipv6 when it is not needed
+x11-apps/* -ipv6
+x11-libs/* -ipv6
+x11-org/* -ipv6
+media-sound/* -ipv6
+
+# Other
+sys-apps/lm-sensors contrib

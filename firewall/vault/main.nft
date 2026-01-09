@@ -1,0 +1,140 @@
+#!/usr/bin/nft -f
+
+# ipv4/ipv6 Simple & Safe Firewall
+# you can find examples in /usr/share/nftables/
+# More information can be found at https://wiki.nftables.org/wiki-nftables/index.php/Netfilter_hooks
+
+flush ruleset
+
+define vm_internal = {169.254.0.0/24, 192.168.1.0/24}
+define vm_lan = {192.168.0.128/25}
+define vm_all = {$vm_lan, $vm_internal}
+define home_subnet = {192.168.0.1/25, 192.168.2.1/24, 192.168.3.1/24, $vm_lan, 192.168.42.1/24}
+define lan = {$home_subnet, $vm_internal}
+define vpn_subnet = {10.10.10.0/24, 10.10.11.0/24}
+define bridges = {lxdbr1, lxdbr2}
+define wireless = {wlp*}
+define gateway = {enp21s0u1, enp22s0u1, enp23s0u1, $wireless, enp24s0u1*} #Ethernet via phone's usb
+define lan_nics = {$wireless, enp*}
+define via_vpn_subnet = {browser-vpn.internal.vault.home, dns.vault.home}
+
+table ip mangle {
+	# chain output{
+	#  output: sees packets that originated from processes in the local machine.
+	#	# We use the route type because there is no pre-route for output packets in nft;
+	#	# Output packets first are routed then a 're-route' check will be preformed!
+	#	type route hook output priority srcnat;
+	#	# No VPN for the no-vpn, no-wan group
+	#	meta skgid {1001, 1004} mark set 0x1
+	# }
+
+	chain pre {
+		# prerouting: sees all incoming packets, before any routing decision has been made. Packets may be addressed to the local or remote systems.
+		type filter hook prerouting priority mangle;
+
+		# # VMs' traffic not going throw via VPN
+		ip saddr $vm_all ip daddr != {10.10.10.0/24, 10.10.11.0/24} mark set 0x1
+
+		# # # VMs' traffic via VPN
+		ip saddr $via_vpn_subnet  ip daddr != {10.10.10.0/24, 10.10.11.0/24} mark set 0x0
+
+		# # No VPN for lan traffic
+		ip saddr $lan ip daddr $lan mark set 0x1 # LAN
+	}
+
+	chain nat-post {
+		# Nat rules are consulted when a new connection is created only
+		# postrouting: sees all packets after routing, just before they leave the local system.
+		type nat hook postrouting priority srcnat;
+		oifname {tun0} masquerade
+		oifname $gateway ip daddr != $vm_all masquerade
+		oifname $gateway ip saddr $vm_internal masquerade
+	}
+
+	chain nat-stateless {
+		# type filter hook prerouting priority -300; policy accept;
+		# DHCP cannot be mangled by nft since DHCP packets uses broadcast addresses
+		# For more information https://serverfault.com/questions/839053/how-to-dnat-broadcast-packets
+		# iif $wireless udp dport 67 ip daddr set 192.168.0.250 log notrack accept
+	}
+}
+
+table ip filter {
+	chain input {
+		type filter hook input priority filter; policy drop;
+
+		# Allow from loopback
+		iif 1 accept
+		# bridges' ip addresses are not accessible from outside
+		iifname != {$bridges,lo} ip saddr {192.168.0.254, 169.254.0.1} reject
+		iifname $lan_nics ip daddr {192.168.0.254, 169.254.0.1} reject
+		# Public ports
+		tcp dport {9100,9255} accept
+		udp dport {67,68,53} accept #DHCP & DNS services
+
+		# Allow certain inbound ICMP types (ping, traceroute)
+		# With these allowed you are a good network citizen
+		ip protocol icmp icmp type {destination-unreachable, echo-reply, echo-request, source-quench, time-exceeded} accept
+
+		ip saddr $home_subnet tcp dport{22} accept
+
+		# Allow established/related connections
+		ct state {established, related} accept
+		ct state {invalid, new} drop
+
+		log prefix "NFT input: "
+	}
+
+	chain forward {
+		type filter hook forward priority filter; policy drop;
+
+		iif 1 accept
+
+		iifname != $bridges ip saddr {192.168.0.254, 169.254.0.1} reject # Can't use IP addresses of the bridges externally!
+		iifname != tun0 ip saddr $vpn_subnet reject # VPN subnet should be used by VPN only
+
+		udp dport {67,68,53} accept # DHCP & DNS
+
+		meta skgid 1000 reject # no-net group
+		meta skgid 1004 jump no-wan #no-wan group
+
+		ip daddr $lan ct state {established, related} accept
+
+		jump internals
+		ip saddr $home_subnet accept # Allow nodes in the home subnet to establish connections freely
+
+		log prefix "NFT forward: "
+	}
+
+	chain internals {
+		# The internal subnet can communicate with the Internet freely
+		iifname {lxdbr2} ip saddr $vm_internal ip daddr != $lan accept
+
+		# However apart from the browsers, the internal subnet has a limited access to the LAN.
+		iifname {lxdbr2} ip daddr {dns.home, vault.home, 192.168.0.1} accept
+		iifname {lxdbr2} ip saddr {browser-vpn.internal.vault.home, browser-novpn.internal.vault.home} ip daddr $vm_lan accept
+
+		# Allow connections that have been already established by LAN
+		iifname {lxdbr2} ip saddr $vm_internal ip daddr $home_subnet ct state {established, related} accept
+
+		# Samba access
+		iifname {lxdbr2} ip	saddr {omniscope.internal.vault.home} ip daddr {samba.vault.home} accept
+		ip daddr {samba.vault.home} log reject
+
+		# Reject other states
+		iifname {lxdbr2} reject
+	}
+
+	chain output {
+		type filter hook output priority filter; policy accept;
+		# no-net group
+		meta skgid 1000 drop
+		# no-wan group
+		meta skgid 1004 jump no-wan
+	}
+
+	chain no-wan {
+		ip saddr != {10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 169.254.0.0/16} reject
+		ip daddr != {10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 169.254.0.0/16} reject
+	}
+}

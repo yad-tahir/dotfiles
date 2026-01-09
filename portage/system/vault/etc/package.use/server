@@ -1,0 +1,7 @@
+dev-lang/php apache2 mysql mysqli
+net-misc/dhcp -client
+dev-db/phpmyadmin setup
+www-servers/apache apache2_modules_session apache2_modules_session_cookie
+
+#apache2_modules_dbd
+#apache2_modules_authz_dbd apache2_modules_auth_form apache2_modules_auth_digest

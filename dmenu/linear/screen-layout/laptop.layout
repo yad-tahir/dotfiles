@@ -1,0 +1,62 @@
+#! /bin/bash
+
+# Copyright (C) 2020
+
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
+
+# Import utility functions
+cd `dirname $0`
+. $PWD/util.sh
+
+
+xrandr --output eDP-1 --primary --mode 2880x1800 --pos 0x0 --rotate normal --rate 60\
+	   --output eDP-2 --off\
+	   --output DP-1 --off --output DP-2 --off\
+	   --output HDMI-1 --off
+
+util-set-dpi 150
+
+# Power saving
+xset +dpms
+xset s on
+
+util-launch &
+
+sleep 1
+
+#Fix touchscreens
+arr=(
+	"ELAN9008:00 04F3:425B"
+	"ELAN9008:00 04F3:425B Touchpad"
+	"ELAN9008:00 04F3:425B Stylus Pen (0)"
+	"ELAN9008:00 04F3:425B Stylus Eraser (0)"
+)
+for i in "${arr[@]}";do
+	touchdev=$(xinput list --id-only "$i")
+	xinput --enable "$touchdev"
+	xinput --map-to-output "$touchdev" eDP-1
+done
+
+arr=(
+	"ELAN9009:00 04F3:425A"
+	"ELAN9009:00 04F3:425A Touchpad"
+	"ELAN9009:00 04F3:425A Stylus Pen (0)"
+	"ELAN9009:00 04F3:425A Stylus Eraser (0)"
+)
+for i in "${arr[@]}";do
+	touchdev=$(xinput list --id-only "$i")
+	xinput --disable "$touchdev"
+done

@@ -1,0 +1,18 @@
+[Desktop Entry]
+Version=1.0
+Name=Zathura
+GenericName=Zathura PDF viewer
+Comment=A minimalist PDF viewer
+Exec=zathura %f
+Icon=zathura
+Terminal=false
+Type=Application
+MimeType=application/pdf;application/x-pdf;application/x-cbz;application/oxps;application/vnd.ms-xpsdocument;image/jpeg;image/pjpeg;image/png;image/tiff;image/x-tiff;
+Categories=Viewer;Graphics;
+Keywords=pdf;viewer;
+Actions=View;
+StartupWMClass=zathura
+
+[Desktop Action View]
+Name=View with zathura
+Exec=zathura %f

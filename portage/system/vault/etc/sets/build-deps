@@ -1,0 +1,7 @@
+# This set holds packages that are commonly used during source code compilation
+dev-build/cmake
+dev-build/ninja
+
+# Preserved libraries
+x11-libs/gtk+
+gui-libs/gtk

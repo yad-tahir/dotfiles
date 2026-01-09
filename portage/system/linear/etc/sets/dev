@@ -1,0 +1,7 @@
+dev-lang/go
+dev-java/openjdk
+
+#Performance Engineering
+dev-util/perf
+# fix perf emerge compile
+x11-base/xorg-proto

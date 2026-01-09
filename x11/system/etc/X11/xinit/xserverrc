@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# vt$XDG_VTNR is to set the virtual terminal which should use the same number used in the current terminal. For instance, vt1 for tty1, vt2 for tty2, etc.
+# According to https://tstarling.com/blog/2016/06/x11-security-isolation/, '-nolisten local' can be added to improve security.
+exec /usr/bin/X -nolisten tcp -nolisten local -keeptty "$@" vt$XDG_VTNR
+# exec /usr/bin/X -nolisten tcp -keeptty  vt$XDG_VTNR

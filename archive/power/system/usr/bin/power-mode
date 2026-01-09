@@ -1,0 +1,72 @@
+#!/bin/sh
+
+# Copyright (C) 2026
+
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
+
+
+case $1 in
+	save)
+		echo 'save' > /tmp/power-mode
+		echo 'powersave' | tee /sys/devices/system/cpu/cpufreq/policy?/scaling_governor
+		# Sound
+		modprobe snd_hda_intel power_save=1
+		echo '1' | tee /sys/module/snd_hda_intel/parameters/power_save
+		# Wifi
+		modprobe iwlwifi power_save=1
+		echo 'auto' | tee /sys/bus/pci/devices/0000:3b:00.0/power/control
+		# Kernel
+		sysctl kernel.nmi_watchdog=0
+		echo '0' | tee /proc/sys/kernel/watchdog
+		# Storage
+		sysctl vm.laptop_mode=5
+		# Buses
+		echo 'powersave' | tee /sys/module/pcie_aspm/parameters/policy
+		echo 'med_power_with_dipm' | tee /sys/class/scsi_host/host?/link_power_management_policy
+		# Card reader
+		echo 'auto' | tee /sys/bus/pci/devices/0000:3c:00.0/power/control
+		# Fingerprint
+		echo 'auto' | tee /sys/bus/usb/devices/1-7/power/control
+		# iGPU
+		echo 'auto' | tee /sys/bus/pci/devices/0000:00:02.0/power/control
+		;;
+	performance)
+		echo 'performance' > /tmp/power-mode
+		# /home/yad/dotfiles/power/bin/power-performance&
+		echo 'performance' | tee /sys/devices/system/cpu/cpufreq/policy?/scaling_governor
+
+		# Sound
+		modprobe snd_hda_intel power_save=0
+		echo '0' | tee /sys/module/snd_hda_intel/parameters/power_save
+		# Wifi
+		modprobe iwlwifi power_save=0
+		echo 'on' | tee /sys/bus/pci/devices/0000:3b:00.0/power/control
+		# Kernel
+		sysctl kernel.nmi_watchdog=1
+		echo '0' | tee /proc/sys/kernel/watchdog
+		# Storage
+		sysctl vm.laptop_mode=0
+		# Buses
+		echo 'default' | tee /sys/module/pcie_aspm/parameters/policy
+		echo 'max_performance' | tee /sys/class/scsi_host/host?/link_power_management_policy
+		# Card reader
+		echo 'on' | tee /sys/bus/pci/devices/0000:3c:00.0/power/control
+		# Fingerprint
+		echo 'auto' | tee /sys/bus/usb/devices/1-7/power/control
+		# iGPU
+		echo 'on' | tee /sys/bus/pci/devices/0000:00:02.0/power/control
+		;;
+esac

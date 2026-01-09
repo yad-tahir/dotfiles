@@ -1,0 +1,126 @@
+
+# required by x11-libs/gtk+-3.24.42-r1::gentoo
+# required by app-text/zathura-0.5.4::gentoo
+# required by app-text/zathura-pdf-mupdf-0.4.4::gentoo
+# required by @selected
+# required by @world (argument)
+>=x11-libs/cairo-1.18.2-r1 X
+# required by media-libs/mesa-24.3.3::gentoo
+# required by media-video/mpv-0.39.0::gentoo[egl,drm]
+# required by @selected
+# required by @world (argument)
+>=media-libs/libglvnd-1.7.0 X
+# required by x11-misc/urxvt-font-size-1.3::gentoo
+# required by @selected
+# required by @world (argument)
+>=x11-terms/rxvt-unicode-9.31-r3 perl
+# required by net-print/libppd-2.1_beta1-r1::gentoo[postscript]
+# required by net-print/cups-filters-2.0.1::gentoo
+# required by @selected
+# required by @world (argument)
+>=app-text/ghostscript-gpl-10.04.0 cups
+# required by net-misc/networkmanager-1.48.10-r1::gentoo[wifi,-iwd]
+# required by @selected
+# required by @world (argument)
+>=net-wireless/wpa_supplicant-2.10-r5 dbus
+# required by app-text/texlive-core-2024-r1::gentoo
+# required by virtual/tex-base-0::gentoo
+# required by app-text/lcdf-typetools-2.110::gentoo
+# required by app-text/texlive-2024::gentoo
+# required by @selected
+# required by @world (argument)
+>=media-libs/harfbuzz-10.1.0 icu
+# required by app-admin/pass-1.7.4-r2::gentoo
+# required by @selected
+# required by @world (argument)
+>=media-gfx/qrencode-4.1.1-r1 png
+# required by media-sound/pulseaudio-daemon-17.0-r1::gentoo
+>=media-libs/libpulse-17.0 X
+# required by media-sound/pulseaudio-daemon-17.0-r1::gentoo[alsa-plugin,alsa]
+# required by media-libs/libpulse-17.0::gentoo
+# required by www-client/firefox-bin-134.0.2::gentoo
+# required by @selected
+# required by @world (argument)
+>=media-plugins/alsa-plugins-1.2.12 pulseaudio
+# required by app-text/zathura-pdf-mupdf-0.4.4::gentoo
+# required by @selected
+# required by @world (argument)
+>=app-text/mupdf-1.24.8 javascript
+# required by app-editors/emacs-29.4::gentoo
+# required by @selected
+# required by @world (argument)
+>=app-emacs/emacs-common-1.10 gui
+# required by app-editors/emacs-29.4::gentoo[jit]
+# required by app-emacs/emacs-common-1.10::gentoo
+>=sys-devel/gcc-14.2.1_p20241221 jit
+# required by sys-kernel/gentoo-kernel-6.6.67::gentoo[initramfs]
+# required by virtual/dist-kernel-6.6.67::gentoo
+# required by sys-kernel/linux-firmware-20250109-r1::gentoo[dist-kernel]
+# required by @selected
+# required by @world (argument)
+>=sys-kernel/installkernel-50 dracut
+# required by x11-misc/xdg-utils-1.2.1-r8::gentoo
+# required by xdg-utils (argument)
+>=app-text/xmlto-0.0.28-r11 text
+# required by app-office/libreoffice-bin-24.2.7.2::gentoo
+# required by libreoffice-bin (argument)
+>=dev-libs/boost-1.85.0-r1 nls
+# required by app-office/libreoffice-bin-24.2.7.2::gentoo
+# required by libreoffice-bin (argument)
+>=dev-libs/xmlsec-1.3.6 nss
+# required by sys-auth/polkit-125-r1::gentoo[systemd]
+# required by gnome-extra/polkit-gnome-0.105-r2::gentoo
+>=sys-apps/systemd-256.10 policykit
+# required by media-gfx/blender-4.2.1::gentoo
+# required by blender (argument)
+>=media-libs/freetype-2.13.3 brotli
+# required by media-gfx/blender-4.2.1::gentoo[ffmpeg]
+# required by blender (argument)
+>=media-video/ffmpeg-6.1.2 vorbis vpx mp3 theora opus xvid
+# required by virtual/fortran-0-r1::gentoo
+# required by sci-libs/lapack-3.12.0-r1::gentoo
+# required by virtual/cblas-3.8::gentoo
+# required by dev-python/numpy-2.2.1::gentoo
+# required by media-gfx/blender-4.2.1::gentoo[python_single_target_python3_12]
+# required by blender (argument)
+>=sys-devel/gcc-14.2.1_p20241221 fortran
+# required by app-containers/lxd-5.21.1-r1::gentoo
+# required by lxd (argument)
+>=dev-util/xdelta-3.0.11-r1 lzma
+# required by app-containers/lxd-5.21.1-r1::gentoo
+# required by lxd (argument)
+>=sys-fs/squashfs-tools-4.6.1 lzma
+# required by app-containers/lxc-6.0.3::gentoo[caps,tools]
+# required by app-containers/lxd-5.21.1-r1::gentoo
+# required by lxd (argument)
+>=sys-libs/libcap-2.71 static-libs
+# required by media-gfx/blender-4.4.3::gentoo[bullet]
+# required by @selected
+# required by @world (argument)
+>=sci-physics/bullet-3.21 double-precision
+# required by media-gfx/blender-4.4.3::gentoo[ffmpeg]
+# required by @selected
+# required by @world (argument)
+>=media-video/ffmpeg-7.1.1-r2 lame
+# required by media-gfx/blender-4.4.3::gentoo[opensubdiv]
+# required by @selected
+# required by @world (argument)
+>=media-libs/opensubdiv-3.6.0-r4 tbb
+# required by sys-fs/zfs-2.3.4::gentoo[dist-kernel]
+# required by @selected
+# required by @world (argument)
+>=sys-fs/zfs-kmod-2.3.4 dist-kernel
+# required by www-client/firefox-140.6.0::gentoo[system-libvpx]
+# required by @selected
+# required by @world (argument)
+>=media-libs/libvpx-1.15.2 postproc
+# required by app-office/libreoffice-25.2.7.2-r1::gentoo[gtk3]
+# required by @selected
+# required by @world (argument)
+>=x11-libs/gtk+-3.24.51 wayland
+# required by x11-libs/gtk+-3.24.51::gentoo[wayland]
+# required by media-gfx/fontforge-20230101-r2::gentoo[gtk,-test]
+# required by app-office/libreoffice-25.2.7.2-r1::gentoo
+# required by @selected
+# required by @world (argument)
+>=media-libs/mesa-25.2.7 wayland

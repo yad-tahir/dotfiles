@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Disable vpn for steam
+# Steam uses nvidia driver for some reason, optirun is needed to automatically
+# unload the driver once steam is closed
+exec lxc exec steam -- sudo -u lxd --login steam

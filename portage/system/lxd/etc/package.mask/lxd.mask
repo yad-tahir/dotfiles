@@ -1,0 +1,3 @@
+# Takes too long to compile; use rust-bin instead
+dev-lang/rust
+

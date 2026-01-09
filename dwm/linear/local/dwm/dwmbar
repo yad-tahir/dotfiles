@@ -1,0 +1,174 @@
+#!/bin/bash
+
+# Copyright (C) 2020
+
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
+
+gpu(){
+	local status=$(cat /sys/bus/pci/devices/0000:01:00.0/power/runtime_status 2> /dev/null || echo igpu)
+
+	if [ "$status" == "active" ]; then
+		echo -e "\x04  dGPU \x01 "
+	else
+		echo -e ""
+	fi
+}
+
+temp(){
+	local r=$(sensors | awk '/Package id/{gsub("+", "",$4); print $4}')
+	echo -e " $r "
+}
+
+fan(){
+	local fan1=$(sensors | awk '/^cpu_fan/{print $2}')
+
+	if [ $fan1 -ge 4000 ]; then
+		echo -e "\x05  $fan1 \x01 "
+	elif [ $fan1 -ge 3500 ]; then
+		echo -e "\x04  $fan1 \x01 "
+	elif [ $fan1 -ge 2500 ]; then
+		echo -e "\x07  $fan1 \x01 "
+	else
+		echo -e " $fan1 "
+	fi
+}
+
+mem(){
+	local m=$(free | awk '/^Mem/{$1=sprintf("%.1f",($2-$7)/(1024^2)); print $1}')
+	if (( $(echo $m'>'24 | bc ) )); then
+		m="\x05  ${m}GB \x01 "
+	else
+		m=" ${m}GB "
+	fi
+	echo -e "$m"
+}
+
+emacs(){
+	local v=$(emacsclient -a=/bin/true -ne '(length (do-list-buffers))' | bc)
+	if [ ! -z "$v" ]; then
+		echo -e " $v "
+	fi
+}
+
+keyboard(){
+	local layout=$(setxkbmap -query |
+					   awk '/^layout/{split($2,arr,","); print toupper(arr[1])}')
+	local variant=$(setxkbmap -query |
+						awk '/^variant/{split($2,arr,","); print toupper(arr[1])}')
+	local caps=$(xset -q | awk '/Caps/{print $4}')
+	local state=''
+	if [ "$variant" != "DVORAK" ]; then
+		state="\x04  $layout \x01 "
+	else
+		state=""
+	fi
+	if [ "$caps" = 'off' ]; then
+		echo -e "$state"
+	else
+		echo -e "\x05  CAPS \x01 $state"
+	fi
+}
+
+vol(){
+	local v=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2*100}')
+	local muted=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $3}')
+	if [ "$muted" = '[MUTED]' ]; then
+		v="\x05  ${v}% \x01 "
+	elif [ $v = 0 ]; then
+		v="\x04  \x01 "
+	else
+		v=" ${v}% "
+	fi
+	echo -e "$v"
+}
+
+load(){
+	local r=$(echo $(cut -f 1 -d ' ' /proc/loadavg)*100/$(nproc) | /usr/bin/bc)
+	if [ $r -ge 80 ]; then
+		echo -e "\x05  $r% \x01 "
+	elif [ $r -ge 50 ]; then
+		echo -e "\x04  $r% \x01 "
+	elif [ $r -ge 25 ]; then
+		echo -e "\x07  $r% \x01 "
+	else
+		echo -e " $r% "
+	fi
+}
+
+energy_profile(){
+	local v=$( powerprofilesctl get)
+	if [ $v = "power-saver" ]; then
+		return
+	elif [ $v = "performance" ]; then
+		echo -e "\x06  PRFM \x01 "
+	elif [ $v = "balanced" ]; then
+		echo -e " BLNC "
+	else
+		echo -e " $v "
+	fi
+}
+
+vpn(){
+	local v=$(ip route | head -n 1 | grep 'tun0')
+	if [ -z "$v" ]; then
+		echo -e "\x05  OFF \x01 "
+	else
+		echo -e " ON "
+	fi
+}
+
+battery(){
+	local output=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0)
+
+	local level=$(awk '/percentage/ { gsub(/[%,]/, "", $2); print $2 }' <<< "$output")
+	local code=$(awk '/state/ { gsub(/[,%]/, "", $2); print $2 }' <<< "$output")
+	local time=$(awk '/time to/ {
+	gsub(/[%,]/, "");
+	gsub(/ minutes?/, "m");
+	gsub(/ hours?/, "h");
+	# Print $4, and if $5 exists, print a space followed by $5
+	printf "%s%s\n", $4, ($5 ? " " $5 : "");
+}' <<< "$output")
+
+	local status=""
+	if [ -z "$time" ]; then
+		status="${level}%"
+	else
+		status="${level}% $time"
+	fi
+
+	if [ "$code" = "discharging" ]; then
+		if [ "$level" -ge "35" ]; then
+			echo -e "\x07  $status \x01 "
+		elif [ "$level" -ge "10" ]; then
+			echo -e "\x04  $status \x01 "
+		else
+			echo -e "\x06  $status \x01 "
+		fi
+	elif [ "$code" = "charging" ]; then
+		echo -e "\x07  $status \x01 "
+	else
+		echo -e " $status "
+	fi
+}
+
+time_left(){
+	printf " %'d " $(life)
+}
+
+status="$(fan)$(temp)$(load)$(mem)| $(vol)$(keyboard)$(energy_profile)$(battery)$(time_left)| $(date +'%a, %b %d %H:%M')"
+status=$(echo -e "$status" | tr '\n' ' ')
+xsetroot -name "$status"

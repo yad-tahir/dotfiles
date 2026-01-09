@@ -1,0 +1,18 @@
+# @spice used by virt for UI desktop sharing
+# @lzo enables lzo compression
+# @usb and @usbredir enables usb passthrough whether directly or indirectly, respectively
+# @virgl and @opengl to provide HW acceleration
+app-emulation/qemu spice usb usbredir lzo virgl lxc numa vnc virtfs vhost-user-fs vnc zstd curl fuse iscsi multipath udev nfs plugins pulseaudio ssh qemu_user_targets_x86_64
+
+app-emulation/libvirt zfs pcap dbus numa vepa audit macvtap virt-network fuse lvm nfs
+
+# TODO: Add @webdav in the future
+net-misc/spice-gtk lz4 dbus webdav
+
+# LXD/LXC
+# Some images use lz4 or lzo compressions
+sys-fs/squashfs-tools lz4 lzo
+
+# ZZZ
+# Required by LXD's .xz images
+sys-fs/squashfs-tools lzma

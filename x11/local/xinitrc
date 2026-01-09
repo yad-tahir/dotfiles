@@ -1,0 +1,8 @@
+xrandr --auto
+
+# load Xresources if it exists
+[[ -f $HOME/.Xresources ]] && xrdb -merge -I$HOME $HOME/.Xresources
+
+#DWM
+sleep 1 | $HOME/.config/dwm/dwmrc &
+exec dwm

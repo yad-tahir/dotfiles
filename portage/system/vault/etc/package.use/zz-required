@@ -1,0 +1,11 @@
+sys-devel/gcc jit
+>=app-text/mupdf-1.25.6 javascript
+
+#@icu is required by app-text/texlive-core
+media-libs/harfbuzz icu
+
+#@wayland is required app-office/libreoffice; VERY UGLY!
+x11-libs/gtk+ wayland
+media-libs/mesa wayland# required by sys-auth/polkit-126-r2::gentoo[systemd]
+# required by gnome-extra/polkit-gnome-0.105-r2::gentoo
+>=sys-apps/systemd-257.10 policykit

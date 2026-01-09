@@ -1,0 +1,9 @@
+sys-kernel/installkernel systemd systemd-boot dracut
+sys-fs/zfs rootfs dist-kernel
+sys-kernel/genkernel cryptsetup
+
+sys-apps/systemd boot gnuefi audit elfutils cryptsetup -gcrypt -pcre -cgroup-hybrid
+sys-fs/lvm2 lvm
+
+# GCC
+sys-devel/gcc graphite -fortran

@@ -1,0 +1,122 @@
+# Copyright (C) 2020
+
+# This program is free software; you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation; either version 2 of the License, or (at your option) any later
+# version.
+
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
+# Street, Fifth Floor, Boston, MA 02110-1301, USA.
+
+#
+# System-wide keybindings designed for Dvorak layouts. This configuration is
+# meant to work along with DWM internel keybindings.
+#
+
+# Reload SXHKD config file
+super + shift + F5
+	pkill -USR1 -x sxhkd
+
+# Media control
+# -------------
+XF86AudioMute
+	wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; dwmbar-cli refresh
+
+super + o
+	wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; dwmbar-cli refresh
+
+{XF86AudioRaiseVolume,XF86AudioLowerVolume}
+	wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%{+,-}; dwmbar-cli refresh
+
+super + {e,a}
+	wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%{+,-}; dwmbar-cli refresh
+
+XF86AudioPlay
+	emacsclient -nqe '(do-music-toggle)' > /dev/null &
+
+XF86AudioNext
+	emacsclient -nqe '(do-music-next)' > /dev/null &
+
+XF86AudioPrev
+	emacsclient -nqe '(do-music-previous)' > /dev/null &
+
+{XF86AudioNext,XF86AudioPrev} + shift
+	mpc seek {+00,-00}10 > /dev/null &
+
+super + shift + i
+	emacsclient -nqe '(do-music-toggle)' > /dev/null &
+
+super + shift + d
+	emacsclient -nqe '(do-music-next)' > /dev/null &
+
+super + shift + u
+	emacsclient -nqe '(do-music-previous)' > /dev/null &
+
+super + control + {d,u}
+	mpc seek {+00,-00}10 > /dev/null &
+
+# Keyboard backlight
+# ----------------
+super + F4
+	sudo python3 /usr/local/bin/duo-backlight.py {1,0}
+
+# Program launcher
+# ----------------
+
+# Beloved Emacs
+super + F2
+	emacsclient -nqe "(do-make-frame)" -a='/usr/bin/urxvt -e nano' > /dev/null &
+
+# Screen brightness
+super + {F12, F11}
+	sudo /usr/local/bin/duo-brightness {up,down}
+
+# Dmenu
+super + g
+	$HOME/bin/dmenu/run.sh &
+
+super + p
+	$HOME/bin/dmenu/pass.sh &
+
+super + m
+	$HOME/bin/dmenu/monitor.sh &
+
+super + shift + F3
+	$HOME/bin/screen-lock &
+
+# Terminal
+super + Escape
+	/usr/bin/urxvtc &
+
+# Toggle between Dvorak and Qwerty
+alt + space
+	$HOME/bin/keyboard-toggle; dwmbar-cli refresh
+
+@Caps_Lock
+	dwmbar-cli refresh
+
+# Other applications
+super + w
+	librewolf &
+super + shift + w
+	librewolf &
+super + semicolon; g
+	urxvtc -hold -name glances -e /usr/bin/glances &
+super + semicolon; h
+	urxvtc -hold -name htop -e /usr/bin/htop &
+super + semicolon; s
+	urxvtc -hold -name pulsemixer -e /usr/bin/pulsemixer &
+super + semicolon; v
+	urxvtc -hold -name visualizer -e vis &
+super + semicolon; l
+	urxvtc -hold -name log -e /bin/journalctl -fn 200 &
+super + F3
+	feh --bg-fill $(/bin/ls ${HOME}/pictures/background/* | shuf -n 1) &
+super + shift + F2
+	emacsclient -nqe "(progn (do-make-frame) (funcall-interactively 'org-capture))"\\
+		-a='/usr/bin/urxvt -e nano' > /dev/null &

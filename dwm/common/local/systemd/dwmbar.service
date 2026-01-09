@@ -1,0 +1,13 @@
+[Unit]
+Description=DWM bar updater
+
+[Service]
+ExecStart=/bin/sh -c '. $HOME/bin/settings.sh && $HOME/.config/dwm/dwmbar'
+ExecReload=/usr/bin/kill -SIGUSR1 $MAINPID
+Type=simple
+KillMode=control-group
+LogLevelMax=4
+StartLimitBurst=200
+
+[Install]
+WantedBy=default.target

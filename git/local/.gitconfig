@@ -1,0 +1,11 @@
+[user]
+	name = Dr. Yad Tahir
+	email = yad@ieee.org
+	signingkey = 29BF31B3567C780B
+
+[commit]
+	gpgsign = true
+[rebase]
+	autosquash = true
+[safe]
+	directory = /var/db/repos/gentoo

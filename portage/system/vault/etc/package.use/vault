@@ -1,0 +1,13 @@
+dev-libs/openssl bindist
+net-misc/openssh bindist
+
+# To solve problems
+dev-vcs/git -emacs
+dev-qt/qtnetwork bindist
+net-wireless/wpa_supplicant bindist
+media-libs/openimageio -color-management
+# move x11-libs/libva media-libs/libva
+media-libs/libva opengl
+
+# Needed for software based TPM
+net-libs/gnutls tools pkcs11

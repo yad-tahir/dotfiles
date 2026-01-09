@@ -1,0 +1,83 @@
+! Copyright (C) 2020
+
+! This program is free software; you can redistribute it and/or
+! modify it under the terms of the GNU General Public License
+! as published by the Free Software Foundation; either version 2
+! of the License, or (at your option) any later version.
+
+! This program is distributed in the hope that it will be useful,
+! but WITHOUT ANY WARRANTY; without even the implied warranty of
+! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+! GNU General Public License for more details.
+
+! You should have received a copy of the GNU General Public License
+! along with this program; if not, write to the Free Software
+! Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+! 02110-1301, USA.
+
+!! General settings
+Xcursor.size: 24
+Xcursor.theme: Adwaita
+
+*background: #000000
+*foreground: #e6beae
+*pointerColorBackground: #000000
+*pointerColorForeground: #e6beae
+*color0: #392626
+*color8: #654d4d
+*color1: #ffc05c
+*color9: #ffa500
+*color2: #a7e23e
+*color10: #c0ff3e
+*color3: #ff6347
+*color11: #ff00ff
+*color4: #da70d6
+*color12: #7818b4
+*color5: #efd5cb
+*color13: #f0f0a0
+*color6: #bef6d4
+*color14: #6fd8ff
+*color7: #bd9c8f
+*color15: #292121
+
+*highlightColor: #392626
+*highlightTextColor: #ffa500
+*colorBD: #ffa500
+*colorIT: #3ee2b4
+*colorUL: #a7e23e
+*coloRV: #00ffff
+
+!! Dmenu...etc
+Panel.font1: DejaVu Sans Mono-12
+Panel.height: 30
+
+!! URxvt settings
+URxvt.font: xft:DejaVu Sans Mono-16
+URxvt.depth: 24
+URxvt.scrollBar: false
+URxvt.letterSpace: -1
+!! Extensions
+URxvt.perl-lib: /usr/lib64/urxvt/perl
+URxvt.perl-ext-common:	default,matcher,font-size,selection-to-clipboard
+URxvt.colorUL: #ff6347
+!! url-select
+URxvt.url-select.launcher: linkhandler
+URxvt.url-select.underline: true
+URxvt.url-launcher:	/usr/bin/xdg-open
+URxvt.urlButton: 1
+URxvt.matcher.button: 1
+!! copy pasting
+URxvt.keysym.Control-p: eval:paste_clipboard
+URxvt.keysym.Control-y: eval:selection_to_clipboard
+!! Otherbinding
+URxvt.keysym.Control-h:      \033[1;5D
+URxvt.keysym.Control-n:      \033[1;5C
+URxvt.keysym.Control-c:      \033[A
+URxvt.keysym.Control-t:      \033[B
+URxvt.keysym.Control-Up:     \033[1;5A
+URxvt.keysym.Control-Down:   \033[1;5B
+URxvt.keysym.Control-Left:   \033[1;5D
+URxvt.keysym.Control-Right:  \033[1;5C
+!! Highlighting mode
+URxvt.keysym.Control-v:      command:\033[33;1m
+URxvt.keysym.Control-V:      command:\033[0m

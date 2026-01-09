@@ -1,0 +1,8 @@
+app-admin/sudo
+app-metrics/node_exporter
+app-portage/eix
+app-portage/gentoolkit
+app-shells/bash-completion
+dev-vcs/git
+sys-apps/portage
+sys-apps/systemd

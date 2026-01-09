@@ -1,0 +1,7 @@
+# This set holds packages that are needed for qmk flashing
+
+cross-avr/avr-libc
+cross-avr/binutils
+cross-avr/gcc
+sys-devel/crossdev
+dev-embedded/dfu-programmer

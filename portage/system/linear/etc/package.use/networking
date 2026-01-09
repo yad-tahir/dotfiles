@@ -1,0 +1,7 @@
+net-wireless/wpa_supplicant dbus
+net-misc/networkmanager -ppp -wext -modemmanager
+net-vpn/openvpn -examples lz4 # Fixes comp-lzo
+net-analyzer/wireshark qt5 plugins -sharkd -tshark -mergecap -minizip
+net-misc/curl -ftp -imap -pop3 -smtp -tftp
+net-dns/dnsmasq auth-dns dnssec
+net-misc/freerdp openh264 usb

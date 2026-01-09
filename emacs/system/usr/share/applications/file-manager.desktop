@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Emacs File Manager
+GenericName=Emacs File Manager
+Icon=emacs
+Type=Application
+Categories=Utility;Core;FileManager;
+MimeType=inode/mount-point;inode/directory
+Terminal=false
+Exec=/usr/bin/emacsclient -n %f
+StartupWMClass=Emacs

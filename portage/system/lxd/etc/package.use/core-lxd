@@ -1,0 +1,6 @@
+# GCC
+sys-devel/gcc graphite -fortran
+
+# @cgroup-hybrid is needed by virt-manager
+# Remove @gcrypt as the disk it is already fully encrypted
+sys-apps/systemd idn dns-over-tls audit -nat -repart -gnuefi -policykit -apparmor -elfutils -gcrypt -pcre

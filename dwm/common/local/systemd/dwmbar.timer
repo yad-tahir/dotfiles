@@ -1,0 +1,9 @@
+[Unit]
+Description=Update DWM bar regularly
+
+[Timer]
+OnCalendar=*:*:00
+AccuracySec=500ms
+
+[Install]
+WantedBy=timers.target

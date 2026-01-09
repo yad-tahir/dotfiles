@@ -1,0 +1,6 @@
+# Monitor battery charging/discharing events in order to apply our custom power mode
+# To get all events use `udevadm monitor --environment --subsystem-match='power_supply'
+SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", RUN+="/usr/bin/power-mode save"
+SUBSYSTEM=="power_supply", ATTR{status}=="Charging", RUN+="/usr/bin/power-mode performance"
+SUBSYSTEM=="power_supply", ATTR{status}=="Full", RUN+="/usr/bin/power-mode performance"
+SUBSYSTEM=="power_supply", ATTR{status}=="Unknown", RUN+="/usr/bin/power-mode performance"

@@ -1,0 +1,59 @@
+#!/usr/bin/nft -f
+
+# ipv4/ipv6 Simple & Safe Firewall
+# you can find examples in /usr/share/nftables/
+
+flush ruleset
+
+table ip mangle {
+	chain output {
+		type route hook output priority -150; policy accept;
+	}
+	chain pre {
+		type filter hook prerouting priority mangle; policy accept;
+	}
+
+	chain nat-post {
+		type nat hook postrouting priority srcnat;
+		oifname tun0 masquerade
+	}
+}
+
+
+table inet filter {
+	chain input {
+		type filter hook input priority 0; policy drop;
+
+		iif 1 accept
+
+		# Allow certain inbound ICMP types (ping, traceroute)
+		# With these allowed you are a good network citizen
+		ip protocol icmp icmp type {destination-unreachable, echo-reply, echo-request, source-quench, time-exceeded} accept
+
+		# Allow established/related connections
+		ct state {established, related} accept
+		ct state {invalid,new} drop
+
+		log prefix "input: " log
+	  }
+
+	chain forward {
+		type filter hook forward priority 0; policy drop;
+		iif 1 accept;
+	}
+
+	 chain output {
+		type filter hook output priority 0; policy accept;
+
+		# no-net group
+		meta skgid 1000 drop
+		# no-wan group
+		meta skgid 1004 jump no-wan
+	}
+	chain no-wan {
+		ip saddr != {10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 169.254.0.0/16} reject
+		ip daddr != {10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 169.254.0.0/16} reject
+		ip6 saddr != {fd00::/8, fe80::/10} reject
+		ip6 daddr != {fd00::/8, fe80::/10} reject
+	}
+}

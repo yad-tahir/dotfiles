@@ -1,0 +1,55 @@
+set adjust-open width
+
+set font "DejaVu Sans Mono 14"
+set page-padding 5
+set scroll-wrap "false"
+set statusbar-home-tilde "true"
+set selection-clipboard clipboard
+set window-title-progress "true"
+
+map gg goto top
+map C scroll page-top
+map T scroll page-bottom
+map <A-c> scroll full-up
+map <A-t> scroll full-down
+map c scroll half-up
+map t scroll half-down
+map H search backward
+map N search forward
+map h navigate previous
+map n navigate next
+map b adjust_window best-fit
+map w adjust_window width
+map r rotate rotate-cw
+map <C-p> print
+map p print
+map ; focus_inputbar :
+map j goto
+map <F5> reload
+map u recolor
+map o follow
+map l toggle_index
+
+set default-bg					"#000000"
+set default-fg					"#e6beae"
+set inputbar-fg                 "#ffa500"
+set inputbar-bg                 "#000000"
+set statusbar-bg				"#000000"
+set statusbar-fg				"#e6beae"
+set notification-error-bg		"#ff6347"
+set notification-error-fg		"#000000"
+set notification-warning-bg     "#ffa500"
+set notification-warning-fg     "#000000"
+set highlight-color             "#ffc05c"
+set highlight-active-color		"#a7e23e"
+set completion-highlight-fg     "#3ee2b4"
+set completion-highlight-bg     "#000000"
+set completion-bg				"#000000"
+set completion-fg				"#e6beae"
+set notification-bg             "#ffa500"
+set notification-fg             "#000000"
+set recolor-lightcolor			"#000000"
+set recolor-darkcolor			"#e6beae"
+
+set recolor "true"
+set recolor-keephue "false"

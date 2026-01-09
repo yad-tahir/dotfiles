@@ -1,0 +1,13 @@
+[Unit]
+Description=Sxhkd key binder
+
+[Service]
+ExecStart=/bin/sh -c '. $HOME/bin/settings.sh && /usr/bin/sxhkd -c $HOME/.config/sxhkd/dwm-sxhkdrc'
+ExecReload=/usr/bin/kill -SIGUSR1 $MAINPID
+Restart=always
+RestartSec=1s
+Type=simple
+KillMode=process
+
+[Install]
+WantedBy=default.target

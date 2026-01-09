@@ -1,0 +1,7 @@
+# OpenGL
+# Mesa is an open source implementation for opengl
+media-libs/mesa lm-sensors vaapi osmesa valkan
+media-libs/vulkan-loader layers
+
+# required by mesa
+virtual/rust rustfmt profiler

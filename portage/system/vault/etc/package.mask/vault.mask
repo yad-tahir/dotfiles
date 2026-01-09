@@ -1,0 +1,12 @@
+# Avoid installing vanilla kernel since we are solely using gentoo kernel
+sys-kernel/vanilla-sources
+
+# Uncessary packages
+dev-lang/vala
+app-editors/xemacs
+
+=x11-wm/dwm-6.4
+>=x11-misc/dmenu-5.2
+
+# Takes a long time to compile; use 'rust-bin' instead
+dev-lang/rust

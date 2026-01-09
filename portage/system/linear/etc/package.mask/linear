@@ -1,0 +1,4 @@
+#>=sys-apps/dbus-1.16
+
+# Avoid vanilla kernel when we are using gentoo-kernel
+sys-kernel/vanilla-sources
