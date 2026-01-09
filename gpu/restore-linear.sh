@@ -1,5 +1,4 @@
-#!/bin/sh
-
+#!/bin/bash
 # Copyright (C) 2026
 
 # This program is free software; you can redistribute it and/or
@@ -18,31 +17,8 @@
 # 02110-1301, USA.
 
 cd `dirname $0`
+echo "* Execute ${PWD}/`basename $0`"
+. ../utils.sh
 
-mkdir ${HOME}/bin 2> /dev/null
-
-echo sudo is required. Please enter your password.
-sudo /bin/true
-if [ $? -ne 0 ]; then
-	exit $?
-fi
-
-emacs/restore-linux.sh
-portage/restore-linear.sh
-git/restore-linux.sh
-dwm/restore-linear.sh
-dmenu/restore-linear.sh
-keyboard/restore-linux.sh
-logger/restore-linux.sh
-firewall/restore-linear.sh
-network/restore-linux.sh
-zathura/restore-linux.sh
-urxvt/restore-linux.sh
-mpd/restore-linux.sh
-shell/restore-linux.sh
-scripts/restore-linear.sh
-root/restore-linux.sh
-pam/restore-linux.sh
-gpu/restore-linear.sh
-
-echo "Done."
+sudo-do-sync "common/system/etc/X11/" "/etc/X11/xorg.conf.d/"
+sudo-do-sync "linear/system/etc/X11/" "/etc/X11/xorg.conf.d/"
