@@ -93,9 +93,9 @@ alt + space
 
 # Other applications
 super + w
-	$HOME/bin/browser-vpn &
+	browser-vpn &
 super + shift + w
-	$HOME/bin/browser-novpn &
+	browser-novpn &
 super + semicolon; g
 	urxvtc -hold -name glances -e /usr/bin/glances &
 super + semicolon; h
