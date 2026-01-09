@@ -1,0 +1,93 @@
+! Copyright (C) 2020
+
+! This program is free software; you can redistribute it and/or
+! modify it under the terms of the GNU General Public License
+! as published by the Free Software Foundation; either version 2
+! of the License, or (at your option) any later version.
+
+! This program is distributed in the hope that it will be useful,
+! but WITHOUT ANY WARRANTY; without even the implied warranty of
+! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+! GNU General Public License for more details.
+
+! You should have received a copy of the GNU General Public License
+! along with this program; if not, write to the Free Software
+! Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+! 02110-1301, USA.
+
+!! General settings
+Xcursor.size: 40
+Xcursor.theme: Adwaita
+
+*background: #000000
+*foreground: #e6beae
+*pointerColorBackground: #000000
+*pointerColorForeground: #e6beae
+*color0: #000000
+*color8: #654d4d
+*color1: #ffc05c
+*color9: #ffba00
+*color2: #b170da
+*color10: #99ffaa
+*color3: #ff88ff
+*color11: #ff00ff
+*color4: #654d4d
+*color12: #ff77ff
+*color5: #e0d0c1
+*color13: #ffc07c
+*color6: #bef6d4
+*color14: #00ffff
+*color7: #e0ff9e
+*color15: #c0ff3e
+
+*highlightColor: #392626
+*highlightTextColor: #ffba00
+*colorBD: #7818b4
+*colorIT: #c9ffda
+*colorUL: #99ffaa
+*coloRV: #00ffff
+
+!! Dmenu
+Panel.font1: DejaVu Sans Mono-14
+Panel.height: 40
+
+!! URxvt settings
+!! URxvt.font: xft:DejaVu Sans Mono-16
+URxvt.font: xft:DejaVu Sans Mono-18
+!URxvt.depth: 30
+URxvt.scrollBar: false
+URxvt.letterSpace: -1
+!! Extensions
+URxvt.perl-lib: /usr/lib64/urxvt/perl
+URxvt.perl-ext-common:	default,matcher,font-size,selection-to-clipboard
+URxvt.colorUL: #ff6347
+!! url-select
+URxvt.url-select.launcher: linkhandler
+URxvt.url-select.underline: true
+URxvt.url-launcher:	/usr/bin/xdg-open
+URxvt.urlButton: 1
+URxvt.matcher.button: 1
+!! copy pasting
+URxvt.keysym.Control-p: eval:paste_clipboard
+URxvt.keysym.Control-y: eval:selection_to_clipboard
+
+
+!! Otherbinding
+URxvt.keysym.Control-h:      \033[1;5D
+URxvt.keysym.Control-n:      \033[1;5C
+URxvt.keysym.Control-c:      \033[A
+URxvt.keysym.Control-t:      \033[B
+URxvt.keysym.Control-Up:     \033[A
+URxvt.keysym.Control-Down:   \033[B
+!! Move to the begining of the line
+URxvt.keysym.Control-Left:  \001
+URxvt.keysym.Control-0: \001
+!! Move to the end of the line
+URxvt.keysym.Control-Right: \005
+URxvt.keysym.Control-dollar: \005
+!! Map to ESCAPE/Alt+backspace
+URxvt.keysym.Control-BackSpace: \033\010
+
+!! Highlighting mode
+URxvt.keysym.Control-v:      command:\033[33;1m
+URxvt.keysym.Control-V:      command:\033[0m

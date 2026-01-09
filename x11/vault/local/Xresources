@@ -23,28 +23,28 @@ Xcursor.theme: Adwaita
 *foreground: #e6beae
 *pointerColorBackground: #000000
 *pointerColorForeground: #e6beae
-*color0: #392626
+*color0: #000000
 *color8: #654d4d
 *color1: #ffc05c
-*color9: #ffa500
-*color2: #a7e23e
-*color10: #c0ff3e
-*color3: #ff6347
+*color9: #ffba00
+*color2: #b170da
+*color10: #99ffaa
+*color3: #ff88ff
 *color11: #ff00ff
-*color4: #da70d6
-*color12: #7818b4
-*color5: #efd5cb
-*color13: #f0f0a0
+*color4: #654d4d
+*color12: #ff77ff
+*color5: #e0d0c1
+*color13: #ffc07c
 *color6: #bef6d4
-*color14: #6fd8ff
-*color7: #bd9c8f
-*color15: #292121
+*color14: #00ffff
+*color7: #e0ff9e
+*color15: #c0ff3e
 
 *highlightColor: #392626
-*highlightTextColor: #ffa500
-*colorBD: #ffa500
-*colorIT: #3ee2b4
-*colorUL: #a7e23e
+*highlightTextColor: #ffba00
+*colorBD: #ffba00
+*colorIT: #c9ffda
+*colorUL: #99ffaa
 *coloRV: #00ffff
 
 !! Dmenu...etc
@@ -53,13 +53,14 @@ Panel.height: 30
 
 !! URxvt settings
 URxvt.font: xft:DejaVu Sans Mono-16
-URxvt.depth: 24
+!!URxvt.depth: 30
 URxvt.scrollBar: false
 URxvt.letterSpace: -1
 !! Extensions
 URxvt.perl-lib: /usr/lib64/urxvt/perl
 URxvt.perl-ext-common:	default,matcher,font-size,selection-to-clipboard
-URxvt.colorUL: #ff6347
+URxvt.colorUL: #ffba00
+
 !! url-select
 URxvt.url-select.launcher: linkhandler
 URxvt.url-select.underline: true
@@ -69,15 +70,23 @@ URxvt.matcher.button: 1
 !! copy pasting
 URxvt.keysym.Control-p: eval:paste_clipboard
 URxvt.keysym.Control-y: eval:selection_to_clipboard
+
 !! Otherbinding
 URxvt.keysym.Control-h:      \033[1;5D
 URxvt.keysym.Control-n:      \033[1;5C
 URxvt.keysym.Control-c:      \033[A
 URxvt.keysym.Control-t:      \033[B
-URxvt.keysym.Control-Up:     \033[1;5A
-URxvt.keysym.Control-Down:   \033[1;5B
-URxvt.keysym.Control-Left:   \033[1;5D
-URxvt.keysym.Control-Right:  \033[1;5C
+URxvt.keysym.Control-Up:     \033[A
+URxvt.keysym.Control-Down:   \033[B
+!! Move to the begining of the line
+URxvt.keysym.Control-Left:  \001
+URxvt.keysym.Control-0: \001
+!! Move to the end of the line
+URxvt.keysym.Control-Right: \005
+URxvt.keysym.Control-dollar: \005
+!! Map to ESCAPE/Alt+backspace
+URxvt.keysym.Control-BackSpace: \033\010
+
 !! Highlighting mode
 URxvt.keysym.Control-v:      command:\033[33;1m
 URxvt.keysym.Control-V:      command:\033[0m

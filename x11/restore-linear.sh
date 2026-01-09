@@ -20,5 +20,9 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
-sudo-do-sync "common/system/etc/X11/" "/etc/X11/xorg.conf.d/"
+(. ./restore-common.sh)
+
+do-sync "linear/local/Xresources" "${HOME}" ".Xresources"
 sudo-do-sync "linear/system/etc/X11/" "/etc/X11/xorg.conf.d/"
+
+xrdb reload "${HOME}/.Xresources"

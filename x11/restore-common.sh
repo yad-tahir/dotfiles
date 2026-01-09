@@ -16,31 +16,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-cd `dirname $0`
-echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
-dst="${HOME}/.config"
-do-sync "${PWD}/local/config" "$dst"
+cd ./common
 
-src=${PWD}/local/Xresources
-do-sync "$src" "${HOME}" ".Xresources"
-
-src=${PWD}/local/xinitrc
-do-sync "$src" "${HOME}" ".xinitrc"
-
-dst=/etc/systemd/system/getty@tty1.service.d
-src=${PWD}/system${dst}
-sudo-do-sync "$src" "$dst"
-
-dst=/etc/systemd/system/getty@tty2.service.d
-src=${PWD}/system${dst}
-sudo-do-sync "$src" "$dst"
-
-dst=/etc/X11/xorg.conf.d
-src=${PWD}/system${dst}
-sudo-do-sync "$src" "$dst"
-
-dst=/etc/X11/xinit
-src=${PWD}/system${dst}
-sudo-do-sync "$src" "$dst"
+do-sync "${PWD}/local/config" "${HOME}/.config"
+do-sync "${PWD}/local/xinitrc" "${HOME}/" ".xinitrc"
+sudo-do-sync "${PWD}/system/etc/systemd/" "/etc/systemd/system/"
+sudo-do-sync "${PWD}/system/etc/X11/" "/etc/X11/"

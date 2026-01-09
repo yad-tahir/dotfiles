@@ -43,6 +43,6 @@ shell/restore-linux.sh
 scripts/restore-linear.sh
 root/restore-linux.sh
 pam/restore-linux.sh
-gpu/restore-linear.sh
+x11/restore-linear.sh
 
 echo "Done."

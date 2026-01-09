@@ -44,9 +44,6 @@ shell/restore-linux.sh
 scripts/restore-vault.sh
 root/restore-linux.sh
 pam/restore-linux.sh
-gpu/restore-vault.sh
-
-# ./sound/restore-linux.sh
-# ./x11/restore-linux.sh
+x11/restore-vault.sh
 
 echo "Done."

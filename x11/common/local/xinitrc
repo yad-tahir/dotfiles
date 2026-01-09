@@ -5,4 +5,4 @@ xrandr --auto
 
 #DWM
 sleep 1 | $HOME/.config/dwm/dwmrc &
-exec dwm
+exec dwm 2>> /tmp/dwm.errors
