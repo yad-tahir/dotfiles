@@ -42,5 +42,6 @@ mpd/restore-linux.sh
 shell/restore-linux.sh
 scripts/restore-linear.sh
 root/restore-linux.sh
+pam/restore-linux.sh
 
 echo "Done."
