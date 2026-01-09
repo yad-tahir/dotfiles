@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright (C) 2020
+# Copyright (C) 2026
 
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -20,6 +20,5 @@ cd `dirname $0`
 echo "* Execute ${PWD}/`basename $0`"
 . ../utils.sh
 
-dst="/etc/X11/xorg.conf.d"
-src=${PWD}/system${dst}
-sudo-do-sync $src $dst
+sudo-do-sync "common/system/etc/X11/" "/etc/X11/xorg.conf.d/"
+sudo-do-sync "vault/system/etc/X11/" "/etc/X11/xorg.conf.d/"

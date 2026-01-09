@@ -44,8 +44,8 @@ shell/restore-linux.sh
 scripts/restore-vault.sh
 root/restore-linux.sh
 pam/restore-linux.sh
+gpu/restore-vault.sh
 
-# ./radeon/restore-linux.sh
 # ./sound/restore-linux.sh
 # ./x11/restore-linux.sh
 
