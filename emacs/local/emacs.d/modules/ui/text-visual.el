@@ -21,21 +21,10 @@
   :hook (find-file . whitespace-mode)
   :config
   (setq whitespace-line-column fill-column
-		;; Removed newline-mark from here to prevent Evil motion crashing
+		;; Removed newline newline-mark from here to prevent Evil motion crashing
 		whitespace-style '(face trailing indentation empty
 						  spaces space-mark
-						  space-before-tab space-after-tab))
-
-  (defun do--add-selective-newline-marks ()
-	"Highlight newline with whitespace-newline face only on non-empty lines."
-	(font-lock-add-keywords nil
-	  '((".\\(\n\\)" 1
-		 (prog1 nil
-		   (put-text-property (match-beginning 1) (match-end 1)
-							  'display (propertize "$\n" 'face 'whitespace-newline)))))))
-
-  (add-hook 'whitespace-mode-hook #'do--add-selective-newline-marks)
-  (add-hook 'evil-insert-state-exit-hook #'font-lock-flush))
+						  space-before-tab space-after-tab)))
 
 ;; A meta package to abstract the fold functionality from evil.el
 (use-package evil-commands

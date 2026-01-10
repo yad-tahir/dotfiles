@@ -19,9 +19,9 @@
 
 (use-package display-line-numbers
   :config
-  (setq display-line-numbers-current-absolute nil
+  (setq display-line-numbers-current-absolute t
+		display-line-numbers-width-start 4
 		;; Narrowing does not make sense in visual type
-		display-line-numbers-width 3
 		display-line-numbers-type 'visual)
   ;; Start line numbering
   (global-display-line-numbers-mode))
