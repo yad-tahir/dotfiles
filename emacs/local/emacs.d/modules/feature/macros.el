@@ -17,28 +17,80 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
-(general-define-key
- :prefix "q"
- :states '(normal visual)
- "" nil
- "[" 'start-kbd-macro
- "]" 'end-kbd-macro
- "@" 'evil-record-macro
- "u" 'kmacro-edit-macro
- "q" 'call-last-kbd-macro
- "n" 'name-last-kbd-macro
- "i" 'insert-kbd-macro
- ";" 'counsel-M-x)
+(with-eval-after-load 'evil
+  (require 'evil-common)
+  (require 'evil-vars)
+  (require 'evil-commands)
+  (require 'edmacro)
 
-(general-define-key
- :prefix "q"
- :states 'visual
- "q" 'apply-macro-to-region-lines)
+  (defun do-start-macro (&optional reg)
+	(interactive)
+	(if defining-kbd-macro
+		(message "Recording Macro already started")
+	  (let ((reg (or reg
+					 evil-this-register
+					 ?q)))
+		(evil-record-macro reg)
+		(message "Recording a new macro [%c]" reg))))
 
-(general-define-key
- :keymaps 'edmacro-mode-map
- "SPC lw" 'edmacro-finish-edit
- "SPC lq" 'kill-buffer)
+  (defun do-stop-macro ()
+	(interactive)
+	(if defining-kbd-macro
+		(progn
+		  (evil-record-macro nil)
+		  (message "Macro recorded"))
+	  (message "No macro recording")))
 
+  (defun do-call-last-macro (&optional reg)
+	(interactive)
+	(let* ((reg (or reg
+					evil-this-register
+					?q))
+		   (macro (evil-get-register reg)))
+	  (evil-execute-macro 1 macro)))
+
+  (defun do-edit-register (&optional reg)
+	"Opens a temporary buffer to edit the contents of a register.
+
+By default, Reg [q] is shown."
+	(interactive)
+	(let* ((reg (or reg
+					evil-this-register
+					?q))
+		   (reg-text (evil-get-register reg t)))
+	  (unless reg-text
+		(message "Register [%c] is empty." reg))
+	  (with-current-buffer (get-buffer-create "*Edit Register*")
+		(erase-buffer)
+		(when reg-text
+		  (insert (format-kbd-macro reg-text)))
+		(switch-to-buffer (current-buffer)))))
+
+  (defun do-save-register (&optional reg)
+	"Saves the current buffer text back into register REG"
+	(interactive)
+	(let ((reg (or reg
+				   evil-this-register
+				   ?q))
+		  ;; Parse the buffer text into actual macro key-codes
+		  (macro-data (edmacro-parse-keys (buffer-string))))
+	  (evil-set-register reg macro-data)
+	  (kill-buffer (current-buffer))
+	  (message "Buffer saved to Reg [%c]" reg)))
+
+  (general-define-key
+   :prefix "q"
+   :states 'normal
+   "" nil
+   "[" 'do-start-macro
+   "]" 'do-stop-macro
+   "q" 'do-call-last-macro
+   "e" 'do-edit-register
+   "w" 'do-save-register)
+
+  (general-define-key
+   :prefix "q"
+   :states 'visual
+   "q" 'apply-macro-to-region-lines))
 
 (provide 'do-macros)
