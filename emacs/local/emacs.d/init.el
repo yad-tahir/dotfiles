@@ -42,9 +42,9 @@
 				 "feature/tramp"
 				 "feature/file-manager"
 				 "feature/diff"
-				 "feature/motion"
-				 "feature/operator"
-				 "feature/macro"
+				 "feature/motions"
+				 "feature/operators"
+				 "feature/macros"
 
 				 "lang/org"
 				 "lang/prog"

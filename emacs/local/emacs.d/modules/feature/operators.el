@@ -150,4 +150,4 @@
 	(evil-delete beg end type ?z)
 	(evil-paste-before cnt ?0)))
 
-(provide 'do-operator)
+(provide 'do-operators)

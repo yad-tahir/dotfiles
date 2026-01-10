@@ -242,4 +242,4 @@
 					  :foreground 'unspecified
 					  :inherit 'show-paren-match))
 
-(provide 'do-mation)
+(provide 'do-motions)

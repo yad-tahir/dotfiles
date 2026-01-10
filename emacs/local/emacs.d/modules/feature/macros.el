@@ -41,4 +41,4 @@
  "SPC lq" 'kill-buffer)
 
 
-(provide 'do-macro)
+(provide 'do-macros)
