@@ -147,7 +147,7 @@
   (let ((cnt (if current-prefix-arg
 				 (prefix-numeric-value current-prefix-arg)
 			   1)))
-	(evil-delete beg end type ?z)
-	(evil-paste-before cnt ?0)))
+	(evil-delete beg end type ?_) ;; Paste it into 'black hole' so that the register " won't be effected
+	(evil-paste-before cnt ?\")))
 
 (provide 'do-operators)
