@@ -48,23 +48,13 @@
 
 ;;;###autoload
 (evil-define-operator fusion-join (beginning end)
-  "Replaces newline chars in the region, defined between BEGINNING and END, by
-  single spaces.
+  "Joins the lines defined between BEGINNING and END.
 
 This evil operator is the reverse of `fusion-split'."
 
   :move-point nil ;; don't move the cursor position to BEGINNING
   :type line
-  ;; A join operation can be seen as a fill operation with an extremely large
-  ;; fill column
-  (let ((fill-column most-positive-fixnum))
-	(save-excursion
-	  (if fusion-indent-aware
-		  (progn
-			(back-to-indentation)
-			(let ((left-margin (current-column)))
-			  (fill-region-as-paragraph beginning end)))
-		(fill-region-as-paragraph beginning end)))))
+  (evil-join beginning end))
 
 ;;;###autoload
 (evil-define-operator fusion-split (beginning end)
