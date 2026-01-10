@@ -151,6 +151,7 @@
    "z" 'evil-undo
    "C-Z" 'evil-redo
    "r" 'do-evil-paste
+   "gk" 'evil-join-whitespace
 
    ;; Scrolling
    "C" 'evil-scroll-page-up
