@@ -22,17 +22,12 @@ xrandr --auto
 
 systemctl --user import-environment DISPLAY HOME USER UID XDG_VTNR
 
-# Avoid using systemd 'enable' feature for Emacs as it can launch Emacs server
-# before importing most all env. variables. Instead, start Emacs service
-# manually in the beginning of a new dwm session.
-systemctl --user restart emacs.service &
-
 setxkbmap # Make sure X11 keymap is loaded properly before starting sxhkd
 systemctl --user restart sxhkd@${XDG_VTNR}.service &
+systemctl --user start dwmbar.timer &
 
 # Trigger local pulseaudio service
 pulsemixer -l &> /dev/null
-systemctl --user start dwmbar.timer &
 
 # Disable key stroke repeating
 # xset r off
@@ -46,3 +41,11 @@ gpg-connect-agent /bye
 
 # Set the monitors
 ${HOME}/bin/screen-layout/laptop.layout
+
+# Starts the services now since DPI is already set
+systemctl --user restart urxvtd.service &
+
+# Avoid using systemd 'enable' feature for Emacs as it can launch Emacs server
+# before importing most all env. variables. Instead, start Emacs service
+# manually in the beginning of a new dwm session.
+systemctl --user restart emacs.service &
