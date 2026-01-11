@@ -20,7 +20,8 @@
 (use-package display-line-numbers
   :config
   (setq display-line-numbers-current-absolute t
-		display-line-numbers-width-start 4
+		display-line-numbers-width 4
+		display-line-numbers-widen t
 		;; Narrowing does not make sense in visual type
 		display-line-numbers-type 'visual)
   ;; Start line numbering
