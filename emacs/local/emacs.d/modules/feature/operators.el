@@ -172,4 +172,12 @@
 	(evil-delete beg end type ?_) ;; Paste it into 'black hole' so that the register " won't be effected
 	(evil-paste-before cnt ?\")))
 
+(evil-define-operator do-evil-capitalize (beg end type)
+  "Title case text from BEG to END."
+  :move-point t
+  :interactive "<R>" ;; <R> captures beg, end, type
+  (if (eq type 'block)
+	  (evil-apply-on-block #'capitalize-region beg end nil)
+	(capitalize-region  beg end)))
+
 (provide 'do-operators)
