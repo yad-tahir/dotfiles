@@ -182,8 +182,30 @@
   :type inclusive
   (evil-select-inner-object 'evil-paragraph beg end type count))
 
+(evil-define-text-object do-evil-around-word (count &optional beg end type)
+  "Select a word plus leading and trailing whitespace."
+  :type inclusive
+  (save-excursion
+	(let ((range (evil-a-word count beg end type )))
+	  (goto-char (car range))
+	  (skip-chars-backward " \t")
+	  (let ((new-beg (point)))
+		(goto-char (cadr range))
+		(skip-chars-forward " \t")
+		(evil-range new-beg (point) 'inclusive)))))
 
-;; Keybindings
+(evil-define-text-object do-evil-around-WORD (count &optional beg end type)
+  "Select a WORD plus leading and trailing whitespace."
+  :type inclusive
+  (save-excursion
+	(let ((range (evil-a-WORD count beg end type )))
+	  (goto-char (car range))
+	  (skip-chars-backward " \t")
+	  (let ((new-beg (point)))
+		(goto-char (cadr range))
+		(skip-chars-forward " \t")
+		(evil-range new-beg (point) 'inclusive)))))
+
 (general-define-key
  :keymaps 'evil-inner-text-objects-map
  "b" 'do-evil-inner-section
@@ -196,6 +218,8 @@
  "b" 'do-evil-a-section
  "c" 'do-evil-comment
  "B" 'do-evil-whole-buffer
+ "a" 'do-evil-around-word
+ "A" 'do-evil-around-WORD
  "SPC" 'do-evil-whitespace)
 
 (general-define-key
