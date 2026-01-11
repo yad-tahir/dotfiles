@@ -79,10 +79,10 @@ URxvt.keysym.Control-t:      \033[B
 URxvt.keysym.Control-Up:     \033[A
 URxvt.keysym.Control-Down:   \033[B
 !! Move to the begining of the line
-URxvt.keysym.Control-Left:  \001
+! URxvt.keysym.Control-Left:  \001
 URxvt.keysym.Control-0: \001
 !! Move to the end of the line
-URxvt.keysym.Control-Right: \005
+! URxvt.keysym.Control-Right: \005
 URxvt.keysym.Control-dollar: \005
 !! Map to ESCAPE/Alt+backspace
 URxvt.keysym.Control-BackSpace: \033\010
