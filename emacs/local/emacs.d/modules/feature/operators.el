@@ -60,7 +60,7 @@
 			 (end-col (evil-column (cadr range)))
 			 (left-col (min beg-col end-col))
 			 (right-col (max beg-col end-col)))
-		(ignore left-col)
+		(ignore left-col) ;; Silent the compiler!
 		(goto-char beg)
 		(move-to-column (- right-col 1))
 		(evil-append count vcount)))
@@ -138,8 +138,8 @@
 	  (set-marker b nil)
 	  (set-marker e nil))))
 
-(evil-define-command do-evil-paste-previous-line
-  (count &optional register yank-handler)
+(evil-define-command do-evil-paste-previous-line (count &optional register yank-handler)
+  "Pastes the content of register into previous line, N times based on the prefix count."
   (interactive "*P<x>")
   (let ((content (or (when register
 					   (evil-get-register register))
@@ -150,8 +150,8 @@
 	  (evil-insert-newline-above)))
   (evil-paste-before count register yank-handler))
 
-(evil-define-command do-evil-paste-next-line
-  (count &optional register yank-handler)
+(evil-define-command do-evil-paste-next-line (count &optional register yank-handler)
+  "Pastes the content of register into next line, N times based on the prefix count."
   (interactive "*P<x>")
   (let ((content (or (when register
 					   (evil-get-register register))
