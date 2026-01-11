@@ -175,6 +175,10 @@
    "=" 'do-evil-indent
    "g=" 'evil-indent
 
+   "gu" 'evil-downcase
+   "gU" 'evil-upcase
+   "g~" 'do-evil-capitalize
+
    "]" '(:ignore t :which-key "move-forward")
    "][" 'evil-forward-section-begin
    "]]" 'evil-forward-section-end
