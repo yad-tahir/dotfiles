@@ -374,7 +374,7 @@
    "<RET>" 'org-agenda-switch-to
    "l <RET>" #'((lambda()(interactive)(do-make-frame)(org-agenda-switch-to))
 				:which-key "org-agenda-switch-new-frame")
-   "<f5>" 'org-agenda
+   "<f5>" 'org-agenda-redo
    ;; Ordering
    "M-t" 'org-agenda-drag-line-forward
    "M-c" 'org-agenda-drag-line-backward
