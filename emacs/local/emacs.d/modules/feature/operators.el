@@ -53,8 +53,7 @@
 	(cond
 	 ((eq type 'line)
 	  (evil-append-line count vcount))
-	 ((and (evil-visual-state-p)
-		   (eq (evil-visual-type) 'block))
+	 ((eq type 'block)
 	  (let* ((range (evil-visual-range))
 			 (beg-col (evil-column (car range)))
 			 (end-col (evil-column (cadr range)))
