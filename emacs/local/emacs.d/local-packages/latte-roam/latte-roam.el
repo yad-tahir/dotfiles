@@ -1,25 +1,24 @@
-;;; -*- ;lexical-binding: t; -*-
+;;; latte-roam.el --- Help Org roam a bit. -*- lexical-binding: t; -*-
 ;;;
-;;;   ___              _          _   _
-;;;  / _ \ _ __ __ _  | |    __ _| |_| |_ ___
-;;; | | | | '__/ _` | | |   / _` | __| __/ _ \
-;;; | |_| | | | (_| | | |__| (_| | |_| ||  __/
-;;;  \___/|_|  \__, | |_____\__,_|\__|\__\___|
-;;;            |___/
+;;;  _          _   _         ____
+;;; | |    __ _| |_| |_ ___  |  _ \ ___   __ _ _ __ ___
+;;; | |   / _` | __| __/ _ \ | |_) / _ \ / _` | '_ ` _ \
+;;; | |__| (_| | |_| ||  __/ |  _ < (_) | (_| | | | | | |
+;;; |_____\__,_|\__|\__\___| |_| \_\___/ \__,_|_| |_| |_|
+;;;
 ;;;
 ;;; Summary:
-;;; Org-Latte - A happy highlighter that always tries to search for nodes in
-;;; text and highlight them.
+;;; Latte-Roam - Auto-highlights words based on the records in org-roam's database.
 ;;;
 ;;; Author: Dr. Yad Tahir <yad (at) ieee.org>
 ;;; Keywords: org-roam, auto-highlighting, org-mode.
 ;;;
 ;;; Commentary:
-;;; This file is part of a simple note-taking system. Notes are stored in Org
-;;; files. This system scans these files on a regular basis to collect
-;;; 'keywords'. Latte, then, automatically highlights keywords when the
-;;; latte-roam-mode is active. This implementation is designed to be snappy, and
-;;; performs UI drawing as less as possible.
+;;; This file is part of a simple note-taking system where notes are stored
+;;; in org-roam files. This package collects the titles found in the
+;;; org-roam database. Latte-Roam then automatically highlights keywords when
+;;; `latte-roam-mode' is active. This implementation is designed to be snappy
+;;; and minimizes  UI redrawing to maintain high performance.
 
 ;;; License:
 ;;; Copyright (C) 2026
@@ -39,59 +38,54 @@
 ;;; 02110-1301, USA.
 
 ;;; Road Map and Hopes:
-;;; - Make Latte less aggressive towards finding plural nouns.
+;;; - Make Latte-Roam less aggressive towards finding plural nouns.
 ;;; - Remove the needs for s.el.
-;;; - Remove the needs for ivy.el.
 ;;;
 
-(eval-and-compile
-  (unless (fboundp 'cl-lib)
-	(require 'cl-lib))
-  (unless (fboundp 'org-roam)
-	(require 'org-roam))
-  (unless (fboundp 's)
-	(require 's)))
-
 ;;; Code:
-(defgroup latte nil "A simple notebook manager with auto highlighting built on
-top of the beloved Org-mode." :group 'latte)
+
+(require 's)
+(require 'org-roam)
+
+(defgroup latte-roam nil "A simple notebook manager with auto highlighting built on
+top of the beloved Org-mode." :group 'latte-roam)
 
 (defcustom latte-roam-directory org-roam-directory
   "Directory in which note files are stored."
-  :group 'latte
+  :group 'latte-roam
   :type 'directory)
 
 (defcustom latte-roam-highlight-prog-comments t
   "If enabled (t), highlight keywords in prog-mode comment sections only."
-  :group 'latte
+  :group 'latte-roam
   :type 'boolean)
 
 (defcustom latte-roam-skip-tag "skip"
-  "Applying this tag to an Org header makes latte skip processing it."
-  :group 'latte
+  "Applying this tag to an Org header makes latte-roam skip processing it."
+  :group 'latte-roam
   :type 'string)
 
 (defcustom latte-roam-ignore-words '()
   "The words in the list will not be treated as keywords"
-  :group 'latte)
+  :group 'latte-roam
+  :type '(repeat string))
 
 (defcustom latte-roam-scan-idle-delay 60
-  "Number of seconds of idle time before re-scanning note files. If this
-  variable is set to 0; no idle time is taken.
+  "Number of seconds of idle time before re-scanning note files. If
+this variable is set to 0; no idle time is taken.
 
 Changing the value does not take effect until next Emacs reboot."
-  :group 'latte
+  :group 'latte-roam
   :type 'number)
 
 (defcustom  latte-roam-predict-other-forms t
-  "If t, Latte guesses other forms associated with a keyword.
+  "If t, Latte-Roam guesses other forms associated with a keyword.
 
-Setting this option allows Latte to add other possible word forms, such as
-predicting singular and/or plural forms. For instance, Latte adds the words
-'table' and 'symbol' when it finds the keywords 'tables' and 'symbols',
-respectively."
-
-  :group 'latte
+Setting this option allows Latte-Roam to add other possible word forms,
+such as predicting singular and/or plural forms. For instance, Latte-Roam
+adds the words `table' and `symbol' when it finds the keywords
+`tables' and `symbols', respectively."
+  :group 'latte-roam
   :type 'boolean)
 
 (defvar latte-roam-keyword-map
@@ -103,33 +97,25 @@ respectively."
 
   "Keymap for highlighted keywords.")
 
+(defface latte-roam-keyword-face
+  '((t (:underline (:color "#654d4d" :style wave :position nil))))
+  "Latte-Roam mode face used to highlight keywords and topic titles"
+  :group 'latte-roam)
+
+
+;;; Internal variables
 (defvar-local latte-roam--prev-start-win 0
   "Holds window start position before scrolling.")
 
 (defvar-local latte-roam--prev-end-win 0
   "Holds window end position before scrolling.")
 
-(defface latte-roam-keyword-face
-  '((t (:underline (:color "#654d4d" :style wave :position nil))))
-  "Latte mode face used to highlight keywords and topic titles"
-  :group 'latte)
-
-
-;;; Internal variables
 (defvar latte-roam--keywords (make-hash-table :test 'equal)
   "Holds list of keywords.
 
-This global data structure is modified primarily by 'latte-roam--scan-keywords'. Both
-'latte-roam--highlight' and 'latte-roam--delete-overlays' use this list to update UI
-accordingly.")
-
-(defvar latte-roam--history nil
-  "A history data type used when notebook.el calls Ivy.")
-
-(defvar latte-roam--keywords-lock nil
-  "A lock flag when t, it means there is ongoing modification operations on
-  'latte-roam--keywords'. This locker makes latte-roam--keywords resilent to
-  concurrency.")
+This global data structure is modified primarily by `latte-roam--scan-keywords'.
+Both `latte-roam--highlight' and `latte-roam--delete-overlays' use this list
+to update UI accordingly.")
 
 (defvar latte-roam--initialized nil
   "Holds t if notebook's timers are initialized and started. Otherwise, nil.
@@ -138,17 +124,13 @@ This variable is used to ensure only one instance of the timers exists
 globally.")
 
 (defconst latte-roam--process-name "*latte-roam-keyword-scanner*"
-  "Holds the name of the process launched by 'latte-roam--scan-keywords'.")
+  "Holds the name of the process launched by `latte-roam--scan-keywords'.")
 
 (defconst latte-roam--text-change-line-margin 10
   "This threshold is used by `latte-roam--after-change-function', which is a text
-  change listener. On text-changed events, Latte normally re-highlights the
+  change listener. On text-changed events, Latte-Roam normally re-highlights the
   modified text only. However, when the number of characters is less than this
-  threhold, Latte re-highlights the whole line instead.")
-
-(defvar-local latte-roam--async-line ""
-  "Local variable is used during keyword scanning in 'latte-roam--async-filter'.")
-
+  threhold, Latte-Roam re-highlights the whole line instead.")
 
 ;;;
 ;;; Helpers
@@ -228,15 +210,15 @@ checking."
 	(latte-roam--make-overlays (current-buffer) start end)))
 
 
-(defun latte-roam--make-overlays (buffer &optional start end )
+(defun latte-roam--make-overlays (buffer &optional start end)
   "Highlights all the instances of KEYWORD in the current buffer. For each
   instance, this function creates a clickable overlay.
 
 The optional second argument START indicates starting position. Highlighting
-must not occur before START. A value of nil means search from '(point-min)'.
+must not occur before START. A value of nil means search from `(point-min)'.
 
 The optional third argument END indicates ending position. Highlight must not
-occur after END. A value of nil means search from '(point-max)'."
+occur after END. A value of nil means search from `(point-max)'."
 
   (with-current-buffer buffer
 	;; (message "start: make-overlays  %S %s %s %s" buffer start end  latte-roam-mode)
@@ -330,12 +312,12 @@ occur after END. A value of nil means search from '(point-max)'."
 							(overlay-put o 'priority l)))))))))))))))
 
 (defun latte-roam--chop-keyword (keyword)
-  "Removes meta characters from KEYWORD such as 'ies', 'es' and 's', which are
+  "Removes meta characters from KEYWORD such as `ies', `es' and `s', which are
   commonly found in plural nouns."
 
   (or (when (s-suffix? "ies" keyword)
 		;; Use the chopped version as the value to improve the results
-		;; on-the-fly latte searches.
+		;; on-the-fly latte-roam searches.
 		(s-chop-suffix "ies" keyword))
 	  (when (s-suffix? "es" keyword)
 		(s-chop-suffix "es" keyword))
@@ -347,7 +329,7 @@ occur after END. A value of nil means search from '(point-max)'."
 	  keyword))
 
 (defun latte-roam--add-keyword (keyword)
-  "Called internally to add KEYWORD to 'latte-roam--keywords'.
+  "Called internally to add KEYWORD to `latte-roam--keywords'.
 
    This functions makes sure that there is no duplicated
    keywords in latte-roam--keywords."
@@ -373,8 +355,8 @@ occur after END. A value of nil means search from '(point-max)'."
 
 			 ;; Also include the chopped form, which is more useful. During
 			 ;; highlighting, the chopped form is strongly preferred as it allows
-			 ;; Latte to abstract meta characters from plural nouns. For instance,
-			 ;; if the original keyword is 'symbols', the chopped form allows Latte
+			 ;; Latte-Roam to abstract meta characters from plural nouns. For instance,
+			 ;; if the original keyword is 'symbols', the chopped form allows Latte-Roam
 			 ;; to highlight the word 'symbol' (singular) as well. The same can be
 			 ;; said for the words 'boxes' and 'box'.
 			 (puthash (latte-roam--chop-keyword k)
@@ -408,14 +390,14 @@ occur after END. A value of nil means search from '(point-max)'."
 						  latte-roam--keywords))))))
 
 (defun latte-roam--kill-processes ()
-  "Terminate the process launched by 'latte-roam--keywords-check'."
+  "Terminate the process launched by `latte-roam--keywords-check'."
 
   (let ((proc (get-process  latte-roam--process-name)))
 	(when proc
 	  (delete-process proc))))
 
 (defun latte-roam--process-node (node)
-  "Extract the keywords from the given 'node' and update 'latte-roam--keywords'
+  "Extract the keywords from the given `node' and update `latte-roam--keywords'
 accordingly.
 
 Currently, we are treating the title and the tags of the given node as keywords."
@@ -423,9 +405,8 @@ Currently, we are treating the title and the tags of the given node as keywords.
   (latte-roam--add-keyword (s-downcase (org-roam-node-title node))))
 
 (defun latte-roam--scan-keywords (&rest args)
-  "Uses org-roam database to updates 'latte-roam--keywords'."
+  "Uses org-roam database to updates `latte-roam--keywords'."
 
-  ;; (message "latte-roam--scan-keywords")
   (setq latte-roam--keywords (make-hash-table :test 'equal))
   (mapcar #'latte-roam--process-node
 		  (org-roam-node-list))
@@ -433,14 +414,14 @@ Currently, we are treating the title and the tags of the given node as keywords.
   t)
 
 (defun latte-roam--db-modified (&rest args)
-  "An advice function that runs after some functions in org-roam. This function triggers
-'latte-roam-scan-keywords' after some db modification."
-  ;; (message "latte-roam--db-modified %S" args)
+  "An advice function that runs after some functions in org-roam. This function
+triggers `latte-roam-scan-keywords' after some db modification."
+
   (latte-roam--scan-keywords))
 
 (defun latte-roam--db-sync (org-fn &rest args)
-  "An advice function that runs around 'org-roam-db-sync' to trigger
-'latte-roam-scan-keywords' after every db re-sync."
+  "An advice function that runs around `org-roam-db-sync' to trigger
+`latte-roam-scan-keywords' after every db re-sync."
   ;; (message "latte-roam--db-sync %s" org-fn)
   (ignore-errors
 	(prog1
@@ -466,6 +447,7 @@ Currently, we are treating the title and the tags of the given node as keywords.
 (defun latte-roam--after-change-function (beginning end &optional old-len)
   "Highlight new keywords text modification events occur."
 
+  (ignore old-len)
   ;; The different between BIGINNING and END can be as small as one character.
   (when (< (- end beginning) latte-roam--text-change-line-margin)
 	;; Scan the whole line instead
@@ -478,7 +460,7 @@ Currently, we are treating the title and the tags of the given node as keywords.
   (latte-roam--highlight))
 
 (defun latte-roam--keywords-taggable ()
-  "Go through 'latte-roam--keyword' to generate a list of keywords usable as Org
+  "Go through `latte-roam--keyword' to generate a list of keywords usable as Org
 tags. Spaces and '-' are replaced by '_'."
 
   (delete-dups
@@ -576,17 +558,17 @@ tags. Spaces and '-' are replaced by '_'."
 (define-minor-mode latte-roam-mode
   "Minor mode highlights notebook's keywords throughout the buffer.
 
-Initially, highlighting takes place after 'latte-roam-scan-idle-delay'."
+Initially, highlighting takes place after `latte-roam-scan-idle-delay'."
   :init-value nil
   :lighter latte
   :keymap nil
   :require 'latte-roam
-  :group 'latte
+  :group 'latte-roam
 
   (if latte-roam-mode
 	  ;; on
 	  (progn
-		;; Bound Latte highlighting to after-revert, window-scroll and after-change hooks
+		;; Bound Latte-Roam highlighting to after-revert, window-scroll and after-change hooks
 		(add-hook 'after-revert-hook 'latte-roam--after-revert-function t t)
 		(add-hook 'after-change-functions 'latte-roam--after-change-function t t)
 		(add-hook 'window-scroll-functions 'latte-roam--scroll-handler t t)
@@ -616,37 +598,6 @@ Initially, highlighting takes place after 'latte-roam-scan-idle-delay'."
 	  (remove-hook 'window-scroll-functions 'latte-roam--scroll-handler t)
 	  (remove-hook 'change-major-mode-hook 'latte-roam--change-major-mode t)))
   t)
-
-;; ;;;###autoload
-;; (defun latte-roam-new-entry ()
-;;   "Create a note and store it in 'latte-roam-directory'.
-
-;; This function prompts the user to select topic name. Then, it auto generates a
-;; simple Org file for the given topic."
-
-;;   (interactive)
-;;   ;; @FIX: the code here can be improved
-;;   (let ((name (read-string "Topic Name: ")))
-;;	(let ((file-path
-;;		   (concat latte-roam-directory "/"
-;;				   (downcase name) "-"
-;;				   (format-time-string "%s") ".org")))
-;;	  (find-file file-path)
-;;	  (insert (concat
-;;			   "#+ARCHIVE: ~/notes/notebook/archive-notes.org::\n\n"
-;;			   "* " name ))
-;;	  (unless (fboundp 'org)
-;;		(require 'org))
-;;	  (latte-roam-insert-org-tag)
-;;	  (goto-char (point-max))
-;;	  (insert (concat
-;;			   "\n  :PROPERTIES:\n"
-;;			   "  :END:\n  "))
-;;	  ;; Switch temporarily to avoid having problems with org agenda
-;;	  (text-mode)
-;;	  (save-buffer)
-;;	  ;; Reload major mode
-;;	  (revert-buffer t t))))
 
 ;;;###autoload
 (defun latte-roam-grep (&optional init-input)
