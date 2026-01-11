@@ -24,6 +24,8 @@
   (require 'edmacro)
 
   (defun do-start-macro (&optional reg)
+	"Records a new macro and saved into REG.
+If REG is nil, then REG @q is used."
 	(interactive)
 	(if defining-kbd-macro
 		(message "Recording Macro already started")
@@ -31,9 +33,10 @@
 					 evil-this-register
 					 ?q)))
 		(evil-record-macro reg)
-		(message "Recording a new macro [%c]" reg))))
+		(message "Recording a new macro @%c" reg))))
 
   (defun do-stop-macro ()
+	"Stop the recording macro and saved into its corresponding register"
 	(interactive)
 	(if defining-kbd-macro
 		(progn
@@ -78,7 +81,7 @@ By default, Reg @q is shown."
 		  (macro-data (edmacro-parse-keys (buffer-string))))
 	  (evil-set-register reg macro-data)
 	  (kill-buffer (current-buffer))
-	  (message "Buffer saved to Reg [%c]" reg)))
+	  (message "Buffer saved to Reg @%c" reg)))
 
   (general-define-key
    :prefix "q"
