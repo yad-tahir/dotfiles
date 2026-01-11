@@ -41,25 +41,27 @@
 		  (message "Macro recorded"))
 	  (message "No macro recording")))
 
-  (defun do-call-last-macro (&optional reg)
-	(interactive)
-	(let* ((reg (or reg
-					evil-this-register
-					?q))
-		   (macro (evil-get-register reg)))
-	  (evil-execute-macro 1 macro)))
+(defun do-call-last-macro (&optional count reg)
+  "Execute a macro with a COUNT prefix and optional REG."
+  (interactive
+   (list (prefix-numeric-value current-prefix-arg)
+		 (or evil-this-register ?q)))
+
+  (let* ((macro (evil-get-register reg)))
+	(message "Executing register @%s, %d times" (char-to-string reg) count)
+	(evil-execute-macro count macro)))
 
   (defun do-edit-register (&optional reg)
 	"Opens a temporary buffer to edit the contents of a register.
 
-By default, Reg [q] is shown."
+By default, Reg @q is shown."
 	(interactive)
 	(let* ((reg (or reg
 					evil-this-register
 					?q))
 		   (reg-text (evil-get-register reg t)))
 	  (unless reg-text
-		(message "Register [%c] is empty." reg))
+		(message "Register @%c is empty." reg))
 	  (with-current-buffer (get-buffer-create "*Edit Register*")
 		(erase-buffer)
 		(when reg-text
