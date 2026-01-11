@@ -159,12 +159,60 @@
 (use-package whitespace
   :config
   (add-hook 'before-save-hook #'(lambda ()
-								 (when whitespace-mode
-								   (whitespace-cleanup)))))
+								  (when whitespace-mode
+									(whitespace-cleanup)))))
 
-;; (use-package aggressive-indent
-;;   :ensure t
-;;   :hook ((prog-mode . aggressive-indent-mode)
-;;		 (text-mode . aggressive-indent-mode)))
+(use-package evil-mc
+  :ensure t
+  :disabled t
+  :after (evil)
+  :config
+  ;; Remove the existing keybindings
+  (setcdr evil-mc-key-map nil)
+
+  (general-define-key
+   :keymaps 'evil-mc-key-map
+   :states '(normal visual)
+   :prefix "gr"
+   "m" 'do-mc-make-cursor-here
+   "M" 'evil-mc-make-all-cursors
+   "*" 'evil-mc-make-all-cursors
+   "I" 'evil-mc-make-cursor-in-visual-selection-beg
+   "A" 'evil-mc-make-cursor-in-visual-selection-end
+
+   "q" 'evil-mc-undo-all-cursors
+   "<escape>" 'evil-mc-undo-all-cursors
+   "d" 'evil-mc-undo-cursor-at-pos
+   "z" 'evil-mc-undo-last-added-cursor
+
+   "r" 'evil-mc-resume-cursors
+   "SPC" 'evil-mc-pause-cursors)
+
+  (general-define-key
+   :keymaps 'evil-mc-key-map
+   :states '(normal visual)
+   "gr" '(:ignore t :which-key "cursors"))
+
+  (general-define-key
+   :keymaps 'evil-mc-key-map
+   :states 'visual
+   "gr" '(:ignore t :which-key "cursors")
+   "A" 'do-evil-mc-mark-visual-end
+   "I" 'do-evil-mc-mark-visual-beg)
+
+  (defun do-mc-make-cursor-here ()
+	(interactive)
+	(evil-mc-make-cursor-here)
+	(evil-mc-pause-cursors))
+
+  ;; Make sure the cursors are not over hidden, e.g. evil-ex-search
+  (setq evil-mc-cursor-overlay-priority 1000)
+
+  (set-face-background 'evil-mc-cursor-default-face "orange")
+  (set-face-foreground 'evil-mc-cursor-default-face "black")
+
+  ;; (add-hook 'evil-mc-before-cursors-created 'evil-mc-pause-cursors)
+  ;; (add-hook 'evil-mc-after-cursors-created 'evil-mc-pause-cursors)
+  (global-evil-mc-mode +1))
 
 (provide 'do-text-adjust)
