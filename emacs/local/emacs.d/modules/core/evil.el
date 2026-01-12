@@ -144,8 +144,6 @@
    "d" 'evil-delete
    "u" 'evil-change
    "U" 'evil-change-line
-   "I" 'do-evil-insert
-   "A" 'do-evil-append
    "k" 'evil-join
    "K" 'evil-join-whitespace
    "z" 'evil-undo

@@ -25,6 +25,7 @@
 		  #'(lambda () (setq gc-cons-threshold (* 100 1000 1000)) t))
 
 ;; Bootstrap 'use-package'
+
 (eval-and-compile
   (require 'package)
   (setq package--init-file-ensured t
@@ -32,6 +33,13 @@
 		package-user-dir (concat user-emacs-directory "/packages"))
   (package-initialize)
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+
+  ;; Add my git repos
+  (let ((parent-dir (expand-file-name "git/emacs/" "~")))
+  (when (file-directory-p parent-dir)
+	(dolist (dir (directory-files parent-dir t "^[^.]"))
+	  (when (file-directory-p dir)
+		(add-to-list 'load-path dir)))))
 
   (unless (package-installed-p 'use-package)
 	(package-refresh-contents)

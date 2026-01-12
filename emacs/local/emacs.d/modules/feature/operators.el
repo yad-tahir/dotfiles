@@ -17,58 +17,6 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
-;; Operators
-(evil-define-operator do-evil-insert (beg end &optional type count)
-  "Perform `evil-insert' with a motion."
-  (interactive "<R><c>") ; <R> for range and type, <c> for count
-  (let ((vcount (and (evil-visual-state-p)
-					 (memq (evil-visual-type) '(line block))
-					 (save-excursion
-					   (let ((m (mark)))
-						 ;; go to upper-left corner temporarily so
-						 ;; `count-lines' yields accurate results
-						 (evil-visual-rotate 'upper-left)
-						 (prog1 (count-lines evil-visual-beginning evil-visual-end)
-						   (set-mark m)))))))
-	(ignore end)
-	(cond
-	 ((eq type 'line)
-	  (evil-insert-line count vcount))
-	 (t
-	  (goto-char beg)
-	  (evil-insert count vcount)))))
-
-(evil-define-operator do-evil-append (beg end &optional type count)
-  "Perform `evil-append' with a motion."
-  (interactive "<R><c>") ; <R> for range and type, <c> for count
-  (let ((vcount (and (evil-visual-state-p)
-					 (memq (evil-visual-type) '(line block))
-					 (save-excursion
-					   (let ((m (mark)))
-						 ;; go to upper-left corner temporarily so
-						 ;; `count-lines' yields accurate results
-						 (evil-visual-rotate 'upper-left)
-						 (prog1 (count-lines evil-visual-beginning evil-visual-end)
-						   (set-mark m)))))))
-	(cond
-	 ((eq type 'line)
-	  (evil-append-line count vcount))
-	 ((eq type 'block)
-	  (let* ((range (evil-visual-range))
-			 (beg-col (evil-column (car range)))
-			 (end-col (evil-column (cadr range)))
-			 (left-col (min beg-col end-col))
-			 (right-col (max beg-col end-col)))
-		(ignore left-col) ;; Silent the compiler!
-		(goto-char beg)
-		(move-to-column (- right-col 1))
-		(evil-append count vcount)))
-	 (t
-	  (goto-char (if (eolp)
-					 end
-				   (- end 1)))
-	  (evil-append count vcount)))))
-
 (evil-define-operator do-evil-forward-motion (beginning end)
   "Ask for a motion and move forward."
   (ignore beginning)

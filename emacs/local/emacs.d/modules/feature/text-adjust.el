@@ -213,4 +213,12 @@
   ;; (add-hook 'evil-mc-after-cursors-created 'evil-mc-pause-cursors)
   (global-evil-mc-mode +1))
 
+(use-package evil-insert-plus
+  :commands (evil-insert-plus evil-append-plus)
+  :init
+  (general-define-key
+   :states '(normal visual)
+   "A" 'evil-append-plus
+   "I" 'evil-insert-plus))
+
 (provide 'do-text-adjust)
