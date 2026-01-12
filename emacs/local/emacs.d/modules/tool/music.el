@@ -128,7 +128,7 @@
 
   (general-define-key
    :keymaps 'simple-mpc-mode-map
-   "<return>" 'nil
+   "<RET>" 'nil
    "lq" 'do-music-stop
    "ln" 'do-music-next
    "lh" 'do-music-previous
@@ -145,7 +145,7 @@
 	(general-define-key
 	 :keymaps 'local
 	 :states '(normal visual)
-	 "<return>" 'do-music-play-selected
+	 "<RET>" 'do-music-play-selected
 	 "C-n" 'do-music-next
 	 "C-h" 'do-music-previous))
   (add-hook 'simple-mpc-current-playlist-mode-hook 'do--music-playlist-init)
@@ -154,7 +154,7 @@
 	(general-define-key
 	 :keymaps 'local
 	 :states '(normal visual)
-	 "<return>" 'simple-mpc-query-add-and-play
+	 "<RET>" 'simple-mpc-query-add-and-play
 	 "ls" 'do-music-query-sort
 	 "lq" 'do-music-query-quit)
 

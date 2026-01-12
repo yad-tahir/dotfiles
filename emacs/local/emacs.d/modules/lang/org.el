@@ -51,7 +51,7 @@
 
   (general-define-key
    :keymaps 'org-mode-map
-   "<return>" 'nil
+   "<RET>" 'nil
    "<M-return>" 'nil)
 
   (general-define-key
@@ -105,7 +105,7 @@
 				 "C-+" 'org-columns-widen
 				 "C--" 'org-columns-narrow
 				 "lk" '(:ignore t :which-key "columns")
-				 "lk <return>" 'org-columns-show-value
+				 "lk <RET>" 'org-columns-show-value
 				 "lk <tab>" 'org-columns-content
 				 "lk+" 'org-columns-widen
 				 "lk-" 'org-columns-narrow

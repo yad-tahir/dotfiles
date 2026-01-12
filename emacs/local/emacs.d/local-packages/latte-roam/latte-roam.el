@@ -91,8 +91,8 @@ adds the words `table' and `symbol' when it finds the keywords
 (defvar latte-roam-keyword-map
   (let ((map (make-sparse-keymap)))
 	(define-key map (kbd "<mouse-1>") 'latte-roam-open-at-point)
-	(define-key map (kbd "<return>") 'latte-roam-open-at-point)
-	(define-key map (kbd "<M-return>") 'latte-roam--complete-at-point)
+	(define-key map (kbd "<RET>") 'latte-roam-open-at-point)
+	(define-key map (kbd "<M-RET>") 'latte-roam--complete-at-point)
 	map)
 
   "Keymap for highlighted keywords.")
