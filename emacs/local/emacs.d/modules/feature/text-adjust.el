@@ -35,11 +35,9 @@
   :init
   (general-define-key
    :states '(normal visual)
-   "s" '(:ignore t :which-key "surround")
-   "ss" 'evil-surround-region
-   "sS" 'evil-Surround-region
-   "su" 'evil-surround-change
-   "sd" 'evil-surround-delete)
+   "s" 'evil-surround-region
+   "gs" 'evil-surround-change
+   "S" 'evil-surround-delete)
 
   :config
   ;; Eliminate extra space between pairs
