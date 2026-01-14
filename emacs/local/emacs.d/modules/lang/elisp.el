@@ -75,5 +75,13 @@
    "SPC lw" 'macrostep-collapse-all
    "SPC lq" 'macrostep-collapse-all))
 
+(use-package package-lint
+  :ensure t
+  :commands (package-lint-current-buffer)
+  :init
+  (general-define-key
+   :keymaps 'emacs-lisp-mode-map
+   :states '(normal visual)
+   "ll" 'package-lint-current-buffer))
 
 (provide 'do-elisp)
