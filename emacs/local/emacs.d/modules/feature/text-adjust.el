@@ -221,15 +221,15 @@
    "A" 'evil-append-plus
    "I" 'evil-insert-plus))
 
-(use-package evil-context-object
-  :commands (evil-context-inner-object evil-context-a-object)
+(use-package evil-closest-delimiter
+  :commands (evil-closest-inner-delimiter evil-closest-a-delimiter)
   :init
   (general-define-key
    :keymaps 'evil-inner-text-objects-map
-   "b" 'evil-context-inner-object)
+   "b" 'evil-closest-inner-delimiter)
 
   (general-define-key
    :keymaps 'evil-outer-text-objects-map
-   "b" 'evil-context-a-object))
+   "b" 'evil-closest-a-delimiter))
 
 (provide 'do-text-adjust)
