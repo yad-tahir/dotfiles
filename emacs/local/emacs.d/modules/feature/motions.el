@@ -151,21 +151,6 @@
 	(setq end (- end 1))) ;; Exclude last \n
   (evil-range beg end type :expanded t))
 
-(evil-define-text-object do-evil-a-section (count &optional beg end type)
-  "Select a function."
-  :jump nil
-  (save-excursion
-	(evil-motion-loop (dir (or count 1))
-	  (mark-defun dir))
-	(setq beg (region-beginning)
-		  end (region-end)))
-  (evil-range beg end type :expanded t))
-
-(evil-define-text-object do-evil-inner-section (count &optional beg end type)
-  "Select inner function."
-  :jump nil
-  (evil-select-inner-object 'evil-defun beg end type (or count 1)))
-
 (evil-define-text-object do-evil-whole-buffer (count &optional beg end type)
   :type line
   "Select the whole buffer."
@@ -208,14 +193,12 @@
 
 (general-define-key
  :keymaps 'evil-inner-text-objects-map
- "b" 'do-evil-inner-section
- "B" 'do-evil-whole-buffer
  "c" 'do-evil-comment
+ "B" 'do-evil-whole-buffer
  "SPC" 'do-evil-whitespace)
 
 (general-define-key
  :keymaps 'evil-outer-text-objects-map
- "b" 'do-evil-a-section
  "c" 'do-evil-comment
  "B" 'do-evil-whole-buffer
  "a" 'do-evil-around-word

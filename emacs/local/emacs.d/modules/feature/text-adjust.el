@@ -221,4 +221,15 @@
    "A" 'evil-append-plus
    "I" 'evil-insert-plus))
 
+(use-package evil-context-object
+  :commands (evil-context-inner-object evil-context-a-object)
+  :init
+  (general-define-key
+   :keymaps 'evil-inner-text-objects-map
+   "b" 'evil-context-inner-object)
+
+  (general-define-key
+   :keymaps 'evil-outer-text-objects-map
+   "b" 'evil-context-a-object))
+
 (provide 'do-text-adjust)
