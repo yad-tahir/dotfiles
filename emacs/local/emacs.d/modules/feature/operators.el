@@ -45,8 +45,7 @@
 		   (b (copy-marker beginning))
 		   (avoid-regex "^\\|$\\|\\s\"")
 		   (start-regex (concat avoid-regex "\\|\\s(")) ;; open delimiter
-		   (end-regex (concat avoid-regex "\\|\\s)")) ;; close delimiter
-		   )
+		   (end-regex (concat avoid-regex "\\|\\s)"))) ;; close delimiter
 
 	  ;; Fix Beginning
 	  (goto-char b)
