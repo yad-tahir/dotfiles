@@ -17,9 +17,6 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
-(defvar do--org-latex-preview t
-  "Locally utilized to toggle latex preview settings")
-
 (use-package org
   :defer t
   :functions (switch-to-buffer@check-org-mode org-latex-preview org-clear-latex-preview)
@@ -198,17 +195,6 @@
   (plist-put org-format-latex-options :background "Transparent")
   (plist-put org-format-latex-options :scale 1.65)
   (plist-put org-format-latex-options :html-scale 1.65)
-
-  (defun do-org-toggle-latex-preview()
-	"Toggle Latex previews"
-
-	(interactive)
-	(save-excursion
-	  (goto-char (point-min))
-	  (if do--org-latex-preview
-		  (org-clear-latex-preview (point-min) (point-max))
-		(org-latex-preview '(16))) ;; simulate pressing universal-argument twice
-	  (setq-local do--org-latex-preview (not do--org-latex-preview))))
 
   ;; Open in a current window instead of a new frame
   ;; Source: https://bit.ly/2WX44mj
@@ -535,5 +521,9 @@
 		org-download-screenshot-method "scrot -s %s")
 
   (add-hook 'dired-mode-hook 'org-download-enable))
+
+(use-package org-fragtog
+  :ensure t
+  :hook (org-mode . org-fragtog-mode))
 
 (provide 'do-org)
