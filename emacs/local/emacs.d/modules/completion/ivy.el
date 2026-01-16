@@ -90,6 +90,13 @@
 		ivy-wrap t
 		ivy-fixed-height-minibuffer t)
 
+  ;; Ignore case sensitivity
+  (setq-default completion-ignore-case t
+		read-file-name-completion-ignore-case t
+		read-buffer-completion-ignore-case t
+		ivy-case-fold-search-default 'always
+		ivy-re-builders-alist
+		'((t . ivy--regex-ignore-order)))
   (ivy-mode))
 
 (use-package counsel
