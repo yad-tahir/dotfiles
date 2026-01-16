@@ -101,13 +101,13 @@
 (setq default-frame-alist '((tool-bar-lines . 0)
 							(menu-bar-lines . 0)
 							(vertical-scroll-bars . nil)
-							(font . "DejaVu Sans Mono-14")
+							(font . "DejaVu Sans Mono-16")
 							(fullscreen . maximized)
 							(line-spacing . 0)
 							(font-backend . "xft")))
 
 ;; Keep base UI clean
-(blink-cursor-mode 0)
+(blink-cursor-mode 1)
 (scroll-bar-mode 0)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
