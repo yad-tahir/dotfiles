@@ -68,14 +68,6 @@ top of the beloved Org-mode." :group 'latte-roam)
   :group 'latte-roam
   :type '(repeat string))
 
-(defcustom latte-roam-scan-idle-delay 60
-  "Number of seconds of idle time before re-scanning note files. If
-this variable is set to 0; no idle time is taken.
-
-Changing the value does not take effect until next Emacs reboot."
-  :group 'latte-roam
-  :type 'number)
-
 (defcustom  latte-roam-predict-other-forms t
   "If t, Latte-Roam guesses other forms associated with a keyword.
 
@@ -321,19 +313,10 @@ Currently, we are treating the title and the tags of the given node as keywords.
   t)
 
 (defun latte-roam--db-modified (&rest args)
-  "An advice function that runs after some functions in org-roam. This function
+  "Runs after some functions in org-roam. This function
 triggers `latte-roam-scan-keywords' after some db modification."
 
   (latte-roam--scan-keywords))
-
-(defun latte-roam--db-sync (org-fn &rest args)
-  "An advice function that runs around `org-roam-db-sync' to trigger
-`latte-roam-scan-keywords' after every db re-sync."
-  (ignore-errors
-	(prog1
-		(funcall org-fn args)
-	  (latte-roam--scan-keywords))))
-
 
 (defun latte-roam--keyword-at-point ()
   "Return the highlighted keyword at point."
@@ -357,7 +340,7 @@ triggers `latte-roam-scan-keywords' after some db modification."
 	;; redraw the entire line
 	(latte-roam--highlight (line-beginning-position) (line-end-position))))
 
-(defun latte-roam--after-revert-function ()
+(defun latte-roam--after-revert-function (&rest args)
   "Re-highlight keywords when revert events occur."
   (latte-roam--highlight))
 
@@ -449,9 +432,8 @@ tags. Spaces and '-' are replaced by '_'."
 
 ;;;###autoload
 (define-minor-mode latte-roam-mode
-  "Minor mode highlights notebook's keywords throughout the buffer.
+  "Minor mode highlights notebook's keywords throughout the buffer."
 
-Initially, highlighting takes place after `latte-roam-scan-idle-delay'."
   :init-value nil
   :lighter latte
   :keymap nil
@@ -459,36 +441,33 @@ Initially, highlighting takes place after `latte-roam-scan-idle-delay'."
   :group 'latte-roam
 
   (if latte-roam-mode
-	  ;; on
-	  (progn
-		;; Bound Latte-Roam highlighting to after-revert, window-scroll and after-change hooks
+	  (progn ;;on
+		;; Local hooks
+		(add-hook 'window-scroll-functions 'latte-roam--scroll-handler t t)
 		(add-hook 'after-revert-hook 'latte-roam--after-revert-function t t)
 		(add-hook 'after-change-functions 'latte-roam--after-change-function t t)
-		(add-hook 'window-scroll-functions 'latte-roam--scroll-handler t t)
-		;; On major change
 		(add-hook 'change-major-mode-hook 'latte-roam--change-major-mode t t)
 
-		;; Check if the global timer has started
+		;; Globally exec once
 		(unless latte-roam--initialized
 		  (latte-roam--scan-keywords)
-		  (run-with-idle-timer latte-roam-scan-idle-delay t #'latte-roam--scan-keywords)
-		  (advice-add 'org-roam-db-autosync--setup-file-h :after #'latte-roam--db-modified)
-		  (advice-add 'org-roam-db-autosync--rename-file-a :after #'latte-roam--db-modified)
-		  (advice-add 'org-roam-db-autosync--delete-file-a :after  #'latte-roam--db-modified)
-		  (advice-add 'org-roam-db-sync :around #'latte-roam--db-sync)
-
+		  (advice-add 'org-roam-db-update-file :after #'latte-roam--db-modified)
+		  (advice-add 'org-roam-db-insert-file :after  #'latte-roam--db-modified)
+		  (advice-add 'org-roam-db-clear-all :after  #'latte-roam--db-modified)
+		  (advice-add 'org-roam-db-clear-file :after  #'latte-roam--db-modified)
+		  (advice-add 'org-roam-db-update-file :after  #'latte-roam--db-modified)
+		  (advice-add 'org-roam-db-sync :after #'latte-roam--db-modified)
 
 		  (setq latte-roam--initialized t)))
 
-	;; off
-	(progn
+	(progn ;;off
 	  ;; Remove our overlays
 	  (latte-roam--delete-overlays t)
 
 	  ;; Remove local hooks
+	  (remove-hook 'window-scroll-functions 'latte-roam--scroll-handler t)
 	  (remove-hook 'after-revert-hook 'latte-roam--after-revert-function t)
 	  (remove-hook 'after-change-functions 'latte-roam--after-change-function t)
-	  (remove-hook 'window-scroll-functions 'latte-roam--scroll-handler t)
 	  (remove-hook 'change-major-mode-hook 'latte-roam--change-major-mode t)))
   t)
 
