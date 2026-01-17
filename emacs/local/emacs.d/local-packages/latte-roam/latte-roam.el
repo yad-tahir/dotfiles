@@ -116,51 +116,47 @@ globally.")
 (defun latte-roam--change-major-mode ()
   "Called internally when the major mode has changed in the current buffer."
 
-  (latte-roam--delete-overlays t))
+  (latte-roam--delete-overlays nil nil t))
 
-(defun latte-roam--delete-overlays (&optional force start end)
-  "Called internally to delete overlays that are no longer needed.
+(defun latte-roam--delete-overlays (&optional start end force)
+  "Called internally to delete overlays that are between START and END,
+and no longer valid.
 
-When FORCE is nil, this function goes through each overlay existing in the
-current buffer, and performs some checking such as whether its underline text is
-still a keyword. If it is not, this function deletes the overlay.
+Goes through each overlay existing in the current buffer, and performs some
+checking such as whether it still has still valid  keyword. If not, this function
+deletes the overlay.
 
-However, setting FORCE to t makes this function to delete all overlays without
-checking."
+When FORCE is non-nil, keyword checking is not performed. The overlay deleted immediately."
 
   (setq start (or start (point-min))
 		end (or end (point-max)))
-  (ignore-errors
-	(let ((latte-roam--overlays (overlays-in start end)))
-	  ;; For each overlay
-	  (while (not (null latte-roam--overlays))
-		(let* ((o (car latte-roam--overlays))
-			   (o-start (overlay-start o))
-			   (o-end (overlay-end o))
-			   (o-f (overlay-get o 'face))
-			   (keyword (downcase (buffer-substring-no-properties o-start o-end))))
-		  ;; Make sure it belongs to us
-		  (when (or force
-					(and (equal o-f 'latte-roam-keyword-face)
-						 ;; Check if it still points at a keyword
-						 (not (gethash keyword latte-roam--keywords))))
-			(delete-overlay o))
 
-		  (setq latte-roam--overlays (cdr latte-roam--overlays)))))))
+  (dolist (o (overlays-in start end))
+	(let* ((o-start (overlay-start o))
+		   (o-end (overlay-end o))
+		   (o-f (overlay-get o 'face))
+		   (keyword (downcase (buffer-substring-no-properties o-start o-end))))
+	  ;; Make sure it belongs to us
+	  (when (or force
+				(and (equal o-f 'latte-roam-keyword-face)
+					 ;; Check if it still points at a keyword
+					 (not (gethash keyword latte-roam--keywords))))
+		(delete-overlay o)))))
 
 (defun latte-roam--overlay-exists (keyword start end)
   "Return t if an overlay for KEYWORD exists between START and END."
 
-  (cl-loop for co in (overlays-in start end)
-		   do
-		   (when (equal keyword (overlay-get co 'latte-roam-keyword))
-			 (if (and (equal (overlay-start co) start)
-					  (equal (overlay-end co) end))
-				 (cl-return t)
+  (catch 'latte-roam--overlay-found
+	(dolist (co (overlays-in start end))
+	  (when (equal keyword (overlay-get co 'latte-roam-keyword))
+		(if (and (equal (overlay-start co) start)
+				 (equal (overlay-end co) end))
+			(throw 'latte-roam--overlay-found t)
 
-			   ;; Region mismatch; e.g. an old overlay that does not
-			   ;; accommodate the extra length. Clean it and continue searching.
-			   (delete-overlay co)))))
+		  ;; Region mismatch; e.g. an old overlay that does not
+		  ;; accommodate the extra length. Clean it and continue searching.
+		  (delete-overlay co)
+		  nil)))))
 
 (defun latte-roam--phrase-checker (phrase)
   "Returns t if PHRASE is a keyword."
@@ -200,7 +196,7 @@ occur after END. A value of nil means search from `(point-max)'."
 		  (with-silent-modifications
 			(narrow-to-region start end)
 			;; Go to starting point
-			(latte-roam--delete-overlays nil start end)
+			(latte-roam--delete-overlays start end)
 			(maphash (lambda (key value)
 					   (goto-char start)
 					   (while (word-search-forward key nil t)
@@ -291,10 +287,10 @@ Handles simple phrases like 'inverse element' -> 'inverse elements'."
 
   (let ((p (overlays-at (point) t))
 		(lk nil))
-	(cl-loop for o in p
-			 do
-			 (when-let (k (overlay-get o 'latte-roam-keyword))
-			   (cl-return (setq lk (downcase k)))))
+	(catch 'latte-roam--found
+	  (dolist (o p)
+		(when-let (k (overlay-get o 'latte-roam-keyword))
+		  (throw 'latte-roam--found (setq lk (downcase k))))))
 	(or lk
 		(when (use-region-p)
 		  (buffer-substring-no-properties (region-beginning) (region-end)))
@@ -310,6 +306,7 @@ Handles simple phrases like 'inverse element' -> 'inverse elements'."
 
 (defun latte-roam--after-revert-function (&rest args)
   "Re-highlight keywords when revert events occur."
+
   (latte-roam--highlight-buffer))
 
 (defun latte-roam--scroll-handler (win start)
@@ -320,6 +317,7 @@ This function is also triggered when a window is just attached to a buffer."
   (latte-roam--highlight-buffer (window-start win) (window-end win t)))
 
 (defun latte-roam--node-insert (keyword)
+
   (unwind-protect
 	  ;; Group functions together to avoid inconsistent state on quit
 	  (atomic-change-group
@@ -356,13 +354,13 @@ This function is also triggered when a window is just attached to a buffer."
 		(end nil)
 		(keyword nil)
 		(ignore nil))
-	(cl-loop for o in p do
-			 (unless ignore
-			   (when-let (k (overlay-get o 'latte-roam-keyword))
-				 (setq keyword k
-					   start (overlay-start o)
-					   end (overlay-end o)
-					   ignore t))))
+	(dolist (o p)
+	  (unless ignore
+		(when-let (k (overlay-get o 'latte-roam-keyword))
+		  (setq keyword k
+				start (overlay-start o)
+				end (overlay-end o)
+				ignore t))))
 
 	(save-excursion
 	  (set-mark start)
@@ -404,7 +402,7 @@ This function is also triggered when a window is just attached to a buffer."
 
 	(progn ;;off
 	  ;; Remove our overlays
-	  (latte-roam--delete-overlays t)
+	  (latte-roam--delete-overlays nil nil t)
 
 	  ;; Remove local hooks
 	  (remove-hook 'window-scroll-functions 'latte-roam--scroll-handler t)
