@@ -109,6 +109,15 @@ to update UI accordingly.")
 This variable is used to ensure only one instance of the timers exists
 globally.")
 
+(defvar-local latte-roam--prev-start-win 0
+  "Holds window start position before scrolling.")
+
+(defvar-local latte-roam--prev-end-win 0
+  "Holds window end position before scrolling.")
+
+(defvar-local latte-roam--prev-win nil
+  "Holds last window object this buffer used during scrolling.")
+
 ;;;
 ;;; Helpers
 ;;;
@@ -191,8 +200,8 @@ occur after END. A value of nil means search from `(point-max)'."
 	(ignore-errors
 	  (setq start (or start (point-min))
 			end (min (or end (point-max)) (point-max)))
-	  (save-restriction
-		(save-mark-and-excursion
+	  (save-excursion
+		(save-restriction
 		  (with-silent-modifications
 			(narrow-to-region start end)
 			;; Go to starting point
@@ -314,7 +323,27 @@ Handles simple phrases like 'inverse element' -> 'inverse elements'."
 
 This function is also triggered when a window is just attached to a buffer."
 
-  (latte-roam--highlight-buffer (window-start win) (window-end win t)))
+  (let* ((start (window-start win))
+		 (end (window-end win t))
+		 (diff (- start latte-roam--prev-start-win))
+		 (full-render (or (not latte-roam--prev-win)
+						  (not (eq latte-roam--prev-win win))
+						  (> (abs diff)
+							 ;; Less than 1/3 of window size
+							 (/ (- latte-roam--prev-end-win latte-roam--prev-start-win) 3)))))
+	(cond
+	 ((and (>= diff 1) ;; Moving downward
+		   (not full-render))
+	  (latte-roam--highlight-buffer latte-roam--prev-end-win end))
+	 ((and (< diff 1) ;; Moving upward
+		   (not full-render))
+	  (latte-roam--highlight-buffer start latte-roam--prev-start-win))
+	 (t
+	  (latte-roam--highlight-buffer start end )))
+
+	(setq latte-roam--prev-start-win start
+		  latte-roam--prev-end-win end
+		  latte-roam--prev-win win)))
 
 (defun latte-roam--node-insert (keyword)
 
