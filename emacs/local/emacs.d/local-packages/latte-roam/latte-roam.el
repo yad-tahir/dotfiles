@@ -39,12 +39,10 @@
 
 ;;; Road Map and Hopes:
 ;;; - Make Latte-Roam less aggressive towards finding plural nouns.
-;;; - Remove the needs for s.el.
 ;;;
 
 ;;; Code:
 
-(require 's)
 (require 'org-roam)
 
 (defgroup latte-roam nil "A simple notebook manager with auto highlighting built on
@@ -165,8 +163,8 @@ checking."
 			   (min (overlay-start o))
 			   (end (overlay-end o))
 			   (f (overlay-get o 'face))
-			   (keyword (s-downcase (buffer-substring-no-properties min end))))
-		  ;; Make sure it belongs to latte.el.
+			   (keyword (downcase (buffer-substring-no-properties min end))))
+		  ;; Make sure it belongs to us
 		  (when (or force
 					(and (equal f 'latte-roam-keyword-face)
 						 ;; Check if it still points at a keyword
@@ -313,20 +311,18 @@ occur after END. A value of nil means search from `(point-max)'."
 
 (defun latte-roam--chop-keyword (keyword)
   "Removes meta characters from KEYWORD such as `ies', `es' and `s', which are
-  commonly found in plural nouns."
-
-  (or (when (s-suffix? "ies" keyword)
-		;; Use the chopped version as the value to improve the results
-		;; on-the-fly latte-roam searches.
-		(s-chop-suffix "ies" keyword))
-	  (when (s-suffix? "es" keyword)
-		(s-chop-suffix "es" keyword))
-	  (when (s-suffix? "s" keyword)
-		(s-chop-suffix "s" keyword))
-	  (when (and latte-roam-predict-other-forms
-				 (s-suffix? "y" keyword))
-		(s-chop-suffix "y" keyword))
-	  keyword))
+commonly found in plural nouns."
+  (cond
+   ((string-suffix-p "ies" keyword)
+	(substring keyword 0 -3))
+   ((string-suffix-p "es" keyword)
+	(substring keyword 0 -2))
+   ((string-suffix-p "s" keyword)
+	(substring keyword 0 -1))
+   ((and latte-roam-predict-other-forms
+		 (string-suffix-p "y" keyword))
+	(substring keyword 0 -1))
+   (t keyword)))
 
 (defun latte-roam--add-keyword (keyword)
   "Called internally to add KEYWORD to `latte-roam--keywords'.
@@ -338,20 +334,19 @@ occur after END. A value of nil means search from `(point-max)'."
   (unless (or (gethash keyword latte-roam--keywords)
 			  (member keyword latte-roam-ignore-words))
 	;; Add KEYWORD along with all possible chopped forms
-	(cl-loop for k in (list keyword
-							;; Play with '-' to address cases such as well-done and
-							;; well done
-							(s-replace "-" " " keyword)
-							;; '_' makes the keyword org-tag friendly. Add the
-							;; non-friendly forms as they are mostly likely used in
-							;; normal English writing.
-							(s-replace "_" " " keyword)
-							(s-replace "_" "-" keyword))
+	(cl-loop for k in
+			 (list keyword
+				   ;; Play with '-' to address cases such as well-done and
+				   ;; well done
+				   (replace-regexp-in-string "-" " " keyword t t)
+				   ;; '_' makes the keyword org-tag friendly. Add the
+				   ;; non-friendly forms as they are mostly likely used in
+				   ;; normal English writing.
+				   (replace-regexp-in-string "_" " " keyword t t)
+				   (replace-regexp-in-string "_" "-" keyword t t))
 			 do
 			 ;; Add the non-chopped version
-			 (puthash k
-					  k
-					  latte-roam--keywords)
+			 (puthash k k latte-roam--keywords)
 
 			 ;; Also include the chopped form, which is more useful. During
 			 ;; highlighting, the chopped form is strongly preferred as it allows
@@ -365,13 +360,13 @@ occur after END. A value of nil means search from `(point-max)'."
 
 			 (when latte-roam-predict-other-forms
 			   ;; Handle a few well-known, special cases:
-			   (cond ((s-suffix? "ies" k)
+			   (cond ((string-suffix-p "ies" k)
 					  ;; Address cases like 'baby' and 'babies'.
 					  (puthash (concat (latte-roam--chop-keyword k) "y")
 							   (latte-roam--chop-keyword k)
 							   latte-roam--keywords))
 
-					 ((s-suffix? "es" k)
+					 ((string-suffix-p "es" k)
 					  ;; Normally, 'es' should be chopped. However, there are a
 					  ;; considerable amount of cases in which you need to keep the 'e',
 					  ;; e.g. 'tables' and 'table'.
@@ -381,7 +376,7 @@ occur after END. A value of nil means search from `(point-max)'."
 
 			   ;; Include possible plural forms in case k is in its
 			   ;; singular form.
-			   (unless (s-suffix? "s" k)
+			   (unless (string-suffix-p "s" k)
 				 (puthash (concat k "es")
 						  (latte-roam--chop-keyword k)
 						  latte-roam--keywords)
@@ -402,7 +397,7 @@ accordingly.
 
 Currently, we are treating the title and the tags of the given node as keywords."
 
-  (latte-roam--add-keyword (s-downcase (org-roam-node-title node))))
+  (latte-roam--add-keyword (downcase (org-roam-node-title node))))
 
 (defun latte-roam--scan-keywords (&rest args)
   "Uses org-roam database to updates `latte-roam--keywords'."
@@ -460,22 +455,13 @@ triggers `latte-roam-scan-keywords' after some db modification."
   (latte-roam--highlight))
 
 (defun latte-roam--keywords-taggable ()
-  "Go through `latte-roam--keyword' to generate a list of keywords usable as Org
+  "Go through `latte-roam--keywords' to generate a list of keywords usable as Org
 tags. Spaces and '-' are replaced by '_'."
-
   (delete-dups
    (append (cl-loop for k in (hash-table-keys latte-roam--keywords)
 					collect
-					(progn
-					  ;; Space is not allowed in Org tags
-					  (when (s-contains? " " k)
-						(setq k (s-replace " " "_" k)))
-					  ;; '-' is also not allowed!
-					  (when (s-contains? "-" k)
-						(setq k (s-replace "-" "_" k)))
-					  ;; Return the processed keyword
-					  k))
-		   ;; Push the skip tag in case it is needed.
+					;; Replaces both spaces and hyphens with underscores in one go
+					(replace-regexp-in-string "[ -]" "_" k))
 		   (list latte-roam-skip-tag))))
 
 (defun latte-roam--scroll-handler (win start)
@@ -514,18 +500,18 @@ tags. Spaces and '-' are replaced by '_'."
 			   (description (or region-text
 								(org-roam-node-formatted node))))
 		  (when (org-roam-node-id node)
-			  (progn
-				(when region-text
-				  (delete-region beg end)
-				  (set-marker beg nil)
-				  (set-marker end nil))
-				(let ((id (org-roam-node-id node)))
-				  (insert (org-link-make-string
-						   (concat "id:" id)
-						   description))
-				  (run-hook-with-args 'org-roam-post-node-insert-hook
-									  id
-									  description))))))
+			(progn
+			  (when region-text
+				(delete-region beg end)
+				(set-marker beg nil)
+				(set-marker end nil))
+			  (let ((id (org-roam-node-id node)))
+				(insert (org-link-make-string
+						 (concat "id:" id)
+						 description))
+				(run-hook-with-args 'org-roam-post-node-insert-hook
+									id
+									description))))))
 	(deactivate-mark)))
 
 (defun latte-roam--complete-at-point ()
