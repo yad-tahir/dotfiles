@@ -124,12 +124,6 @@ globally.")
 (defconst latte-roam--process-name "*latte-roam-keyword-scanner*"
   "Holds the name of the process launched by `latte-roam--scan-keywords'.")
 
-(defconst latte-roam--text-change-line-margin 10
-  "This threshold is used by `latte-roam--after-change-function', which is a text
-  change listener. On text-changed events, Latte-Roam normally re-highlights the
-  modified text only. However, when the number of characters is less than this
-  threhold, Latte-Roam re-highlights the whole line instead.")
-
 ;;;
 ;;; Helpers
 ;;;
@@ -198,10 +192,9 @@ checking."
 (defun latte-roam--phrase-checker (phrase)
   "Returns t if PHRASE is a keyword."
 
-  (gethash (latte-roam--chop-keyword phrase) latte-roam--keywords))
+  (gethash phrase latte-roam--keywords))
 
 (defun latte-roam--highlight (&optional start end all-buffers)
-  ;; (message "latte-roam--highlight %s %s %s" start end all-buffers)
   (if all-buffers
 	  (dolist (buffer (buffer-list))
 		(latte-roam--make-overlays buffer start end))
@@ -219,10 +212,8 @@ The optional third argument END indicates ending position. Highlight must not
 occur after END. A value of nil means search from `(point-max)'."
 
   (with-current-buffer buffer
-	;; (message "start: make-overlays  %S %s %s %s" buffer start end  latte-roam-mode)
 	;; Check if the latte-mode mode is active
 	(when latte-roam-mode
-	  ;; (message "latte-roam--make-overlays  %s %s %s" buffer start end)
 	  (ignore-errors
 		(setq start (or start (point-min))
 			  end (min (or end (point-max)) (point-max)))
@@ -231,98 +222,66 @@ occur after END. A value of nil means search from `(point-max)'."
 			(save-restriction
 			  (narrow-to-region start end)
 			  ;; Go to starting point
-			  (goto-char (point-min))
 			  (latte-roam--delete-overlays nil start end)
+			  (maphash (lambda (key value)
+						 (goto-char start)
+						 (while (word-search-forward key nil t)
+						   (let ((match-beg (match-beginning 0))
+								 (match-end (match-end 0)))
 
-			  (let (w ;; The word found in the current search iteration
-					old-w ;; The word found in the previous search iteration
-					older-w ;; The word found in two search iterations ago
-					phrase
-					chopped-phrase) ;; Used to hold the chopped version of PHRASE
-				;; For each word
-				(while (and (< (point) (point-max))
-							(forward-word))
+							 (unless (and latte-roam-highlight-prog-comments
+										  (derived-mode-p 'prog-mode)
+										  ;; Comment section?
+										  ;; from https://github.com/blorbx/evil-quickscope
+										  (not (nth 4 (syntax-ppss)))
+										  (latte-roam--overlay-exists value match-beg match-end))
+							   (let ((o (make-overlay match-beg match-end)))
+								 (overlay-put o 'face 'latte-roam-keyword-face)
 
-				  ;; We can't use text property face as it is over-ruled by
-				  ;; font-lock highlighting. To solve this problem, we utilize
-				  ;; overlays since keywords have to be updated regularly, and a
-				  ;; keyword can even be part of multiple phrases. Having multiple
-				  ;; overlays with different priorities on top of the keyword
-				  ;; addresses these problems, given the fact that an overlay with
-				  ;; high priority overshadows the lower. In addition, utilizing
-				  ;; overlays reduces code complexity for re-highlighting nested
-				  ;; keywords when the parent phrase is destroyed.
+								 ;; Vanish when empty (deleted text):
+								 (overlay-put o 'evaporate t)
 
-				  ;; When latte-roam-highlight-prog-comments is on, overlays in prog-mode
-				  ;; must be inside comment sections only
-				  (unless (and latte-roam-highlight-prog-comments
-							   (derived-mode-p 'prog-mode)
-							   ;; Comment section?
-							   ;; from https://github.com/blorbx/evil-quickscope
-							   (not (nth 4 (syntax-ppss))))
+								 (overlay-put o 'keymap latte-roam-keyword-map)
+								 (overlay-put o 'mouse-face 'highlight)
+								 ;; Use the pure form to improve the quality of the
+								 ;; search when requested.
+								 (overlay-put o 'latte-roam-keyword value)
 
-					(setq older-w old-w
-						  old-w w
-						  w (downcase (substring-no-properties (or (word-at-point) "")))
-						  phrase nil)
+								 ;; The priority is calculated based on the number of the
+								 ;; characters. Thus, overlays with longer phrases are on
+								 ;; top.
+								 (overlay-put o 'priority (length key)))))))
 
-					;; Search for a keyword, which can be either: a phrase that
-					;; consists of two or three words, or a single word.
-					(cond
-					 ((setq chopped-phrase (latte-roam--phrase-checker
-											(concat older-w " " old-w " " w)))
-					  (setq phrase (concat older-w " " old-w " " w)))
+					   latte-roam--keywords))))))))
 
-					 ((setq chopped-phrase (latte-roam--phrase-checker
-											(concat old-w " " w)))
-					  (setq phrase (concat old-w " " w)))
+(defun latte-roam--pluralize (phrase)
+  "Return the plural form of PHRASE using standard English grammar rules.
 
-					 ((setq chopped-phrase (latte-roam--phrase-checker w))
-					  (setq phrase w)))
+Handles simple phrases like 'inverse element' -> 'inverse elements'."
+  (let ((case-fold-search t))
+	(cond
+	 ;; Common irregulars
+	 ((string-equal phrase "child") "children")
+	 ((string-equal phrase "person") "people")
+	 ((string-equal phrase "man") "men")
+	 ((string-equal phrase "woman") "women")
+	 ((string-equal phrase "tooth") "teeth")
+	 ((string-equal phrase "foot") "feet")
 
-					(when phrase
-					  (let* ((l (length phrase))
-							 (beginning (- (point) l))
-							 (end  (point)))
+	 ;; Words ending in s, x, z, ch, sh
+	 ;; FIX: Wrapped in \\(...\\) so $ applies to all alternatives
+	 ((string-match-p "\\([sxz]\\|ch\\|sh\\)$" phrase)
+	  (concat phrase "es"))
 
-						(unless (latte-roam--overlay-exists chopped-phrase beginning end)
-						  (let ((o (make-overlay beginning end)))
-							;; (message "make an actual overlay")
-							(overlay-put o 'face 'latte-roam-keyword-face)
-							;; On text modification under the overlay
-							(overlay-put o
-										 'modification-hooks
-										 '((lambda (overlay &rest args)
-											 ;; delete the overlay. Re-drawing will
-											 ;; occur later if the new text is still
-											 ;; a member of 'latte-roam--keywords'
-											 (delete-overlay overlay))))
+	 ;; Words ending in consonant + y
+	 ((string-match-p "[^aeiou]y$" phrase)
+	  (concat (substring phrase 0 -1) "ies"))
 
-							(overlay-put o 'keymap latte-roam-keyword-map)
-							(overlay-put o 'mouse-face 'highlight)
-							;; Use the pure form to improve the quality of the
-							;; search when requested.
-							(overlay-put o 'latte-roam-keyword chopped-phrase)
+	 ;; Words ending in f or fe; remove f/fe, add "ves"
+	 ((string-match-p "\\(li\\|wi\\|lo\\|lea\\|shel\\|thie\\)fe?$" phrase)
+	  (replace-regexp-in-string "fe?$" "ves" phrase))
 
-							;; The priority is calculated based on the number of the
-							;; characters. Thus, overlays with longer phrases are on
-							;; top.
-							(overlay-put o 'priority l)))))))))))))))
-
-(defun latte-roam--chop-keyword (keyword)
-  "Removes meta characters from KEYWORD such as `ies', `es' and `s', which are
-commonly found in plural nouns."
-  (cond
-   ((string-suffix-p "ies" keyword)
-	(substring keyword 0 -3))
-   ((string-suffix-p "es" keyword)
-	(substring keyword 0 -2))
-   ((string-suffix-p "s" keyword)
-	(substring keyword 0 -1))
-   ((and latte-roam-predict-other-forms
-		 (string-suffix-p "y" keyword))
-	(substring keyword 0 -1))
-   (t keyword)))
+	 (t (concat phrase "s")))))
 
 (defun latte-roam--add-keyword (keyword)
   "Called internally to add KEYWORD to `latte-roam--keywords'.
@@ -334,55 +293,8 @@ commonly found in plural nouns."
   (unless (or (gethash keyword latte-roam--keywords)
 			  (member keyword latte-roam-ignore-words))
 	;; Add KEYWORD along with all possible chopped forms
-	(cl-loop for k in
-			 (list keyword
-				   ;; Play with '-' to address cases such as well-done and
-				   ;; well done
-				   (replace-regexp-in-string "-" " " keyword t t)
-				   ;; '_' makes the keyword org-tag friendly. Add the
-				   ;; non-friendly forms as they are mostly likely used in
-				   ;; normal English writing.
-				   (replace-regexp-in-string "_" " " keyword t t)
-				   (replace-regexp-in-string "_" "-" keyword t t))
-			 do
-			 ;; Add the non-chopped version
-			 (puthash k k latte-roam--keywords)
-
-			 ;; Also include the chopped form, which is more useful. During
-			 ;; highlighting, the chopped form is strongly preferred as it allows
-			 ;; Latte-Roam to abstract meta characters from plural nouns. For instance,
-			 ;; if the original keyword is 'symbols', the chopped form allows Latte-Roam
-			 ;; to highlight the word 'symbol' (singular) as well. The same can be
-			 ;; said for the words 'boxes' and 'box'.
-			 (puthash (latte-roam--chop-keyword k)
-					  (latte-roam--chop-keyword k)
-					  latte-roam--keywords)
-
-			 (when latte-roam-predict-other-forms
-			   ;; Handle a few well-known, special cases:
-			   (cond ((string-suffix-p "ies" k)
-					  ;; Address cases like 'baby' and 'babies'.
-					  (puthash (concat (latte-roam--chop-keyword k) "y")
-							   (latte-roam--chop-keyword k)
-							   latte-roam--keywords))
-
-					 ((string-suffix-p "es" k)
-					  ;; Normally, 'es' should be chopped. However, there are a
-					  ;; considerable amount of cases in which you need to keep the 'e',
-					  ;; e.g. 'tables' and 'table'.
-					  (puthash (concat (latte-roam--chop-keyword k) "e")
-							   (latte-roam--chop-keyword k)
-							   latte-roam--keywords)))
-
-			   ;; Include possible plural forms in case k is in its
-			   ;; singular form.
-			   (unless (string-suffix-p "s" k)
-				 (puthash (concat k "es")
-						  (latte-roam--chop-keyword k)
-						  latte-roam--keywords)
-				 (puthash (concat k "s")
-						  (latte-roam--chop-keyword k)
-						  latte-roam--keywords))))))
+	(puthash keyword keyword latte-roam--keywords)
+	(puthash (latte-roam--pluralize keyword) keyword latte-roam--keywords)))
 
 (defun latte-roam--kill-processes ()
   "Terminate the process launched by `latte-roam--keywords-check'."
@@ -417,7 +329,6 @@ triggers `latte-roam-scan-keywords' after some db modification."
 (defun latte-roam--db-sync (org-fn &rest args)
   "An advice function that runs around `org-roam-db-sync' to trigger
 `latte-roam-scan-keywords' after every db re-sync."
-  ;; (message "latte-roam--db-sync %s" org-fn)
   (ignore-errors
 	(prog1
 		(funcall org-fn args)
@@ -439,16 +350,12 @@ triggers `latte-roam-scan-keywords' after some db modification."
 		(word-at-point)
 		"")))
 
-(defun latte-roam--after-change-function (beginning end &optional old-len)
+(defun latte-roam--after-change-function (beginning end &optional _old-len)
   "Highlight new keywords text modification events occur."
-
-  (ignore old-len)
-  ;; The different between BIGINNING and END can be as small as one character.
-  (when (< (- end beginning) latte-roam--text-change-line-margin)
-	;; Scan the whole line instead
-	(setq beginning (line-beginning-position)
-		  end (line-end-position)))
-  (latte-roam--highlight beginning end))
+  (save-excursion
+	(goto-char beginning)
+	;; redraw the entire line
+	(latte-roam--highlight (line-beginning-position) (line-end-position))))
 
 (defun latte-roam--after-revert-function ()
   "Re-highlight keywords when revert events occur."
