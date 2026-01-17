@@ -94,18 +94,13 @@ adds the words `table' and `symbol' when it finds the keywords
 
 
 ;;; Internal variables
-(defvar-local latte-roam--prev-start-win 0
-  "Holds window start position before scrolling.")
-
-(defvar-local latte-roam--prev-end-win 0
-  "Holds window end position before scrolling.")
 
 (defvar latte-roam--keywords (make-hash-table :test 'equal)
   "Holds list of keywords.
 
 This global data structure is modified primarily by `latte-roam--db-modified'.
 
-Both `latte-roam--highlight' and `latte-roam--delete-overlays' use this list
+Both `latte-roam--highlight-buffer' and `latte-roam--delete-overlays' use this list
 to update UI accordingly.")
 
 (defvar latte-roam--initialized nil
@@ -140,23 +135,15 @@ checking."
 	  ;; For each overlay
 	  (while (not (null latte-roam--overlays))
 		(let* ((o (car latte-roam--overlays))
-			   (min (overlay-start o))
-			   (end (overlay-end o))
-			   (f (overlay-get o 'face))
-			   (keyword (downcase (buffer-substring-no-properties min end))))
+			   (o-start (overlay-start o))
+			   (o-end (overlay-end o))
+			   (o-f (overlay-get o 'face))
+			   (keyword (downcase (buffer-substring-no-properties o-start o-end))))
 		  ;; Make sure it belongs to us
 		  (when (or force
-					(and (equal f 'latte-roam-keyword-face)
+					(and (equal o-f 'latte-roam-keyword-face)
 						 ;; Check if it still points at a keyword
-						 (not (gethash keyword latte-roam--keywords)))
-					;; Check if it is truly the end of a word
-					(save-excursion
-					  (ignore-errors
-						(goto-char end)
-						(end-of-thing 'word)
-						(not (equal end (point))))))
-
-			;; If not
+						 (not (gethash keyword latte-roam--keywords))))
 			(delete-overlay o))
 
 		  (setq latte-roam--overlays (cdr latte-roam--overlays)))))))
@@ -180,11 +167,19 @@ checking."
 
   (gethash phrase latte-roam--keywords))
 
-(defun latte-roam--highlight (&optional start end all-buffers)
-  (if all-buffers
-	  (dolist (buffer (buffer-list))
-		(latte-roam--make-overlays buffer start end))
-	(latte-roam--make-overlays (current-buffer) start end)))
+(defun latte-roam--highlight-buffers ()
+  (dolist (buffer (buffer-list))
+	(latte-roam--highlight-buffer nil nil buffer)))
+
+(defun latte-roam--highlight-buffer (&optional start end buffer)
+  (setq buffer (or buffer (current-buffer)))
+
+  (with-current-buffer buffer
+	(when (bound-and-true-p latte-roam-mode)
+	  (when-let ((b-win (get-buffer-window)))
+		(let ((b-start (or start (window-start b-win)))
+			  (b-end (or end (window-end b-win t))))
+		  (latte-roam--make-overlays buffer b-start b-end))))))
 
 (defun latte-roam--make-overlays (buffer &optional start end)
   "Highlights all the instances of KEYWORD in the current buffer. For each
@@ -197,48 +192,47 @@ The optional third argument END indicates ending position. Highlight must not
 occur after END. A value of nil means search from `(point-max)'."
 
   (with-current-buffer buffer
-	(when latte-roam-mode
-	  (ignore-errors
-		(setq start (or start (point-min))
-			  end (min (or end (point-max)) (point-max)))
-		(save-restriction
-		  (save-mark-and-excursion
-			(with-silent-modifications
-			  (narrow-to-region start end)
-			  ;; Go to starting point
-			  (latte-roam--delete-overlays nil start end)
-			  (maphash (lambda (key value)
-						 (goto-char start)
-						 (while (word-search-forward key nil t)
-						   (let ((match-beg (match-beginning 0))
-								 (match-end (match-end 0)))
+	(ignore-errors
+	  (setq start (or start (point-min))
+			end (min (or end (point-max)) (point-max)))
+	  (save-restriction
+		(save-mark-and-excursion
+		  (with-silent-modifications
+			(narrow-to-region start end)
+			;; Go to starting point
+			(latte-roam--delete-overlays nil start end)
+			(maphash (lambda (key value)
+					   (goto-char start)
+					   (while (word-search-forward key nil t)
+						 (let ((match-beg (match-beginning 0))
+							   (match-end (match-end 0)))
 
-							 (unless (or (latte-roam--overlay-exists value match-beg match-end)
-										 (and (derived-mode-p 'org-mode)
-											  (eq (org-element-type (org-element-context)) 'link))
-										 (and latte-roam-highlight-prog-comments
-											  (derived-mode-p 'prog-mode)
-											  ;; Comment section?
-											  ;; from https://github.com/blorbx/evil-quickscope
-											  (not (nth 4 (syntax-ppss)))))
-							   (let ((o (make-overlay match-beg match-end)))
-								 (overlay-put o 'face 'latte-roam-keyword-face)
+						   (unless (or (latte-roam--overlay-exists value match-beg match-end)
+									   (and (derived-mode-p 'org-mode)
+											(eq (org-element-type (org-element-context)) 'link))
+									   (and latte-roam-highlight-prog-comments
+											(derived-mode-p 'prog-mode)
+											;; Comment section?
+											;; from https://github.com/blorbx/evil-quickscope
+											(not (nth 4 (syntax-ppss)))))
+							 (let ((o (make-overlay match-beg match-end)))
+							   (overlay-put o 'face 'latte-roam-keyword-face)
 
-								 ;; Vanish when empty (deleted text):
-								 (overlay-put o 'evaporate t)
+							   ;; Vanish when empty (deleted text):
+							   (overlay-put o 'evaporate t)
 
-								 (overlay-put o 'keymap latte-roam-keyword-map)
-								 (overlay-put o 'mouse-face 'highlight)
-								 ;; Use the pure form to improve the quality of the
-								 ;; search when requested.
-								 (overlay-put o 'latte-roam-keyword value)
+							   (overlay-put o 'keymap latte-roam-keyword-map)
+							   (overlay-put o 'mouse-face 'highlight)
+							   ;; Use the pure form to improve the quality of the
+							   ;; search when requested.
+							   (overlay-put o 'latte-roam-keyword value)
 
-								 ;; The priority is calculated based on the number of the
-								 ;; characters. Thus, overlays with longer phrases are on
-								 ;; top.
-								 (overlay-put o 'priority (length key)))))))
+							   ;; The priority is calculated based on the number of the
+							   ;; characters. Thus, overlays with longer phrases are on
+							   ;; top.
+							   (overlay-put o 'priority (length key)))))))
 
-					   latte-roam--keywords))))))))
+					 latte-roam--keywords)))))))
 
 (defun latte-roam--pluralize (phrase)
   "Return the plural form of PHRASE using standard English grammar rules.
@@ -282,21 +276,14 @@ Handles simple phrases like 'inverse element' -> 'inverse elements'."
 	(puthash keyword keyword latte-roam--keywords)
 	(puthash (latte-roam--pluralize keyword) keyword latte-roam--keywords)))
 
-(defun latte-roam--process-node (node)
-  "Extract the keywords from the given `node' and update `latte-roam--keywords'
-accordingly.
-
-Currently, we are treating the title and the tags of the given node as keywords."
-
-  (latte-roam--add-keyword (downcase (org-roam-node-title node))))
-
 (defun latte-roam--db-modified (&rest args)
-  "Uses org-roam database to updates `latte-roam--keywords'."
+  "Use org-roam database to updates `latte-roam--keywords'. "
 
   (setq latte-roam--keywords (make-hash-table :test 'equal))
-  (mapcar #'latte-roam--process-node
+  (mapcar #'(lambda (node)
+			  (latte-roam--add-keyword (downcase (org-roam-node-title node))))
 		  (org-roam-node-list))
-  (latte-roam--highlight nil nil t)
+  (latte-roam--highlight-buffers)
   t)
 
 (defun latte-roam--keyword-at-point ()
@@ -319,43 +306,18 @@ Currently, we are treating the title and the tags of the given node as keywords.
   (save-excursion
 	(goto-char beginning)
 	;; redraw the entire line
-	(latte-roam--highlight (line-beginning-position) (line-end-position))))
+	(latte-roam--highlight-buffer (line-beginning-position) (line-end-position))))
 
 (defun latte-roam--after-revert-function (&rest args)
   "Re-highlight keywords when revert events occur."
-  (latte-roam--highlight))
-
-(defun latte-roam--keywords-taggable ()
-  "Go through `latte-roam--keywords' to generate a list of keywords usable as Org
-tags. Spaces and '-' are replaced by '_'."
-  (delete-dups
-   (append (cl-loop for k in (hash-table-keys latte-roam--keywords)
-					collect
-					;; Replaces both spaces and hyphens with underscores in one go
-					(replace-regexp-in-string "[ -]" "_" k))
-		   (list latte-roam-skip-tag))))
+  (latte-roam--highlight-buffer))
 
 (defun latte-roam--scroll-handler (win start)
-  "Called when scroll events occur."
-  (let ((diff (- start latte-roam--prev-start-win ))
-		(end (window-end win t)))
-	(if (> diff 0)
-		;; Going down
-		(progn
-		  ;; Full window highlight if it is a large jump
-		  (if (>= start latte-roam--prev-end-win)
-			  (latte-roam--highlight start end)
-			;; Otherwise, highlight partially
-			(latte-roam--highlight latte-roam--prev-end-win end)))
-	  ;; Going up
-	  (progn
-		;; Full window highlight if it is a large jump
-		(if (< end latte-roam--prev-start-win)
-			(latte-roam--highlight start end)
-		  ;; Otherwise, highlight partially
-		  (latte-roam--highlight start latte-roam--prev-start-win))))
-	(setq latte-roam--prev-start-win start
-		  latte-roam--prev-end-win end)))
+  "Called when window scroll events occur.
+
+This function is also triggered when a window is just attached to a buffer."
+
+  (latte-roam--highlight-buffer (window-start win) (window-end win t)))
 
 (defun latte-roam--node-insert (keyword)
   (unwind-protect
