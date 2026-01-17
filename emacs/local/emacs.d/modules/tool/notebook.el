@@ -22,6 +22,8 @@
   :ensure t
   :commands (org-roam-node-find org-roam-capture
 								org-roam-node-insert
+								do-org-roam-files
+								do-org-roam-grep
 								do-org-roam-sync
 								do-org-roam-insert)
   :preface
@@ -47,6 +49,8 @@
    "SPC n" '(:ignore t :which-key "notes")
    "SPC ns" 'org-roam-node-find
    "SPC sn" 'org-roam-node-find
+   "SPC nf" 'do-org-roam-files
+   "SPC ng" 'do-org-roam-grep
    "SPC nl" 'do-org-roam-insert
    "SPC nL" 'do-org-roam-insert-immediate
    "SPC nc" 'org-roam-capture
@@ -80,6 +84,11 @@
 
   :config
   (require 'org-capture)
+  (require 'org-roam)
+  (require 'evil)
+  (require 'counsel)
+  (require 'org-roam-protocol)
+
   (setq org-roam-directory (expand-file-name "~/notes/notebook")
 		org-roam-completion-everywhere t ;; completion-at-point
 		org-roam-node-display-template "${downtitle}" ;;remove case sensitivity. Check 'org-roam-node-downtitle' in this file
@@ -125,14 +134,13 @@
 	"Refresh Org-Roam's database."
 	(interactive)
 	(make-thread
-	 (org-roam-db-sync t) "org-roam db sync"))
+	 (org-roam-db-sync nil) "org-roam db sync"))
 
   ;; launch an idle timer to keep org-roam db sync with note files
   (run-with-idle-timer 300 t #'do-org-roam-sync)
 
   (org-roam-db-autosync-mode t)
 
-  (require 'evil)
   (evil-define-operator do-org-roam-insert (beginning end &optional type)
 	(ignore type)
 	(save-excursion
@@ -151,7 +159,46 @@
 	(interactive)
 	(org-roam-capture- :keys "f"  :node (org-roam-node-create)))
 
-  (require 'org-roam-protocol))
+  (defun do-org-roam-files ()
+	"Gets list of note files along with their headers."
+	(interactive)
+	;; Only matches files containing the input (%s) AND ending in .org
+	(let ((counsel-fzf-cmd "rg --color never --files -g '*%s*'"))
+	  (counsel-fzf nil org-roam-directory "Note files ")))
+
+  (defun do-org-roam-grep (&optional init-input)
+	"Interactively search through the notes' text. INIT-INPUT can be passed as the
+  initial grep query."
+
+	(interactive)
+	;; Pass a regex to ask ag to discard org metadata.
+	;;^[] beginning of the line
+	;;[^] not
+	;; * zero or more char
+	;;(counsel-ag "^[^#]\|[ ]*[^:] " "~/notes" "--nomultiline" )
+	(unless (fboundp 'counsel)
+	  (require 'counsel))
+	(setq init-input (or init-input ""))
+	(counsel-rg init-input org-roam-directory "-t org"
+				"In-text Search "))
+
+  (defun do--auto-revert-note-files ()
+	(let ((file (buffer-file-name)))
+	  (when (and file
+				 (file-in-directory-p file org-roam-directory))
+		(auto-revert-mode 1))))
+  (add-hook 'find-file-hook #'do--auto-revert-note-files)
+
+  (defun do--org-reveal-drawers-in-notes ()
+	"If the current Org file is a note, expand all drawers and properties."
+	(require 'org-fold)
+	(let ((file (buffer-file-name)))
+	  (when (and file
+				 (file-in-directory-p file org-roam-directory))
+		(save-excursion
+		  (goto-char (point-min))
+		  (org-fold-show-all)))))
+  (add-hook 'org-mode-hook #'do--org-reveal-drawers-in-notes))
 
 (use-package org-roam-ui
   :ensure t
@@ -165,66 +212,11 @@
   (org-roam-ui-mode 1))
 
 (use-package latte-roam
-  :defer 5
+  :after org-roam
   :load-path "local-packages/latte-roam"
   :hook ((text-mode . latte-roam-mode)
 		 (prog-mode . latte-roam-mode))
-
-  :commands (latte-roam-files
-			 latte-roam-grep)
-  :init
-  (general-define-key
-   :keymaps 'override
-   :states '(normal visual)
-   "SPC n" '(:ignore t :which-key "notes")
-   "SPC nf" 'latte-roam-files
-   "SPC ng" 'latte-roam-grep)
-
   :config
-  (require 'org-roam)
-  (require 'counsel)
-
-  (setq latte-roam-directory org-roam-directory
-		latte-roam-ignore-words '("attach"))
-
-  (defun latte-roam-files ()
-	"Gets list of note files along with their headers."
-	(interactive)
-	(let ((counsel-fzf-cmd "rg --color never --files -g '*%s*'"))
-	  (counsel-fzf nil latte-roam-directory "Note files ")))
-
-  (defun latte-roam-grep (&optional init-input)
-	"Interactively search through the notes' text. INIT-INPUT can be passed as the
-  initial grep query."
-
-	(interactive)
-	;; Pass a regex to ask ag to discard org metadata.
-	;;^[] beginning of the line
-	;;[^] not
-	;; * zero or more char
-	;;(counsel-ag "^[^#]\|[ ]*[^:] " "~/notes" "--nomultiline" )
-	(unless (fboundp 'counsel)
-	  (require 'counsel))
-	(setq init-input (or init-input ""))
-	(counsel-rg init-input latte-roam-directory "-t org"
-				"In-text Search "))
-
-  (defun do--auto-revert-note-files ()
-	(let ((file (buffer-file-name)))
-	  (when (and file
-				 (file-in-directory-p file latte-roam-directory))
-		(auto-revert-mode 1))))
-  (add-hook 'find-file-hook #'do--auto-revert-note-files)
-
-  (defun do--org-reveal-drawers-in-notes ()
-	"If the current Org file is a note, expand all drawers and properties."
-	(require 'org-fold)
-	(let ((file (buffer-file-name)))
-	  (when (and file
-				 (file-in-directory-p file latte-roam-directory))
-		(save-excursion
-		  (goto-char (point-min))
-		  (org-fold-show-all)))))
-  (add-hook 'org-mode-hook #'do--org-reveal-drawers-in-notes))
+  (setq latte-roam-ignore-words '("attach")))
 
 (provide 'do-notebook)
