@@ -44,45 +44,26 @@
 ;;; Code:
 
 (require 'org-roam)
+(require 'seq)
 
 (defgroup latte-roam nil "A simple notebook manager with auto highlighting built on
 top of the beloved Org-mode." :group 'latte-roam)
-
-(defcustom latte-roam-directory org-roam-directory
-  "Directory in which note files are stored."
-  :group 'latte-roam
-  :type 'directory)
 
 (defcustom latte-roam-highlight-prog-comments t
   "If enabled (t), highlight keywords in prog-mode comment sections only."
   :group 'latte-roam
   :type 'boolean)
 
-(defcustom latte-roam-skip-tag "skip"
-  "Applying this tag to an Org header makes latte-roam skip processing it."
-  :group 'latte-roam
-  :type 'string)
-
 (defcustom latte-roam-ignore-words '()
   "The words in the list will not be treated as keywords"
   :group 'latte-roam
   :type '(repeat string))
 
-(defcustom  latte-roam-predict-other-forms t
-  "If t, Latte-Roam guesses other forms associated with a keyword.
-
-Setting this option allows Latte-Roam to add other possible word forms,
-such as predicting singular and/or plural forms. For instance, Latte-Roam
-adds the words `table' and `symbol' when it finds the keywords
-`tables' and `symbols', respectively."
-  :group 'latte-roam
-  :type 'boolean)
-
 (defvar latte-roam-keyword-map
   (let ((map (make-sparse-keymap)))
 	(define-key map (kbd "<mouse-1>") 'latte-roam-open-at-point)
 	(define-key map (kbd "<RET>") 'latte-roam-open-at-point)
-	(define-key map (kbd "<M-RET>") 'latte-roam--complete-at-point)
+	(define-key map (kbd "<M-RET>") 'latte-roam-complete-at-point)
 	map)
 
   "Keymap for highlighted keywords.")
@@ -145,7 +126,6 @@ When FORCE is non-nil, keyword checking is not performed. The overlay deleted im
 		   (o-end (overlay-end o))
 		   (o-f (overlay-get o 'face))
 		   (keyword (downcase (buffer-substring-no-properties o-start o-end))))
-	  ;; Make sure it belongs to us
 	  (when (or force
 				(and (equal o-f 'latte-roam-keyword-face)
 					 ;; Check if it still points at a keyword
@@ -225,7 +205,6 @@ occur after END. A value of nil means search from `(point-max)'."
 
 							   ;; Vanish when empty (deleted text):
 							   (overlay-put o 'evaporate t)
-
 							   (overlay-put o 'keymap latte-roam-keyword-map)
 							   (overlay-put o 'mouse-face 'highlight)
 							   ;; Use the pure form to improve the quality of the
@@ -281,16 +260,6 @@ Handles simple phrases like 'inverse element' -> 'inverse elements'."
 	(puthash keyword keyword latte-roam--keywords)
 	(puthash (latte-roam--pluralize keyword) keyword latte-roam--keywords)))
 
-(defun latte-roam--db-modified (&rest args)
-  "Use org-roam database to updates `latte-roam--keywords'. "
-
-  (setq latte-roam--keywords (make-hash-table :test 'equal))
-  (mapcar #'(lambda (node)
-			  (latte-roam--add-keyword (downcase (org-roam-node-title node))))
-		  (org-roam-node-list))
-  (latte-roam--highlight-buffers)
-  t)
-
 (defun latte-roam--keyword-at-point ()
   "Return the highlighted keyword at point."
 
@@ -305,6 +274,16 @@ Handles simple phrases like 'inverse element' -> 'inverse elements'."
 		  (buffer-substring-no-properties (region-beginning) (region-end)))
 		(word-at-point)
 		"")))
+
+(defun latte-roam--db-modified (&rest args)
+  "Use org-roam database to updates `latte-roam--keywords'. "
+
+  (setq latte-roam--keywords (make-hash-table :test 'equal))
+  (mapcar #'(lambda (node)
+			  (latte-roam--add-keyword (downcase (org-roam-node-title node))))
+		  (org-roam-node-list))
+  (latte-roam--highlight-buffers)
+  t)
 
 (defun latte-roam--after-change-function (beginning end &optional _old-len)
   "Highlight new keywords text modification events occur."
@@ -345,58 +324,61 @@ This function is also triggered when a window is just attached to a buffer."
 		  latte-roam--prev-end-win end
 		  latte-roam--prev-win win)))
 
-(defun latte-roam--node-insert (keyword)
+(defun latte-roam--node-link-insert (keyword &optional beg end)
+  "Insert an Org-roam node link.
 
-  (unwind-protect
-	  ;; Group functions together to avoid inconsistent state on quit
+If BEG and END are provided, replace the text in that range.
+If not, but the region is active, replace the active region.
+Otherwise, insert at point.
+
+KEYWORD is used as the initial input for the node search."
+  (let* ((use-region (and (not beg) (region-active-p)))
+		 (start (if use-region (region-beginning) beg))
+		 (final (if use-region (region-end) end))
+		 (replace-p (and start final))
+		 (original-text (when replace-p
+						  (org-link-display-format
+						   (buffer-substring-no-properties start final))))
+		 ;; We gather all user input BEFORE starting the atomic change group.
+		 (node (org-roam-node-read keyword nil))
+		 (description (or original-text
+						  (org-roam-node-formatted node))))
+
+	(when (org-roam-node-id node)
 	  (atomic-change-group
-		(let* (region-text
-			   beg end
-			   (_ (when (region-active-p)
-					(setq beg (set-marker (make-marker) (region-beginning)))
-					(setq end (set-marker (make-marker) (region-end)))
-					(setq region-text (org-link-display-format (buffer-substring-no-properties beg end)))))
-			   (node (org-roam-node-read keyword nil))
-			   (description (or region-text
-								(org-roam-node-formatted node))))
-		  (when (org-roam-node-id node)
-			(progn
-			  (when region-text
-				(delete-region beg end)
-				(set-marker beg nil)
-				(set-marker end nil))
-			  (let ((id (org-roam-node-id node)))
-				(insert (org-link-make-string
-						 (concat "id:" id)
-						 description))
-				(run-hook-with-args 'org-roam-post-node-insert-hook
-									id
-									description))))))
-	(deactivate-mark)))
+		(when replace-p
+		  (delete-region start final))
 
-(defun latte-roam--complete-at-point ()
-  "Places a link for the node for the overlay at point."
+		(insert (org-link-make-string
+				 (concat "id:" (org-roam-node-id node))
+				 description))
 
+		;; Trigger hooks
+		(run-hook-with-args 'org-roam-post-node-insert-hook
+							(org-roam-node-id node)
+							description))
+
+	  ;; Only deactivate the mark if we implicitly used the user's active region.
+	  ;; If we used explicit BEG/END args, we leave the user's cursor state alone.
+	  (when use-region
+		(deactivate-mark)))))
+
+(defun latte-roam-complete-at-point (&optional point)
+  "Places a link for the node for the overlay at POINT.
+
+If POINT is nil, then the current cursor position will be used."
   (interactive)
-  (let ((p (overlays-at (point) t))
-		(start nil)
-		(end nil)
-		(keyword nil)
-		(ignore nil))
-	(dolist (o p)
-	  (unless ignore
-		(when-let (k (overlay-get o 'latte-roam-keyword))
-		  (setq keyword k
-				start (overlay-start o)
-				end (overlay-end o)
-				ignore t))))
+  (setq point (or point (point)))
+  (save-excursion
+	(goto-char point)
+	;; Use seq-find to safely locate the specific overlay
+	(if-let ((overlay (seq-find (lambda (o) (overlay-get o 'latte-roam-keyword))
+								(overlays-at (point)))))
+		(latte-roam--node-link-insert (overlay-get overlay 'latte-roam-keyword)
+								 (overlay-start overlay)
+								 (overlay-end overlay))
+	  (message "No latte-roam overlay found at point."))))
 
-	(save-excursion
-	  (set-mark start)
-	  (goto-char end)
-	  (latte-roam--node-insert keyword))))
-
-;;;
 ;;; Minor mode
 ;;;
 
