@@ -103,7 +103,8 @@ adds the words `table' and `symbol' when it finds the keywords
 (defvar latte-roam--keywords (make-hash-table :test 'equal)
   "Holds list of keywords.
 
-This global data structure is modified primarily by `latte-roam--scan-keywords'.
+This global data structure is modified primarily by `latte-roam--db-modified'.
+
 Both `latte-roam--highlight' and `latte-roam--delete-overlays' use this list
 to update UI accordingly.")
 
@@ -113,9 +114,6 @@ to update UI accordingly.")
 This variable is used to ensure only one instance of the timers exists
 globally.")
 
-(defconst latte-roam--process-name "*latte-roam-keyword-scanner*"
-  "Holds the name of the process launched by `latte-roam--scan-keywords'.")
-
 ;;;
 ;;; Helpers
 ;;;
@@ -123,10 +121,6 @@ globally.")
 (defun latte-roam--change-major-mode ()
   "Called internally when the major mode has changed in the current buffer."
 
-  ;; Kill the scanning process if it exists to avoid creating new overlays.
-  (latte-roam--kill-processes)
-  ;; Delete all old overlays to ensure that the 'latte-roam-highlight-prog-comments'
-  ;; setting works.
   (latte-roam--delete-overlays t))
 
 (defun latte-roam--delete-overlays (&optional force start end)
@@ -192,7 +186,6 @@ checking."
 		(latte-roam--make-overlays buffer start end))
 	(latte-roam--make-overlays (current-buffer) start end)))
 
-
 (defun latte-roam--make-overlays (buffer &optional start end)
   "Highlights all the instances of KEYWORD in the current buffer. For each
   instance, this function creates a clickable overlay.
@@ -204,14 +197,13 @@ The optional third argument END indicates ending position. Highlight must not
 occur after END. A value of nil means search from `(point-max)'."
 
   (with-current-buffer buffer
-	;; Check if the latte-mode mode is active
 	(when latte-roam-mode
 	  (ignore-errors
 		(setq start (or start (point-min))
 			  end (min (or end (point-max)) (point-max)))
-		(save-mark-and-excursion
-		  (with-silent-modifications
-			(save-restriction
+		(save-restriction
+		  (save-mark-and-excursion
+			(with-silent-modifications
 			  (narrow-to-region start end)
 			  ;; Go to starting point
 			  (latte-roam--delete-overlays nil start end)
@@ -221,12 +213,14 @@ occur after END. A value of nil means search from `(point-max)'."
 						   (let ((match-beg (match-beginning 0))
 								 (match-end (match-end 0)))
 
-							 (unless (and latte-roam-highlight-prog-comments
-										  (derived-mode-p 'prog-mode)
-										  ;; Comment section?
-										  ;; from https://github.com/blorbx/evil-quickscope
-										  (not (nth 4 (syntax-ppss)))
-										  (latte-roam--overlay-exists value match-beg match-end))
+							 (unless (or (latte-roam--overlay-exists value match-beg match-end)
+										 (and (derived-mode-p 'org-mode)
+											  (eq (org-element-type (org-element-context)) 'link))
+										 (and latte-roam-highlight-prog-comments
+											  (derived-mode-p 'prog-mode)
+											  ;; Comment section?
+											  ;; from https://github.com/blorbx/evil-quickscope
+											  (not (nth 4 (syntax-ppss)))))
 							   (let ((o (make-overlay match-beg match-end)))
 								 (overlay-put o 'face 'latte-roam-keyword-face)
 
@@ -288,13 +282,6 @@ Handles simple phrases like 'inverse element' -> 'inverse elements'."
 	(puthash keyword keyword latte-roam--keywords)
 	(puthash (latte-roam--pluralize keyword) keyword latte-roam--keywords)))
 
-(defun latte-roam--kill-processes ()
-  "Terminate the process launched by `latte-roam--keywords-check'."
-
-  (let ((proc (get-process  latte-roam--process-name)))
-	(when proc
-	  (delete-process proc))))
-
 (defun latte-roam--process-node (node)
   "Extract the keywords from the given `node' and update `latte-roam--keywords'
 accordingly.
@@ -303,7 +290,7 @@ Currently, we are treating the title and the tags of the given node as keywords.
 
   (latte-roam--add-keyword (downcase (org-roam-node-title node))))
 
-(defun latte-roam--scan-keywords (&rest args)
+(defun latte-roam--db-modified (&rest args)
   "Uses org-roam database to updates `latte-roam--keywords'."
 
   (setq latte-roam--keywords (make-hash-table :test 'equal))
@@ -311,12 +298,6 @@ Currently, we are treating the title and the tags of the given node as keywords.
 		  (org-roam-node-list))
   (latte-roam--highlight nil nil t)
   t)
-
-(defun latte-roam--db-modified (&rest args)
-  "Runs after some functions in org-roam. This function
-triggers `latte-roam-scan-keywords' after some db modification."
-
-  (latte-roam--scan-keywords))
 
 (defun latte-roam--keyword-at-point ()
   "Return the highlighted keyword at point."
@@ -450,14 +431,13 @@ tags. Spaces and '-' are replaced by '_'."
 
 		;; Globally exec once
 		(unless latte-roam--initialized
-		  (latte-roam--scan-keywords)
 		  (advice-add 'org-roam-db-update-file :after #'latte-roam--db-modified)
 		  (advice-add 'org-roam-db-insert-file :after  #'latte-roam--db-modified)
-		  (advice-add 'org-roam-db-clear-all :after  #'latte-roam--db-modified)
 		  (advice-add 'org-roam-db-clear-file :after  #'latte-roam--db-modified)
 		  (advice-add 'org-roam-db-update-file :after  #'latte-roam--db-modified)
 		  (advice-add 'org-roam-db-sync :after #'latte-roam--db-modified)
 
+		  (latte-roam--db-modified)
 		  (setq latte-roam--initialized t)))
 
 	(progn ;;off
@@ -470,30 +450,6 @@ tags. Spaces and '-' are replaced by '_'."
 	  (remove-hook 'after-change-functions 'latte-roam--after-change-function t)
 	  (remove-hook 'change-major-mode-hook 'latte-roam--change-major-mode t)))
   t)
-
-;;;###autoload
-(defun latte-roam-grep (&optional init-input)
-  "Interactively search through the notes' text. INIT-INPUT can be passed as the
-  initial grep query."
-
-  (interactive)
-  ;; Pass a regex to ask ag to discard org metadata.
-  ;;^[] beginning of the line
-  ;;[^] not
-  ;; * zero or more char
-  ;;(counsel-ag "^[^#]\|[ ]*[^:] " "~/notes" "--nomultiline" )
-  (unless (fboundp 'counsel)
-	(require 'counsel))
-  (setq init-input (or init-input ""))
-  (counsel-rg init-input latte-roam-directory "-t org"
-			  "In-text Search "))
-
-;;;###autoload
-(defun latte-roam-files ()
-  "Gets list of note files along with their headers."
-  (interactive)
-  (let ((counsel-fzf-cmd "rg --color never --files -g '*%s*'"))
-	(counsel-fzf nil latte-roam-directory "Note files ")))
 
 ;;;###autoload
 (defun latte-roam-open-at-point ()

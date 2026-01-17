@@ -182,9 +182,32 @@
 
   :config
   (require 'org-roam)
+  (require 'counsel)
+
   (setq latte-roam-directory org-roam-directory
-		latte-roam-scan-idle-delay 20
 		latte-roam-ignore-words '("attach"))
+
+  (defun latte-roam-files ()
+	"Gets list of note files along with their headers."
+	(interactive)
+	(let ((counsel-fzf-cmd "rg --color never --files -g '*%s*'"))
+	  (counsel-fzf nil latte-roam-directory "Note files ")))
+
+  (defun latte-roam-grep (&optional init-input)
+	"Interactively search through the notes' text. INIT-INPUT can be passed as the
+  initial grep query."
+
+	(interactive)
+	;; Pass a regex to ask ag to discard org metadata.
+	;;^[] beginning of the line
+	;;[^] not
+	;; * zero or more char
+	;;(counsel-ag "^[^#]\|[ ]*[^:] " "~/notes" "--nomultiline" )
+	(unless (fboundp 'counsel)
+	  (require 'counsel))
+	(setq init-input (or init-input ""))
+	(counsel-rg init-input latte-roam-directory "-t org"
+				"In-text Search "))
 
   (defun do--auto-revert-note-files ()
 	(let ((file (buffer-file-name)))
