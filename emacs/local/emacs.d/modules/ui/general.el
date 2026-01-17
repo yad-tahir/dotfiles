@@ -49,12 +49,11 @@
 	  mouse-wheel-progressive-speed nil ;; no scrolling acceleration
 	  mouse-wheel-follow-mouse t ;; scroll window under mouse
 
-	  ;; Keyword
 	  scroll-step 1
-	  scroll-conservatively 150
-	  scroll-margin 10
-	  ;; scroll-margin 150
-	  ;; maximum-scroll-margin 0.5
+	  ;; scroll-conservatively 150
+	  ;; scroll-margin 10
+	  scroll-margin 150
+	  maximum-scroll-margin 0.5
 	  auto-window-vscroll nil
 
 	  ;; Performance
@@ -86,10 +85,9 @@
 	  ring-bell-function 'ignore
 	  visible-bell nil)
 
-(setq-default fill-column 120
-			  tab-width 4
+(setq-default fill-column 100
 			  tooltip-delay 5
-			  indent-tabs-mode t
+			  indent-tabs-mode nil
 			  native-comp-async-report-warnings-errors nil
 			  warning-suppress-log-types '((with-editor))
 			  warning-suppress-types '((with-editor)))
@@ -107,7 +105,7 @@
 							(font-backend . "xft")))
 
 ;; Keep base UI clean
-(blink-cursor-mode 1)
+(blink-cursor-mode 0)
 (scroll-bar-mode 0)
 (tool-bar-mode -1)
 (menu-bar-mode -1)

@@ -226,10 +226,10 @@
   :init
   (general-define-key
    :keymaps 'evil-inner-text-objects-map
-   "b" 'evil-closest-inner-delimiter)
+   "m" 'evil-closest-inner-delimiter)
 
   (general-define-key
    :keymaps 'evil-outer-text-objects-map
-   "b" 'evil-closest-a-delimiter))
+   "m" 'evil-closest-a-delimiter))
 
 (provide 'do-text-adjust)
