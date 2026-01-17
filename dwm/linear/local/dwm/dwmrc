@@ -36,6 +36,9 @@ pulsemixer -l &> /dev/null
 xinput --map-to-output $(xinput list --id-only "ELAN9008:00 04F3:425B") eDP-1
 xinput --map-to-output $(xinput list --id-only "ELAN9009:00 04F3:425A") eDP-2
 
+# Needed for pinentry
+dbus-update-activation-environment --systemd DISPLAY
+
 # Startup commands
 gpg-connect-agent /bye
 

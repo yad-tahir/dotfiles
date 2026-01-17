@@ -32,6 +32,9 @@ pulsemixer -l &> /dev/null
 # Disable key stroke repeating
 # xset r off
 
+# Needed for pinentry
+dbus-update-activation-environment --systemd DISPLAY
+
 # Startup commands
 gpg-connect-agent /bye
 

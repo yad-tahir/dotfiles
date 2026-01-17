@@ -1,11 +1,8 @@
-net-print/cups -acl
 net-print/libcupsfilters pdf png jpeg postscript
 app-text/ghostscript-gpl -gtk
 
 # Enable built-in emacs support
 app-admin/eselect emacs
-sys-devel/gettext emacs
-app-crypt/pinentry emacs
 dev-vcs/git emacs
 
 # Many applications, such as virt-manager and libraoffice, require @X internally
