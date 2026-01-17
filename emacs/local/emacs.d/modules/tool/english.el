@@ -22,8 +22,8 @@
   :commands (define-word define-word-at-point)
   :init
   (evil-define-operator do-define-word (beg end)
-	:motion evil-inner-word
-	(define-word (buffer-substring-no-properties beg end) nil))
+    :motion evil-inner-word
+    (define-word (buffer-substring-no-properties beg end) nil))
 
   (general-define-key
    :states 'normal
@@ -35,8 +35,8 @@
   :commands (speed-type-top-x speed-type-top-100 speed-type-top-1000)
   :init
   (defun speed-type-standard ()
-	(interactive)
-	(speed-type-top-x 500))
+    (interactive)
+    (speed-type-top-x 500))
 
   (general-define-key
    :keymaps 'override
@@ -49,15 +49,15 @@
 
   ;; Refresh speed-type's generated buffers using F5
   (advice-add 'speed-type--setup :after
-			  #'(lambda (&rest args)
-				 (interactive)
-				 (general-define-key
-				  :keymaps 'local
-				  "<f5>" 'speed-type--play-next)))
+              #'(lambda (&rest args)
+                  (interactive)
+                  (general-define-key
+                   :keymaps 'local
+                   "<f5>" 'speed-type--play-next)))
 
   (set-face-attribute 'speed-type-correct nil
-					  :foreground chocolate-theme-element+1)
+                      :foreground chocolate-theme-element+1)
   (set-face-attribute 'speed-type-mistake nil
-					  :foreground chocolate-theme-highlight+1))
+                      :foreground chocolate-theme-highlight+1))
 
 (provide 'do-english)

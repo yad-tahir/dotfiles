@@ -43,11 +43,11 @@
 (general-define-key
  "<f5>" 'revert-buffer
  "<f3>" '(lambda() (interactive)
-		   (evil-delete-buffer (current-buffer))))
+           (evil-delete-buffer (current-buffer))))
 
 ;; Remove the need for a confirmation when process buffer is killed
 (setq kill-buffer-query-functions
-	  (delq 'process-kill-buffer-query-function kill-buffer-query-functions))
+      (delq 'process-kill-buffer-query-function kill-buffer-query-functions))
 
 ;;;###autoload
 (defun do--switch-to-buffer (org-fun &rest args)
@@ -59,31 +59,31 @@ The aim of this function is to minimize duplicated windows as much as possible."
   (ignore args)
   ;; Get the buffer
   (let ((b (get-buffer (format "%s" (car args)))))
-	;; The scratch buffer is unique and always assigned to a window in
-	;; emacs for some reason.
-	(unless (equal "*scratch*" (buffer-name b))
-	  ;; Get the window if the buffer exists
-	  (let ((frm (window-frame (get-buffer-window b t))))
-		(when frm
-		  ;; Rest to the normal state
-		  (when b
-			(with-current-buffer b
-			  (require 'evil)
-			  (when (evil-visual-state-p)
-				(evil-normal-state))))
-		  ;; Get the frame
-		  (raise-frame frm)
-		  ;; Select the window
-		  (select-frame-set-input-focus frm))))
-	;; Otherwise, continue
-	(apply org-fun args)))
+    ;; The scratch buffer is unique and always assigned to a window in
+    ;; emacs for some reason.
+    (unless (equal "*scratch*" (buffer-name b))
+      ;; Get the window if the buffer exists
+      (let ((frm (window-frame (get-buffer-window b t))))
+        (when frm
+          ;; Rest to the normal state
+          (when b
+            (with-current-buffer b
+              (require 'evil)
+              (when (evil-visual-state-p)
+                (evil-normal-state))))
+          ;; Get the frame
+          (raise-frame frm)
+          ;; Select the window
+          (select-frame-set-input-focus frm))))
+    ;; Otherwise, continue
+    (apply org-fun args)))
 
 ;; Disable our custom switch function as (raise-frame) does not work with PGTK
 (unless (boundp 'pgtk-initialized)
   (advice-add 'find-file :around #'do--switch-to-buffer)
   (advice-add 'switch-to-buffer :around #'do--switch-to-buffer)
   (with-eval-after-load 'ivy
-	(advice-add 'ivy--switch-buffer-action :around #'do--switch-to-buffer)))
+    (advice-add 'ivy--switch-buffer-action :around #'do--switch-to-buffer)))
 
 
 ;;;###autoload
@@ -93,17 +93,17 @@ display the number of open buffers in Emacs."
 
   (interactive)
   (when (null list)
-	(setq list (buffer-list)))
+    (setq list (buffer-list)))
   (let ((result '()))
-	(while list
-	  (let* ((buffer (car list))
-			 (name (buffer-name buffer)))
-		(and name
-			 (not (string-equal name ""))
-			 (/= (aref name 0) ?\s)
-			 (push buffer result)))
-	  (setq list (cdr list)))
-	result))
+    (while list
+      (let* ((buffer (car list))
+             (name (buffer-name buffer)))
+        (and name
+             (not (string-equal name ""))
+             (/= (aref name 0) ?\s)
+             (push buffer result)))
+      (setq list (cdr list)))
+    result))
 
 (defun do--display-warnings (TYPE MESSAGE &optional LEVEL BUFFER-NAME)
   "Display WARNING in the minibuffer instead of creating a new buffer."
@@ -122,13 +122,13 @@ display the number of open buffers in Emacs."
   :after (evil)
   :config
   (setq spacious-padding-widths
-		'( :internal-border-width 15
-		   :header-line-width 4
-		   :mode-line-width 0
-		   :custom-button-width 2
-		   :tab-width 4
-		   :right-divider-width 30
-		   :scroll-bar-width 0
-		   :fringe-width 8)))
+        '( :internal-border-width 15
+           :header-line-width 4
+           :mode-line-width 0
+           :custom-button-width 2
+           :tab-width 4
+           :right-divider-width 30
+           :scroll-bar-width 0
+           :fringe-width 8)))
 
 (provide 'do-buffers)

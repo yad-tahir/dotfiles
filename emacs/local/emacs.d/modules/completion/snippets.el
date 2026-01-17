@@ -27,30 +27,30 @@
   (yas-global-mode 1)
   (yas-reload-all)
   (advice-add 'do--tab-complete
-			  :around
-			  #'(lambda (org-fn  &rest args)
-				 (unless (yas-expand)
-				   (apply org-fn args)))))
+              :around
+              #'(lambda (org-fn  &rest args)
+                  (unless (yas-expand)
+                    (apply org-fn args)))))
 
-  (use-package auto-yasnippet
-	:ensure t
-	:after (:all yasnippet evil)
-	:commands (aya-create aya-expand)
-	:functions evil-insert-state
-	:preface
-	:init
-	(general-define-key
-	 :states 'normal
-	 "SPC l~" #'aya-create)
+(use-package auto-yasnippet
+  :ensure t
+  :after (:all yasnippet evil)
+  :commands (aya-create aya-expand)
+  :functions evil-insert-state
+  :preface
+  :init
+  (general-define-key
+   :states 'normal
+   "SPC l~" #'aya-create)
 
-	:config
-	(general-define-key
-	 :states 'normal
-	 "SPC l TAB" #'(lambda () (interactive) (evil-insert-state)(aya-expand)))
-	(general-define-key
-	 :states 'insert
-	 "C-l ~" #'aya-create
-	 "C-l TAB" #'aya-expand))
+  :config
+  (general-define-key
+   :states 'normal
+   "SPC l TAB" #'(lambda () (interactive) (evil-insert-state)(aya-expand)))
+  (general-define-key
+   :states 'insert
+   "C-l ~" #'aya-create
+   "C-l TAB" #'aya-expand))
 
 
 (provide 'do-snippets)

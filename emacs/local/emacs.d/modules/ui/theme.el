@@ -25,7 +25,7 @@
   :load-path chocolate-theme-location
   :config
   (setq custom-theme-directory
-		(concat user-emacs-directory chocolate-theme-location))
+        (concat user-emacs-directory chocolate-theme-location))
   (load-theme 'chocolate t))
 
 

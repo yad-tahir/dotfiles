@@ -29,9 +29,9 @@
   (declare-function do--cider-window nil)
   :config
   (setq cider-use-tooltips t
-		cider-show-error-buffer 'only-in-repl
-		cider-repl-display-help-banner nil
-		cider-repl-display-in-current-window nil)
+        cider-show-error-buffer 'only-in-repl
+        cider-repl-display-help-banner nil
+        cider-repl-display-in-current-window nil)
   (general-define-key
    :keymaps 'cider-repl-mode-map
    :states 'insert
@@ -131,24 +131,24 @@
    "ln" 'cider-test-run-ns-tests)
 
   (set-face-attribute 'cider-fringe-good-face
-					  nil :foreground chocolate-theme-shadow+3
-					  :background chocolate-theme-shadow+3)
+                      nil :foreground chocolate-theme-shadow+3
+                      :background chocolate-theme-shadow+3)
 
   (defun do--cider-window(org-fun &rest args)
-	"Creates a new frame before switching to a new cider buffer"
-	(do-make-frame)
-	(with-eval-after-load 'company
-	  (company-mode 1))
-	(apply org-fun args))
+    "Creates a new frame before switching to a new cider buffer"
+    (do-make-frame)
+    (with-eval-after-load 'company
+      (company-mode 1))
+    (apply org-fun args))
   (advice-add 'cider-repl-init :around #'do--cider-window)
   (advice-add 'cider-popup-buffer :around #'do--cider-window)
 
   (add-hook 'clojure-mode-hook
-			#'(lambda ()
-			   (add-hook 'after-save-hook
-						 #'(lambda ()
-							(cider-eval-buffer))
-						 nil t ))))
+            #'(lambda ()
+                (add-hook 'after-save-hook
+                          #'(lambda ()
+                              (cider-eval-buffer))
+                          nil t ))))
 
 
 (use-package flycheck-clojure

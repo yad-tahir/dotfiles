@@ -19,25 +19,25 @@
 
 ;; Custom functions/operators
 ;; (defun do--elisp-init()
-  ;; "Called whenever the emacs-lisp mode is loaded."
+;; "Called whenever the emacs-lisp mode is loaded."
 
-  ;; Remove compiler warnings
-  ;; (eval-when-compile
-  ;;	(require 'company))
+;; Remove compiler warnings
+;; (eval-when-compile
+;;	(require 'company))
 
-  ;; (with-eval-after-load 'company
-  ;;	(set (make-local-variable 'company-backends)
-  ;;		 (add-to-list 'company-backends
-  ;;					  '(;; Highest priority
-  ;;						company-semantic
-  ;;						company-capf
-  ;;						company-files
-  ;;						;; Lowest priority - keep the ordering
-  ;;						company-keywords
-  ;;						company-dabbrev-code
-  ;;						company-dabbrev
-  ;;						company-ispell)
-  ;;					  nil))))
+;; (with-eval-after-load 'company
+;;	(set (make-local-variable 'company-backends)
+;;		 (add-to-list 'company-backends
+;;					  '(;; Highest priority
+;;						company-semantic
+;;						company-capf
+;;						company-files
+;;						;; Lowest priority - keep the ordering
+;;						company-keywords
+;;						company-dabbrev-code
+;;						company-dabbrev
+;;						company-ispell)
+;;					  nil))))
 
 ;; (add-hook 'emacs-lisp-mode-hook #'do--elisp-init())
 
@@ -69,7 +69,7 @@
 
   :config
   (set-face-attribute 'macrostep-expansion-highlight-face nil
-					  :background chocolate-theme-shadow+1)
+                      :background chocolate-theme-shadow+1)
   (general-define-key
    :keymaps 'macrostep-keymap
    "SPC lw" 'macrostep-collapse-all

@@ -24,64 +24,64 @@
   (require 'edmacro)
 
   (defun do-start-macro (&optional reg)
-	"Records a new macro and saved into REG.
+    "Records a new macro and saved into REG.
 If REG is nil, then REG @q is used."
-	(interactive)
-	(if defining-kbd-macro
-		(message "Recording Macro already started")
-	  (let ((reg (or reg
-					 evil-this-register
-					 ?q)))
-		(evil-record-macro reg)
-		(message "Recording a new macro @%c" reg))))
+    (interactive)
+    (if defining-kbd-macro
+        (message "Recording Macro already started")
+      (let ((reg (or reg
+                     evil-this-register
+                     ?q)))
+        (evil-record-macro reg)
+        (message "Recording a new macro @%c" reg))))
 
   (defun do-stop-macro ()
-	"Stop the recording macro and saved into its corresponding register"
-	(interactive)
-	(if defining-kbd-macro
-		(progn
-		  (evil-record-macro nil)
-		  (message "Macro recorded"))
-	  (message "No macro recording")))
+    "Stop the recording macro and saved into its corresponding register"
+    (interactive)
+    (if defining-kbd-macro
+        (progn
+          (evil-record-macro nil)
+          (message "Macro recorded"))
+      (message "No macro recording")))
 
-(defun do-call-last-macro (&optional count reg)
-  "Execute a macro with a COUNT prefix and optional REG."
-  (interactive
-   (list (prefix-numeric-value current-prefix-arg)
-		 (or evil-this-register ?q)))
+  (defun do-call-last-macro (&optional count reg)
+    "Execute a macro with a COUNT prefix and optional REG."
+    (interactive
+     (list (prefix-numeric-value current-prefix-arg)
+           (or evil-this-register ?q)))
 
-  (let* ((macro (evil-get-register reg)))
-	(message "Executing register @%s, %d times" (char-to-string reg) count)
-	(evil-execute-macro count macro)))
+    (let* ((macro (evil-get-register reg)))
+      (message "Executing register @%s, %d times" (char-to-string reg) count)
+      (evil-execute-macro count macro)))
 
   (defun do-edit-register (&optional reg)
-	"Opens a temporary buffer to edit the contents of a register.
+    "Opens a temporary buffer to edit the contents of a register.
 
 By default, Reg @q is shown."
-	(interactive)
-	(let* ((reg (or reg
-					evil-this-register
-					?q))
-		   (reg-text (evil-get-register reg t)))
-	  (unless reg-text
-		(message "Register @%c is empty." reg))
-	  (with-current-buffer (get-buffer-create "*Edit Register*")
-		(erase-buffer)
-		(when reg-text
-		  (insert (format-kbd-macro reg-text)))
-		(switch-to-buffer (current-buffer)))))
+    (interactive)
+    (let* ((reg (or reg
+                    evil-this-register
+                    ?q))
+           (reg-text (evil-get-register reg t)))
+      (unless reg-text
+        (message "Register @%c is empty." reg))
+      (with-current-buffer (get-buffer-create "*Edit Register*")
+        (erase-buffer)
+        (when reg-text
+          (insert (format-kbd-macro reg-text)))
+        (switch-to-buffer (current-buffer)))))
 
   (defun do-save-register (&optional reg)
-	"Saves the current buffer text back into register REG"
-	(interactive)
-	(let ((reg (or reg
-				   evil-this-register
-				   ?q))
-		  ;; Parse the buffer text into actual macro key-codes
-		  (macro-data (edmacro-parse-keys (buffer-string))))
-	  (evil-set-register reg macro-data)
-	  (kill-buffer (current-buffer))
-	  (message "Buffer saved to Reg @%c" reg)))
+    "Saves the current buffer text back into register REG"
+    (interactive)
+    (let ((reg (or reg
+                   evil-this-register
+                   ?q))
+          ;; Parse the buffer text into actual macro key-codes
+          (macro-data (edmacro-parse-keys (buffer-string))))
+      (evil-set-register reg macro-data)
+      (kill-buffer (current-buffer))
+      (message "Buffer saved to Reg @%c" reg)))
 
   (general-define-key
    :prefix "q"

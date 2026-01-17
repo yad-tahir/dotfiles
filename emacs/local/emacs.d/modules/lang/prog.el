@@ -26,9 +26,9 @@
 
   (eldoc-mode 1)
   (with-eval-after-load 'whitespace
-	;; Make long-tailing lines visible
-	(set (make-local-variable 'whitespace-style)
-		 (add-to-list 'whitespace-style 'lines-tail))))
+    ;; Make long-tailing lines visible
+    (set (make-local-variable 'whitespace-style)
+         (add-to-list 'whitespace-style 'lines-tail))))
 (add-hook 'prog-mode-hook  #'do--prog-mode-init)
 
 ;; (defun do--flycheck-init()
@@ -40,7 +40,7 @@
   :hook ((prog-mode . flycheck-mode))
   :config
   (set-face-attribute 'flycheck-warning nil
-					  :underline (list :color chocolate-theme-shadow+3 :style 'wave)))
+                      :underline (list :color chocolate-theme-shadow+3 :style 'wave)))
 
 ;; display tips in popups
 ;;   (use-package flycheck-pos-tip
@@ -68,7 +68,7 @@
   (setq evil-lookup-func #'eldoc-box-eglot-help-at-point)
   :config
   (set-face-attribute 'eldoc-box-border nil
-					  :background chocolate-theme-highlight))
+                      :background chocolate-theme-highlight))
 
 ;; (use-package lsp-mode
 ;;   :commands (lsp lsp-deferred lsp-mode)

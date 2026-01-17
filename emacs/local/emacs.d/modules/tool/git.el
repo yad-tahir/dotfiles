@@ -27,22 +27,22 @@
    :states 'normal
    "SPC g" '(magit-status :which-key "magit")
    "SPC G" '((lambda () (interactive)
-			  ;; Set 'universal argument' to force magit to prompt the user to
-			  ;; choose a new repo location
-			  (let ((current-prefix-arg "(4)"))
-				(call-interactively 'magit-status)))
-			  :which-key "magit+"))
+               ;; Set 'universal argument' to force magit to prompt the user to
+               ;; choose a new repo location
+               (let ((current-prefix-arg "(4)"))
+                 (call-interactively 'magit-status)))
+             :which-key "magit+"))
 
   ;; Activate the blob mode automatically when we visit a file in a git project
   (add-hook 'find-file-hook #'(lambda ()
-								(when (magit-toplevel)
-								  (magit-blob-mode 1))))
+                                (when (magit-toplevel)
+                                  (magit-blob-mode 1))))
   :config
   ;; Remove conflicting key bindings
   (general-define-key
    :keymaps '(magit-file-section-map
-			  magit-hunk-section-map
-			  magit-log-mode-map)
+              magit-hunk-section-map
+              magit-log-mode-map)
    "C"   'nil
    "C-c" 'nil)
 
@@ -94,12 +94,12 @@
 
   (general-define-key
    :keymaps '(magit-file-section-map
-			  magit-untracked-section-map
-			  magit-unstaged-section-map
-			  magit-unmerged-section-map
-			  magit-merge-preview-mode-map
-			  magit-staged-section-map
-			  magit-hunk-section-map)
+              magit-untracked-section-map
+              magit-unstaged-section-map
+              magit-unmerged-section-map
+              magit-merge-preview-mode-map
+              magit-staged-section-map
+              magit-hunk-section-map)
    "<RET>"   'magit-visit-thing
    "l <RET>" 'magit-jump-to-diffstat-or-diff
    "a"       'magit-apply
@@ -202,12 +202,12 @@
 
   ;; Fix the over-shadowed keybindings
   (add-hook 'magit-blob-mode-hook #'(lambda ()
-									  (evil-insert-state +1)
-									  (evil-normal-state +1)))
+                                      (evil-insert-state +1)
+                                      (evil-normal-state +1)))
 
   (evil-set-initial-state 'magit-popup-mode 'emacs)
   (setq magit-status-show-hashes-in-headers t
-		magit-blame-echo-style 'margin)
+        magit-blame-echo-style 'margin)
 
   (add-hook 'magit-status-mode-hook 'do-line-numbers-to-visual)
   (add-hook 'magit-log-mode-hook 'do-line-numbers-to-visual))

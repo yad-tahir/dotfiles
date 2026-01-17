@@ -22,32 +22,32 @@
 ;; GC optimizations
 (setq gc-cons-threshold (* 100 1000 1000)) ;; 100 MB
 (add-hook 'emacs-startup-hook
-		  #'(lambda () (setq gc-cons-threshold (* 100 1000 1000)) t))
+          #'(lambda () (setq gc-cons-threshold (* 100 1000 1000)) t))
 
 ;; Bootstrap 'use-package'
 
 (eval-and-compile
   (require 'package)
   (setq package--init-file-ensured t
-		package-enable-at-startup nil
-		package-user-dir (concat user-emacs-directory "/packages"))
+        package-enable-at-startup nil
+        package-user-dir (concat user-emacs-directory "/packages"))
   (package-initialize)
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 
   ;; Add my git repos
   (let ((parent-dir (expand-file-name "git/emacs/" "~")))
-  (when (file-directory-p parent-dir)
-	(dolist (dir (directory-files parent-dir t "^[^.]"))
-	  (when (file-directory-p dir)
-		(add-to-list 'load-path dir)))))
+    (when (file-directory-p parent-dir)
+      (dolist (dir (directory-files parent-dir t "^[^.]"))
+        (when (file-directory-p dir)
+          (add-to-list 'load-path dir)))))
 
   (unless (package-installed-p 'use-package)
-	(package-refresh-contents)
-	(package-install 'use-package))
+    (package-refresh-contents)
+    (package-install 'use-package))
 
   ;; Configure 'use-package'
   (setq use-package-compute-statistics t
-		use-package-verbose nil))
+        use-package-verbose nil))
 
 ;; Module manager
 (defun do-modules-load (&rest modules)
@@ -62,18 +62,18 @@ This function automatically byte compiles module files as necessary. Modules are
 compiled and loaded based on their order in MODULES."
 
   (let* ((d (concat user-emacs-directory "modules/"))
-		 (default-directory d))
-	;; Add to load path
-	(normal-top-level-add-subdirs-to-load-path)
+         (default-directory d))
+    ;; Add to load path
+    (normal-top-level-add-subdirs-to-load-path)
 
-	(dolist (m modules)
-	  (byte-recompile-file (concat d m ".el") nil 0 t))))
+    (dolist (m modules)
+      (byte-recompile-file (concat d m ".el") nil 0 t))))
 
 (defun display-startup-echo-area-message ()
   (message "Loading done in %.3f seconds. %d GC operations are performed."
-		   (float-time
-			(time-subtract (current-time) emacs-start-time))
-		   gcs-done))
+           (float-time
+            (time-subtract (current-time) emacs-start-time))
+           gcs-done))
 
 ;; Core packages
 (use-package general

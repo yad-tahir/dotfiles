@@ -21,10 +21,10 @@
   :hook (find-file . whitespace-mode)
   :config
   (setq whitespace-line-column fill-column
-		;; Removed newline newline-mark from here to prevent Evil motion crashing
-		whitespace-style '(face trailing indentation empty
-						  spaces space-mark
-						  space-before-tab space-after-tab)))
+        ;; Removed newline newline-mark from here to prevent Evil motion crashing
+        whitespace-style '(face trailing indentation empty
+                                spaces space-mark
+                                space-before-tab space-after-tab)))
 
 ;; A meta package to abstract the fold functionality from evil.el
 (use-package evil-commands
@@ -34,11 +34,11 @@
   (defvar do--fold-global-toggle t)
 
   (defun do--fold-toggle-all ()
-	(interactive)
-	(setq do--fold-global-toggle (not do--fold-global-toggle))
-	(if do--fold-global-toggle
-		(call-interactively 'evil-open-folds)
-	  (call-interactively 'evil-close-folds)))
+    (interactive)
+    (setq do--fold-global-toggle (not do--fold-global-toggle))
+    (if do--fold-global-toggle
+        (call-interactively 'evil-open-folds)
+      (call-interactively 'evil-close-folds)))
 
   (general-define-key
    :keymaps 'hs-minor-mode-map
@@ -56,9 +56,9 @@
   :ensure t
   :disabled t
   :commands  (evil-quickscope-find-char
-			  evil-quickscope-find-char-backward
-			  evil-quickscope-find-char-to
-			  evil-quickscope-find-char-to-backward)
+              evil-quickscope-find-char-backward
+              evil-quickscope-find-char-to
+              evil-quickscope-find-char-to-backward)
   :init
   (general-define-key
    :states 'motion
@@ -69,8 +69,8 @@
 
   :config
   (setq evil-quickscope-bidirectional nil
-		evil-quickscope-cross-lines t
-		evil-quickscope-disable-in-comments 'nil)
+        evil-quickscope-cross-lines t
+        evil-quickscope-disable-in-comments 'nil)
 
   (general-define-key
    :keymaps 'evil-quickscope-mode-map

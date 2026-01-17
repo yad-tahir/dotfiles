@@ -18,7 +18,7 @@
 ;; 02110-1301, USA.
 
 (defvar-local do--company-whitespace-state nil
-	"Stores whether whitespace-mode was active before company-mode started.")
+  "Stores whether whitespace-mode was active before company-mode started.")
 
 (use-package company
   :ensure t
@@ -26,13 +26,13 @@
   :commands (company-complete-common)
   :init
   (defun do--tab-complete ()
-	(interactive)
-	(if (or (save-excursion (looking-at "\\_>")) ;; end of symbol
-			;; (save-excursion (looking-at "\\."))  ;; ends with dot
-			(save-excursion (looking-at "->")))  ;; ends with ->
-		(company-complete)
-	  ;; Otherwise, the company completion list is most likely useless
-	  (tab-to-tab-stop)))
+    (interactive)
+    (if (or (save-excursion (looking-at "\\_>")) ;; end of symbol
+            ;; (save-excursion (looking-at "\\."))  ;; ends with dot
+            (save-excursion (looking-at "->")))  ;; ends with ->
+        (company-complete)
+      ;; Otherwise, the company completion list is most likely useless
+      (tab-to-tab-stop)))
 
   (general-define-key
    :states 'insert
@@ -46,8 +46,8 @@
   :config
   ;; Remove compiler warnings
   (eval-when-compile
-	(require 'company-dabbrev)
-	(require 'company-dabbrev-code))
+    (require 'company-dabbrev)
+    (require 'company-dabbrev-code))
 
   ;; Key bindings
   (general-define-key
@@ -74,62 +74,62 @@
    "C-c" 'company-select-previous)
 
   (setq company-idle-delay nil
-		company-minimum-prefix-length 1
-		company-text-icons-add-background t
-		;; company-auto-complete nil ;; To avoid selecting an item using SPC
-		company-search-filtering t
-		company-tooltip-limit 15
-		company-dabbrev-downcase nil
-		company-dabbrev-ignore-case t
-		company-dabbrev-code-other-buffers t
-		company-tooltip-align-annotations t
-		company-require-match 'never
-		company-tooltip-flip-when-above t
-		company-global-modes '(not eshell-mode shell-mode term-mode erc-mode
-								   message-mode help-mode gud-mode)
-		company-frontends '(;; company-tng-frontend
-							;; company-preview-if-just-one-frontend
-							company-pseudo-tooltip-frontend
-							company-echo-metadata-frontend))
+        company-minimum-prefix-length 1
+        company-text-icons-add-background t
+        ;; company-auto-complete nil ;; To avoid selecting an item using SPC
+        company-search-filtering t
+        company-tooltip-limit 15
+        company-dabbrev-downcase nil
+        company-dabbrev-ignore-case t
+        company-dabbrev-code-other-buffers t
+        company-tooltip-align-annotations t
+        company-require-match 'never
+        company-tooltip-flip-when-above t
+        company-global-modes '(not eshell-mode shell-mode term-mode erc-mode
+                                   message-mode help-mode gud-mode)
+        company-frontends '(;; company-tng-frontend
+                            ;; company-preview-if-just-one-frontend
+                            company-pseudo-tooltip-frontend
+                            company-echo-metadata-frontend))
   ;; Default backends
   ;; the order of the groups is important. If results are found in the first group,
   ;; then company will not trigger the second group and so forth.
   (setq company-backends '(company-files
-						   (company-capf company-ispell :separate)
-						   (company-dabbrev-code
-							company-gtags
-							company-etags company-keywords
-							company-oddmuse company-dabbrev)
-						   company-ispell))
+                           (company-capf company-ispell :separate)
+                           (company-dabbrev-code
+                            company-gtags
+                            company-etags company-keywords
+                            company-oddmuse company-dabbrev)
+                           company-ispell))
 
   ;; BUG-FIX: company looks ugly with whitespace mode
   (add-hook 'company-completion-started-hook
-			#'(lambda (&optional _result)
-				(setq do--company-whitespace-state (bound-and-true-p whitespace-mode))
-				(when do--company-whitespace-state
-				  (whitespace-mode -1))))
+            #'(lambda (&optional _result)
+                (setq do--company-whitespace-state (bound-and-true-p whitespace-mode))
+                (when do--company-whitespace-state
+                  (whitespace-mode -1))))
   (add-hook 'company-after-completion-hook
-			#'(lambda (&optional _result)
-				(when do--company-whitespace-state
-				  (whitespace-mode 1)
-				  (setq do--company-whitespace-state nil))))
+            #'(lambda (&optional _result)
+                (when do--company-whitespace-state
+                  (whitespace-mode 1)
+                  (setq do--company-whitespace-state nil))))
 
   ;; BUG-FIX: 'evil-repeat-post-hook' bugs out when pressing keys in company's popup menus
   (with-eval-after-load 'evil
-	;; List of commands to ignore for repeat purposes
-	(dolist (cmd '(company-complete-common
-				   company-complete-selection
-				   company-complete
-				   company-select-next
-				   company-select-previous))
-	  (evil-declare-ignore-repeat cmd))))
+    ;; List of commands to ignore for repeat purposes
+    (dolist (cmd '(company-complete-common
+                   company-complete-selection
+                   company-complete
+                   company-select-next
+                   company-select-previous))
+      (evil-declare-ignore-repeat cmd))))
 
 (use-package company-statistics
   :ensure t
   :after (company)
   :config
   (setq company-statistics-file
-		(concat "~/.emacs.d/.cache/" "company-stats-cache.el")))
+        (concat "~/.emacs.d/.cache/" "company-stats-cache.el")))
 
 (use-package company-quickhelp
   :ensure t
@@ -137,8 +137,8 @@
   :after (company)
   :config
   (setq company-quickhelp-delay nil
-		company-quickhelp-color-foreground chocolate-theme-white+2
-		company-quickhelp-color-background chocolate-theme-shadow+1)
+        company-quickhelp-color-foreground chocolate-theme-white+2
+        company-quickhelp-color-background chocolate-theme-shadow+1)
 
   (general-define-key
    :keymaps 'company-active-map

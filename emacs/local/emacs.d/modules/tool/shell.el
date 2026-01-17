@@ -26,22 +26,22 @@ This method does not support launching a terminal app on a remote machine."
   (interactive)
   ;; Ensure environment is synced if local
   (when (and (fboundp 'exec-path-from-shell-initialize)
-			 (not (file-remote-p default-directory)))
-	(exec-path-from-shell-initialize))
+             (not (file-remote-p default-directory)))
+    (exec-path-from-shell-initialize))
 
   (let ((default-directory (expand-file-name default-directory))
-		(remote-uri (file-remote-p default-directory)))
-	;; We avoid launching a terminal process on remote machine as a GUI terminal app high likely does not work under tramp.
-	;; When tramp is in use; remove tramp metadata from default-directory and launch the terminal locally.
-	(when remote-uri
-	  (setq default-directory (replace-regexp-in-string remote-uri "" default-directory)))
+        (remote-uri (file-remote-p default-directory)))
+    ;; We avoid launching a terminal process on remote machine as a GUI terminal app high likely does not work under tramp.
+    ;; When tramp is in use; remove tramp metadata from default-directory and launch the terminal locally.
+    (when remote-uri
+      (setq default-directory (replace-regexp-in-string remote-uri "" default-directory)))
 
-	(make-process
-	 :name "local-os-terminal"
-	 :buffer nil
-	 :command (list do-shell-terminal-app)
-	 :stderr nil
-	 :connection-type 'pipe)))
+    (make-process
+     :name "local-os-terminal"
+     :buffer nil
+     :command (list do-shell-terminal-app)
+     :stderr nil
+     :connection-type 'pipe)))
 
 (general-define-key
  :prefix "SPC"
@@ -66,33 +66,33 @@ This method does not support launching a terminal app on a remote machine."
 
 ;;;###autoload
   (defun do-eshell-new()
-	"Open a new instance of eshell."
-	(interactive)
-	;; (do-make-frame)
-	(eshell 'N))
+    "Open a new instance of eshell."
+    (interactive)
+    ;; (do-make-frame)
+    (eshell 'N))
 
   :config
   ;; Remove compiler warnings
   (eval-when-compile
-	(require 'eshell)
-	(require 'em-term)
-	(require 'em-hist)
-	(require 'em-glob))
+    (require 'eshell)
+    (require 'em-term)
+    (require 'em-hist)
+    (require 'em-glob))
 
   (setq eshell-prefer-lisp-functions 'nil
-		eshell-scroll-to-bottom-on-input 'all
-		eshell-scroll-to-bottom-on-output 'all
-		eshell-kill-processes-on-exit t
-		eshell-save-history-on-exit t
-		eshell-error-if-no-glob t)
+        eshell-scroll-to-bottom-on-input 'all
+        eshell-scroll-to-bottom-on-output 'all
+        eshell-kill-processes-on-exit t
+        eshell-save-history-on-exit t
+        eshell-error-if-no-glob t)
 
   (with-eval-after-load 'em-term
-	(add-to-list 'eshell-visual-commands "htop")
-	(add-to-list 'eshell-visual-commands "top")
-	(add-to-list 'eshell-visual-commands "glances")
-	(add-to-list 'eshell-visual-commands "ssh")
-	(add-to-list 'eshell-visual-commands "tail")
-	(add-to-list 'eshell-visual-commands "pulsemixer"))
+    (add-to-list 'eshell-visual-commands "htop")
+    (add-to-list 'eshell-visual-commands "top")
+    (add-to-list 'eshell-visual-commands "glances")
+    (add-to-list 'eshell-visual-commands "ssh")
+    (add-to-list 'eshell-visual-commands "tail")
+    (add-to-list 'eshell-visual-commands "pulsemixer"))
 
   (custom-set-faces
    `(term-color-black ((t (:foreground ,chocolate-theme-shadow+2 :background unspecified))))
@@ -107,14 +107,14 @@ This method does not support launching a terminal app on a remote machine."
    `(term-default-bg-color ((t (:inherit term-color-black)))))
 
   (defun eshell/clear ()
-	"clear the eshell buffer."
-	(interactive)
-	(let ((inhibit-read-only t))
-	  (erase-buffer)))
+    "clear the eshell buffer."
+    (interactive)
+    (let ((inhibit-read-only t))
+      (erase-buffer)))
 
   (defun do--eshell-init ()
-	(with-eval-after-load 'company
-	  (company-mode 1)))
+    (with-eval-after-load 'company
+      (company-mode 1)))
   (add-hook 'eshell-mode-hook #'do--eshell-init))
 
 (use-package fish-completion
@@ -124,16 +124,16 @@ This method does not support launching a terminal app on a remote machine."
   :hook ((eshell-mode . fish-completion-mode))
   :config
   (with-eval-after-load 'em-term
-	;; Basic eShell key bindings should be in this minor mode as the
-	;; implementation of eshell-mode-map really sucks!
-	;; (general-define-key
-	;;  :keymaps 'eshell-mode-map
-	;;  :states 'insert
-	;;  "TAB" 'completion-at-point
-	;;  "C-q" 'eshell-interrupt-process
-	;;  "C-c" 'eshell-previous-input
-	;;  "C-t" 'eshell-next-input)
-	))
+    ;; Basic eShell key bindings should be in this minor mode as the
+    ;; implementation of eshell-mode-map really sucks!
+    ;; (general-define-key
+    ;;  :keymaps 'eshell-mode-map
+    ;;  :states 'insert
+    ;;  "TAB" 'completion-at-point
+    ;;  "C-q" 'eshell-interrupt-process
+    ;;  "C-c" 'eshell-previous-input
+    ;;  "C-t" 'eshell-next-input)
+    ))
 
 ;; (use-package eshell-fixed-prompt
 ;;   :ensure t
@@ -151,52 +151,52 @@ This method does not support launching a terminal app on a remote machine."
   :config
   (require 'ansi-color)
   (set-face-attribute 'ansi-color-green nil
-					  :foreground chocolate-theme-element
-					  :background chocolate-theme-bg)
+                      :foreground chocolate-theme-element
+                      :background chocolate-theme-bg)
   (set-face-attribute 'ansi-color-bright-green nil
-					  :foreground chocolate-theme-element+2
-					  :background chocolate-theme-bg)
+                      :foreground chocolate-theme-element+2
+                      :background chocolate-theme-bg)
   (set-face-attribute 'ansi-color-red nil
-					  :foreground chocolate-theme-highlight+1
-					  :background chocolate-theme-bg)
+                      :foreground chocolate-theme-highlight+1
+                      :background chocolate-theme-bg)
   (set-face-attribute 'ansi-color-bright-red nil
-					  :foreground chocolate-theme-highlight
-					  :background chocolate-theme-bg)
+                      :foreground chocolate-theme-highlight
+                      :background chocolate-theme-bg)
   (set-face-attribute 'ansi-color-cyan nil
-					  :foreground chocolate-theme-element+11
-					  :background chocolate-theme-bg)
+                      :foreground chocolate-theme-element+11
+                      :background chocolate-theme-bg)
   (set-face-attribute 'ansi-color-bright-cyan nil
-					  :foreground chocolate-theme-element+9
-					  :background chocolate-theme-bg)
+                      :foreground chocolate-theme-element+9
+                      :background chocolate-theme-bg)
   (set-face-attribute 'ansi-color-blue nil
-					  :foreground chocolate-theme-element+4
-					  :background chocolate-theme-bg)
+                      :foreground chocolate-theme-element+4
+                      :background chocolate-theme-bg)
   (set-face-attribute 'ansi-color-bright-blue nil
-					  :foreground chocolate-theme-element+5
-					  :background chocolate-theme-bg)
+                      :foreground chocolate-theme-element+5
+                      :background chocolate-theme-bg)
   (set-face-attribute 'ansi-color-magenta nil
-					  :foreground chocolate-theme-white+3
-					  :background chocolate-theme-bg)
+                      :foreground chocolate-theme-white+3
+                      :background chocolate-theme-bg)
   (set-face-attribute 'ansi-color-bright-magenta nil
-					  :foreground chocolate-theme-element+1
-					  :background chocolate-theme-bg)
+                      :foreground chocolate-theme-element+1
+                      :background chocolate-theme-bg)
   (set-face-attribute 'ansi-color-white nil
-					  :foreground chocolate-theme-white
-					  :background chocolate-theme-bg)
+                      :foreground chocolate-theme-white
+                      :background chocolate-theme-bg)
   (set-face-attribute 'ansi-color-black nil
-					  :foreground chocolate-theme-shadow
-					  :background chocolate-theme-bg)
+                      :foreground chocolate-theme-shadow
+                      :background chocolate-theme-bg)
   (set-face-attribute 'ansi-color-bright-black nil
-					  :foreground chocolate-theme-white+2
-					  :background chocolate-theme-bg))
+                      :foreground chocolate-theme-white+2
+                      :background chocolate-theme-bg))
 
 (use-package exec-path-from-shell
   :ensure t
   :demand t
   :config
   (setq exec-path-from-shell-arguments (list "-l")
-		exec-path-from-shell-shell-name "bash"
-		exec-path-from-shell-check-startup-files nil)
+        exec-path-from-shell-shell-name "bash"
+        exec-path-from-shell-check-startup-files nil)
 
   (add-to-list 'exec-path-from-shell-variables "SHELL")
   (add-to-list 'exec-path-from-shell-variables "GOPATH")

@@ -21,8 +21,8 @@
 (use-package projectile
   :ensure t
   :commands (magit projectile-mode
-			 projectile-switch-project
-			 projectile-find-file projectile-find-dir)
+                   projectile-switch-project
+                   projectile-find-file projectile-find-dir)
   :init
   (general-define-key
    :keymaps 'override
@@ -34,10 +34,10 @@
   :config
   ;; Basic settings
   (setq projectile-enable-caching nil ;; no caching please. It is too slow!
-		projectile-indexing-method 'alien
-		projectile-completion-system 'ivy
-		projectile-auto-discover t
-		projectile-project-search-path '(("~/git" . 1) "~/dotfiles"))
+        projectile-indexing-method 'alien
+        projectile-completion-system 'ivy
+        projectile-auto-discover t
+        projectile-project-search-path '(("~/git" . 1) "~/dotfiles"))
 
   (general-define-key
    :keymaps 'projectile-mode-map

@@ -90,21 +90,21 @@ This function is needed to fix how text-scale operations interacts with
 display line number."
 
   (if (< text-scale-mode-amount 0)
-	  (setq-local line-spacing 0)
-	(setq-local line-spacing nil))
+      (setq-local line-spacing 0)
+    (setq-local line-spacing nil))
 
   ;; Clear previous remappings to prevent "stacking"
   (when do--line-number-remap-cookie
-	(face-remap-remove-relative do--line-number-remap-cookie))
+    (face-remap-remove-relative do--line-number-remap-cookie))
   (when do--line-number-active-remap-cookie
-	(face-remap-remove-relative do--line-number-active-remap-cookie))
+    (face-remap-remove-relative do--line-number-active-remap-cookie))
 
   ;; Calc scale
   (let ((scale (expt text-scale-mode-step text-scale-mode-amount)))
-	(setq do--line-number-remap-cookie
-		  (face-remap-add-relative 'line-number :height scale))
-	(setq do--line-number-active-remap-cookie
-		  (face-remap-add-relative 'line-number-current-line :height scale))))
+    (setq do--line-number-remap-cookie
+          (face-remap-add-relative 'line-number :height scale))
+    (setq do--line-number-active-remap-cookie
+          (face-remap-add-relative 'line-number-current-line :height scale))))
 
 (add-hook 'text-scale-mode-hook #'do--fix-zoom-layout)
 
@@ -124,36 +124,36 @@ The third optional argument PROPS indicates the properties of the frame"
   (interactive)
   ;; Check arguments
   (when (null display)
-	(setq display (getenv "DISPLAY")))
+    (setq display (getenv "DISPLAY")))
   ;; Construct the properties of the new frame
   (let* ((fp (list (cons 'name fname)
-				  (cons 'display display)
-				  (unless (boundp 'pgtk-initialized)
-					'(window-system . x))
-				  '(minibuffer . t)
-				  props
-				  ))
-		(frame (make-frame fp)))
-	;; Create the frame and switch to it
-	(select-frame-set-input-focus frame)
-	frame))
+                   (cons 'display display)
+                   (unless (boundp 'pgtk-initialized)
+                     '(window-system . x))
+                   '(minibuffer . t)
+                   props
+                   ))
+         (frame (make-frame fp)))
+    ;; Create the frame and switch to it
+    (select-frame-set-input-focus frame)
+    frame))
 
 (setq-default frame-title-format
-			  '(:eval (format "%s %s- %02d%%%% " (buffer-name)
-							  (cond
-							   (buffer-file-truename
-								(concat "(" buffer-file-truename ")"))
-							   (dired-directory
-								(concat "(" dired-directory ")"))
-							   (t ""))
-							  (/ (line-number-at-pos)
-								 0.01
-								 (line-number-at-pos (point-max)))))
-			  ;; Create new frames as much as possible. This works beautifully
-			  ;; with tiling window managers such as i3 and BSPWM
-			  pop-up-frames t
-			  ;; Buffers that do not require pop-up frames
-			  display-buffer-alist
-			  '(("\\*Messages\\*" (display-buffer-in-side-window))))
+              '(:eval (format "%s %s- %02d%%%% " (buffer-name)
+                              (cond
+                               (buffer-file-truename
+                                (concat "(" buffer-file-truename ")"))
+                               (dired-directory
+                                (concat "(" dired-directory ")"))
+                               (t ""))
+                              (/ (line-number-at-pos)
+                                 0.01
+                                 (line-number-at-pos (point-max)))))
+              ;; Create new frames as much as possible. This works beautifully
+              ;; with tiling window managers such as i3 and BSPWM
+              pop-up-frames t
+              ;; Buffers that do not require pop-up frames
+              display-buffer-alist
+              '(("\\*Messages\\*" (display-buffer-in-side-window))))
 
 (provide 'do-windows)

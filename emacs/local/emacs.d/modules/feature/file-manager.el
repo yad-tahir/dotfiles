@@ -28,76 +28,76 @@
    "SPC F" 'dired)
 
   (defun do-file-manager (&optional path)
-	(interactive)
-	(do-make-frame "file-manager")
-	(if (null path)
-		(dired default-directory)
-	  (dired path)))
+    (interactive)
+    (do-make-frame "file-manager")
+    (if (null path)
+        (dired default-directory)
+      (dired path)))
 
   :config
   ;; Remove compiler warnings
   (eval-when-compile
-	(declare-function dired-get-marked-files nil)
-	(declare-function dired-get-filename nil)
-	(declare-function dired-find-alternate-file nil)
-	(declare-function dired-find-file nil)
-	(declare-function dired-current-directory nil)
-	(declare-function dired-goto-file nil)
-	(declare-function dired-goto-subdir nil)
-	(declare-function dired-sort-toggle-or-edit nil)
-	(require 'wdired))
+    (declare-function dired-get-marked-files nil)
+    (declare-function dired-get-filename nil)
+    (declare-function dired-find-alternate-file nil)
+    (declare-function dired-find-file nil)
+    (declare-function dired-current-directory nil)
+    (declare-function dired-goto-file nil)
+    (declare-function dired-goto-subdir nil)
+    (declare-function dired-sort-toggle-or-edit nil)
+    (require 'wdired))
 
   (defun do--dired-simultaneous-find (file-list frame)
-	"Find all marked files in the dired mode.
-	If FRAME is t, create a separate frame for each file."
-	(while (not (null file-list))
-	  (let* ((file (car file-list)))
-		(if frame
-			(progn
-			  (do-make-frame)
-			  (find-file file))
-		  (find-file-noselect file)))
-	  (setq file-list (cdr file-list))))
+    "Find all marked files in the dired mode.
+        If FRAME is t, create a separate frame for each file."
+    (while (not (null file-list))
+      (let* ((file (car file-list)))
+        (if frame
+            (progn
+              (do-make-frame)
+              (find-file file))
+          (find-file-noselect file)))
+      (setq file-list (cdr file-list))))
 
   (defun do-dired-find-marked-files-noframe ()
-	"Find all marked files in the dired buffer."
-	(interactive)
-	(do--dired-simultaneous-find (dired-get-marked-files) nil))
+    "Find all marked files in the dired buffer."
+    (interactive)
+    (do--dired-simultaneous-find (dired-get-marked-files) nil))
 
   (defun do-dired-find-marked-files ()
-	"Find all marked files in the dired buffer. Display each file in a
+    "Find all marked files in the dired buffer. Display each file in a
 separate frame."
-	(interactive)
-	(do--dired-simultaneous-find (dired-get-marked-files) t))
+    (interactive)
+    (do--dired-simultaneous-find (dired-get-marked-files) t))
 
   (defun do-dired-find-file ()
-	"Get the file under POINT. Open it in a new buffer if it is not a directory."
-	(interactive)
-	(if (file-directory-p (dired-get-filename))
-		(dired-find-alternate-file)
-	  (dired-find-file)))
+    "Get the file under POINT. Open it in a new buffer if it is not a directory."
+    (interactive)
+    (if (file-directory-p (dired-get-filename))
+        (dired-find-alternate-file)
+      (dired-find-file)))
 
   (defun do-dired-up-directory ()
-	"Run Dired on parent directory of current directory without creating a new
+    "Run Dired on parent directory of current directory without creating a new
   buffer."
-	(interactive)
-	(let* ((dir (dired-current-directory))
-		   (up (file-name-directory (directory-file-name dir))))
-	  (or (dired-goto-file (directory-file-name dir))
-		  ;; Only try dired-goto-subdir if buffer has more than one dir.
-		  (and (cdr dired-subdir-alist)
-			   (dired-goto-subdir up))
-		  (progn
-			(kill-buffer (current-buffer))
-			(dired up)
-			(dired-goto-file dir)))))
+    (interactive)
+    (let* ((dir (dired-current-directory))
+           (up (file-name-directory (directory-file-name dir))))
+      (or (dired-goto-file (directory-file-name dir))
+          ;; Only try dired-goto-subdir if buffer has more than one dir.
+          (and (cdr dired-subdir-alist)
+               (dired-goto-subdir up))
+          (progn
+            (kill-buffer (current-buffer))
+            (dired up)
+            (dired-goto-file dir)))))
 
   (setq wdired-allow-to-change-permissions t
-		wdired-create-parent-directories t
-		wdired-allow-to-redirect-links t
-		dired-auto-revert-buffer t
-		dired-listing-switches "-alih"
-		dired-no-confirm t)
+        wdired-create-parent-directories t
+        wdired-allow-to-redirect-links t
+        dired-auto-revert-buffer t
+        dired-listing-switches "-alih"
+        dired-no-confirm t)
 
   ;; (add-hook 'dired-mode-hook
   ;;		  (lambda ()
@@ -208,22 +208,22 @@ separate frame."
    "lv" 'do-dired-hidden-toggle)
 
   (defmacro do--dired-visual-marking (func)
-	"Marks the selected region before executing FUNC."
+    "Marks the selected region before executing FUNC."
 
-	(call-interactively (quote dired-mark))
-	`(call-interactively (quote ,func)))
+    (call-interactively (quote dired-mark))
+    `(call-interactively (quote ,func)))
 
   (defun do-dired-hidden-toggle ()
-	"Toggle the display of hidden files in Dired."
-	(interactive)
-	(if (string-match-p "a" dired-actual-switches)
-		(prog1
-			(setq dired-actual-switches (replace-regexp-in-string "a" "" dired-actual-switches))
-		  (message "Hiding hidden files"))
-	  (prog1
-		  (setq dired-actual-switches (concat dired-actual-switches "a"))
-		(message "Showing hidden files")))
-	(revert-buffer))
+    "Toggle the display of hidden files in Dired."
+    (interactive)
+    (if (string-match-p "a" dired-actual-switches)
+        (prog1
+            (setq dired-actual-switches (replace-regexp-in-string "a" "" dired-actual-switches))
+          (message "Hiding hidden files"))
+      (prog1
+          (setq dired-actual-switches (concat dired-actual-switches "a"))
+        (message "Showing hidden files")))
+    (revert-buffer))
 
   (general-define-key
    :keymaps 'dired-mode-map
@@ -256,10 +256,10 @@ separate frame."
   :commands (dired-open-xdg)
   :init
   (with-eval-after-load 'dired
-	(general-define-key
-	 :keymaps 'dired-mode-map
-	 :states 'normal
-	 "l <RET>" 'dired-open-xdg)))
+    (general-define-key
+     :keymaps 'dired-mode-map
+     :states 'normal
+     "l <RET>" 'dired-open-xdg)))
 
 (use-package dired-ranger
   ;; :disabled t
@@ -306,9 +306,9 @@ separate frame."
   :disabled t
   :ensure t
   :commands (dired-subtree-insert
-			 dired-subtree-remove
-			 dired-subtree-beginning
-			 dired-subtree-end)
+             dired-subtree-remove
+             dired-subtree-beginning
+             dired-subtree-end)
   :init
   (general-define-key
    :keymaps 'dired-mode-map
@@ -322,13 +322,13 @@ separate frame."
 (use-package openwith
   :ensure t
   :hook ((org-mode . openwith-mode)
-		 (dired-mode . openwith-mode))
+         (dired-mode . openwith-mode))
   :after (:any dired org)
   :config
   (setq openwith-associations '(("\\.pdf\\'" "zathura" (file))
-								("\\.cr3\\'" "gimp" (file))
-								("\\.cr2\\'" "gimp" (file))
-								("\\.mp4\\'" "mpv" (file)))))
+                                ("\\.cr3\\'" "gimp" (file))
+                                ("\\.cr2\\'" "gimp" (file))
+                                ("\\.mp4\\'" "mpv" (file)))))
 
 ;; For large file
 (use-package vlf

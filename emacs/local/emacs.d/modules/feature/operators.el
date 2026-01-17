@@ -40,72 +40,72 @@
   "Fixes white space in the surrounded area between BEGINNING and END."
   :move-point nil
   (save-excursion
-	;; Create two markers to track beginning and end after deleting white spaces
-	(let* ((e (copy-marker end))
-		   (b (copy-marker beginning))
-		   (avoid-regex "^\\|$\\|\\s\"")
-		   (start-regex (concat avoid-regex "\\|\\s(")) ;; open delimiter
-		   (end-regex (concat avoid-regex "\\|\\s)"))) ;; close delimiter
+    ;; Create two markers to track beginning and end after deleting white spaces
+    (let* ((e (copy-marker end))
+           (b (copy-marker beginning))
+           (avoid-regex "^\\|$\\|\\s\"")
+           (start-regex (concat avoid-regex "\\|\\s(")) ;; open delimiter
+           (end-regex (concat avoid-regex "\\|\\s)"))) ;; close delimiter
 
-	  ;; Fix Beginning
-	  (goto-char b)
-	  ;; If there is a white-space around BEGINNING
-	  (when (or (looking-at "\\s-") ;; at beginning
-				;; one char before it
-				(save-excursion (forward-char 1)
-								(looking-at "\\s-"))
-				;; or even one char after it
-				(save-excursion (forward-char -1)
-								(looking-at "\\s-")))
+      ;; Fix Beginning
+      (goto-char b)
+      ;; If there is a white-space around BEGINNING
+      (when (or (looking-at "\\s-") ;; at beginning
+                ;; one char before it
+                (save-excursion (forward-char 1)
+                                (looking-at "\\s-"))
+                ;; or even one char after it
+                (save-excursion (forward-char -1)
+                                (looking-at "\\s-")))
 
-		(delete-horizontal-space)
+        (delete-horizontal-space)
 
-		(unless (or (looking-at start-regex)
-					(save-excursion (forward-char -1)
-									(looking-at start-regex)))
-		  (insert ?\s)))
+        (unless (or (looking-at start-regex)
+                    (save-excursion (forward-char -1)
+                                    (looking-at start-regex)))
+          (insert ?\s)))
 
-	  ;; Fix End
-	  (goto-char e)
-	  (when (or (looking-at "\\s-")
-				(save-excursion (forward-char -1)
-								(looking-at "\\s-"))
-				(save-excursion (forward-char 1)
-								(looking-at "\\s-")))
+      ;; Fix End
+      (goto-char e)
+      (when (or (looking-at "\\s-")
+                (save-excursion (forward-char -1)
+                                (looking-at "\\s-"))
+                (save-excursion (forward-char 1)
+                                (looking-at "\\s-")))
 
-		(delete-horizontal-space)
+        (delete-horizontal-space)
 
-		(unless (or (looking-at end-regex)
-					(save-excursion (forward-char -1)
-									(looking-at end-regex)))
-		  (insert ?\s)))
+        (unless (or (looking-at end-regex)
+                    (save-excursion (forward-char -1)
+                                    (looking-at end-regex)))
+          (insert ?\s)))
 
-	  ;; Assure GC
-	  (set-marker b nil)
-	  (set-marker e nil))))
+      ;; Assure GC
+      (set-marker b nil)
+      (set-marker e nil))))
 
 (evil-define-command do-evil-paste-previous-line (count &optional register yank-handler)
   "Pastes the content of register into previous line, N times based on the prefix count."
   (interactive "*P<x>")
   (let ((content (or (when register
-					   (evil-get-register register))
-					 (get-register (car (car register-alist))))))
-	(message "%s %s" content (string-suffix-p "\n" content))
-	(unless (and (stringp content)
-				 (string-suffix-p "\n" content))
-	  (evil-insert-newline-above)))
+                       (evil-get-register register))
+                     (get-register (car (car register-alist))))))
+    (message "%s %s" content (string-suffix-p "\n" content))
+    (unless (and (stringp content)
+                 (string-suffix-p "\n" content))
+      (evil-insert-newline-above)))
   (evil-paste-before count register yank-handler))
 
 (evil-define-command do-evil-paste-next-line (count &optional register yank-handler)
   "Pastes the content of register into next line, N times based on the prefix count."
   (interactive "*P<x>")
   (let ((content (or (when register
-					   (evil-get-register register))
-					 (get-register (car (car register-alist))))))
-	(message "%s %s" content (string-suffix-p "\n" content))
-	(unless (and (stringp content)
-				 (string-suffix-p "\n" content))
-	  (evil-insert-newline-below)))
+                       (evil-get-register register))
+                     (get-register (car (car register-alist))))))
+    (message "%s %s" content (string-suffix-p "\n" content))
+    (unless (and (stringp content)
+                 (string-suffix-p "\n" content))
+      (evil-insert-newline-below)))
   (evil-paste-after count register yank-handler))
 
 (evil-define-operator do-evil-paste (beg end type)
@@ -113,17 +113,17 @@
   :move-point t
   :interactive "<R>" ;; <R> captures beg, end, type
   (let ((cnt (if current-prefix-arg
-				 (prefix-numeric-value current-prefix-arg)
-			   1)))
-	(evil-delete beg end type ?_) ;; Paste it into 'black hole' so that the register " won't be effected
-	(evil-paste-before cnt ?\")))
+                 (prefix-numeric-value current-prefix-arg)
+               1)))
+    (evil-delete beg end type ?_) ;; Paste it into 'black hole' so that the register " won't be effected
+    (evil-paste-before cnt ?\")))
 
 (evil-define-operator do-evil-capitalize (beg end type)
   "Title case text from BEG to END."
   :move-point t
   :interactive "<R>" ;; <R> captures beg, end, type
   (if (eq type 'block)
-	  (evil-apply-on-block #'capitalize-region beg end nil)
-	(capitalize-region  beg end)))
+      (evil-apply-on-block #'capitalize-region beg end nil)
+    (capitalize-region  beg end)))
 
 (provide 'do-operators)

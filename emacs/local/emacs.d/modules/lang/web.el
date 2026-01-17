@@ -39,60 +39,60 @@
   ;; Hooks
   ;; (defun do--web-init()
   ;;	"Called whenever Web mode is loaded."
-	;;Adjust company's settings
-	;; (eval-when-compile
-	;;   (require 'company))
-	;; (with-eval-after-load 'company
-	;;   (set (make-local-variable 'company-backends)
-	;;	   (add-to-list 'company-backends
-	;;					'(;; Highest priority
-	;;					  company-semantic
-	;;					  company-capf
-	;;					  company-files
-	;;					  ;; Current mode
-	;;					  ;; NONE
-	;;					  ;; Lowest priority - keep the ordering
-	;;					  company-keywords
-	;;					  company-dabbrev-code
-	;;					  company-dabbrev
-	;;					  company-ispell)
-	;;					nil))))
+  ;;Adjust company's settings
+  ;; (eval-when-compile
+  ;;   (require 'company))
+  ;; (with-eval-after-load 'company
+  ;;   (set (make-local-variable 'company-backends)
+  ;;	   (add-to-list 'company-backends
+  ;;					'(;; Highest priority
+  ;;					  company-semantic
+  ;;					  company-capf
+  ;;					  company-files
+  ;;					  ;; Current mode
+  ;;					  ;; NONE
+  ;;					  ;; Lowest priority - keep the ordering
+  ;;					  company-keywords
+  ;;					  company-dabbrev-code
+  ;;					  company-dabbrev
+  ;;					  company-ispell)
+  ;;					nil))))
   ;; (add-hook 'web-mode-hook #'do--web-init()))
 
-(use-package emmet-mode
-  :ensure t
-  :commands (emmet-mode)
-  :hook ((web-mode . emmet-mode)
-		 (sgml-mode . emmet-mode))
-  :config
-  (general-define-key
-   :keymaps 'emmet-mode-keymap
-   :states '(normal insert)
-   "<M-tab>" 'emmet-expand-yas))
+  (use-package emmet-mode
+    :ensure t
+    :commands (emmet-mode)
+    :hook ((web-mode . emmet-mode)
+           (sgml-mode . emmet-mode))
+    :config
+    (general-define-key
+     :keymaps 'emmet-mode-keymap
+     :states '(normal insert)
+     "<M-tab>" 'emmet-expand-yas))
 
-;; (use-package impatient-mode
-;;   :ensure t
-;;   :hook ((html-mode . impatient-mode)
-;;		 (web-mode . impatient-mode))
-;;   :config
-;;   (httpd-start)
+  ;; (use-package impatient-mode
+  ;;   :ensure t
+  ;;   :hook ((html-mode . impatient-mode)
+  ;;		 (web-mode . impatient-mode))
+  ;;   :config
+  ;;   (httpd-start)
 
-;;   (defun do-web-open-browser ()
-;;	"Opens a browser to render the current buffer with the impatient mode."
+  ;;   (defun do-web-open-browser ()
+  ;;	"Opens a browser to render the current buffer with the impatient mode."
 
-;;	(interactive)
+  ;;	(interactive)
 
-;;	;; Check if the server is alive
-;;	(unless (process-status "httpd")
-;;	  (httpd-start))
+  ;;	;; Check if the server is alive
+  ;;	(unless (process-status "httpd")
+  ;;	  (httpd-start))
 
-;;	;; Check if impatient mode is up and ready
-;;	(unless impatient-mode
-;;	  (impatient-mode))
+  ;;	;; Check if impatient mode is up and ready
+  ;;	(unless impatient-mode
+  ;;	  (impatient-mode))
 
-;;	(let ((url (format "http://127.0.0.1:%d/imp/live/%s/"
-;;					   httpd-port
-;;					   (url-hexify-string (buffer-name)))))
-;;	  (browse-url url))))
+  ;;	(let ((url (format "http://127.0.0.1:%d/imp/live/%s/"
+  ;;					   httpd-port
+  ;;					   (url-hexify-string (buffer-name)))))
+  ;;	  (browse-url url))))
 
-(provide 'do-web)
+  (provide 'do-web)

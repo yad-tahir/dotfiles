@@ -20,10 +20,10 @@
 (use-package simple-mpc
   :ensure t
   :commands (simple-mpc-next
-			 simple-mpc-prev
-			 simple-mpc-view-current-playlist)
+             simple-mpc-prev
+             simple-mpc-view-current-playlist)
   :functions (do-music-next do-music-previous do--music-playlist-init
-							do--music-query-init do--music-setup-process simple-mpc-play-current-line)
+                            do--music-query-init do--music-setup-process simple-mpc-play-current-line)
   :preface
   (defvar do--music-mpd-init nil)
   (defvar do--music-toggle-state nil)
@@ -35,96 +35,96 @@
    "SPC Am" 'do-music-playlist)
 
   (defun do--music-setup-process ()
-	(unless do--music-mpd-init
-	  ;; Start MPD
-	  (ignore-errors
-		(let ((b (get-buffer "*Messages*")))
-		  (shell-command "mpd" b b)))
-	  (setq do--music-mpd-init t))
-	nil)
+    (unless do--music-mpd-init
+      ;; Start MPD
+      (ignore-errors
+        (let ((b (get-buffer "*Messages*")))
+          (shell-command "mpd" b b)))
+      (setq do--music-mpd-init t))
+    nil)
 
   (defun do-music-next ()
-	(interactive)
-	(do--music-setup-process)
-	(setq do--music-toggle-state t)
-	(simple-mpc-next)
-	(message "Music Next"))
+    (interactive)
+    (do--music-setup-process)
+    (setq do--music-toggle-state t)
+    (simple-mpc-next)
+    (message "Music Next"))
 
   (defun do-music-previous ()
-	(interactive)
-	(do--music-setup-process)
-	(setq do--music-toggle-state t)
-	(simple-mpc-prev)
-	(message "Music Previous"))
+    (interactive)
+    (do--music-setup-process)
+    (setq do--music-toggle-state t)
+    (simple-mpc-prev)
+    (message "Music Previous"))
 
   (defun do-music-toggle ()
-	(interactive)
-	(require 'simple-mpc)
-	(do--music-setup-process)
-	(if do--music-toggle-state
-		(progn
-		  (start-process-shell-command "mpc" 'nil "/usr/bin/mpc pause")
-		  (setq do--music-toggle-state nil)
-		  (message "Music Pause"))
-	  (progn
-		(start-process-shell-command "mpc" 'nil "/usr/bin/mpc play")
-		(setq do--music-toggle-state t)
-		(message "Music Play"))))
+    (interactive)
+    (require 'simple-mpc)
+    (do--music-setup-process)
+    (if do--music-toggle-state
+        (progn
+          (start-process-shell-command "mpc" 'nil "/usr/bin/mpc pause")
+          (setq do--music-toggle-state nil)
+          (message "Music Pause"))
+      (progn
+        (start-process-shell-command "mpc" 'nil "/usr/bin/mpc play")
+        (setq do--music-toggle-state t)
+        (message "Music Play"))))
 
 ;;;###autoload
   (defun do-music-playlist ()
-	(interactive)
-	(do--music-setup-process)
-	(simple-mpc-view-current-playlist))
+    (interactive)
+    (do--music-setup-process)
+    (simple-mpc-view-current-playlist))
 
   :config
   ;; Sub-functions to encapsulate simple-mpc
   (defun do-music-stop ()
-	(interactive)
-	(setq do--music-toggle-state t)
-	(do--music-setup-process)
-	(start-process-shell-command "mpc" 'nil "/usr/bin/mpc stop"))
+    (interactive)
+    (setq do--music-toggle-state t)
+    (do--music-setup-process)
+    (start-process-shell-command "mpc" 'nil "/usr/bin/mpc stop"))
   (defun do-music-play-selected ()
-	(interactive)
-	(simple-mpc-play-current-line)
-	(setq do--music-toggle-state t)
-	(do--music-setup-process))
+    (interactive)
+    (simple-mpc-play-current-line)
+    (setq do--music-toggle-state t)
+    (do--music-setup-process))
   (defun do-music-load-playlist ()
-	(interactive)
-	(call-interactively 'simple-mpc-load-playlist))
+    (interactive)
+    (call-interactively 'simple-mpc-load-playlist))
   (defun do-music-query ()
-	(interactive)
-	(call-interactively 'simple-mpc-query))
+    (interactive)
+    (call-interactively 'simple-mpc-query))
   (defun do-music-shuffle ()
-	(interactive)
-	(call-interactively 'simple-mpc-shuffle-current-playlist))
+    (interactive)
+    (call-interactively 'simple-mpc-shuffle-current-playlist))
   (defun do-music-seek-forward ()
-	(interactive)
-	(call-interactively 'simple-mpc-seek-forward))
+    (interactive)
+    (call-interactively 'simple-mpc-seek-forward))
   (defun do-music-seek-backward ()
-	(interactive)
-	(call-interactively 'simple-mpc-seek-backward))
+    (interactive)
+    (call-interactively 'simple-mpc-seek-backward))
   (defun do-music-delete ()
-	(interactive)
-	(call-interactively 'simple-mpc-delete))
+    (interactive)
+    (call-interactively 'simple-mpc-delete))
   (defun do-music-clear-playlist ()
-	(interactive)
-	(call-interactively 'simple-mpc-clear-current-playlist))
+    (interactive)
+    (call-interactively 'simple-mpc-clear-current-playlist))
   (defun do-music-query-sort ()
-	(interactive)
-	(call-interactively 'simple-mpc-query-sort))
+    (interactive)
+    (call-interactively 'simple-mpc-query-sort))
   (defun do-music-query-quit ()
-	(interactive)
-	(call-interactively 'simple-mpc-query-quit))
+    (interactive)
+    (call-interactively 'simple-mpc-query-quit))
   (defun do-music-query-add ()
-	(interactive)
-	(call-interactively 'simple-mpc-query-add))
+    (interactive)
+    (call-interactively 'simple-mpc-query-add))
 
   (setq simple-mpc-mode-map (make-sparse-keymap)
-		simple-mpc-query-mode-map (make-sparse-keymap)
-		simple-mpc-current-playlist-mode-map (make-sparse-keymap)
-		simple-mpc-table-separator "="
-		simple-mpc-playlist-format "%file%=%album% / %artist% ")
+        simple-mpc-query-mode-map (make-sparse-keymap)
+        simple-mpc-current-playlist-mode-map (make-sparse-keymap)
+        simple-mpc-table-separator "="
+        simple-mpc-playlist-format "%file%=%album% / %artist% ")
 
   (general-define-key
    :keymaps 'simple-mpc-mode-map
@@ -142,25 +142,25 @@
    "lx" 'do-music-clear-playlist)
 
   (defun do--music-playlist-init ()
-	(general-define-key
-	 :keymaps 'local
-	 :states '(normal visual)
-	 "<RET>" 'do-music-play-selected
-	 "C-n" 'do-music-next
-	 "C-h" 'do-music-previous))
+    (general-define-key
+     :keymaps 'local
+     :states '(normal visual)
+     "<RET>" 'do-music-play-selected
+     "C-n" 'do-music-next
+     "C-h" 'do-music-previous))
   (add-hook 'simple-mpc-current-playlist-mode-hook 'do--music-playlist-init)
 
   (defun do--music-query-init ()
-	(general-define-key
-	 :keymaps 'local
-	 :states '(normal visual)
-	 "<RET>" 'simple-mpc-query-add-and-play
-	 "ls" 'do-music-query-sort
-	 "lq" 'do-music-query-quit)
+    (general-define-key
+     :keymaps 'local
+     :states '(normal visual)
+     "<RET>" 'simple-mpc-query-add-and-play
+     "ls" 'do-music-query-sort
+     "lq" 'do-music-query-quit)
 
-	(general-define-key
-	 :keymaps 'local
-	 "la" 'do-music-query-add))
+    (general-define-key
+     :keymaps 'local
+     "la" 'do-music-query-add))
   (add-hook 'simple-mpc-query-mode-hook 'do--music-query-init))
 
 (provide 'do-music)

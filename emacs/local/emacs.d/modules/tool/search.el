@@ -19,7 +19,7 @@
 
 (eval-when-compile
   (use-package deadgrep
-	:ensure t))
+    :ensure t))
 
 (use-package deadgrep
   :ensure t
@@ -49,9 +49,9 @@
    "<RET>" 'deadgrep-visit-result)
 
   (add-hook 'deadgrep-mode-hook
-			#'(lambda ()
-				;; Show hidden files by default
-				(setq deadgrep--file-type (cons 'glob "*")))))
+            #'(lambda ()
+                ;; Show hidden files by default
+                (setq deadgrep--file-type (cons 'glob "*")))))
 
 (use-package google-this
   :disabled t
@@ -67,14 +67,14 @@
    "SPC li" 'define-wiki)
 
   (with-eval-after-load 'evil
-	(evil-define-operator define-wiki (beginning end)
-	  "Get Wiki summary for the words between BEGINNING END."
-	  :move-point nil
-	  (require 'eww)
-	  (eww-browse-url
-	   (format
-		"https://en.wikipedia.org/wiki/Special:Search/?search=%s&sourceid=emacs"
-		(buffer-substring-no-properties beginning end))))))
+    (evil-define-operator define-wiki (beginning end)
+      "Get Wiki summary for the words between BEGINNING END."
+      :move-point nil
+      (require 'eww)
+      (eww-browse-url
+       (format
+        "https://en.wikipedia.org/wiki/Special:Search/?search=%s&sourceid=emacs"
+        (buffer-substring-no-properties beginning end))))))
 
 
 (provide 'do-search)

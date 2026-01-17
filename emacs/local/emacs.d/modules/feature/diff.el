@@ -31,11 +31,11 @@
   (setq diff-hl-disable-on-remote t)
 
   (with-eval-after-load 'dired
-	(add-hook 'dired-mode-hook 'diff-hl-dired-mode))
+    (add-hook 'dired-mode-hook 'diff-hl-dired-mode))
 
   (with-eval-after-load 'magit
-	(add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
-	(add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
+    (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
+    (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
 
   (global-diff-hl-mode 1))
 

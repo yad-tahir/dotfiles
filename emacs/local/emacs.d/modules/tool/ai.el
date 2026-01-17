@@ -30,5 +30,5 @@
   :config
   ;; OPTIONAL configuration
   (setq gptel-backend (gptel-make-gemini "Gemini"
-									:key "<your_key>"
-									:stream t)))
+                                         :key "<your_key>"
+                                         :stream t)))

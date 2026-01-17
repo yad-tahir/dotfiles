@@ -69,8 +69,8 @@
    "<escape>" 'do-evil-escape-abort
    "C-k" 'describe-key)
 
-   ;; To support TAB in both GUI and Terminal
-   (define-key ivy-minibuffer-map (kbd "TAB") 'ivy-partial)
+  ;; To support TAB in both GUI and Terminal
+  (define-key ivy-minibuffer-map (kbd "TAB") 'ivy-partial)
 
   (general-define-key
    :keymaps '(ivy-occur-mode-map ivy-occur-grep-mode-map)
@@ -85,32 +85,32 @@
 
   ;; Basic settings
   (setq ivy-height 15
-		ivy-use-virtual-buffers t
-		enable-recursive-minibuffers t
-		ivy-wrap t
-		ivy-fixed-height-minibuffer t)
+        ivy-use-virtual-buffers t
+        enable-recursive-minibuffers t
+        ivy-wrap t
+        ivy-fixed-height-minibuffer t)
 
   ;; Ignore case sensitivity
   (setq-default completion-ignore-case t
-		read-file-name-completion-ignore-case t
-		read-buffer-completion-ignore-case t
-		ivy-case-fold-search-default 'always
-		ivy-re-builders-alist
-		'((t . ivy--regex-ignore-order)))
+                read-file-name-completion-ignore-case t
+                read-buffer-completion-ignore-case t
+                ivy-case-fold-search-default 'always
+                ivy-re-builders-alist
+                '((t . ivy--regex-ignore-order)))
   (ivy-mode))
 
 (use-package counsel
   :ensure t
   :commands
   (counsel-dired-jump counsel-git-grep counsel-describe-variable
-					  counsel-find-library counsel-describe-function
-					  counsel-info-lookup-symbol
-					  counsel-unicode-char counsel-semantic-or-imenu
-					  counsel-fzf counsel-ag counsel-apropos counsel-rg
-					  counsel-describe-face counsel-find-file
-					  counsel-recentf counsel-imenu counsel-bookmark
-					  counsel-M-x counsel-org-capture
-					  counsel-yank-pop counsel-describe-face)
+                      counsel-find-library counsel-describe-function
+                      counsel-info-lookup-symbol
+                      counsel-unicode-char counsel-semantic-or-imenu
+                      counsel-fzf counsel-ag counsel-apropos counsel-rg
+                      counsel-describe-face counsel-find-file
+                      counsel-recentf counsel-imenu counsel-bookmark
+                      counsel-M-x counsel-org-capture
+                      counsel-yank-pop counsel-describe-face)
   :preface
   (declare-function counsel-cmd-to-dired nil)
   :init
@@ -128,15 +128,15 @@
    ;; make a prefix-command and add description
    "SPC s" '(:ignore t :which-key "search")
    "SPC sf" '((lambda ()
-				(interactive)
-				(let ((counsel-fzf-cmd "rg --color never --files -g '*%s*'"))
-				  (counsel-fzf nil nil "file " )))
-			 :which-key "file")
+                (interactive)
+                (let ((counsel-fzf-cmd "rg --color never --files -g '*%s*'"))
+                  (counsel-fzf nil nil "file " )))
+              :which-key "file")
    "SPC sF" '((lambda ()
-				(interactive)
-				(let ((counsel-fzf-cmd "rg --color never -u --files -g '*%s*'"))
-				  (counsel-fzf nil nil "file " )))
-			  :which-key "hidden-file")
+                (interactive)
+                (let ((counsel-fzf-cmd "rg --color never -u --files -g '*%s*'"))
+                  (counsel-fzf nil nil "file " )))
+              :which-key "hidden-file")
    "SPC sj" 'counsel-dired-jump
    "SPC sv" 'counsel-describe-variable
    "SPC sl" 'counsel-find-library
@@ -160,35 +160,35 @@
   (projectile-mode 1)
 
   (setq counsel-switch-buffer-preview-virtual-buffers t
-		;;counsel-ag-base-command "ag --hidden --nocolor --nogroup %s"
-		counsel-rg-base-command "rg -S --no-binary --no-heading --line-number -uu --color never %s "
-		;; Configure counsel-fzf to use rg instead.
-		counsel-fzf-dir-function 'counsel-fzf-dir-function-projectile
-		counsel-fzf-cmd "rg --color never -u --files -g '*%s*' ")
+        ;;counsel-ag-base-command "ag --hidden --nocolor --nogroup %s"
+        counsel-rg-base-command "rg -S --no-binary --no-heading --line-number -uu --color never %s "
+        ;; Configure counsel-fzf to use rg instead.
+        counsel-fzf-dir-function 'counsel-fzf-dir-function-projectile
+        counsel-fzf-cmd "rg --color never -u --files -g '*%s*' ")
 
-	;;; Enable rg export by ignoring counsel's fzf internal processing.
+        ;;; Enable rg export by ignoring counsel's fzf internal processing.
   (defun do--counsel-fzf-occur (&rest args)
-	"Occur function for `counsel-fzf' to use 'ag' instead "
-	(ignore args)
-	(cd counsel--fzf-dir)
-	(counsel-cmd-to-dired
-	 (concat
-	  (format counsel-fzf-cmd ivy-text)
-	  ;; The sed is required to change ' to \'. Otherwise, xargs will throw
-	  ;; exceptions when file names contain single quotes.
-	  "| sed -e \"s/'/\\\\\\\\'/g\" | xargs -I {} ls -alih ./{}")))
+    "Occur function for `counsel-fzf' to use 'ag' instead "
+    (ignore args)
+    (cd counsel--fzf-dir)
+    (counsel-cmd-to-dired
+     (concat
+      (format counsel-fzf-cmd ivy-text)
+      ;; The sed is required to change ' to \'. Otherwise, xargs will throw
+      ;; exceptions when file names contain single quotes.
+      "| sed -e \"s/'/\\\\\\\\'/g\" | xargs -I {} ls -alih ./{}")))
   (ivy-set-occur 'counsel-fzf 'do--counsel-fzf-occur))
 
 (use-package counsel-projectile
   :ensure t
   :commands (counsel-projectile-find-dir
-			 counsel-projectile-find-file
-			 counsel-projectile-switch-project)
+             counsel-projectile-find-file
+             counsel-projectile-switch-project)
   :init
   ;; Keybindings
   (general-def ivy-mode-map
-	[remap projectile-find-file]      #'counsel-projectile-find-file
-	[remap projectile-find-dir]      #'counsel-projectile-find-dir)
+    [remap projectile-find-file]      #'counsel-projectile-find-file
+    [remap projectile-find-dir]      #'counsel-projectile-find-dir)
 
   :config
   (require 'projectile)

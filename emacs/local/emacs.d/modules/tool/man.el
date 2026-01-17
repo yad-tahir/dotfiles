@@ -31,13 +31,13 @@
 (defun do-man (cmd)
   (interactive)
   (let ((frame nil))
-	(unless (display-graphic-p (selected-frame))
-	  ;; Force emacs to have a frame; Otherwise	`man' will crash in emacs server!
-	  (setq frame (do-make-frame)))
-	(require 'man)
-	(man (concat "-a " cmd))
-	;; Since `man' has already created a new frame, close the first one
-	(when frame
-	  (delete-frame frame))))
+    (unless (display-graphic-p (selected-frame))
+      ;; Force emacs to have a frame; Otherwise	`man' will crash in emacs server!
+      (setq frame (do-make-frame)))
+    (require 'man)
+    (man (concat "-a " cmd))
+    ;; Since `man' has already created a new frame, close the first one
+    (when frame
+      (delete-frame frame))))
 
 (provide 'do-man)

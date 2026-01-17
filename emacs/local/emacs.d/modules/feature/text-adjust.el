@@ -29,9 +29,9 @@
 (use-package evil-surround
   :ensure t
   :commands (evil-surround-region
-			 evil-surround-change
-			 evil-Surround-change
-			 evil-surround-delete)
+             evil-surround-change
+             evil-Surround-change
+             evil-surround-delete)
   :init
   (general-define-key
    :states '(normal visual)
@@ -42,19 +42,19 @@
   :config
   ;; Eliminate extra space between pairs
   (setq-default evil-surround-pairs-alist
-				'((?\( . ("(" . ")"))
-				  (?\[ . ("[" . "]"))
-				  (?\{ . ("{" . "}"))
-				  (?\) . ("(" . ")"))
-				  (?\] . ("[" . "]"))
-				  (?\} . ("{" . "}"))
-				  (?# . ("#{" . "}"))
-				  (?b . ("(" . ")"))
-				  (?B . ("{" . "}"))
-				  (?> . ("<" . ">"))
-				  (?t . evil-surround-read-tag)
-				  (?< . evil-surround-read-tag)
-				  (?f . evil-surround-function))))
+                '((?\( . ("(" . ")"))
+                  (?\[ . ("[" . "]"))
+                  (?\{ . ("{" . "}"))
+                  (?\) . ("(" . ")"))
+                  (?\] . ("[" . "]"))
+                  (?\} . ("{" . "}"))
+                  (?# . ("#{" . "}"))
+                  (?b . ("(" . ")"))
+                  (?B . ("{" . "}"))
+                  (?> . ("<" . ">"))
+                  (?t . evil-surround-read-tag)
+                  (?< . evil-surround-read-tag)
+                  (?f . evil-surround-function))))
 
 (use-package smartparens
   :ensure t
@@ -63,12 +63,12 @@
   :config
   ;; Remove compiler warnings
   (eval-when-compile
-	(declare-function sp-pair nil))
+    (declare-function sp-pair nil))
 
   (require 'smartparens-config)
   (setq sp-highlight-pair-overlay nil
-		sp-highlight-wrap-overlay nil
-		sp-highlight-wrap-tag-overlay nil)
+        sp-highlight-wrap-overlay nil
+        sp-highlight-wrap-tag-overlay nil)
 
   (sp-pair "\\'" nil :actions :rem)
   (sp-pair "\\\"" nil :actions :rem)
@@ -112,7 +112,7 @@
 
   :config
   (setq evil-lion-left-align-key (kbd "SPC l <")
-		evil-lion-right-align-key (kbd "SPC l >"))
+        evil-lion-right-align-key (kbd "SPC l >"))
   (evil-lion-mode))
 
 (use-package drag-stuff
@@ -157,8 +157,8 @@
 (use-package whitespace
   :config
   (add-hook 'before-save-hook #'(lambda ()
-								  (when whitespace-mode
-									(whitespace-cleanup)))))
+                                  (when whitespace-mode
+                                    (whitespace-cleanup)))))
 
 (use-package evil-mc
   :ensure t
@@ -199,9 +199,9 @@
    "I" 'do-evil-mc-mark-visual-beg)
 
   (defun do-mc-make-cursor-here ()
-	(interactive)
-	(evil-mc-make-cursor-here)
-	(evil-mc-pause-cursors))
+    (interactive)
+    (evil-mc-make-cursor-here)
+    (evil-mc-pause-cursors))
 
   ;; Make sure the cursors are not over hidden, e.g. evil-ex-search
   (setq evil-mc-cursor-overlay-priority 1000)

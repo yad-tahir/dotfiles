@@ -16,8 +16,8 @@
 ;; 02110-1301, USA.
 
 (setq inhibit-startup-screen t
-	  initial-scratch-message 'nil
-	  initial-major-mode 'fundamental-mode)
+      initial-scratch-message 'nil
+      initial-major-mode 'fundamental-mode)
 
 
 ;;;###autoload

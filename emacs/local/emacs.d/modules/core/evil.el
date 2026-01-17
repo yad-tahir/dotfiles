@@ -21,13 +21,13 @@
   :ensure t
   :demand t
   :functions (evil-indent@evil-indent-fixed-mouse
-			  previous-history-element@previous-history-end-element
-			  next-history-element@next-history-end-element
-			  evil-ex-search-abort do--evil-search-region
-			  evil-exit-visual-state evil-ex-search-next
-			  evil-push-search-history evil-ex-make-search-pattern
-			  evil-set-initial-state do-evil-search-region-backward
-			  do-evil-search-region-forward evil-ex-delete-hl)
+              previous-history-element@previous-history-end-element
+              next-history-element@next-history-end-element
+              evil-ex-search-abort do--evil-search-region
+              evil-exit-visual-state evil-ex-search-next
+              evil-push-search-history evil-ex-make-search-pattern
+              evil-set-initial-state do-evil-search-region-backward
+              do-evil-search-region-forward evil-ex-delete-hl)
   :init
   (setq-default evil-search-module 'evil-search)
 
@@ -256,12 +256,12 @@
   ;; Other
   (general-define-key
    :keymaps '(evil-ex-search-keymap
-			  evil-ex-completion-map
-			  minibuffer-local-completion-map
-			  minibuffer-local-must-match-map
-			  minibuffer-local-isearch-map
-			  minibuffer-local-ns-map
-			  minibuffer-local-map)
+              evil-ex-completion-map
+              minibuffer-local-completion-map
+              minibuffer-local-must-match-map
+              minibuffer-local-isearch-map
+              minibuffer-local-ns-map
+              minibuffer-local-map)
    "C-c" 'previous-history-element
    "C-t" 'next-history-element
    "C-h" 'left-char
@@ -293,10 +293,10 @@
 
   ;; Minimize keymaps overriding
   (setq evil-overriding-maps nil
-		evil-want-integration nil
-		evil-intercept-maps nil
-		evil-pending-intercept-maps nil
-		evil-pending-overriding-maps nil)
+        evil-want-integration nil
+        evil-intercept-maps nil
+        evil-pending-intercept-maps nil
+        evil-pending-overriding-maps nil)
 
   ;; Subvert evil-operation.el overrides (dired, ibuffer etc.)
   (advice-add 'evil-make-overriding-map :override 'ignore)
@@ -304,119 +304,119 @@
   (advice-add 'evil-add-hjkl-bindings   :override 'ignore)
 
   (dolist (mode '(text-mode help-mode debugger-mode message-mode))
-	(evil-set-initial-state mode 'normal))
+    (evil-set-initial-state mode 'normal))
 
   ;; Variables
   (setq-default evil-symbol-word-search t ;; make '*' more useful
-				evil-input-method nil) ; Ensures no weird input lag
+                evil-input-method nil) ; Ensures no weird input lag
 
   (setq evil-want-C-u-scroll nil
-		evil-want-C-i-jump nil
-		evil-want-Y-yank-to-eol t
-		;; No need for t if the cursor has a box shap
-		evil-move-beyond-eol nil
-		evil-ex-search-persistent-highlight t
-		evil-move-cursor-back t
-		evil-magic t
-		evil-indent-convert-tabs t
-		evil-auto-indent t
-		evil-shift-width 4
-		evil-jumps-cross-buffers nil
-		evil-shift-round t
-		evil-insert-skip-empty-lines t
-		evil-echo-state nil
-		evil-kbd-macro-suppress-motion-error t
-		;; evil-move-beyond-eol t
-		evil-mode-line-format nil
-		evil-cross-lines t
-		evil-lookup-func #'(lambda() (call-interactively 'eldoc-doc-buffer))
-		;; evil-ex-substitute-global t
-		;; More vim-like behavior
-		evil-ex-search-vim-style-regexp t
-		;; evil-search-wrap nil ;; Can be problematic with macros
-		shift-select-mode t
-		evil-respect-visual-line-mode nil
-		;; Setup the initial state for major modes should be normal
-		evil-emacs-state-modes nil
-		evil-motion-state-modes nil)
+        evil-want-C-i-jump nil
+        evil-want-Y-yank-to-eol t
+        ;; No need for t if the cursor has a box shap
+        evil-move-beyond-eol nil
+        evil-ex-search-persistent-highlight t
+        evil-move-cursor-back t
+        evil-magic t
+        evil-indent-convert-tabs t
+        evil-auto-indent t
+        evil-shift-width 4
+        evil-jumps-cross-buffers nil
+        evil-shift-round t
+        evil-insert-skip-empty-lines t
+        evil-echo-state nil
+        evil-kbd-macro-suppress-motion-error t
+        ;; evil-move-beyond-eol t
+        evil-mode-line-format nil
+        evil-cross-lines t
+        evil-lookup-func #'(lambda() (call-interactively 'eldoc-doc-buffer))
+        ;; evil-ex-substitute-global t
+        ;; More vim-like behavior
+        evil-ex-search-vim-style-regexp t
+        ;; evil-search-wrap nil ;; Can be problematic with macros
+        shift-select-mode t
+        evil-respect-visual-line-mode nil
+        ;; Setup the initial state for major modes should be normal
+        evil-emacs-state-modes nil
+        evil-motion-state-modes nil)
 
   (setq evil-default-cursor `(box)
-		evil-insert-state-cursor `((bar . 2))
-		evil-normal-state-cursor `(box)
-		evil-visual-state-cursor `(box)
-		evil-emacs-state-cursor `(box)
-		evil-replace-state-cursor `((bar . 2))
-		evil-operator-state-cursor `(box)
-		evil-undo-system 'undo-redo
-		evil-redo-function 'undo-redo
-		evil-motion-state-cursor `(box))
+        evil-insert-state-cursor `((bar . 2))
+        evil-normal-state-cursor `(box)
+        evil-visual-state-cursor `(box)
+        evil-emacs-state-cursor `(box)
+        evil-replace-state-cursor `((bar . 2))
+        evil-operator-state-cursor `(box)
+        evil-undo-system 'undo-redo
+        evil-redo-function 'undo-redo
+        evil-motion-state-cursor `(box))
 
   ;; Functions
   (defun do--evil-search-region (direction)
-	"Extract the text of the current region and execute evil-ex-search for that text."
-	(interactive)
-	(if (use-region-p)  ;; Check if the region is active
-		(let* ((selected-text (buffer-substring-no-properties (region-beginning) (region-end)))
-			   (regex (regexp-quote selected-text)))
-		  (progn
-			(unless (equal regex (car evil-ex-search-history))
-			  (push regex evil-ex-search-history))
+    "Extract the text of the current region and execute evil-ex-search for that text."
+    (interactive)
+    (if (use-region-p)  ;; Check if the region is active
+        (let* ((selected-text (buffer-substring-no-properties (region-beginning) (region-end)))
+               (regex (regexp-quote selected-text)))
+          (progn
+            (unless (equal regex (car evil-ex-search-history))
+              (push regex evil-ex-search-history))
 
-			(setq evil-ex-search-count 1
-				  evil-ex-search-direction direction
-				  evil-ex-search-pattern
-				  (let (evil-ex-search-vim-style-regexp)
-					(evil-ex-make-search-pattern regex))
-				  evil-ex-search-offset nil
-				  evil-ex-last-was-search t)
-			(evil-push-search-history regex direction)
-			(evil-ex-delete-hl 'evil-ex-search)
-			(evil-ex-search-next)
-			(evil-exit-visual-state)))
-	  (message "No region selected.")))
+            (setq evil-ex-search-count 1
+                  evil-ex-search-direction direction
+                  evil-ex-search-pattern
+                  (let (evil-ex-search-vim-style-regexp)
+                    (evil-ex-make-search-pattern regex))
+                  evil-ex-search-offset nil
+                  evil-ex-last-was-search t)
+            (evil-push-search-history regex direction)
+            (evil-ex-delete-hl 'evil-ex-search)
+            (evil-ex-search-next)
+            (evil-exit-visual-state)))
+      (message "No region selected.")))
 
   (defun do-evil-search-region-backward ()
-	"Extract the text of the current region and execute evil-ex-search for that text."
-	(interactive)
-	(do--evil-search-region 'backward))
+    "Extract the text of the current region and execute evil-ex-search for that text."
+    (interactive)
+    (do--evil-search-region 'backward))
 
   (defun do-evil-search-region-forward ()
-	"Extract the text of the current region and execute evil-ex-search for that text."
-	(interactive)
-	(do--evil-search-region 'forward))
+    "Extract the text of the current region and execute evil-ex-search for that text."
+    (interactive)
+    (do--evil-search-region 'forward))
 
   ;; When we travel through the history, put the cursor at the end of the line
   (with-eval-after-load 'simple
-	(define-advice previous-history-element (:after (&rest _args) previous-history-end-element)
-	  "Move to end of line after previous history element."
-	  (move-end-of-line nil))
+    (define-advice previous-history-element (:after (&rest _args) previous-history-end-element)
+      "Move to end of line after previous history element."
+      (move-end-of-line nil))
 
-	(define-advice next-history-element (:after (&rest _args) next-history-end-element)
-	  "Move to end of line after next history element."
-	  (move-end-of-line nil)))
+    (define-advice next-history-element (:after (&rest _args) next-history-end-element)
+      "Move to end of line after next history element."
+      (move-end-of-line nil)))
 
   ;; Don't move cursor on indent
   (define-advice evil-indent
-	  (:around (orig-func &rest args) evil-indent-fixed-mouse)
-	(save-excursion (apply orig-func args)))
+      (:around (orig-func &rest args) evil-indent-fixed-mouse)
+    (save-excursion (apply orig-func args)))
 
   (defun do-evil-escape-abort ()
-	(interactive)
-	(when (and delete-selection-mode
-			   transient-mark-mode
-			   mark-active)
-	  (setq deactivate-mark  t))
+    (interactive)
+    (when (and delete-selection-mode
+               transient-mark-mode
+               mark-active)
+      (setq deactivate-mark  t))
 
-	;; Terminate evil-search aggressively
-	(unless defining-kbd-macro
-	  (ignore-errors
-		(evil-ex-search-abort))
-	  (ignore-errors
-		(evil-ex-delete-hl 'evil-ex-search))
+    ;; Terminate evil-search aggressively
+    (unless defining-kbd-macro
+      (ignore-errors
+        (evil-ex-search-abort))
+      (ignore-errors
+        (evil-ex-delete-hl 'evil-ex-search))
 
-	  ;; Abort other on-going edits if any
-	  (ignore-errors
-		(abort-recursive-edit))))
+      ;; Abort other on-going edits if any
+      (ignore-errors
+        (abort-recursive-edit))))
 
   ;; Start Evil mode
   (evil-mode 1))
@@ -427,12 +427,12 @@
   :after (evil)
   :config
   (setq evil-redo-function (default-value 'evil-redo-function)
-		evil-undo-system 'undo-tree
-		undo-limit 78643200
-		undo-outer-limit 104857600
-		undo-strong-limit 157286400
-		undo-tree-history-directory-alist '(("." . "/tmp/emacs.d/undo"))
-		undo-tree-auto-save-history nil)
+        evil-undo-system 'undo-tree
+        undo-limit 78643200
+        undo-outer-limit 104857600
+        undo-strong-limit 157286400
+        undo-tree-history-directory-alist '(("." . "/tmp/emacs.d/undo"))
+        undo-tree-auto-save-history nil)
 
   (general-define-key
    :states '(normal visual)
@@ -440,8 +440,8 @@
    "Z" 'undo-tree-visualize)
 
   (add-hook 'undo-tree-visualizer-mode-hook
-			#'(lambda ()
-				(setq display-line-numbers nil)))
+            #'(lambda ()
+                (setq display-line-numbers nil)))
 
   (global-undo-tree-mode 1))
 

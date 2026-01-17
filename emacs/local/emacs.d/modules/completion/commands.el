@@ -25,8 +25,7 @@
    :keymaps 'override
    :states '(normal visual)
    "<f1> B" 'which-key-show-top-level ;; current active keybindings
-   "<f1> \\" 'which-key-show-keymap ;; any keymaps
-   )
+   "<f1> \\" 'which-key-show-keymap) ;; any keymaps
 
   (general-define-key
    :keymaps 'which-key-C-h-map
@@ -38,12 +37,12 @@
    "z" 'which-key-undo-key)
 
   (setq which-key-allow-evil-operators t
-		which-key-idle-delay 1 ;; for the first menu
-		which-key-idle-secondary-delay 0 ;; for other secondary menus
-		which-key-popup-type 'side-window
-		which-key-sort-order 'which-key-key-order-alpha
-		which-key-sort-uppercase-first nil
-		which-key-side-window-max-height (* max-mini-window-height 3))
+        which-key-idle-delay 1 ;; for the first menu
+        which-key-idle-secondary-delay 0 ;; for other secondary menus
+        which-key-popup-type 'side-window
+        which-key-sort-order 'which-key-key-order-alpha
+        which-key-sort-uppercase-first nil
+        which-key-side-window-max-height (* max-mini-window-height 3))
 
   (which-key-mode 1))
 
