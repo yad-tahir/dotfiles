@@ -211,12 +211,11 @@
   (setq org-roam-ui-open-on-start nil)
   (org-roam-ui-mode 1))
 
-(use-package latte-roam
-  :after org-roam
-  :load-path "local-packages/latte-roam"
-  :hook ((text-mode . latte-roam-mode)
-         (prog-mode . latte-roam-mode))
+(use-package org-roam-latte
+  :after (org-roam org)
+  :hook ((text-mode . org-roam-latte-mode)
+         (prog-mode . org-roam-latte-mode))
   :config
-  (setq latte-roam-ignore-words '("attach")))
+  (setq org-roam-latte-ignore-words '("attach")))
 
 (provide 'do-notebook)
