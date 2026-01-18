@@ -196,6 +196,8 @@
   (plist-put org-format-latex-options :scale 1.65)
   (plist-put org-format-latex-options :html-scale 1.65)
 
+  (setq org-preview-latex-image-directory "~/.local/emacs/ltximages/")
+
   ;; Open in a current window instead of a new frame
   ;; Source: https://bit.ly/2WX44mj
   (define-advice org-attach (:around (org-fn &rest args))
