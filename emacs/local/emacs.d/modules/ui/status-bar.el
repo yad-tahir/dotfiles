@@ -20,18 +20,19 @@
 ;;; Code:
 
 ;; Make the color of the mode line dynamic
-(defun do--status-bar-change-mode-line-color()
-  (let ((color (cond (buffer-read-only
-                      `(,chocolate-theme-bg . ,chocolate-theme-element+4))
-                     ((buffer-modified-p)
-                      `(,chocolate-theme-bg . ,chocolate-theme-highlight))
-                     (t
-                      `(,chocolate-theme-bg . ,chocolate-theme-white)))))
-    (set-face-background 'mode-line (car color))
-    (set-face-foreground 'mode-line (cdr color))))
-(add-hook 'post-command-hook 'do--status-bar-change-mode-line-color)
-(add-hook 'windmove-do-window-select 'do--status-bar-change-mode-line-color)
-(add-hook 'find-file-hook 'do--status-bar-change-mode-line-color)
+(with-eval-after-load 'chocolate-theme
+  (defun do--status-bar-change-mode-line-color()
+    (let ((color (cond (buffer-read-only
+                        `(,chocolate-theme-bg . ,chocolate-theme-element+4))
+                       ((buffer-modified-p)
+                        `(,chocolate-theme-bg . ,chocolate-theme-highlight))
+                       (t
+                        `(,chocolate-theme-bg . ,chocolate-theme-white)))))
+      (set-face-background 'mode-line (car color))
+      (set-face-foreground 'mode-line (cdr color))))
+  (add-hook 'post-command-hook 'do--status-bar-change-mode-line-color)
+  (add-hook 'windmove-do-window-select 'do--status-bar-change-mode-line-color)
+  (add-hook 'find-file-hook 'do--status-bar-change-mode-line-color))
 
 (use-package evil-anzu
   :ensure t
