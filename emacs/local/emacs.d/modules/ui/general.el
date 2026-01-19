@@ -43,7 +43,7 @@
       cursor-in-non-selected-windows nil  ; hide cursors in other windows
       mouse-yank-at-point nil  ; disable mouse craziness
       visible-cursor nil
-      x-stretch-cursor nil
+      x-stretch-cursor t
       ;; Smooth scrolling please!
       ;; mouse-wheel-scroll-amount '(1 ((shift . 1)))
       mouse-wheel-progressive-speed nil ;; no scrolling acceleration
@@ -94,7 +94,6 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-(desktop-save-mode 0)
 
 (setq default-frame-alist '((tool-bar-lines . 0)
                             (menu-bar-lines . 0)
@@ -105,7 +104,8 @@
                             (font-backend . "xft")))
 
 ;; Keep base UI clean
-(blink-cursor-mode 0)
+(desktop-save-mode 0)
+(blink-cursor-mode 1) ;; blank during is controlled by `blink-cursor-blinks'
 (scroll-bar-mode 0)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
