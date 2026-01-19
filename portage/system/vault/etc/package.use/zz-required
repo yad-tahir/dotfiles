@@ -9,3 +9,11 @@ x11-libs/gtk+ wayland
 media-libs/mesa wayland# required by sys-auth/polkit-126-r2::gentoo[systemd]
 # required by gnome-extra/polkit-gnome-0.105-r2::gentoo
 >=sys-apps/systemd-257.10 policykit
+
+# required by x11-libs/gtk+-3.24.51::gentoo[wayland]
+# required by app-editors/emacs-30.2-r1::gentoo[X,gtk,gui]
+# required by app-emacs/po-mode-0.26::gentoo
+# required by sys-devel/gettext-0.23.2::gentoo[emacs]
+# required by sys-devel/bison-3.8.2-r3::gentoo
+# required by app-alternatives/yacc-1-r2::gentoo[bison]
+>=media-libs/mesa-25.2.8 wayland

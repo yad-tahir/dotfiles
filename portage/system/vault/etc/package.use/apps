@@ -1,20 +1,11 @@
-# @athena provides Xorg support that pureGTK
-# @gtk i.e. pureGTK is intended for Wayland based setups
-app-editors/emacs gui athena -gtk dynamic-loading svg harfbuzz cairo json gpm tiff gif jit gfile webp tree-sitte -motif -xpm -sound -alsa sqlite
+app-editors/emacs gui athena dynamic-loading svg harfbuzz cairo json gpm tiff gif jit gfile webp sqlite tree-sitte source -motif -xpm -sound -alsa -gtk
 
 # @265-color and @blink for UI enhancements
-x11-terms/rxvt-unicode 256-color blink perl
-
-# @clang; Mozilla uses clang. Let's keep it that way
-# @lto adds link-time optimizations
-# @pgo uses gcc-4 to preform profile-guided optimazations
-# *NOTE*: do not enable hwaccel as it forces firefox to use a gpu. If you don't have a dGPU, video deconding is going to be very CPU intensive.
-www-client/firefox bindist system-harfbuzz screenshot -gmp-autoupdate -wayland -lto
+x11-terms/rxvt-unicode 256-color blink perl 24-bit-color
 
 app-office/libreoffice pdfimport -accessibility -bluetooth -mariadb -branding
 app-text/zathura doc
 
 #sys-apps/flatpak
 media-video/pipewire -ffmpeg
-
 dev-util/perf java numa audit caps gtk slang babeltrace bpf libpfm unwind
