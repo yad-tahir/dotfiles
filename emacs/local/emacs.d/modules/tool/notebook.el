@@ -216,6 +216,7 @@
   :hook ((text-mode . org-roam-latte-mode)
          (prog-mode . org-roam-latte-mode))
   :config
-  (setq org-roam-latte-ignore-words '("attach")))
+  (setq org-roam-latte-exclude-words '("attach"))
+  (add-to-list 'org-roam-latte-excluded-org-elements 'headline))
 
 (provide 'do-notebook)
