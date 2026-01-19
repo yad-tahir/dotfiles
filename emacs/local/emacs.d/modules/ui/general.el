@@ -85,7 +85,7 @@
       ring-bell-function 'ignore
       visible-bell nil)
 
-(setq-default fill-column 100
+(setq-default fill-column 80
               tooltip-delay 5
               indent-tabs-mode nil
               native-comp-async-report-warnings-errors nil
