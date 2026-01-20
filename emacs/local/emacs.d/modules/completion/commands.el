@@ -19,7 +19,6 @@
 
 
 (use-package which-key
-  :ensure t
   :config
   (general-define-key
    :keymaps 'override

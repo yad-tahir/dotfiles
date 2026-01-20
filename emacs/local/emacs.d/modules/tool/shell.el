@@ -206,5 +206,4 @@ This method does not support launching a terminal app on a remote machine."
 
   (exec-path-from-shell-initialize))
 
-
 (provide 'do-shell)

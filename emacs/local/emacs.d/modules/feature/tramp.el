@@ -37,13 +37,13 @@
    "u" 'do-sudo-current-file
    "v" 'do-vault-home)
 
-  :config
   (setq	password-cache t ; enable password caching
         password-cache-expiry 7200 ;in seconds
         tramp-connection-timeout 200
         tramp-default-method "ssh"
         tramp-histfile-override (expand-file-name ".tramp_history" user-emacs-directory))
 
+  :config
   (defun do-vault-home ()
     (interactive)
     (find-file (concat "/ssh:vault.home:/home/" user-login-name "/")))
