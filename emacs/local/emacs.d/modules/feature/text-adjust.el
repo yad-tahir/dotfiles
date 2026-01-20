@@ -232,4 +232,12 @@
    :keymaps 'evil-outer-text-objects-map
    "m" 'evil-closest-a-delimiter))
 
+(use-package evil-case
+  :after evil
+  :config
+  (general-define-key
+   :states '(normal visual)
+   "g~" 'evil-case-map))
+
+
 (provide 'do-text-adjust)
