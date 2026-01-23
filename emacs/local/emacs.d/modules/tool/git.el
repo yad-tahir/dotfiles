@@ -74,6 +74,7 @@
    :states 'normal
 
    "<RET>" 'git-rebase-show-commit
+   "la"    'git-rebase-alter
    "lp"    'git-rebase-pick
    "l,"    'git-rebase-kill-line
    "lb"    'git-rebase-break
@@ -82,12 +83,16 @@
    "lm"    'git-rebase-merge
    "lM"    'git-rebase-merge-toggle-editmsg
    "lf"    'git-rebase-fixup
-   "lk"    'git-rebase-reword
+   "lk"    'git-rebase-ignore
+   "lK"    'git-rebase-drop
+   "lw"    'git-rebase-reword
    "ls"    'git-rebase-squash
    "lt"    'git-rebase-reset
    "lx"    'git-rebase-exec
    "li"    'git-rebase-insert
    "lz"    'git-rebase-noop
+   "lb"    'git-rebase-show-or-scroll-up
+   "lB"    'git-rebase-show-or-scroll-down
    "M-c"   'git-rebase-move-line-up
    "M-t"   'git-rebase-move-line-down
    "z"     'git-rebase-undo)
@@ -148,7 +153,7 @@
    "T"       'magit-section-forward
    "gh"       'magit-go-backward
    "gn"       'magit-go-forward
-   "d"       'magit-delete-thing
+   "x"       'magit-delete-thing
    "SPC dg"  'magit-diff
    "SPC dG"  'magit-ediff
    "<f5>"    'magit-refresh)
@@ -173,6 +178,7 @@
    "lG" 'magit-refresh-all
    "l?" 'magit-dispatch
    "lh" 'magit-dispatch
+   "li" 'magit-gitignore
    "lk" 'magit-delete-thing
    "ll" 'magit-log
    "lL" 'magit-log-refresh

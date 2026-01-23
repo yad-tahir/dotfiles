@@ -113,14 +113,6 @@
    :keymaps 'override
    :states '(normal visual)
 
-   ;; Navigation
-   "h" 'evil-backward-char
-   "n" 'evil-forward-char
-   "c" 'evil-previous-visual-line
-   "t" 'evil-next-visual-line
-   "gc" 'evil-previous-line
-   "gt" 'evil-next-line
-
    ":" 'evil-ex
    ";" 'evil-ex)
 
@@ -139,6 +131,14 @@
    "gJ" 'nil
    "g:" 'nil
    "'" 'nil
+
+   ;; Navigation; need to be here because of git-rebase-mode
+   "h" 'evil-backward-char
+   "n" 'evil-forward-char
+   "c" 'evil-previous-visual-line
+   "t" 'evil-next-visual-line
+   "gc" 'evil-previous-line
+   "gt" 'evil-next-line
 
    ;; Primary operations
    "d" 'evil-delete
