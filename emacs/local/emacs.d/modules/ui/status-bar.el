@@ -36,7 +36,6 @@
 
 (use-package evil-anzu
   :ensure t
-  :defer 10
   :after evil
   :config
   (global-anzu-mode 1))
