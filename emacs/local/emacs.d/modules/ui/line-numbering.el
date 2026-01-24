@@ -18,29 +18,26 @@
 ;; 02110-1301, USA.
 
 (use-package display-line-numbers
+  :after evil
   :config
   (setq display-line-numbers-current-absolute t
         display-line-numbers-width 4
-        display-line-numbers-widen t
+        display-line-numbers-grow-only t
         ;; Narrowing does not make sense in visual type
         display-line-numbers-type 'visual)
   ;; Start line numbering
-  (global-display-line-numbers-mode))
+  (global-display-line-numbers-mode 1))
 
 
 (defun do-line-numbers-to-visual ()
-  "Change the mode of line numbers for the current buffer to 'visual' mode"
+  "Change the mode of line numbers for the current buffer to visual mode"
   (interactive)
   (setq-local display-line-numbers-type 'visual
               visual-line-mode t)
-  (display-line-numbers-mode 1)
-  ;; (when display-line-numbers-mode
-  ;;	(display-line-numbers-mode 0))
-  ;; (display-line-numbers-mode 1)
-  )
+  (display-line-numbers-mode 1))
 
 (defun do-line-numbers-to-relative ()
-  "Change the mode of line numbers for the current buffer to 'relative' mode"
+  "Change the mode of line numbers for the current buffer to relative mode"
   (interactive)
   (setq-local display-line-numbers-type 'relative)
   (when display-line-numbers-mode
