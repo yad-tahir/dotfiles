@@ -129,11 +129,12 @@ buffer."
     "Position segment imitating vim-airline's appearance."
     (lambda (face)
       (ignore face)
-      (concat "%l:%c " ;; Row and column
-              (format "%3d" (/ (line-number-at-pos)
-                               0.01 (line-number-at-pos (point-max))))
-              "%%"
-              )))
+      (concat " %c " ;; column
+              ;; vertical scrolling
+              (format "%2d" (/ (line-number-at-pos)
+                               0.01
+                               (line-number-at-pos (point-max))))
+              "%%")))
 
   (setq telephone-line-lhs '((alert . (do--status-bar-macro-segment
                                        do--status-bar-register-segment))
@@ -148,14 +149,14 @@ buffer."
                                      telephone-line-misc-info-segment))
                              (accent . (do--status-bar-major-mode-segment
                                         do--status-bar-space-segment
-                                        telephone-line-filesize-segment))
-                             (evil . (do--status-bar-position-segment)))
+                                        telephone-line-filesize-segment
+                                        do--status-bar-position-segment)))
 
         ;; remove the default location of anzu segment
         mode-line-modified ""
         telephone-line-primary-left-separator		'telephone-line-nil
         telephone-line-primary-right-separator		'telephone-line-nil
-        telephone-line-secondary-left-separator     'telephone-line-nil
+        telephone-line-secondary-left-separator         'telephone-line-nil
         telephone-line-secondary-right-separator	'telephone-line-nil
         telephone-line-evil-use-short-tag nil)
 
