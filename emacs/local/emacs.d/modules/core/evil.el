@@ -335,7 +335,7 @@
         evil-ex-search-vim-style-regexp t
         ;; evil-search-wrap nil ;; Can be problematic with macros
         shift-select-mode t
-        evil-respect-visual-line-mode nil
+        evil-respect-visual-line-mode t
         ;; Setup the initial state for major modes should be normal
         evil-emacs-state-modes nil
         evil-motion-state-modes nil)
