@@ -53,6 +53,8 @@
    :states '(normal visual)
    "<RET>" 'deadgrep-visit-result)
 
+  (setq deadgrep-max-buffers 1)
+
   (defun do--minibuffer-to-deadgrep ()
     "Use the current ivy input to launch a deadgrep search."
     (interactive)
