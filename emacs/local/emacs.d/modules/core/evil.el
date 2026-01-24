@@ -42,6 +42,7 @@
    "C-t" 'ignore
    "C-n" 'ignore
    "C-h" 'ignore
+   "C-x" 'ignore
 
    ;; no mouse junks!
    "<mouse-3>" 'ignore

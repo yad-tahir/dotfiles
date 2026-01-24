@@ -23,12 +23,17 @@
 
 (use-package deadgrep
   :ensure t
-  :commands (deadgrep)
+  :commands (deadgrep do--minibuffer-to-deadgrep)
   :init
   (general-define-key
    :keymaps 'override
    :states '(normal visual)
-   "SPC sg" 'deadgrep)
+   "SPC sG" 'deadgrep)
+
+  (eval-after-load 'ivy
+    (general-define-key
+     :keymaps 'ivy-minibuffer-map
+     "C-S-g" 'do--minibuffer-to-deadgrep))
 
   :config
   (general-define-key
@@ -47,6 +52,13 @@
    :keymaps 'deadgrep-edit-mode-map
    :states '(normal visual)
    "<RET>" 'deadgrep-visit-result)
+
+  (defun do--minibuffer-to-deadgrep ()
+    "Use the current ivy input to launch a deadgrep search."
+    (interactive)
+    (let ((query ivy-text)) ;
+      (ivy-quit-and-run
+        (deadgrep query default-directory))))
 
   (add-hook 'deadgrep-mode-hook
             #'(lambda ()
