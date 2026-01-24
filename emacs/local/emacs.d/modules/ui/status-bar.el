@@ -67,6 +67,14 @@
                              (anzu--update-mode-line)
                              " " )))))
 
+  (defun do--status-bar-major-mode-segment ()
+    "A telephone line segment returns a single space."
+
+    (lambda (face) (ignore face)
+      (replace-regexp-in-string "-mode$"
+                                ""
+                                (symbol-name major-mode))))
+
   (defun do--status-bar-space-segment ()
     "A telephone line segment returns a single space."
 
@@ -138,7 +146,7 @@ buffer."
 
         telephone-line-rhs '((nil . (telephone-line-flycheck-segment
                                      telephone-line-misc-info-segment))
-                             (accent . (telephone-line-major-mode-segment
+                             (accent . (do--status-bar-major-mode-segment
                                         do--status-bar-space-segment
                                         telephone-line-filesize-segment))
                              (evil . (do--status-bar-position-segment)))
