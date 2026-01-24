@@ -250,26 +250,6 @@
   ;; Use git's search engine. This enables occur-mode on counsel-find-file
   (ivy-set-occur 'counsel-projectile-find-file 'counsel-git-occur))
 
-(use-package swiper
-  :commands (swiper)
-  :init
-  (general-define-key
-   :states '(visual normal)
-   "SPC l/" 'swiper)
-  :config
-  (general-define-key
-   :keymaps 'swiper-map
-   "C-t" 'ivy-next-line
-   "C-c C-f" 'nil
-   "C-c" 'ivy-previous-line
-   "M-c" 'ivy-beginning-of-buffer
-   "M-t" 'ivy-end-of-buffer
-   "C-w" 'forward-word
-   "C-b" 'backward-word
-   "C-$" 'move-end-of-line
-   "C-0" 'move-beginning-of-line
-   "C-q" 'ivy-immediate-done))
-
 ;; (use-package wgrep
 ;;   :ensure t
 ;;   :disabled t

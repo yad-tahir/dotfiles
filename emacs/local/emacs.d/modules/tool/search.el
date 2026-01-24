@@ -91,4 +91,24 @@
         (buffer-substring-no-properties beginning end))))))
 
 
+(use-package swiper
+  :commands (swiper)
+  :init
+  (general-define-key
+   :states '(visual normal)
+   "gl" 'swiper)
+  :config
+  (general-define-key
+   :keymaps 'swiper-map
+   "C-t" 'ivy-next-line
+   "C-c C-f" 'nil
+   "C-c" 'ivy-previous-line
+   "M-c" 'ivy-beginning-of-buffer
+   "M-t" 'ivy-end-of-buffer
+   "C-w" 'forward-word
+   "C-b" 'backward-word
+   "C-$" 'move-end-of-line
+   "C-0" 'move-beginning-of-line
+   "C-q" 'ivy-immediate-done))
+
 (provide 'do-search)
