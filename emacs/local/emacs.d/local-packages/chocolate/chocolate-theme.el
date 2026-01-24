@@ -96,13 +96,13 @@
  ;; Avoid setting the height property as it can cause font-scaling, hence adding
  ;; delay to startup time. Set the font size in the .Xresource file instead.
  `(default ((t (:foreground ,chocolate-theme-white
-							:background ,chocolate-theme-bg
-							:height unspecified
-							:weight normal :slant normal
-							:underline nil :overline nil
-							:strike-through nil :box nil
-							:inverse-video nil :stipple nil
-							:inherit nil))))
+                                                        :background ,chocolate-theme-bg
+                                                        :height unspecified
+                                                        :weight normal :slant normal
+                                                        :underline nil :overline nil
+                                                        :strike-through nil :box nil
+                                                        :inverse-video nil :stipple nil
+                                                        :inherit nil))))
  `(warning ((t (:background unspecified :foreground ,chocolate-theme-highlight :weight bold))))
  `(bold ((t (:background unspecified :foreground ,chocolate-theme-highlight+2 :weight bold))))
  `(success ((t (:foreground ,chocolate-theme-element+7))))
@@ -197,11 +197,11 @@
  `(diff-index ((t (:background ,chocolate-theme-shadow+1 :inherit diff-header))))
  `(diff-context ((t (:foreground ,chocolate-theme-shadow+2))))
  `(diff-added ((t (:inherit unspecified :foreground ,chocolate-theme-bg
-							:background ,chocolate-theme-element+2))))
+                                                        :background ,chocolate-theme-element+2))))
  `(diff-changed ((t (:inherit unspecified :foreground ,chocolate-theme-bg
-							  :background ,chocolate-theme-element+4))))
+                                                          :background ,chocolate-theme-element+4))))
  `(diff-removed ((t (:inherit unspecified :foreground ,chocolate-theme-bg
-							  :background ,chocolate-theme-highlight))))
+                                                          :background ,chocolate-theme-highlight))))
  `(diff-refine-added ((t (:inherit unspecified :foreground ,chocolate-theme-bg :background ,chocolate-theme-element+2))))
  `(diff-refine-changed ((t (:inherit unspecified :foreground ,chocolate-theme-bg :background ,chocolate-theme-element+4))))
  `(diff-refine-removed ((t (:inherit unspecified :foreground ,chocolate-theme-bg :background ,chocolate-theme-highlight))))
@@ -211,6 +211,7 @@
  `(diff-hl-dired-insert ((t (:inherit diff-hl-insert :foreground ,chocolate-theme-element+2))))
  `(diff-hl-dired-change ((t (:inherit diff-hl-change :foreground ,chocolate-theme-element+4))))
  `(diff-hl-dired-delete ((t (:inherit diff-hl-delete :foreground ,chocolate-theme-highlight))))
+ `(diff-hl-dired-ignored ((t (:background ,chocolate-theme-bg :foreground ,chocolate-theme-bg))))
 
  `(ediff-even-diff-A ((t (:inherit diff-index))))
  `(ediff-even-diff-B ((t (:inherit diff-index))))
@@ -384,14 +385,14 @@
 ;; Dynamic theme settings
 (with-eval-after-load 'highlight-parentheses
   (setq highlight-parentheses-colors
-		(list chocolate-theme-highlight chocolate-theme-element+4
-			  chocolate-theme-element+3 chocolate-theme-element+8
-			  chocolate-theme-highlight+1 chocolate-theme-element+1
-			  chocolate-theme-element+5 chocolate-theme-element+7
-			  chocolate-theme-highlight chocolate-theme-element+2
-			  chocolate-theme-highlight+2 chocolate-theme-element+6
-			  chocolate-theme-highlight chocolate-theme-element
-			  chocolate-theme-element+8 chocolate-theme-element+8)))
+                (list chocolate-theme-highlight chocolate-theme-element+4
+                          chocolate-theme-element+3 chocolate-theme-element+8
+                          chocolate-theme-highlight+1 chocolate-theme-element+1
+                          chocolate-theme-element+5 chocolate-theme-element+7
+                          chocolate-theme-highlight chocolate-theme-element+2
+                          chocolate-theme-highlight+2 chocolate-theme-element+6
+                          chocolate-theme-highlight chocolate-theme-element
+                          chocolate-theme-element+8 chocolate-theme-element+8)))
 
 (provide-theme 'chocolate)
 
