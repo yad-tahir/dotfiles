@@ -191,7 +191,7 @@ buffer."
           (set-face-background 'mode-line (car color))
           (set-face-foreground 'mode-line (cdr color))))
       (add-hook 'post-command-hook 'do--status-bar-change-mode-line-color)
-      (add-hook 'windmove-do-window-select 'do--status-bar-change-mode-line-color)
+      (add-hook 'window-selection-change-functions 'do--status-bar-change-mode-line-color)
       (add-hook 'find-file-hook 'do--status-bar-change-mode-line-color))))
 
 (provide 'do-status-bar)
