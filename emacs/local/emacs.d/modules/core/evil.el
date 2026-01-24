@@ -113,7 +113,7 @@
    ;; In some modes, you need to override them, e.g. magit
    :keymaps 'override
    :states '(normal visual)
-
+   "\\" 'evil-emacs-state
    ":" 'evil-ex
    ";" 'evil-ex)
 
