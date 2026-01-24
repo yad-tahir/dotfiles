@@ -27,6 +27,7 @@
                  "completion/company"
                  "completion/consult"
                  "completion/ivy"
+                 "completion/minibuffer"
                  "completion/snippets"
 
                  "feature/diff"
