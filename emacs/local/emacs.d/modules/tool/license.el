@@ -19,15 +19,14 @@
 
 (use-package lice
   :ensure t
-  :after (evil general)
   :commands (lice)
   :init
   (general-define-key
    :keymaps 'override
-   :states 'normal
-   "SPC ll" 'lice)
+   :states '(normal visual)
+   "SPC ll" '(lice :which-key "license")
   :config
-  (setq lice:default-license "gpl-2.0"))
+  (setq lice:default-license "gpl-3.0")))
 
 
 (provide 'do-license)

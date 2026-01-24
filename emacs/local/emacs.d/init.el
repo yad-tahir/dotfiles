@@ -55,6 +55,7 @@
                  "tool/notebook"
                  "tool/shell"
                  "tool/git"
+                 "tool/license"
                  "tool/search"
                  "tool/music"
                  "tool/man"
