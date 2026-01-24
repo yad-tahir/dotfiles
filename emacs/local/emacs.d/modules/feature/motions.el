@@ -22,24 +22,6 @@
 
 ;; Custom motions
 
-(evil-define-motion do-evil-forward-whitespace (count)
-  "Motion to cover horizontal and vertical whitespace ONLY forward from the cursor."
-  :type exclusive
-  (let ((start (point))
-        (end (save-excursion
-               (skip-chars-forward " \t\r\n")
-               (point))))
-    (evil-range start end)))
-
-(evil-define-motion do-evil-backward-whitespace (count)
-  "Motion to cover horizontal and vertical whitespace ONLY backward from the cursor."
-  :type exclusive
-  (let ((start (save-excursion
-                 (skip-chars-backward " \t\r\n")
-                 (point)))
-        (end (point)))
-    (evil-range start end)))
-
 (evil-define-motion do-evil-forward-comment (count)
   "Move the cursor to the beginning of the COUNT-th next comment block."
   :jump t
@@ -97,16 +79,6 @@
 
 
 ;; Custom text objects
-
-(evil-define-text-object do-evil-whitespace (count &optional beg end type)
-  "Text object to cover all horizontal and vertical whitespace surrounding the cursor."
-  (let ((start (save-excursion
-                 (skip-chars-backward " \t\r\n")
-                 (point)))
-        (end (save-excursion
-               (skip-chars-forward " \t\r\n")
-               (point))))
-    (evil-range start end)))
 
 (evil-define-text-object do-evil-comment (count &optional beg end type)
   "Select inner comment block."
@@ -194,23 +166,19 @@
 (general-define-key
  :keymaps 'evil-inner-text-objects-map
  "c" 'do-evil-comment
- "B" 'do-evil-whole-buffer
- "SPC" 'do-evil-whitespace)
+ "B" 'do-evil-whole-buffer)
 
 (general-define-key
  :keymaps 'evil-outer-text-objects-map
  "c" 'do-evil-comment
  "B" 'do-evil-whole-buffer
  "a" 'do-evil-around-word
- "A" 'do-evil-around-WORD
- "SPC" 'do-evil-whitespace)
+ "A" 'do-evil-around-WORD)
 
 (general-define-key
  :keymaps 'motion
  "] c" 'do-evil-forward-comment
- "[ c" 'do-evil-backward-comment
- "] <SPC>" 'do-evil-forward-whitespace
- "[ <SPC>" 'do-evil-backward-whitespace)
+ "[ c" 'do-evil-backward-comment)
 
 
 ;; Third-party packages
