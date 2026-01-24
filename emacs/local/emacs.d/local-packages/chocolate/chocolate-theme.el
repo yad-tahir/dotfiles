@@ -162,7 +162,8 @@
  `(hi-yellow ((t (:foreground ,chocolate-theme-bg :background ,chocolate-theme-highlight))))
 
  ;; mode-line
- `(mode-line ((t (:background ,chocolate-theme-bg :foreground ,chocolate-theme-white))))
+ `(mode-line ((t (:background ,chocolate-theme-bg :foreground ,chocolate-theme-white
+                              :box (:line-width (1 . 2) :style flat-button)))))
  `(mode-line-buffer-id ((t (:weight bold))))
  `(mode-line-emphasis ((t (:foreground ,chocolate-theme-highlight+1 :weight bold))))
  `(mode-line-highlight ((t (:inherit (highlight)))))
@@ -337,17 +338,31 @@
  ;;Third-party mode line
  `(anzu-mode-line ((t (:foreground ,chocolate-theme-element+2 :background ,chocolate-theme-bg))))
  `(anzu-mode-line-no-match ((t (:foreground ,chocolate-theme-highlight :background ,chocolate-theme-bg))))
- `(telephone-line-evil-normal ((t (:background ,chocolate-theme-element+2 :foreground ,chocolate-theme-bg :weight normal))))
- `(telephone-line-evil-insert ((t (:background ,chocolate-theme-element+7 :foreground ,chocolate-theme-bg :weight normal))))
- `(telephone-line-evil-motion ((t (:background ,chocolate-theme-highlight :foreground ,chocolate-theme-bg :weight normal))))
- `(telephone-line-evil-visual ((t (:background ,chocolate-theme-highlight :foreground ,chocolate-theme-bg :weight normal))))
- `(telephone-line-evil-operator ((t (:background ,chocolate-theme-element+6 :foreground ,chocolate-theme-bg :weight normal))))
- `(telephone-line-evil-emacs ((t (:background ,chocolate-theme-highlight+1 :foreground ,chocolate-theme-bg :weight normal))))
- `(telephone-line-accent-active ((t (:background ,chocolate-theme-shadow+1 :foreground ,chocolate-theme-white+2 :weight normal))))
- `(telephone-line-accent-inactive ((t (:background ,chocolate-theme-bg :foreground ,chocolate-theme-shadow+2 :weight normal))))
- `(telephone-line-error ((t (:background unspecified :foreground ,chocolate-theme-highlight :weight bold))))
- `(telephone-line-unimportant ((t (:background unspecified :foreground ,chocolate-theme-shadow+2))))
- `(telephone-line-warning ((t (:background unspecified :foreground ,chocolate-theme-element+7 :weight bold))))
+ `(mode-line ((t (:box (:line-width (2 . 2) :style flat-button)))))
+ `(telephone-line-evil-normal ((t (:background ,chocolate-theme-element+3 :foreground ,chocolate-theme-bg
+                                              :inherit mode-line :weight normal))))
+ `(telephone-line-evil-insert ((t (:background ,chocolate-theme-element+2 :foreground ,chocolate-theme-bg
+                                               :inherit mode-line :weight normal))))
+ `(telephone-line-evil-motion ((t (:background ,chocolate-theme-highlight :foreground ,chocolate-theme-bg
+                                               :inherit mode-line :weight normal))))
+ `(telephone-line-evil-visual ((t (:background ,chocolate-theme-highlight :foreground ,chocolate-theme-bg
+                                               :inherit mode-line :weight normal))))
+ `(telephone-line-evil-operator ((t (:background ,chocolate-theme-element+6 :foreground ,chocolate-theme-bg
+                                                 :inherit mode-line :weight normal))))
+ `(telephone-line-evil-emacs ((t (:background ,chocolate-theme-highlight+1 :foreground ,chocolate-theme-bg
+                                              :inherit mode-line :weight normal))))
+ `(telephone-line-evil-replace ((t (:background ,chocolate-theme-element+4 :foreground ,chocolate-theme-bg
+                                                :inherit mode-line :weight normal))))
+ `(telephone-line-accent-active ((t (:background ,chocolate-theme-shadow+1 :foreground ,chocolate-theme-white+2
+                                                 :inherit mode-line :weight normal))))
+ `(telephone-line-accent-inactive ((t (:background ,chocolate-theme-bg :foreground ,chocolate-theme-shadow+2
+                                                   :inherit mode-line :weight normal))))
+ `(telephone-line-error ((t (:background unspecified :foreground ,chocolate-theme-highlight
+                                         :inherit mode-line :weight normal))))
+ `(telephone-line-unimportant ((t (:background unspecified :foreground ,chocolate-theme-shadow+2
+                                               :inherit mode-line))))
+ `(telephone-line-warning ((t (:background unspecified :foreground ,chocolate-theme-element+7
+                                           :inherit mode-line :weight bold))))
 
  `(ivy-cursor ((t (:inherit cursor :foreground unspecified :background ,chocolate-theme-bg))))
  `(ivy-current-match ((t (:inherit nil :foreground ,chocolate-theme-bg :background ,chocolate-theme-element+2))))
@@ -378,9 +393,7 @@
  `(company-tooltip-common ((t (:foreground ,chocolate-theme-highlight :weight bold))))
  `(company-tooltip-common-selection ((t (:foreground ,chocolate-theme-element+2 :weight bold :background unspecified))))
  `(company-tooltip-search ((t (:foreground ,chocolate-theme-element+8 :background unspecified :underline nil :weight bold))))
- `(company-tooltip-search-selection ((t (:foreground ,chocolate-theme-bg :background ,chocolate-theme-element+8 :weight bold :underline nil))))
-
- )
+ `(company-tooltip-search-selection ((t (:foreground ,chocolate-theme-bg :background ,chocolate-theme-element+8 :weight bold :underline nil)))))
 
 ;; Dynamic theme settings
 (with-eval-after-load 'highlight-parentheses
