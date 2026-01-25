@@ -48,13 +48,19 @@
   (evil-define-operator do-elisp-eval (beginning end)
     "Ask for a motion, and then evaluate the selected region accordingly."
     :move-point nil
-    (eval-region beginning end t)))
+    (eval-region beginning end t))
 
-;; Keybindings
-(general-define-key
- :keymaps 'emacs-lisp-mode-map
- :states '(normal visual)
- "le" 'do-elisp-eval)
+  (general-define-key
+   :keymaps 'emacs-lisp-mode-map
+   :states '(normal visual)
+   "le" 'do-elisp-eval))
+
+;; Local settings
+(defun do--emacs-lisp-setup ()
+  "Custom settings for Emacs Lisp mode."
+  (setq-local indent-tabs-mode nil))
+
+(add-hook 'emacs-lisp-mode-hook #'do--emacs-lisp-setup)
 
 ;; Third-party packages
 (use-package macrostep

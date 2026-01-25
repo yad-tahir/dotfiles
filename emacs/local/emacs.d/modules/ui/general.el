@@ -87,7 +87,6 @@
 
 (setq-default fill-column 80
               tooltip-delay 5
-              indent-tabs-mode nil
               native-comp-async-report-warnings-errors nil
               warning-suppress-log-types '((with-editor))
               warning-suppress-types '((with-editor)))
