@@ -73,8 +73,6 @@
       blink-matching-paren nil ;; don't blink--too distracting
       confirm-kill-processes nil ;; Kill all processes without confirmation
       sentence-end-double-space nil
-      ;; debug-on-error t
-
       indicate-buffer-boundaries nil
       indicate-empty-lines nil
       show-help-function nil          ; hide :help-echo text

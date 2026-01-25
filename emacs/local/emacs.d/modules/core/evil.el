@@ -48,6 +48,7 @@
    "C-n" 'ignore
    "C-h" 'ignore
    "C-x" 'ignore
+   "C-z" 'ignore
 
    ;; no mouse junks!
    "<mouse-3>" 'ignore
@@ -126,7 +127,8 @@
    "k" 'evil-join
    "K" 'evil-join-whitespace
    "z" 'evil-undo
-   "C-Z" 'evil-redo
+   "Z" 'evil-redo
+   "C-z" 'ignore
 
    ;; Scrolling
    "C" 'evil-scroll-page-up
@@ -220,6 +222,7 @@
    "gJ" 'nil
    "g:" 'nil
    "'" 'nil
+   "C-z" 'ignore
 
    ;; Navigation; need to be here because of git-rebase-mode
    "h" 'evil-backward-char
@@ -236,7 +239,7 @@
    "k" 'evil-join
    "K" 'evil-join-whitespace
    "z" 'evil-undo
-   "C-Z" 'evil-redo
+   "Z" 'evil-redo
 
    ;; Scrolling
    "C" 'evil-scroll-page-up
@@ -520,30 +523,6 @@
 
   ;; Start Evil mode
   (evil-mode 1))
-
-(use-package undo-tree
-  :ensure t
-  :disabled t
-  :after (evil)
-  :config
-  (setq evil-redo-function (default-value 'evil-redo-function)
-        evil-undo-system 'undo-tree
-        undo-limit 78643200
-        undo-outer-limit 104857600
-        undo-strong-limit 157286400
-        undo-tree-history-directory-alist '(("." . "/tmp/emacs.d/undo"))
-        undo-tree-auto-save-history nil)
-
-  (general-define-key
-   :states '(normal visual)
-   "M-z" 'undo-tree-visualize
-   "Z" 'undo-tree-visualize)
-
-  (add-hook 'undo-tree-visualizer-mode-hook
-            #'(lambda ()
-                (setq display-line-numbers nil)))
-
-  (global-undo-tree-mode 1))
 
 (provide 'do-evil)
 

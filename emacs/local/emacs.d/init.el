@@ -38,6 +38,7 @@
                  "feature/spell-checker"
                  "feature/text-adjust"
                  "feature/tramp"
+                 "feature/undo"
 
                  "lang/elisp"
                  "lang/org"
