@@ -108,7 +108,7 @@
       (evil-insert-newline-below)))
   (evil-paste-after count register yank-handler))
 
-(evil-define-operator do-evil-paste (beg end type)
+(evil-define-operator do-evil-replace (beg end type)
   "Deletes the target and pastes register 0 N times based on the prefix count."
   :move-point t
   :interactive "<R>" ;; <R> captures beg, end, type

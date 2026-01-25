@@ -1,4 +1,4 @@
-;;; -*- lexical-binding: t; -*-
+;;; package -- evil settings -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2026
 
@@ -16,6 +16,11 @@
 ;; along with this program; if not, write to the Free Software
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
+
+;;; Commentary:
+;; My Emacs/Evil settings
+
+;;; Code:
 
 (use-package evil
   :ensure t
@@ -87,38 +92,11 @@
 
    "l" 'nil ;; Used as a prefix for mode-local keybindings
    "SPC l" '(:ignore t :which-key "local") ;; second set of mode-local keybinding
-   ;; to be over shadowed
+
+   ;; Write/Quit operations - to be over shadowed
    "SPC lq" 'kill-buffer
-   "SPC lw" 'server-edit)
+   "SPC lw" 'server-edit
 
-  (general-define-key
-   :states 'visual
-   "C-c" 'ignore
-   "C-t" 'ignore
-   "C-n" 'ignore
-   "C-h" 'ignore
-
-   "*" #'do-evil-search-region-forward
-   "#" #'do-evil-search-region-backward
-
-   "l" 'nil ;; Used as a prefix for mode-local keybindings
-   "SPC l" '(:ignore t :which-key "local") ;; second set of mode-local keybinding
-   ;; to be over shadowed
-   "SPC lq" 'kill-buffer
-   "SPC lw" 'server-edit)
-
-  ;; Normal and Visual
-  (general-define-key
-   ;; Don't but buffer modifier in the override keymap, e.g. evil-change
-   ;; In some modes, you need to override them, e.g. magit
-   :keymaps 'override
-   :states '(normal visual)
-   "\\" 'evil-emacs-state
-   ":" 'evil-ex
-   ";" 'evil-ex)
-
-  (general-define-key
-   :states '(normal visual)
    ;; Reset/remove conflicting bindings
    "s" 'nil ;; Used for searching instead
    "j" 'nil
@@ -149,8 +127,6 @@
    "K" 'evil-join-whitespace
    "z" 'evil-undo
    "C-Z" 'evil-redo
-   "r" 'do-evil-paste
-   "gk" 'evil-join-whitespace
 
    ;; Scrolling
    "C" 'evil-scroll-page-up
@@ -166,14 +142,19 @@
    "H" 'evil-ex-search-previous
 
    ;; Paste
+   "r" 'do-evil-replace
    "gp" 'do-evil-paste-next-line
    "gP" 'do-evil-paste-previous-line
 
+   ;; Whitespace/Indentation
+   "gk" 'evil-join-whitespace
+   "X" 'do-evil-fixup-whitespace
    ">" 'evil-shift-right
    "<" 'evil-shift-left
    "=" 'do-evil-indent
    "g=" 'evil-indent
 
+   ;; Text case
    "gu" 'evil-downcase
    "gU" 'evil-upcase
 
@@ -207,11 +188,130 @@
    "SPC lgd" 'evil-goto-definition
    "SPC lgl" 'evil-lookup
    "SPC l-" 'do-evil-narrow
-   "SPC l+" 'widen
+   "SPC l+" 'widen)
+
+  (general-define-key
+   :states 'visual
+   "C-c" 'ignore
+   "C-t" 'ignore
+   "C-n" 'ignore
+   "C-h" 'ignore
+
+   "*" #'do-evil-search-region-forward
+   "#" #'do-evil-search-region-backward
+
+   "l" 'nil ;; Used as a prefix for mode-local keybindings
+   "SPC l" '(:ignore t :which-key "local") ;; second set of mode-local keybinding
+
+   ;; Write/Quit operations - To be over shadowed
+   "SPC lq" 'kill-buffer
+   "SPC lw" 'server-edit
+
+   ;; Reset/remove conflicting bindings
+   "s" 'nil ;; Used for searching instead
+   "j" 'nil
+   "x" 'nil
+   "J" 'nil
+   "f" 'nil
+   "F" 'nil
+   "," 'nil
+   "g," 'nil
+   "gj" 'nil
+   "gJ" 'nil
+   "g:" 'nil
+   "'" 'nil
+
+   ;; Navigation; need to be here because of git-rebase-mode
+   "h" 'evil-backward-char
+   "n" 'evil-forward-char
+   "c" 'evil-previous-visual-line
+   "t" 'evil-next-visual-line
+   "gc" 'evil-previous-line
+   "gt" 'evil-next-line
+
+   ;; Primary operations
+   "d" 'evil-delete
+   "u" 'evil-change
+   "U" 'evil-change-line
+   "k" 'evil-join
+   "K" 'evil-join-whitespace
+   "z" 'evil-undo
+   "C-Z" 'evil-redo
+
+   ;; Scrolling
+   "C" 'evil-scroll-page-up
+   "T" 'evil-scroll-page-down
+
+   ;; Searching
+   "/" 'evil-ex-search-forward
+   "?" 'evil-ex-search-backward
+   "gn" 'evil-next-match
+   "gh" 'evil-previous-match
+   "g^" 'evil-first-non-blank
+   "N" 'evil-ex-search-next
+   "H" 'evil-ex-search-previous
+
+   ;; Paste
+   "r" 'do-evil-replace
+   "gp" 'do-evil-paste-next-line
+   "gP" 'do-evil-paste-previous-line
+
+   ;; Whitespace/Indentation
+   "gk" 'evil-join-whitespace
+   "X" 'do-evil-fixup-whitespace
+   ">" 'evil-shift-right
+   "<" 'evil-shift-left
+   "=" 'do-evil-indent
+   "g=" 'evil-indent
+
+   ;; Text case
+   "gu" 'evil-downcase
+   "gU" 'evil-upcase
+
+   "]" '(:ignore t :which-key "move-forward")
+   "][" 'evil-forward-section-begin
+   "]]" 'evil-forward-section-end
+   "]s" 'evil-forward-sentence-begin
+   "]S" 'evil-forward-sentence-end
+   "]p" 'evil-forward-paragraph
+   "]m" 'do-evil-forward-motion
+   "]." 'do-evil-forward-motion
+
+   "[" '(:ignore t :which-key "move-backward")
+   "[[" 'evil-backward-section-begin
+   "[]" 'evil-backward-section-end
+   "[s" 'evil-backward-sentence-begin
+   "[S" 'evil-backward-sentence-end
+   "[p" 'evil-backward-paragraph
+   "[m" 'do-evil-backward-motion
+   "[." 'do-evil-backward-motion
+
+   ;; 'SPC l' is a prefix for another set of global keybindings
+   ;; 'l', on the other hand, is for local buffer keybindings
+   "SPC lg" '(:ignore t :which-key "jump")
+   "SPC lgh" 'evil-jump-backward
+   "SPC lgn" 'evil-jump-forward
+   "SPC lgH" 'goto-last-change
+   "SPC lgN" 'goto-last-change-reverse
+   "SPC lgt" 'evil-jump-to-tag
+   "SPC lgc" 'evil-goto-column
+   "SPC lgd" 'evil-goto-definition
+   "SPC lgl" 'evil-lookup
+   "SPC l-" 'do-evil-narrow
+   "SPC l+" 'widen)
+
+  ;; Normal and Visual
+  (general-define-key
+   ;; Don't but buffer modifier in the override keymap, e.g. evil-change
+   ;; In some modes, you need to override them, e.g. magit
+   :keymaps 'override
+   :states '(normal visual)
+   "\\" 'evil-emacs-state
+   ":" 'evil-ex
+   ";" 'evil-ex
 
    "SPC c" 'compile ;; enter compile mode
-
-   "X" 'do-evil-fixup-whitespace)
+   )
 
   (general-define-key
    :states 'motion
@@ -353,7 +453,7 @@
 
   ;; Functions
   (defun do--evil-search-region (direction)
-    "Extract the text of the current region and execute evil-ex-search for that text."
+    "Extract the text of the current region and execute evil-ex-search."
     (interactive)
     (if (use-region-p)  ;; Check if the region is active
         (let* ((selected-text (buffer-substring-no-properties (region-beginning) (region-end)))
@@ -376,12 +476,12 @@
       (message "No region selected.")))
 
   (defun do-evil-search-region-backward ()
-    "Extract the text of the current region and execute evil-ex-search for that text."
+    "Extract the text of the current region and search background."
     (interactive)
     (do--evil-search-region 'backward))
 
   (defun do-evil-search-region-forward ()
-    "Extract the text of the current region and execute evil-ex-search for that text."
+    "Extract the text of the current region and search forward."
     (interactive)
     (do--evil-search-region 'forward))
 
@@ -446,3 +546,5 @@
   (global-undo-tree-mode 1))
 
 (provide 'do-evil)
+
+;;; evil.el ends here
