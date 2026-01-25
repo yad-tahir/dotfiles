@@ -31,23 +31,14 @@
          (add-to-list 'whitespace-style 'lines-tail))))
 (add-hook 'prog-mode-hook  #'do--prog-mode-init)
 
-;; (defun do--flycheck-init()
-;;   "This function has been created to reduce the startup time caused by
-;; flycheck, a badly optimized package!"
-
 (use-package flycheck
   :ensure t
   :hook ((prog-mode . flycheck-mode))
   :config
-  (set-face-attribute 'flycheck-warning nil
-                      :underline (list :color chocolate-theme-shadow+3 :style 'wave)))
-
-;; display tips in popups
-;;   (use-package flycheck-pos-tip
-;;	:hook ((flycheck-mode . flycheck-pos-tip-mode)))
-
-
-;; (add-hook 'prog-mode-hook #'do--flycheck-init)
+  (general-define-key
+   :map 'prog-mode-map
+   :states '(normal visual)
+   "lf" 'flycheck-list-errors))
 
 ;; (use-package highlight-indent-guides
 ;;   :hook ((prog-mode . highlight-indent-guides-mode))
@@ -69,15 +60,5 @@
   :config
   (set-face-attribute 'eldoc-box-border nil
                       :background chocolate-theme-highlight))
-
-;; (use-package lsp-mode
-;;   :commands (lsp lsp-deferred lsp-mode)
-;;   :ensure t)
-
-;; (use-package lsp-ui
-;;   :disabled t
-;;   :ensure t
-;;   :hook ((lsp-mode . lsp-ui-mode)))
-
 
 (provide 'do-prog)
