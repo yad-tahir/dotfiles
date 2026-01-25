@@ -29,6 +29,38 @@
   :config
   (setq evil-undo-system 'undo-fu))
 
+(use-package vundo
+  :ensure t
+  :commands (vundo)
+  :init
+  (general-define-key
+   :states '(normal visual normal)
+   "C-z" 'vundo)
+  :config
+  ;; Kept keybindings
+  ;; m - mark
+  ;; u - unmark
+  ;; a - stem root
+  ;; i - stem end
+  ;; d - diff
+  ;; enter - visit
+  (general-define-key
+   :keymaps 'vundo-mode-map
+   "<f2>" 'revert-buffer
+   "<escape>" 'vundo-quit
+    "c" 'vundo-previous
+   "t" 'vundo-next
+   "h" 'vundo-backward
+   "n" 'vundo-forward
+   "C-h" 'vundo-goto-last-saved
+   "C-n" 'vundo-goto-next-saved
+   "H" 'vundo-stem-root
+   "N" 'vundo-stem-end
+   "g" 'beginning-of-buffer
+   "G" 'end-of-buffer
+   "C" 'scroll-up-command
+   "T" 'scroll-down-command))
+
 (provide 'do-undo)
 
 ;;; undo.el ends here

@@ -59,7 +59,7 @@
    :states 'emacs
    ":" 'evil-ex
    ";" 'evil-ex
-   "<escape>" 'evil-normal-state
+   ;; "<escape>" 'evil-normal-state ;; cause a problem for vundo
    "\\" 'evil-normal-state)
 
   (general-define-key

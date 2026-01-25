@@ -384,6 +384,10 @@
 
  `(flycheck-info ((t (:underline (:color ,chocolate-theme-shadow :style wave :position nil)))))
  `(flycheck-fringe-info ((t (:foreground ,chocolate-theme-element+3))))
+ `(vundo-highlight ((t (:foreground ,chocolate-theme-highlight :weight bold))))
+ `(vundo-last-saved ((t (:foreground ,chocolate-theme-element+2))))
+ `(vundo-saved ((t (:foreground ,chocolate-theme-element+6))))
+ `(vundo-stem ((t (:foreground ,chocolate-theme-element+3))))
 
  ;; Company
  `(company-scrollbar-bg ((t (:background ,chocolate-theme-shadow+1))))
