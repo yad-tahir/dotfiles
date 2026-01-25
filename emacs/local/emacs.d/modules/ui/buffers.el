@@ -115,19 +115,4 @@ display the number of open buffers in Emacs."
   :disabled t
   :if (display-graphic-p))
 
-(use-package spacious-padding
-  :ensure t
-  :disabled t
-  :after (evil)
-  :config
-  (setq spacious-padding-widths
-        '( :internal-border-width 15
-           :header-line-width 4
-           :mode-line-width 0
-           :custom-button-width 2
-           :tab-width 4
-           :right-divider-width 30
-           :scroll-bar-width 0
-           :fringe-width 8)))
-
 (provide 'do-buffers)
