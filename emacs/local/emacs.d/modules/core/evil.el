@@ -94,10 +94,6 @@
    "l" 'nil ;; Used as a prefix for mode-local keybindings
    "SPC l" '(:ignore t :which-key "local") ;; second set of mode-local keybinding
 
-   ;; Write/Quit operations - to be over shadowed
-   "SPC lq" 'kill-buffer
-   "SPC lw" 'server-edit
-
    ;; Reset/remove conflicting bindings
    "s" 'nil ;; Used for searching instead
    "j" 'nil
@@ -204,10 +200,6 @@
 
    "l" 'nil ;; Used as a prefix for mode-local keybindings
    "SPC l" '(:ignore t :which-key "local") ;; second set of mode-local keybinding
-
-   ;; Write/Quit operations - To be over shadowed
-   "SPC lq" 'kill-buffer
-   "SPC lw" 'server-edit
 
    ;; Reset/remove conflicting bindings
    "s" 'nil ;; Used for searching instead
@@ -382,11 +374,11 @@
    "<escape>" 'do-evil-escape-abort
    "C-k" 'describe-key)
 
-  ;; (general-define-key
-  ;;  :keymaps 'with-editor-mode-map
-  ;;  :states 'normal
-  ;;  "SPC lw" 'with-editor-finish
-  ;;  "SPC lq" 'with-editor-cancel)
+  (general-define-key
+   :keymaps 'with-editor-mode-map
+   :states 'normal
+   "SPC lw" 'with-editor-finish
+   "SPC lq" 'with-editor-cancel)
 
   (general-define-key
    :keymaps 'button-map

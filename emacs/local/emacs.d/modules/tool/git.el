@@ -93,6 +93,8 @@
    "lz"    'git-rebase-noop
    "lb"    'git-rebase-show-or-scroll-up
    "lB"    'git-rebase-show-or-scroll-down
+   "SPC lw" 'with-editor-finish
+   "SPC lq" 'with-editor-cancel
    "M-c"   'git-rebase-move-line-up
    "M-t"   'git-rebase-move-line-down
    "z"     'git-rebase-undo)
@@ -105,6 +107,7 @@
               magit-merge-preview-mode-map
               magit-staged-section-map
               magit-hunk-section-map)
+
    "<RET>"   'magit-visit-thing
    "l <RET>" 'magit-jump-to-diffstat-or-diff
    "a"       'magit-apply
