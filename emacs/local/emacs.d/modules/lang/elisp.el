@@ -81,7 +81,19 @@
   :init
   (general-define-key
    :keymaps 'emacs-lisp-mode-map
-   :states '(normal visual)
-   "ll" 'package-lint-current-buffer))
+   :states 'normal
+   "lL" 'package-lint-current-buffer))
+
+(use-package melpazoid
+  :commands (melpazoid)
+  :init
+  (general-define-key
+   :keymaps 'emacs-lisp-mode-map
+   :states 'normal
+   "ll" 'melpazoid))
+
+;; Needed by melpazoid
+(use-package pkg-info
+  :ensure t)
 
 (provide 'do-elisp)
