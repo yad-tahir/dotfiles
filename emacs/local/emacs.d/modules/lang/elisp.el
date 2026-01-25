@@ -41,14 +41,14 @@
 
 ;; (add-hook 'emacs-lisp-mode-hook #'do--elisp-init())
 
-(with-eval-after-load 'flycheck
-  (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
+;; (with-eval-after-load 'flycheck
+;;   (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
 
-(evil-define-operator do-elisp-eval (beginning end)
-  "Ask for a motion, and then evaluate the selected region accordingly."
-  :move-point nil
-  :motion do-evil-a-section
-  (eval-region beginning end t))
+(with-eval-after-load 'evil
+  (evil-define-operator do-elisp-eval (beginning end)
+    "Ask for a motion, and then evaluate the selected region accordingly."
+    :move-point nil
+    (eval-region beginning end t)))
 
 ;; Keybindings
 (general-define-key
@@ -68,8 +68,6 @@
    "lM" 'macrostep-collapse)
 
   :config
-  (set-face-attribute 'macrostep-expansion-highlight-face nil
-                      :background chocolate-theme-shadow+1)
   (general-define-key
    :keymaps 'macrostep-keymap
    "SPC lw" 'macrostep-collapse-all
