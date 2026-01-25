@@ -122,8 +122,8 @@ buffer."
                                          'face 'telephone-line-error)))
                                   (propertize " ✔" 'face 'telephone-line-unimportant))) ;; No errors
                      ('running (if (bound-and-true-p flycheck-process-source)
-                                  (propertize " ⟳" 'face 'telephone-line-projectile)
-                                  (propertize " ⟳" 'face 'telephone-line-projectile)))
+                                   (propertize " ⟳" 'face 'telephone-line-projectile)
+                                 (propertize " ⟳" 'face 'telephone-line-projectile)))
                      ('no-checker  (propertize "-" 'face 'telephone-line-unimportant))
                      ('not-checked "=")
                      ('errored     (propertize "!" 'face 'telephone-line-error))
@@ -146,7 +146,8 @@ buffer."
   (defun do--status-bar-position-segment ()
     "Position segment imitating vim-airline's appearance."
     (lambda (_)
-      (concat " %c " ;; column
+      (concat " "
+              ;;"%c " ;; column
               ;; vertical scrolling
               (format "%2d" (/ (line-number-at-pos)
                                0.01
@@ -159,8 +160,8 @@ buffer."
                              (accent . (telephone-line-vc-segment
                                         telephone-line-erc-modified-channels-segment
                                         telephone-line-process-segment))
-                             (nil . (do--status-bar-anzu-segment))
-                             (nil . (do--status-bar-mode-line-segment)))
+                             (nil . (do--status-bar-anzu-segment
+                                     do--status-bar-mode-line-segment)))
 
         telephone-line-rhs '((nil . (do--status-bar-flycheck-segment
                                      telephone-line-misc-info-segment))
@@ -173,7 +174,7 @@ buffer."
         mode-line-modified ""
         telephone-line-primary-left-separator		'telephone-line-nil
         telephone-line-primary-right-separator		'telephone-line-nil
-        telephone-line-secondary-left-separator         'telephone-line-nil
+        telephone-line-secondary-left-separator		'telephone-line-nil
         telephone-line-secondary-right-separator	'telephone-line-nil
         telephone-line-evil-use-short-tag nil)
 
@@ -191,7 +192,6 @@ buffer."
           (set-face-background 'mode-line (car color))
           (set-face-foreground 'mode-line (cdr color))))
       (add-hook 'post-command-hook 'do--status-bar-change-mode-line-color)
-      (add-hook 'window-selection-change-functions 'do--status-bar-change-mode-line-color)
-      (add-hook 'find-file-hook 'do--status-bar-change-mode-line-color))))
+      (add-hook 'window-selection-change-functions 'do--status-bar-change-mode-line-color))))
 
 (provide 'do-status-bar)
