@@ -106,6 +106,31 @@ buffer."
                                (setq result (concat result "+")))
                              result)))))
 
+  (defun do--status-bar-vc-segment ()
+    (lambda (_)
+      (when (and vc-mode buffer-file-name)
+        (let* ((branch (replace-regexp-in-string
+                        "^\\w+[-:@]"
+                        ""
+                        (string-trim (substring-no-properties vc-mode))))
+               (state (vc-state buffer-file-name))
+               (status-char (pcase state
+                              ('up-to-date "")   ;; Clean
+                              ('edited     "!")  ;; Modified
+                              ('added      "+")  ;; New file
+                              ('needs-merge "&") ;; Conflict
+                              (_           "#")))
+               (text (format "%s%s" status-char branch))
+               (map (make-sparse-keymap)))
+          (define-key map [mode-line mouse-1] 'magit-file-dispatch)
+          (define-key map [mode-line mouse-3] 'magit-status)
+          (telephone-line-raw
+           (propertize text
+                       'keymap map
+                       'help-echo "L-Click: Magit File Options | R-Click: Magit Status"
+                       'mouse-face 'mode-line-highlight)
+           nil)))))
+
   (telephone-line-defsegment do--status-bar-flycheck-segment ()
     "Displays current checker state."
     (when (bound-and-true-p flycheck-mode)
@@ -125,7 +150,7 @@ buffer."
                                    (propertize " ⟳" 'face 'telephone-line-projectile)
                                  (propertize " ⟳" 'face 'telephone-line-projectile)))
                      ('no-checker  (propertize "-" 'face 'telephone-line-unimportant))
-                     ('not-checked "=")
+                     ('not-checked (propertize "#" 'face 'telephone-line-unimportant))
                      ('errored     (propertize "!" 'face 'telephone-line-error))
                      ('interrupted (propertize "." 'face 'telephone-line-error))
                      ('suspicious  "?"))))
@@ -157,7 +182,7 @@ buffer."
   (setq telephone-line-lhs '((alert . (do--status-bar-macro-segment
                                        do--status-bar-register-segment))
                              (evil . (telephone-line-evil-tag-segment))
-                             (accent . (telephone-line-vc-segment
+                             (accent . (do--status-bar-vc-segment
                                         telephone-line-erc-modified-channels-segment
                                         telephone-line-process-segment))
                              (nil . (do--status-bar-anzu-segment
