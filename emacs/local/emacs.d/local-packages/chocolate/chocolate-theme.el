@@ -259,6 +259,8 @@
 
  `(line-number ((t (:foreground ,chocolate-theme-shadow+2 :weight normal))))
  `(line-number-current-line ((t (:foreground ,chocolate-theme-bg :background ,chocolate-theme-shadow+2 :weight normal))))
+ `(line-number-major-tick ((t (:foreground ,chocolate-theme-shadow+2 :weight bold :background unspecified))))
+ `(line-number-minor-tick ((t (:foreground ,chocolate-theme-shadow+2 :weight normal :background unspecified))))
  `(fringe ((t (:background ,chocolate-theme-bg))))
 
  ;; Org Mode
@@ -380,6 +382,9 @@
  `(ivy-subdir ((t (:inherit dired-directory))))
  `(ivy-remote ((t (:inherit font-lock-keyword-face :background unspecified :foreground unspecified))))
 
+ `(flycheck-info ((t (:underline (:color ,chocolate-theme-shadow :style wave :position nil)))))
+ `(flycheck-fringe-info ((t (:foreground ,chocolate-theme-element+3))))
+
  ;; Company
  `(company-scrollbar-bg ((t (:background ,chocolate-theme-shadow+1))))
  `(company-scrollbar-fg ((t (:background ,chocolate-theme-shadow+2))))
@@ -387,6 +392,8 @@
  `(company-preview-common ((t (:inherit nil :foreground ,chocolate-theme-highlight+1))))
  `(company-preview-search ((t (:inherit nil :background ,chocolate-theme-highlight :foreground ,chocolate-theme-bg))))
  `(company-tooltip ((t (:foreground ,chocolate-theme-white :background ,chocolate-theme-shadow+1))))
+ `(company-tooltip-scrollbar-thumb ((t (:foreground ,chocolate-theme-white :background ,chocolate-theme-shadow+2))))
+ `(company-tooltip-scrollbar-track ((t (:foreground ,chocolate-theme-white :background ,chocolate-theme-shadow+1))))
  `(company-tooltip-selection ((t (:foreground ,chocolate-theme-element+2 :background ,chocolate-theme-shadow))))
  `(company-tooltip-annotation ((t (:foreground ,chocolate-theme-shadow+2))))
  `(company-tooltip-annotation-selection ((t (:foreground ,chocolate-theme-bg))))
