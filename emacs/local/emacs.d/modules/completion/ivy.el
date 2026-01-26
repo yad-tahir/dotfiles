@@ -76,7 +76,7 @@
     ;; (ASCII code 9) for both the TAB key and Ctrl+i
     (define-key ivy-minibuffer-map (kbd "TAB") 'ivy-partial))
 
-  (setq ivy-height 20
+  (setq ivy-height 15
         ivy-use-virtual-buffers t
         ivy-wrap t
         ivy-fixed-height-minibuffer t)
