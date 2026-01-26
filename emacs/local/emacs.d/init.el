@@ -28,6 +28,7 @@
                  "completion/ivy"
                  "completion/minibuffer"
                  "completion/snippets"
+                 "completion/transient"
 
                  "feature/diff"
                  "feature/file-manager"

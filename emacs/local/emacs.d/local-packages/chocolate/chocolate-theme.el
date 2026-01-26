@@ -389,6 +389,15 @@
  `(vundo-saved ((t (:foreground ,chocolate-theme-element+6))))
  `(vundo-stem ((t (:foreground ,chocolate-theme-element+3))))
 
+ ;; Transient
+ `(transient-key ((t (:foreground ,chocolate-theme-highlight))))
+ `(transient-key-stack ((t (:foreground ,chocolate-theme-element+2))))
+ `(transient-key-stay ((t (:foreground ,chocolate-theme-element+2))))
+ `(transient-key-recurse ((t (:foreground ,chocolate-theme-element+2))))
+ `(transient-key-return ((t (:foreground ,chocolate-theme-element+2))))
+ `(transient-key-exit ((t (:foreground ,chocolate-theme-highlight))))
+ `(transient-key-noop ((t (:foreground ,chocolate-theme-shadow))))
+
  ;; Company
  `(company-scrollbar-bg ((t (:background ,chocolate-theme-shadow+1))))
  `(company-scrollbar-fg ((t (:background ,chocolate-theme-shadow+2))))
