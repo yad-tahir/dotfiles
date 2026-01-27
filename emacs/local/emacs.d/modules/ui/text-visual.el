@@ -96,4 +96,12 @@
   :config
   (evil-goggles-mode))
 
+(use-package evil-fringe-mark
+  :ensure t
+  :after (evil)
+  :config
+  (setq-default left-margin-width 0)
+  (setq-default evil-fringe-mark-margin 'left-margin)
+  (global-evil-fringe-mark-mode))
+
 (provide 'do-text-visual)
