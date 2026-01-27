@@ -109,5 +109,6 @@
 (tooltip-mode nil) ;; Redirect tool-tip messages to the echo area
 (global-auto-revert-mode +1) ;; Refresh unmodified buffers if the backed files have changed
 (global-visual-line-mode 1)
+(context-menu-mode -1)
 
 (provide 'do-general)
