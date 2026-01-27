@@ -278,19 +278,16 @@
         evil-pending-intercept-maps nil
         evil-pending-overriding-maps nil)
 
-  ;; Subvert evil-operation.el overrides (dired, ibuffer etc.)
+  ;; Subvert evil-operation.el overrides
   (advice-add 'evil-make-overriding-map :override 'ignore)
   (advice-add 'evil-make-intercept-map  :override 'ignore)
   (advice-add 'evil-add-hjkl-bindings   :override 'ignore)
 
-  (dolist (mode '(text-mode help-mode debugger-mode message-mode))
-    (evil-set-initial-state mode 'normal))
-
   ;; Variables
-  (setq-default evil-symbol-word-search t ;; make '*' more useful
-                evil-input-method nil) ; Ensures no weird input lag
+  (setq-default evil-symbol-word-search t) ;; make '*' more useful
 
   (setq evil-want-C-u-scroll nil
+        evil-want-C-d-scroll nil
         evil-want-C-i-jump nil
         evil-want-Y-yank-to-eol t
         ;; No need for t if the cursor has a box shap
@@ -330,6 +327,9 @@
         evil-undo-system 'undo-redo
         evil-redo-function 'undo-redo
         evil-motion-state-cursor `(box))
+
+  (dolist (mode '(text-mode help-mode debugger-mode message-mode))
+    (evil-set-initial-state mode 'normal))
 
   ;; Functions
   (defun do--evil-search-region (direction)

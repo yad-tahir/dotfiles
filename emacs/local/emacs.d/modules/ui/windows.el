@@ -131,8 +131,7 @@ The third optional argument PROPS indicates the properties of the frame"
                    (unless (boundp 'pgtk-initialized)
                      '(window-system . x))
                    '(minibuffer . t)
-                   props
-                   ))
+                   props))
          (frame (make-frame fp)))
     ;; Create the frame and switch to it
     (select-frame-set-input-focus frame)

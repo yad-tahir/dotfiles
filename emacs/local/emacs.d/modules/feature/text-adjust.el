@@ -87,8 +87,6 @@
   :init
   (general-define-key
    :states 'visual
-   ;; for Emacs GUI
-   "<tab>" 'er/expand-region
    ;; for Emacs Terminal
    "TAB" 'er/expand-region))
 
@@ -144,21 +142,11 @@
    "g-" 'evil-numbers/dec-at-pt
    "g+" 'evil-numbers/inc-at-pt))
 
-(use-package evil-exchange
-  :ensure t
-  :commands (evil-exchange evil-exchange-cancel)
-  :config
-  (general-define-key
-   :states '(normal visual)
-   "SPC lx" 'evil-exchange
-   "SPC lX" 'evil-exchange-cancel))
-
 (use-package whitespace
   :config
   (add-hook 'before-save-hook #'(lambda ()
                                   (when whitespace-mode
                                     (whitespace-cleanup)))))
-
 (use-package evil-mc
   :ensure t
   :disabled t
@@ -232,6 +220,7 @@
    "m" 'evil-closest-a-delimiter))
 
 (use-package evil-case
+  :disabled t
   :after evil
   :config
   (general-define-key

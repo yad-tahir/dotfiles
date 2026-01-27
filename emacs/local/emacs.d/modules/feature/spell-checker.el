@@ -20,11 +20,8 @@
 
 (use-package ispell
   :defer t
+  :functions (do--evil-spell)
   :config
-  (evil-define-operator do--evil-spell (beginning end &optional type)
-    (ignore type)
-    (ispell-region beginning end))
-
   (general-define-key
    :states 'normal
    "gs" 'do--evil-spell
@@ -55,7 +52,11 @@
    ((executable-find "aspell")
     (setq ispell-program-name "aspell"
           ispell-really-aspell t
-          ispell-extra-args '("--sug-mode=ultra" "--lang=en_US" "--run-together")))))
+          ispell-extra-args '("--sug-mode=ultra" "--lang=en_US" "--run-together"))))
+
+  (evil-define-operator do--evil-spell (beginning end)
+    (ispell-region beginning end)))
+
 
 (use-package flyspell
   :ensure t
@@ -89,16 +90,5 @@
                            (window-end nil t))))))
 
   (run-with-idle-timer 5 t 'do--spell-checker-timer))
-
-(use-package flyspell-correct
-  :ensure t
-  :commands 'flyspell-correct-wrapper
-  :init
-  (general-define-key
-   :keymaps 'flyspell-mouse-map
-   :states 'normal
-   "SPC lY" 'flyspell-correct-at-point))
-
-
 
 (provide 'do-spell-checker)
