@@ -90,4 +90,10 @@
   :ensure t
   :commands (rainbow-mode))
 
+(use-package evil-goggles
+  :ensure t
+  :after (evil)
+  :config
+  (evil-goggles-mode))
+
 (provide 'do-text-visual)
