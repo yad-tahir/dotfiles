@@ -78,239 +78,7 @@
    "C-:" 'evil-ex
    "C-;" 'evil-ex)
 
-  (general-define-key
-   :states 'normal
-   "[f" 'nil ;; weird forward/backward motions
-   "[F" 'nil
-   "]f" 'nil
-   "]F" 'nil
-
-   "C-c" 'ignore
-   "C-t" 'ignore
-   "C-n" 'ignore
-   "C-h" 'ignore
-
-   "*" 'evil-ex-search-word-forward
-   "g*" 'evil-ex-search-unbounded-word-forward
-
-   "l" 'nil ;; Used as a prefix for mode-local keybindings
-   "SPC l" '(:ignore t :which-key "local") ;; second set of mode-local keybinding
-
-   ;; Reset/remove conflicting bindings
-   "s" 'nil ;; Used for searching instead
-   "j" 'nil
-   "x" 'nil
-   "J" 'nil
-   "f" 'nil
-   "F" 'nil
-   "," 'nil
-   "g," 'nil
-   "gj" 'nil
-   "gJ" 'nil
-   "g:" 'nil
-   "'" 'nil
-
-   ;; Navigation; need to be here because of git-rebase-mode
-   "h" 'evil-backward-char
-   "n" 'evil-forward-char
-   "c" 'evil-previous-visual-line
-   "t" 'evil-next-visual-line
-   "gc" 'evil-previous-line
-   "gt" 'evil-next-line
-
-   ;; Primary operations
-   "d" 'evil-delete
-   "u" 'evil-change
-   "U" 'evil-change-line
-   "k" 'evil-join
-   "K" 'evil-join-whitespace
-   "z" 'evil-undo
-   "Z" 'evil-redo
-   "C-z" 'ignore
-
-   ;; Scrolling
-   "C" 'evil-scroll-page-up
-   "T" 'evil-scroll-page-down
-
-   ;; Searching
-   "/" 'evil-ex-search-forward
-   "?" 'evil-ex-search-backward
-   "gn" 'evil-next-match
-   "gh" 'evil-previous-match
-   "g^" 'evil-first-non-blank
-   "N" 'evil-ex-search-next
-   "H" 'evil-ex-search-previous
-
-   ;; Paste
-   "r" 'do-evil-replace
-   "gp" 'do-evil-paste-next-line
-   "gP" 'do-evil-paste-previous-line
-
-   ;; Whitespace/Indentation
-   "gk" 'evil-join-whitespace
-   "X" 'do-evil-fixup-whitespace
-   ">" 'evil-shift-right
-   "<" 'evil-shift-left
-   "=" 'do-evil-indent
-   "g=" 'evil-indent
-
-   ;; Text case
-   "gu" 'evil-downcase
-   "gU" 'evil-upcase
-
-   "]" '(:ignore t :which-key "move-forward")
-   "][" 'evil-forward-section-begin
-   "]]" 'evil-forward-section-end
-   "]s" 'evil-forward-sentence-begin
-   "]S" 'evil-forward-sentence-end
-   "]p" 'evil-forward-paragraph
-   "]m" 'do-evil-forward-motion
-   "]." 'do-evil-forward-motion
-
-   "[" '(:ignore t :which-key "move-backward")
-   "[[" 'evil-backward-section-begin
-   "[]" 'evil-backward-section-end
-   "[s" 'evil-backward-sentence-begin
-   "[S" 'evil-backward-sentence-end
-   "[p" 'evil-backward-paragraph
-   "[m" 'do-evil-backward-motion
-   "[." 'do-evil-backward-motion
-
-   ;; 'SPC l' is a prefix for another set of global keybindings
-   ;; 'l', on the other hand, is for local buffer keybindings
-   "SPC lg" '(:ignore t :which-key "jump")
-   "SPC lgh" 'evil-jump-backward
-   "SPC lgn" 'evil-jump-forward
-   "SPC lgH" 'goto-last-change
-   "SPC lgN" 'goto-last-change-reverse
-   "SPC lgt" 'evil-jump-to-tag
-   "SPC lgc" 'evil-goto-column
-   "SPC lgd" 'evil-goto-definition
-   "SPC lgl" 'evil-lookup
-   "SPC l-" 'do-evil-narrow
-   "SPC l+" 'widen)
-
-  (general-define-key
-   :states 'visual
-   "C-c" 'ignore
-   "C-t" 'ignore
-   "C-n" 'ignore
-   "C-h" 'ignore
-
-   "*" #'do-evil-search-region-forward
-   "#" #'do-evil-search-region-backward
-
-   "l" 'nil ;; Used as a prefix for mode-local keybindings
-   "SPC l" '(:ignore t :which-key "local") ;; second set of mode-local keybinding
-
-   ;; Reset/remove conflicting bindings
-   "s" 'nil ;; Used for searching instead
-   "j" 'nil
-   "x" 'nil
-   "J" 'nil
-   "f" 'nil
-   "F" 'nil
-   "," 'nil
-   "g," 'nil
-   "gj" 'nil
-   "gJ" 'nil
-   "g:" 'nil
-   "'" 'nil
-   "C-z" 'ignore
-
-   ;; Navigation; need to be here because of git-rebase-mode
-   "h" 'evil-backward-char
-   "n" 'evil-forward-char
-   "c" 'evil-previous-visual-line
-   "t" 'evil-next-visual-line
-   "gc" 'evil-previous-line
-   "gt" 'evil-next-line
-
-   ;; Primary operations
-   "d" 'evil-delete
-   "u" 'evil-change
-   "U" 'evil-change-line
-   "k" 'evil-join
-   "K" 'evil-join-whitespace
-   "z" 'evil-undo
-   "Z" 'evil-redo
-
-   ;; Scrolling
-   "C" 'evil-scroll-page-up
-   "T" 'evil-scroll-page-down
-
-   ;; Searching
-   "/" 'evil-ex-search-forward
-   "?" 'evil-ex-search-backward
-   "gn" 'evil-next-match
-   "gh" 'evil-previous-match
-   "g^" 'evil-first-non-blank
-   "N" 'evil-ex-search-next
-   "H" 'evil-ex-search-previous
-
-   ;; Paste
-   "r" 'do-evil-replace
-   "gp" 'do-evil-paste-next-line
-   "gP" 'do-evil-paste-previous-line
-
-   ;; Whitespace/Indentation
-   "gk" 'evil-join-whitespace
-   "X" 'do-evil-fixup-whitespace
-   ">" 'evil-shift-right
-   "<" 'evil-shift-left
-   "=" 'do-evil-indent
-   "g=" 'evil-indent
-
-   ;; Text case
-   "gu" 'evil-downcase
-   "gU" 'evil-upcase
-
-   "]" '(:ignore t :which-key "move-forward")
-   "][" 'evil-forward-section-begin
-   "]]" 'evil-forward-section-end
-   "]s" 'evil-forward-sentence-begin
-   "]S" 'evil-forward-sentence-end
-   "]p" 'evil-forward-paragraph
-   "]m" 'do-evil-forward-motion
-   "]." 'do-evil-forward-motion
-
-   "[" '(:ignore t :which-key "move-backward")
-   "[[" 'evil-backward-section-begin
-   "[]" 'evil-backward-section-end
-   "[s" 'evil-backward-sentence-begin
-   "[S" 'evil-backward-sentence-end
-   "[p" 'evil-backward-paragraph
-   "[m" 'do-evil-backward-motion
-   "[." 'do-evil-backward-motion
-
-   ;; 'SPC l' is a prefix for another set of global keybindings
-   ;; 'l', on the other hand, is for local buffer keybindings
-   "SPC lg" '(:ignore t :which-key "jump")
-   "SPC lgh" 'evil-jump-backward
-   "SPC lgn" 'evil-jump-forward
-   "SPC lgH" 'goto-last-change
-   "SPC lgN" 'goto-last-change-reverse
-   "SPC lgt" 'evil-jump-to-tag
-   "SPC lgc" 'evil-goto-column
-   "SPC lgd" 'evil-goto-definition
-   "SPC lgl" 'evil-lookup
-   "SPC l-" 'do-evil-narrow
-   "SPC l+" 'widen)
-
-  ;; Normal and Visual
-  (general-define-key
-   ;; Don't but buffer modifier in the override keymap, e.g. evil-change
-   ;; In some modes, you need to override them, e.g. magit
-   :keymaps 'override
-   :states '(normal visual)
-   "\\" 'evil-emacs-state
-   ":" 'evil-ex
-   ";" 'evil-ex
-
-   "SPC c" 'compile ;; enter compile mode
-   )
-
-  (general-define-key
+(general-define-key
    :states 'motion
    "t" 'nil
    "T" 'nil
@@ -329,14 +97,7 @@
    "'" 'nil
    "\"" 'nil
 
-   "j" 'evil-find-char-to
-   "J" 'evil-find-char-to-backward
-   "f" 'evil-find-char
-   "F" 'evil-find-char-backward
-   "," 'evil-repeat-find-char
-   "g," 'evil-repeat-find-char-reverse
-
-   ;; Make sure basic navigation matches the normal state
+   ;; Basic navigation
    "h" 'evil-backward-char
    "n" 'evil-forward-char
    "c" 'evil-previous-visual-line
@@ -344,11 +105,180 @@
    "gc" 'evil-previous-line
    "gt" 'evil-next-line
 
+   ;; Scrolling
+   "C" 'evil-scroll-page-up
+   "T" 'evil-scroll-page-down
+
+   ;; Searching
+   "/" 'evil-ex-search-forward
+   "?" 'evil-ex-search-backward
+   "gn" 'evil-next-match
+   "gh" 'evil-previous-match
+   "g^" 'evil-first-non-blank
+   "N" 'evil-ex-search-next
+   "H" 'evil-ex-search-previous
+
+   "]" '(:ignore t :which-key "move-forward")
+   "][" 'evil-forward-section-begin
+   "]]" 'evil-forward-section-end
+   "]s" 'evil-forward-sentence-begin
+   "]S" 'evil-forward-sentence-end
+   "]p" 'evil-forward-paragraph
+   "]m" 'do-evil-forward-motion
+   "]." 'do-evil-forward-motion
+
+   "[" '(:ignore t :which-key "move-backward")
+   "[[" 'evil-backward-section-begin
+   "[]" 'evil-backward-section-end
+   "[s" 'evil-backward-sentence-begin
+   "[S" 'evil-backward-sentence-end
+   "[p" 'evil-backward-paragraph
+   "[m" 'do-evil-backward-motion
+   "[." 'do-evil-backward-motion
    ;; Jumping
    "gj" 'evil-jump-backward
    "gJ" 'evil-jump-forward
    "g:" 'goto-last-change-reverse
-   "'" 'evil-goto-mark)
+   "'" 'evil-goto-mark
+
+   "SPC l" '(:ignore t :which-key "local") ;; second set of
+   "SPC lg" '(:ignore t :which-key "jump")
+   "SPC lgh" 'evil-jump-backward
+   "SPC lgn" 'evil-jump-forward
+   "SPC lgH" 'goto-last-change
+   "SPC lgN" 'goto-last-change-reverse
+   "SPC lgt" 'evil-jump-to-tag
+   "SPC lgc" 'evil-goto-column
+   "SPC lgd" 'evil-goto-definition
+
+   ;; Motion state specials
+   "j" 'evil-find-char-to
+   "J" 'evil-find-char-to-backward
+   "f" 'evil-find-char
+   "F" 'evil-find-char-backward
+   "," 'evil-repeat-find-char
+   "g," 'evil-repeat-find-char-reverse)
+
+  (general-define-key
+   :states 'normal
+   "C-c" 'ignore
+   "C-t" 'ignore
+   "C-n" 'ignore
+   "C-h" 'ignore
+   "C-z" 'ignore
+
+   ;; Reset/remove conflicting bindings
+   "c" nil
+   "C" nil
+   "s" nil
+   "S" nil
+   "x" nil
+   "X" nil
+   "," nil
+   "'" nil
+   "g:" nil
+   "g," nil
+   "gj" nil
+   "gJ" nil
+   "gx" nil
+
+   ;; Primary operations
+   "d" 'evil-delete
+   "u" 'evil-change
+   "U" 'evil-change-line
+   "k" 'evil-join
+   "K" 'evil-join-whitespace
+   "z" 'evil-undo
+   "Z" 'evil-redo
+   "C-z" 'ignore
+
+   ;; Searching
+   "*" 'evil-ex-search-word-forward
+   "g*" 'evil-ex-search-unbounded-word-forward
+   "/" 'evil-ex-search-forward
+   "?" 'evil-ex-search-backward
+
+   ;; Paste
+   "r" 'do-evil-replace
+   "gp" 'do-evil-paste-next-line
+   "gP" 'do-evil-paste-previous-line
+
+   ;; Whitespace/Indentation
+   "gk" 'evil-join-whitespace
+
+   ;; Text case
+   "gu" 'evil-downcase
+   "gU" 'evil-upcase
+
+   "SPC l-" 'do-evil-narrow
+   "SPC l+" 'widen)
+
+  (general-define-key
+   :states 'visual
+   "C-c" 'ignore
+   "C-t" 'ignore
+   "C-n" 'ignore
+   "C-h" 'ignore
+   "C-z" 'ignore
+
+   ;; Reset/remove conflicting bindings
+   "c" nil
+   "C" nil
+   "s" nil
+   "S" nil
+   "x" nil
+   "X" nil
+   "," nil
+   "'" nil
+   "g:" nil
+   "g," nil
+   "gj" nil
+   "gJ" nil
+   "gx" nil
+
+   ;; Primary operations
+   "d" 'evil-delete
+   "u" 'evil-change
+   "U" 'evil-change-line
+   "k" 'evil-join
+   "K" 'evil-join-whitespace
+   "z" 'evil-undo
+   "Z" 'evil-redo
+
+   ;; Search
+   "*" #'do-evil-search-region-forward
+   "#" #'do-evil-search-region-backward
+   "/" 'evil-ex-search-forward
+   "?" 'evil-ex-search-backward
+
+   ;; Paste
+   "r" 'do-evil-replace
+   "gp" 'do-evil-paste-next-line
+   "gP" 'do-evil-paste-previous-line
+
+   ;; Whitespace/Indentation
+   "gk" 'evil-join-whitespace
+
+   ;; Text case
+   "gu" 'evil-downcase
+   "gU" 'evil-upcase
+
+   "SPC l-" 'do-evil-narrow
+   "SPC l+" 'widen)
+
+  ;; Normal and Visual
+  (general-define-key
+   ;; Don't but buffer modifier in the override keymap, e.g. evil-change
+   ;; In some modes, you need to override them, e.g. magit
+   :keymaps 'override
+   :states '(normal visual)
+   "\\" 'evil-emacs-state
+   ":" 'evil-ex
+   ";" 'evil-ex
+
+   "SPC c" 'compile) ;; enter compile mode
+
+
 
   ;; Other
   (general-define-key
