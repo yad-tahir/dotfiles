@@ -72,6 +72,7 @@
 
 (use-package evil-goggles
   :ensure t
+  :disabled t
   :after (evil)
   :config
   (evil-goggles-mode))
