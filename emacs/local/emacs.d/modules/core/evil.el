@@ -65,7 +65,8 @@
   (general-define-key
    :states 'insert
    ;; Don't create another normal mode from the insert mode.
-   ;; Basic Navigation
+   "TAB" 'tab-to-tab-stop
+
    "C-h" 'evil-backward-char
    "C-n" 'evil-forward-char
    "C-c" 'evil-previous-line
