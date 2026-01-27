@@ -192,12 +192,6 @@
    "Z" 'evil-redo
    "C-z" 'ignore
 
-   ;; Searching
-   "*" 'evil-ex-search-word-forward
-   "g*" 'evil-ex-search-unbounded-word-forward
-   "/" 'evil-ex-search-forward
-   "?" 'evil-ex-search-backward
-
    ;; Paste
    "r" 'do-evil-replace
    "gp" 'do-evil-paste-next-line
@@ -235,6 +229,9 @@
    "gj" nil
    "gJ" nil
    "gx" nil
+   "z" nil
+   "Z" nil
+   "C-z" nil
 
    ;; Primary operations
    "d" 'evil-delete
@@ -242,14 +239,10 @@
    "U" 'evil-change-line
    "k" 'evil-join
    "K" 'evil-join-whitespace
-   "z" 'evil-undo
-   "Z" 'evil-redo
 
-   ;; Search
+   ;; Search - Replacing default ex-search selection
    "*" #'do-evil-search-region-forward
    "#" #'do-evil-search-region-backward
-   "/" 'evil-ex-search-forward
-   "?" 'evil-ex-search-backward
 
    ;; Paste
    "r" 'do-evil-replace
