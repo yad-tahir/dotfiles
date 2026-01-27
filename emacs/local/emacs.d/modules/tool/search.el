@@ -92,6 +92,7 @@
 
 
 (use-package swiper
+  :disabled t ;; too slow!
   :commands (swiper)
   :init
   (general-define-key
