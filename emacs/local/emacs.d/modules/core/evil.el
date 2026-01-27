@@ -181,6 +181,8 @@
    "gj" nil
    "gJ" nil
    "gx" nil
+   "gt" nil
+   "gT" nil
 
    ;; Primary operations
    "d" 'evil-delete
@@ -204,72 +206,34 @@
    "gu" 'evil-downcase
    "gU" 'evil-upcase
 
+   "SPC c" 'compile ;; enter compile mode
    "SPC l-" 'do-evil-narrow
    "SPC l+" 'widen)
 
   (general-define-key
    :states 'visual
-   "C-c" 'ignore
-   "C-t" 'ignore
-   "C-n" 'ignore
-   "C-h" 'ignore
-   "C-z" 'ignore
-
    ;; Reset/remove conflicting bindings
-   "c" nil
-   "C" nil
-   "s" nil
-   "S" nil
-   "x" nil
-   "X" nil
-   "," nil
-   "'" nil
-   "g:" nil
-   "g," nil
-   "gj" nil
-   "gJ" nil
-   "gx" nil
+   "gf" nil
    "z" nil
-   "Z" nil
-   "C-z" nil
+   "R" nil ;; replaced by U
 
-   ;; Primary operations
-   "d" 'evil-delete
    "u" 'evil-change
    "U" 'evil-change-line
-   "k" 'evil-join
-   "K" 'evil-join-whitespace
-
-   ;; Search - Replacing default ex-search selection
    "*" #'do-evil-search-region-forward
-   "#" #'do-evil-search-region-backward
-
-   ;; Paste
-   "r" 'do-evil-replace
-   "gp" 'do-evil-paste-next-line
-   "gP" 'do-evil-paste-previous-line
-
-   ;; Whitespace/Indentation
-   "gk" 'evil-join-whitespace
-
-   ;; Text case
-   "gu" 'evil-downcase
-   "gU" 'evil-upcase
-
-   "SPC l-" 'do-evil-narrow
-   "SPC l+" 'widen)
+   "#" #'do-evil-search-region-backward)
 
   ;; Normal and Visual
   (general-define-key
    ;; Don't but buffer modifier in the override keymap, e.g. evil-change
    ;; In some modes, you need to override them, e.g. magit
    :keymaps 'override
+   ;; Must be both normal and visual since this is on a separate keymap. If I
+   ;; use only normal, then these keybindings will be missing over the visual
+   ;; of override. It will then go to other underline keybindings.
    :states '(normal visual)
    "\\" 'evil-emacs-state
    ":" 'evil-ex
-   ";" 'evil-ex
-
-   "SPC c" 'compile) ;; enter compile mode
+   ";" 'evil-ex)
 
 
 
