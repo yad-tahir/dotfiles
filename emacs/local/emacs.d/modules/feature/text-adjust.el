@@ -101,14 +101,13 @@
    "x" 'evilnc-comment-operator))
 
 (use-package evil-lion
-  :defer t
   :ensure t
   :commands (evil-lion-left evil-lion-right)
   :init
   (general-define-key
    :states '(normal visual)
-   "SPC l<" #'evil-lion-left
-   "SPC l>" #'evil-lion-right)
+   "gl" #'evil-lion-left
+   "gL" #'evil-lion-right)
 
   :config
   (setq evil-lion-left-align-key (kbd "SPC l <")
