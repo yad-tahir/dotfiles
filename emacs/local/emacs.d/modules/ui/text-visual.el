@@ -26,26 +26,6 @@
                                 spaces space-mark
                                 space-before-tab space-after-tab)))
 
-;; A meta package to abstract the fold functionality from evil.el
-(use-package evil-commands
-  :hook ((prog-mode . hs-minor-mode))
-  :commands (evil-toggle-fold evil-open-folds evil-close-folds)
-  :init
-  (defvar do--fold-global-toggle t)
-
-  (defun do--fold-toggle-all ()
-    (interactive)
-    (setq do--fold-global-toggle (not do--fold-global-toggle))
-    (if do--fold-global-toggle
-        (call-interactively 'evil-open-folds)
-      (call-interactively 'evil-close-folds)))
-
-  (general-define-key
-   :keymaps 'hs-minor-mode-map
-   :states 'normal
-   "TAB" 'evil-toggle-fold
-   "C-M-i" 'do--fold-toggle-all))
-
 (use-package highlight-parentheses
   :ensure t
   :hook ((prog-mode . highlight-parentheses-mode))
@@ -55,10 +35,10 @@
 (use-package evil-quickscope
   :ensure t
   :disabled t
-  :commands  (evil-quickscope-find-char
-              evil-quickscope-find-char-backward
-              evil-quickscope-find-char-to
-              evil-quickscope-find-char-to-backward)
+  :commands (evil-quickscope-find-char
+             evil-quickscope-find-char-backward
+             evil-quickscope-find-char-to
+             evil-quickscope-find-char-to-backward)
   :init
   (general-define-key
    :states 'motion

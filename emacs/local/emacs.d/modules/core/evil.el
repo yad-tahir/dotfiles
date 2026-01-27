@@ -71,8 +71,9 @@
    "C-c" 'evil-previous-line
    "C-t" 'evil-next-line
 
-   "<C-escape>" 'evil-execute-in-normal-state
-   "TAB" 'tab-to-tab-stop
+   "C-z" 'evil-undo
+   "C-Z" 'evil-redo
+
    "C-:" 'evil-ex
    "C-;" 'evil-ex)
 
