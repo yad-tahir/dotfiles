@@ -22,9 +22,8 @@
   :commands (lice)
   :init
   (general-define-key
-   :keymaps 'override
-   :states '(normal visual)
-   "SPC ll" '(lice :which-key "license")
+   :states 'normal
+   "gl" '(lice :which-key "license")
   :config
   (setq lice:default-license "gpl-3.0")))
 

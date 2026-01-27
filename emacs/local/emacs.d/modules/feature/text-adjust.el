@@ -36,8 +36,8 @@
   (general-define-key
    :states '(normal visual)
    "s" 'evil-surround-region
-   "gs" 'evil-surround-change
-   "S" 'evil-surround-delete)
+   "S" 'evil-surround-change
+   "M-s" 'evil-surround-delete)
 
   :config
   ;; Eliminate extra space between pairs
@@ -106,8 +106,8 @@
   :init
   (general-define-key
    :states '(normal visual)
-   "gl" #'evil-lion-left
-   "gL" #'evil-lion-right)
+   "g<" #'evil-lion-left
+   "g>" #'evil-lion-right)
 
   :config
   (setq evil-lion-left-align-key (kbd "SPC l <")

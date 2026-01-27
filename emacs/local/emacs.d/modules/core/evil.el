@@ -141,15 +141,14 @@
    "g:" 'goto-last-change-reverse
    "'" 'evil-goto-mark
 
-   "SPC l" '(:ignore t :which-key "local") ;; second set of
-   "SPC lg" '(:ignore t :which-key "jump")
-   "SPC lgh" 'evil-jump-backward
-   "SPC lgn" 'evil-jump-forward
-   "SPC lgH" 'goto-last-change
-   "SPC lgN" 'goto-last-change-reverse
-   "SPC lgt" 'evil-jump-to-tag
-   "SPC lgc" 'evil-goto-column
-   "SPC lgd" 'evil-goto-definition
+   "gy" '(:ignore t :which-key "jump")
+   "gyh" 'evil-jump-backward
+   "gyn" 'evil-jump-forward
+   "gyH" 'goto-last-change
+   "gyN" 'goto-last-change-reverse
+   "gyt" 'evil-jump-to-tag
+   "gyc" 'evil-goto-column
+   "gyd" 'evil-goto-definition
 
    ;; Motion state specials
    "j" 'evil-find-char-to
@@ -180,7 +179,6 @@
    "g," nil
    "gj" nil
    "gJ" nil
-   "gx" nil
    "gt" nil
    "gT" nil
 
@@ -207,8 +205,8 @@
    "gU" 'evil-upcase
 
    "SPC c" 'compile ;; enter compile mode
-   "SPC l-" 'do-evil-narrow
-   "SPC l+" 'widen)
+   "gx" 'do-evil-narrow
+   "gX" 'widen)
 
   (general-define-key
    :states 'visual
@@ -234,8 +232,6 @@
    "\\" 'evil-emacs-state
    ":" 'evil-ex
    ";" 'evil-ex)
-
-
 
   ;; Other
   (general-define-key

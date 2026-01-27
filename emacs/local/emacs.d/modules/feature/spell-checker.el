@@ -27,19 +27,19 @@
 
   (general-define-key
    :states 'normal
-   "SPC ls" 'do--evil-spell
-   "SPC lS" 'ispell-buffer)
+   "gs" 'do--evil-spell
+   "gS" 'ispell-buffer)
 
   (general-define-key
    :states 'visual
-   "SPC ls" 'do--evil-spell
-   "SPC lS" 'ispell-region)
+   "gs" 'do--evil-spell
+   "gS" 'ispell-region)
 
   ;; Prog-mode overrides
   (general-define-key
    :keymaps 'prog-mode-map
    :states 'normal
-   "SPC lS" 'ispell-comments-and-strings)
+   "gS" 'ispell-comments-and-strings)
 
   (setq ispell-personal-dictionary "~/notes/personal.aspell.en.pws"
         ispell-dictionary "en_US"
