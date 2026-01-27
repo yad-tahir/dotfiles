@@ -27,6 +27,16 @@
    "SPC f" 'find-file
    "SPC F" 'dired)
 
+  (general-define-key
+   :states 'normal
+   "gf" 'dired-jump
+   "gF" 'dired-jump-other-window)
+
+  (general-define-key
+   :states 'visual
+   "gf" nil
+   "gF" nil)
+
   (defun do-file-manager (&optional path)
     (interactive)
     (do-make-frame "file-manager")
