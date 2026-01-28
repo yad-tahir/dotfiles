@@ -345,7 +345,7 @@
                                               :inherit mode-line :weight normal))))
  `(telephone-line-evil-insert ((t (:background ,chocolate-theme-element+2 :foreground ,chocolate-theme-bg
                                                :inherit mode-line :weight normal))))
- `(telephone-line-evil-motion ((t (:background ,chocolate-theme-highlight :foreground ,chocolate-theme-bg
+ `(telephone-line-evil-motion ((t (:background ,chocolate-theme-highlight+2 :foreground ,chocolate-theme-bg
                                                :inherit mode-line :weight normal))))
  `(telephone-line-evil-visual ((t (:background ,chocolate-theme-highlight :foreground ,chocolate-theme-bg
                                                :inherit mode-line :weight normal))))
