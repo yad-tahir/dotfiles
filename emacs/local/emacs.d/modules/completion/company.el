@@ -27,6 +27,7 @@
   :init
   (defun do--tab-complete ()
     (interactive)
+    (require 'company)
     (if (or (save-excursion (looking-at "\\_>")) ;; end of symbol
             ;; (save-excursion (looking-at "\\."))  ;; ends with dot
             (save-excursion (looking-at "->")))  ;; ends with ->
@@ -103,6 +104,7 @@
                             company-oddmuse company-dabbrev)
                            company-ispell))
 
+  ;; ;; NO NEED for it under company/counsel
   ;; ;; BUG-FIX: company looks ugly with whitespace mode
   ;; (add-hook 'company-completion-started-hook
   ;;           #'(lambda (&optional _result)

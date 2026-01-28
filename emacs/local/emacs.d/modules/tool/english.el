@@ -29,35 +29,4 @@
    :states 'normal
    "SPC lI" 'do-define-word))
 
-
-(use-package speed-type
-  :ensure t
-  :commands (speed-type-top-x speed-type-top-100 speed-type-top-1000)
-  :init
-  (defun speed-type-standard ()
-    (interactive)
-    (speed-type-top-x 500))
-
-  (general-define-key
-   :keymaps 'override
-   :states 'normal
-   "SPC at" 'speed-type-standard
-   "SPC aT" 'speed-type-top-1000)
-
-  :config
-  (setq speed-type-default-lang 'English)
-
-  ;; Refresh speed-type's generated buffers using F5
-  (advice-add 'speed-type--setup :after
-              #'(lambda (&rest args)
-                  (interactive)
-                  (general-define-key
-                   :keymaps 'local
-                   "<f5>" 'speed-type--play-next)))
-
-  (set-face-attribute 'speed-type-correct nil
-                      :foreground chocolate-theme-element+1)
-  (set-face-attribute 'speed-type-mistake nil
-                      :foreground chocolate-theme-highlight+1))
-
 (provide 'do-english)

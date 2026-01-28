@@ -78,7 +78,7 @@
    "C-:" 'evil-ex
    "C-;" 'evil-ex)
 
-(general-define-key
+  (general-define-key
    :states 'motion
    "t" 'nil
    "T" 'nil
@@ -135,6 +135,7 @@
    "[p" 'evil-backward-paragraph
    "[m" 'do-evil-backward-motion
    "[." 'do-evil-backward-motion
+
    ;; Jumping
    "gj" 'evil-jump-backward
    "gJ" 'evil-jump-forward
