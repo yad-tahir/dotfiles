@@ -99,45 +99,6 @@
                   (whitespace-mode 1)
                   (setq do--company-whitespace-state nil))))
 
-  (if evil-want-integration
-      (progn
-        (mapc 'evil-declare-ignore-repeat
-              '(company-complete
-                company-search-printing-char
-                company-search-other-char
-                company-search-toggle-filtering
-                company-search-repeat-forward
-                company-search-repeat-backward
-                company-search-abort
-                company-search-delete-char)))
-
-    (mapc 'evil-declare-change-repeat
-          '(company-complete-mouse
-            company-complete-number
-            company-complete-common
-            company-complete-selection))
-
-    (mapc 'evil-declare-ignore-repeat
-          '(company-abort
-            company-complete
-            company-select-next
-            company-select-previous
-            company-select-next-or-abort
-            company-select-previous-or-abort
-            company-complete
-            company-select-mouse
-            company-show-doc-buffer
-            company-show-location
-            company-search-candidates
-            company-search-other-char
-            company-search-printing-char
-            company-search-toggle-filtering
-            company-search-repeat-forward
-            company-search-repeat-backward
-            company-search-abort
-            company-search-delete-char
-            company-filter-candidates)))
-
   (defun do--evil-repeat-suppress-flyspell (orig-fn &rest args)
     "Temporarily disable flyspell-mode serious prevent lag.
 

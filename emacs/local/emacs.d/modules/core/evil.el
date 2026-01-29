@@ -23,7 +23,6 @@
 ;;; Code:
 
 (use-package evil
-  :ensure t
   :demand t
   :functions (evil-indent@evil-indent-fixed-mouse
               previous-history-element@previous-history-end-element
