@@ -63,7 +63,10 @@
         company-text-icons-add-background t
         company-search-filtering t
         company-tooltip-limit 15
-        company-tooltip-margin 4
+        company-tooltip-margin 2 ;; increasing it above 2 will bug out org-roam suggestions
+        company-tooltip-width-grow-only t
+        company-tooltip-maximum-width 60
+        company-tooltip-minimum-width (/ company-tooltip-maximum-width 2)
         company-tooltip-flip-when-above t
         company-tooltip-align-annotations t
         company-require-match 'never
