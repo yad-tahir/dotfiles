@@ -62,7 +62,7 @@ This method does not support launching a terminal app on a remote machine."
    :prefix "SPC"
    :keymaps 'override
    :states '(normal visual)
-   "M-RET" #'do-eshell-new)
+   "M-<return>" #'do-eshell-new)
 
 ;;;###autoload
   (defun do-eshell-new()

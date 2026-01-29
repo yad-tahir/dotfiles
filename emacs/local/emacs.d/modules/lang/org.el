@@ -48,14 +48,14 @@
 
   (general-define-key
    :keymaps 'org-mode-map
-   "<RET>" 'nil
-   "<M-return>" 'nil)
+   "<RET>" nil
+   "C-M-i" nil
+   "<M-return>" nil)
 
   (general-define-key
    :keymaps 'org-mode-map
    :states 'normal
    "TAB" 'org-cycle
-   "C-M-i" 'org-cycle
    "ll" 'do-insert-attachment-link
    "lL" 'org-insert-link
    "M-c" 'org-metaup
