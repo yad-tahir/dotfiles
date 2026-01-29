@@ -398,6 +398,18 @@
  `(transient-key-exit ((t (:foreground ,chocolate-theme-highlight))))
  `(transient-key-noop ((t (:foreground ,chocolate-theme-shadow))))
 
+ ;; Term
+ `(term-color-black ((t (:foreground ,chocolate-theme-shadow+2 :background unspecified))))
+ `(term-color-red ((t (:foreground ,chocolate-theme-highlight ))))
+ `(term-color-green ((t (:foreground ,chocolate-theme-element ))))
+ `(term-color-yellow ((t (:foreground ,chocolate-theme-highlight+2))))
+ `(term-color-blue ((t (:foreground ,chocolate-theme-element+4))))
+ `(term-color-magenta ((t (:foreground ,chocolate-theme-element+4))))
+ `(term-color-cyan ((t (:foreground ,chocolate-theme-element+4))))
+ `(term-color-white ((t (:foreground ,chocolate-theme-white))))
+ `(term-default-fg-color ((t (:inherit term-color-white))))
+ `(term-default-bg-color ((t (:inherit term-color-black))))
+
  ;; Company
  `(company-scrollbar-bg ((t (:background ,chocolate-theme-shadow+1))))
  `(company-scrollbar-fg ((t (:background ,chocolate-theme-shadow+2))))
