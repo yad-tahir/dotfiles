@@ -23,24 +23,12 @@
 (use-package company
   :ensure t
   :hook ((find-file . company-mode))
-  :commands (company-complete-common)
+  :commands (company-complete-common company-complete)
   :init
-  (defun do--tab-complete ()
-    (interactive)
-    (require 'company)
-    (if (or (save-excursion (looking-at "\\_>")) ;; end of symbol
-            ;; (save-excursion (looking-at "\\."))  ;; ends with dot
-            (save-excursion (looking-at "->")))  ;; ends with ->
-        (prog1
-            (company-complete)
-          (counsel-company))
-      ;; Otherwise, the company completion list is most likely useless
-      (tab-to-tab-stop)))
-
   (general-define-key
    :states 'insert
    ;; C-M-i is used instead of M-TAB to support terminal Emacs
-   "C-M-i" 'do--tab-complete)
+   "C-M-i" 'company-complete)
 
   :config
   ;; Remove compiler warnings
@@ -55,10 +43,9 @@
    "<RET>" 'company-complete-selection
    ;; In Emacs Terminal
    "TAB" 'company-complete-common-or-cycle
-   ;; In Emacs GUI
-   "<tab>" 'company-complete-common-or-cycle
    "<escape>" 'company-abort
    "C-f" 'company-filter-candidates
+   "C-e" 'counsel-company
    "C-t" 'company-select-next
    "C-c" 'company-select-previous)
 
@@ -104,32 +91,72 @@
                             company-oddmuse company-dabbrev)
                            company-ispell))
 
-  ;; ;; NO NEED for it under company/counsel
-  ;; ;; BUG-FIX: company looks ugly with whitespace mode
-  ;; (add-hook 'company-completion-started-hook
-  ;;           #'(lambda (&optional _result)
-  ;;               (setq do--company-whitespace-state (bound-and-true-p whitespace-mode))
-  ;;               (when do--company-whitespace-state
-  ;;                 (whitespace-mode -1))))
-  ;; (add-hook 'company-after-completion-hook
-  ;;           #'(lambda (&optional _result)
-  ;;               (when do--company-whitespace-state
-  ;;                 (whitespace-mode 1)
-  ;;                 (setq do--company-whitespace-state nil))))
+  ;; BUG-FIX: company looks ugly with whitespace mode
+  (add-hook 'company-completion-started-hook
+            #'(lambda (&optional _result)
+                (setq do--company-whitespace-state
+                      (bound-and-true-p whitespace-mode))
+                (when do--company-whitespace-state
+                  (whitespace-mode -1))))
+  (add-hook 'company-after-completion-hook
+            #'(lambda (&optional _result)
+                (when do--company-whitespace-state
+                  (whitespace-mode 1)
+                  (setq do--company-whitespace-state nil))))
 
-  ;; BUG-FIX: 'evil-repeat-post-hook' bugs out when pressing keys in company's popup menus
-  ;; (with-eval-after-load 'evil
-  ;;   ;; List of commands to ignore for repeat purposes
-  ;;   (dolist (cmd '(company-complete-common
-  ;;                  company-complete-selection
-  ;;                  company-complete
-  ;;                  company-select-next
-  ;;                  company-select-previous))
-  ;;     (evil-declare-ignore-repeat cmd)))
-  )
+  (if evil-want-integration
+      (progn
+        (mapc 'evil-declare-ignore-repeat
+              '(company-complete
+                company-search-printing-char
+                company-search-other-char
+                company-search-toggle-filtering
+                company-search-repeat-forward
+                company-search-repeat-backward
+                company-search-abort
+                company-search-delete-char)))
+
+    (mapc 'evil-declare-change-repeat
+          '(company-complete-mouse
+            company-complete-number
+            company-complete-common
+            company-complete-selection))
+
+    (mapc 'evil-declare-ignore-repeat
+          '(company-abort
+            company-complete
+            company-select-next
+            company-select-previous
+            company-select-next-or-abort
+            company-select-previous-or-abort
+            company-complete
+            company-select-mouse
+            company-show-doc-buffer
+            company-show-location
+            company-search-candidates
+            company-search-other-char
+            company-search-printing-char
+            company-search-toggle-filtering
+            company-search-repeat-forward
+            company-search-repeat-backward
+            company-search-abort
+            company-search-delete-char
+            company-filter-candidates)))
+
+  (defun do--evil-repeat-suppress-flyspell (orig-fn &rest args)
+    "Temporarily disable flyspell-mode serious prevent lag.
+
+The lag specially occurs on evil-repeat playing company-complete records."
+    ;; We let-bind flyspell-mode to nil. The hook `flyspell-post-command-hook`
+    ;; checks this variable, sees it is nil, and exits immediately.
+    (let ((flyspell-mode nil))
+      (apply orig-fn args)))
+  (advice-add 'company-complete :around 'do--evil-repeat-suppress-flyspell)
+  (advice-add 'evil-repeat :around 'do--evil-repeat-suppress-flyspell))
 
 (use-package company-statistics
   :ensure t
+  :disabled t
   :after (company)
   :config
   (setq company-statistics-file

@@ -274,7 +274,8 @@
 
   ;; Minimize keymaps overriding
   (setq evil-overriding-maps nil
-        evil-want-integration nil
+        ;; Needed for company-mode.
+        evil-want-integration t
         evil-intercept-maps nil
         evil-pending-intercept-maps nil
         evil-pending-overriding-maps nil)
