@@ -137,6 +137,8 @@
    "[." 'do-evil-backward-motion
 
    ;; Jumping
+   "<mouse-8>" 'evil-jump-backward ;; Mx Master side button 1
+   "<mouse-9>" 'evil-jump-forward ;; Mx Master side button 2
    "gj" 'evil-jump-backward
    "gJ" 'evil-jump-forward
    "g:" 'goto-last-change-reverse
@@ -299,7 +301,7 @@
         evil-magic t
         evil-indent-convert-tabs t
         evil-auto-indent t
-        evil-jumps-cross-buffers nil
+        evil-jumps-cross-buffers t
         evil-shift-round t
         evil-insert-skip-empty-lines t
         evil-echo-state nil
