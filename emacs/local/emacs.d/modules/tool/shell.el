@@ -94,18 +94,6 @@ This method does not support launching a terminal app on a remote machine."
     (add-to-list 'eshell-visual-commands "tail")
     (add-to-list 'eshell-visual-commands "pulsemixer"))
 
-  (custom-set-faces
-   `(term-color-black ((t (:foreground ,chocolate-theme-shadow+2 :background unspecified))))
-   `(term-color-red ((t (:foreground ,chocolate-theme-highlight ))))
-   `(term-color-green ((t (:foreground ,chocolate-theme-element ))))
-   `(term-color-yellow ((t (:foreground ,chocolate-theme-highlight+2))))
-   `(term-color-blue ((t (:foreground ,chocolate-theme-element+4))))
-   `(term-color-magenta ((t (:foreground ,chocolate-theme-element+4))))
-   `(term-color-cyan ((t (:foreground ,chocolate-theme-element+4))))
-   `(term-color-white ((t (:foreground ,chocolate-theme-white))))
-   `(term-default-fg-color ((t (:inherit term-color-white))))
-   `(term-default-bg-color ((t (:inherit term-color-black)))))
-
   (defun eshell/clear ()
     "clear the eshell buffer."
     (interactive)
