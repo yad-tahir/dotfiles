@@ -299,7 +299,6 @@
         evil-magic t
         evil-indent-convert-tabs t
         evil-auto-indent t
-        evil-shift-width 4
         evil-jumps-cross-buffers nil
         evil-shift-round t
         evil-insert-skip-empty-lines t

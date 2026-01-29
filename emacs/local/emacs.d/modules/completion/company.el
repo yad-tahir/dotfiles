@@ -61,25 +61,17 @@
   (setq company-idle-delay nil
         company-minimum-prefix-length 1
         company-text-icons-add-background t
-        ;; company-auto-complete nil ;; To avoid selecting an item using SPC
         company-search-filtering t
         company-tooltip-limit 15
         company-tooltip-margin 4
         company-tooltip-flip-when-above t
-        company-dabbrev-downcase nil
-        company-dabbrev-ignore-case t
-        company-dabbrev-code-other-buffers t
         company-tooltip-align-annotations t
         company-require-match 'never
         company-tooltip-flip-when-above t
         company-global-modes '(not eshell-mode shell-mode term-mode erc-mode
                                    message-mode help-mode gud-mode)
-        company-frontends '(company-preview-if-just-one-frontend
-                            company-pseudo-tooltip-frontend
-                            ;; we are disabling the popup menu as we utilize
-                            ;; counsel instead
-                            ;; company-echo-metadata-frontend
-                            ))
+        company-frontends '(company-pseudo-tooltip-frontend
+                            company-echo-metadata-frontend))
   ;; Default backends
   ;; the order of the groups is important. If results are found in the first group,
   ;; then company will not trigger the second group and so forth.
