@@ -66,13 +66,7 @@
    "SPC nT" 'org-roam-tag-remove
    "SPC nr" 'org-roam-ref-add
    "SPC nR" 'org-roam-ref-remove
-   "SPC nb" 'org-roam-buffer-toggle
-   "<M-TAB>" 'completion-at-point)
-
-  (general-define-key
-   :keymaps 'org-mode-map
-   :states '(insert replace)
-   "<M-TAB>" 'completion-at-point)
+   "SPC nb" 'org-roam-buffer-toggle)
 
   (general-define-key
    :keymaps 'org-roam-preview-map

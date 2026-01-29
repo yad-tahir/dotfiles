@@ -81,15 +81,6 @@
    "g M-n" 'sp-backward-slurp-sexp
    "g M-h" 'sp-backward-barf-sexp))
 
-(use-package expand-region
-  :ensure t
-  :commands (er/expand-region)
-  :init
-  (general-define-key
-   :states 'visual
-   ;; for Emacs Terminal
-   "TAB" 'er/expand-region))
-
 (use-package evil-nerd-commenter
   :ensure t
   :commands (evilnc-comment-operator)
@@ -119,19 +110,7 @@
   (general-define-key
    :states '(normal visual)
    "M-c" 'drag-stuff-up
-   "M-t" 'drag-stuff-down
-   "M-n" 'drag-stuff-right
-   "M-h" 'drag-stuff-left))
-
-(use-package evil-replace-with-register
-  :ensure t
-  :disabled t
-  :commands 'evil-replace-with-register
-  :init
-  (general-define-key
-   :states '(normal visual)
-   ;; Remove the Replace state with something more useful
-   "r" 'evil-replace-with-register))
+   "M-t" 'drag-stuff-down))
 
 (use-package evil-numbers
   :ensure t
@@ -207,17 +186,6 @@
    :states '(normal visual)
    "A" 'evil-append-plus
    "I" 'evil-insert-plus))
-
-(use-package evil-closest-delimiter
-  :commands (evil-closest-inner-delimiter evil-closest-a-delimiter)
-  :init
-  (general-define-key
-   :keymaps 'evil-inner-text-objects-map
-   "m" 'evil-closest-inner-delimiter)
-
-  (general-define-key
-   :keymaps 'evil-outer-text-objects-map
-   "m" 'evil-closest-a-delimiter))
 
 (use-package evil-case
   :disabled t
