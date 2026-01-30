@@ -28,11 +28,11 @@ Xcursor.theme: Adwaita
 *color1: #ffc05c
 *color9: #ffba00
 *color2: #b170da
-*color10: #99ffaa
+*color10: #7818b4
 *color3: #ff88ff
 *color11: #ff00ff
-*color4: #654d4d
-*color12: #ff77ff
+*color4: #99ffaa
+*color12: #c0d040
 *color5: #e0d0c1
 *color13: #ffc07c
 *color6: #bef6d4
@@ -42,7 +42,7 @@ Xcursor.theme: Adwaita
 
 *highlightColor: #392626
 *highlightTextColor: #ffba00
-*colorBD: #ffba00
+*colorBD: #7818b4
 *colorIT: #c9ffda
 *colorUL: #99ffaa
 *coloRV: #00ffff
@@ -59,8 +59,7 @@ URxvt.letterSpace: -1
 !! Extensions
 URxvt.perl-lib: /usr/lib64/urxvt/perl
 URxvt.perl-ext-common:	default,matcher,font-size,selection-to-clipboard
-URxvt.colorUL: #ffba00
-
+URxvt.colorUL: #ffc07c
 !! url-select
 URxvt.url-select.launcher: linkhandler
 URxvt.url-select.underline: true

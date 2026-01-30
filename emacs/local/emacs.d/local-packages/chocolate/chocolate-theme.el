@@ -44,7 +44,7 @@
 (defcustom chocolate-theme-highlight "#ffba00"
   "Palette - default highlight"
   :type 'string :group 'chocolate-theme)
-(defcustom chocolate-theme-highlight+1 "#ff6347"
+(defcustom chocolate-theme-highlight+1 "#ff77ff"
   "Palette - highlight class 1"
   :type 'string :group 'chocolate-theme)
 (defcustom chocolate-theme-highlight+2 "#ffc07c"
@@ -54,7 +54,7 @@
 (defcustom chocolate-theme-element "#e0d0c1"
   "Palette - element class 0"
   :type 'string :group 'chocolate-theme)
-(defcustom chocolate-theme-element+1 "#c0ff3e"
+(defcustom chocolate-theme-element+1 "#c0d040"
   "Palette - element class 1"
   :type 'string :group 'chocolate-theme)
 (defcustom chocolate-theme-element+2 "#99ffaa"
@@ -96,13 +96,13 @@
  ;; Avoid setting the height property as it can cause font-scaling, hence adding
  ;; delay to startup time. Set the font size in the .Xresource file instead.
  `(default ((t (:foreground ,chocolate-theme-white
-                                                        :background ,chocolate-theme-bg
-                                                        :height unspecified
-                                                        :weight normal :slant normal
-                                                        :underline nil :overline nil
-                                                        :strike-through nil :box nil
-                                                        :inverse-video nil :stipple nil
-                                                        :inherit nil))))
+                            :background ,chocolate-theme-bg
+                            :height unspecified
+                            :weight normal :slant normal
+                            :underline nil :overline nil
+                            :strike-through nil :box nil
+                            :inverse-video nil :stipple nil
+                            :inherit nil))))
  `(warning ((t (:background unspecified :foreground ,chocolate-theme-highlight :weight bold))))
  `(bold ((t (:background unspecified :foreground ,chocolate-theme-highlight+2 :weight bold))))
  `(success ((t (:foreground ,chocolate-theme-element+7))))
@@ -112,7 +112,7 @@
  `(secondary-selection ((t (:background ,chocolate-theme-shadow+1 :foreground ,chocolate-theme-element+4))))
  `(lazy-highlight ((t (:inherit secondary-selection))))
  `(header-line ((t (:inherit lazy-highlight :background ,chocolate-theme-bg))))
- `(link ((t (:inherit highlight :underline nil))))
+ `(link ((t (:foreground ,chocolate-theme-highlight+2 :underline nil))))
  `(link-visited ((t (:foreground ,chocolate-theme-element+8))))
  `(button ((t (:inherit (link) :underline t))))
  `(match ((t (:foreground ,chocolate-theme-bg :background ,chocolate-theme-highlight))))
@@ -136,7 +136,7 @@
  `(widget-single-line-field ((t (:inherit widget-field))))
 
  ;; font-lock
- `(font-lock-builtin-face ((t (:foreground ,chocolate-theme-element+8))))
+ `(font-lock-builtin-face ((t (:foreground ,chocolate-theme-element+1))))
  `(font-lock-comment-delimiter-face ((t (:inherit (font-lock-comment-face)))))
  `(font-lock-comment-face ((t (:inherit shadow :foreground unspecified))))
  `(font-lock-warning-face ((t (:inherit warning :foreground unspecified :weight normal))))
@@ -198,11 +198,11 @@
  `(diff-index ((t (:background ,chocolate-theme-shadow+1 :inherit diff-header))))
  `(diff-context ((t (:foreground ,chocolate-theme-shadow+2))))
  `(diff-added ((t (:inherit unspecified :foreground ,chocolate-theme-bg
-                                                        :background ,chocolate-theme-element+2))))
+                            :background ,chocolate-theme-element+2))))
  `(diff-changed ((t (:inherit unspecified :foreground ,chocolate-theme-bg
-                                                          :background ,chocolate-theme-element+4))))
+                              :background ,chocolate-theme-element+4))))
  `(diff-removed ((t (:inherit unspecified :foreground ,chocolate-theme-bg
-                                                          :background ,chocolate-theme-highlight))))
+                              :background ,chocolate-theme-highlight))))
  `(diff-refine-added ((t (:inherit unspecified :foreground ,chocolate-theme-bg :background ,chocolate-theme-element+2))))
  `(diff-refine-changed ((t (:inherit unspecified :foreground ,chocolate-theme-bg :background ,chocolate-theme-element+4))))
  `(diff-refine-removed ((t (:inherit unspecified :foreground ,chocolate-theme-bg :background ,chocolate-theme-highlight))))
@@ -239,8 +239,8 @@
 
 
  ;; dired-mode
- `(dired-directory ((t (:foreground ,chocolate-theme-element+4 :background ,chocolate-theme-bg))))
- `(dired-symlink ((t (:inherit font-lock-constant-face))))
+ `(dired-directory ((t (:inherit font-lock-builtin-face :weight bold))))
+ `(dired-symlink ((t (:inherit font-lock-constant-face :weight bold))))
  `(dired-broken-symlink ((t (:foreground ,chocolate-theme-bg :background ,chocolate-theme-highlight+1))))
  `(dired-header ((t (:foreground ,chocolate-theme-element+3 :weight bold))))
  ;; `(dired-marked ((t (:weight normal :inherit warning))))
@@ -273,9 +273,9 @@
  `(org-level-6 ((t (:foreground ,chocolate-theme-white+2 :weight normal))))
  `(org-level-7 ((t (:foreground ,chocolate-theme-white+2 :weight normal))))
  `(org-level-8 ((t (:foreground ,chocolate-theme-white+2 :weight normal))))
- `(org-headline-done ((t (:inherit shadow :foreground unspecified :weight normal))))
+ `(org-headline-done ((t (:foreground ,chocolate-theme-element :weight normal))))
  `(org-block ((t (:foreground ,chocolate-theme-white+1))))
- `(org-todo ((t (:foreground ,chocolate-theme-element+2))))
+ `(org-todo ((t (:inherit font-lock-builtin-face))))
  `(org-done ((t (:foreground ,chocolate-theme-element))))
  `(org-table ((t (:foreground ,chocolate-theme-highlight+2))))
  `(org-priority ((t (:foreground unspecified))))
@@ -342,7 +342,7 @@
  `(anzu-mode-line-no-match ((t (:foreground ,chocolate-theme-highlight :background ,chocolate-theme-bg))))
  `(mode-line ((t (:box (:line-width (2 . 2) :style flat-button)))))
  `(telephone-line-evil-normal ((t (:background ,chocolate-theme-element+3 :foreground ,chocolate-theme-bg
-                                              :inherit mode-line :weight normal))))
+                                               :inherit mode-line :weight normal))))
  `(telephone-line-evil-insert ((t (:background ,chocolate-theme-element+2 :foreground ,chocolate-theme-bg
                                                :inherit mode-line :weight normal))))
  `(telephone-line-evil-motion ((t (:background ,chocolate-theme-highlight+2 :foreground ,chocolate-theme-bg
@@ -391,8 +391,8 @@
 
  ;; Transient
  `(transient-key ((t (:foreground ,chocolate-theme-highlight))))
- `(transient-key-stack ((t (:foreground ,chocolate-theme-element+2))))
- `(transient-key-stay ((t (:foreground ,chocolate-theme-element+2))))
+ `(transient-key-stack ((t (:inherit font-lock-builtin-face))))
+ `(transient-key-stay ((t (:inherit font-lock-builtin-face))))
  `(transient-key-recurse ((t (:foreground ,chocolate-theme-element+2))))
  `(transient-key-return ((t (:foreground ,chocolate-theme-element+2))))
  `(transient-key-exit ((t (:foreground ,chocolate-theme-highlight))))
@@ -430,14 +430,14 @@
 ;; Dynamic theme settings
 (with-eval-after-load 'highlight-parentheses
   (setq highlight-parentheses-colors
-                (list chocolate-theme-highlight chocolate-theme-element+4
-                          chocolate-theme-element+3 chocolate-theme-element+8
-                          chocolate-theme-highlight+1 chocolate-theme-element+1
-                          chocolate-theme-element+5 chocolate-theme-element+7
-                          chocolate-theme-highlight chocolate-theme-element+2
-                          chocolate-theme-highlight+2 chocolate-theme-element+6
-                          chocolate-theme-highlight chocolate-theme-element
-                          chocolate-theme-element+8 chocolate-theme-element+8)))
+        (list chocolate-theme-highlight chocolate-theme-element+4
+              chocolate-theme-element+3 chocolate-theme-element+8
+              chocolate-theme-highlight+1 chocolate-theme-element+1
+              chocolate-theme-element+5 chocolate-theme-element+7
+              chocolate-theme-highlight chocolate-theme-element+2
+              chocolate-theme-highlight+2 chocolate-theme-element+6
+              chocolate-theme-highlight chocolate-theme-element
+              chocolate-theme-element+8 chocolate-theme-element+8)))
 
 (provide-theme 'chocolate)
 

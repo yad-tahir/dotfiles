@@ -41,7 +41,7 @@ prompt_generator() {
 	if [ $delta -le 1000 ]; then
 		# Use the escape character '\033[0' to make the text colorful. The
 		# syntax goes as follows: \033[<font-style>;<color-number>m$ \033[0m
-		delta="\[\033[37m\]${delta}ms"
+	    delta="\[\033[32m\]${delta}ms"
 	else
 		delta=$(( ${delta} / 1000 ))
 		# If it is less then a minute
@@ -61,7 +61,7 @@ prompt_generator() {
 		# \w to print current working directory
 		PS1="${delta} \[\033[1;33m\]\w \\$"
 	else
-		PS1="${delta} \[\033[1;36m\]\w \[\033[32m\]\\$"
+		PS1="${delta} \[\033[1;36m\]\w \[\033[34m\]\\$"
 	fi
 
 	# Reset the font color back to default
