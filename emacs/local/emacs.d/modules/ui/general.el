@@ -51,9 +51,8 @@
 
       scroll-step 1
       ;; scroll-conservatively 150
-      ;; scroll-margin 10
-      scroll-margin 150
-      maximum-scroll-margin 0.5
+      scroll-margin 50
+      maximum-scroll-margin 0.5 ;; `scroll-margin' max; cannot be > 50% win lines
       auto-window-vscroll nil
 
       ;; Performance
