@@ -37,7 +37,7 @@
  :keymaps 'override
  :prefix "SPC s"
  :states '(normal visual)
- "b" 'ibuffer)
+ "b" 'switch-to-buffer)
 
 (general-define-key
  "<f5>" 'revert-buffer
