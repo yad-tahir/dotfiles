@@ -25,3 +25,4 @@ emacs/local/emacs.d/speed-type
 emacs/local/emacs.d/eln-cache
 emacs/local/emacs.d/.tramp_history*.tmp
 emacs/local/emacs.d/history
+/emacs/local/emacs.d/projects
