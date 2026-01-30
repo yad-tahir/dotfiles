@@ -1,3 +1,5 @@
+;;; package -- My history settings -*- lexical-binding: t; -*-
+
 ;; Copyright (C) 2026
 
 ;; This program is free software: you can redistribute it and/or modify
@@ -13,29 +15,27 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(use-package bookmark
-  :init
-  (general-define-key
-   :keymaps 'override
-   :prefix "SPC m"
-   :states '(normal visual)
-   "" '(:ignore t :which-key "bookmarks")
-   "m" 'bookmark-set
-   "M" 'bookmark-delete
-   "a" 'bookmark-set
-   "d" 'bookmark-delete
-   "u" 'bookmark-rename
-   "U" 'bookmark-relocate
-   "l" 'bookmark-jump
-   "L" 'bookmark-jump-other-frame
-   "w" 'bookmark-save)
+;;; Commentary:
+;; My history-related settings
 
-  (general-define-key
-   :keymaps 'override
-   :states '(normal visual)
-   "SPC '"  'bookmark-jump)
+;;; Code:
 
+(use-package recentf
+  :demand t
+  :functions (recentf-save-list)
   :config
-  (setq bookmark-save-flag 1)) ;; auto-save after every record modification
+  ;; Update whenever the buffer goes out of focus
 
-(provide 'do-bookmarks)
+  (defun do--recentf-save-list-silently ()
+    (let ((inhibit-message t)
+          (create-lockfiles nil))
+      (recentf-save-list)))
+  ;; Use the silent version for your hooks
+  (add-hook 'kill-buffer-hook 'do--recentf-save-list-silently)
+  (add-function :after after-focus-change-function 'do--recentf-save-list-silently)
+
+  (recentf-mode 1))
+
+(provide 'do-history)
+
+;;; history.el ends here

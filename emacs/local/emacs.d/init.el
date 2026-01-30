@@ -32,6 +32,7 @@
 
                  "feature/diff"
                  "feature/file-manager"
+                 "feature/history"
                  "feature/macros"
                  "feature/motions"
                  "feature/operators"
