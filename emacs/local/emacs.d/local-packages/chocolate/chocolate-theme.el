@@ -111,10 +111,12 @@
  `(region ((t (:background ,chocolate-theme-shadow+1 :foreground ,chocolate-theme-highlight))))
  `(secondary-selection ((t (:background ,chocolate-theme-shadow+1 :foreground ,chocolate-theme-element+4))))
  `(lazy-highlight ((t (:inherit secondary-selection))))
+ `(bookmark-face ((t (:foreground ,chocolate-theme-highlight+2  :distant-foreground ,chocolate-theme-highlight+2))))
  `(header-line ((t (:inherit lazy-highlight :background ,chocolate-theme-bg))))
  `(link ((t (:foreground ,chocolate-theme-highlight+1 :underline nil))))
  `(link-visited ((t (:foreground ,chocolate-theme-element+8))))
  `(button ((t (:inherit (link) :underline t))))
+ `(info-node ((t (:foreground ,chocolate-theme-white))))
  `(match ((t (:foreground ,chocolate-theme-bg :background ,chocolate-theme-highlight))))
  `(minibuffer-prompt ((t (:foreground ,chocolate-theme-highlight+2))))
  `(escape-glyph ((t (:inherit shadow)))) ;;display non-graphic characters
@@ -150,6 +152,7 @@
  `(font-lock-regexp-grouping-construct ((t (:foreground ,chocolate-theme-highlight+2))))
  `(font-lock-string-face ((t (:foreground ,chocolate-theme-highlight+1))))
  `(font-lock-doc-face ((t (:inherit font-lock-string-face :foreground unspecified))))
+ `(which-func ((t (:inherit font-lock-string-face :foreground unspecified))))
  `(show-paren-match ((t (:background ,chocolate-theme-element+5 :foreground ,chocolate-theme-white))))
  `(show-paren-mismatch ((t (:background ,chocolate-theme-highlight+2 :foreground ,chocolate-theme-bg))))
 
@@ -247,6 +250,8 @@
 
  ;; whitespace
  `(whitespace-trailing ((t (:background unspecified :foreground ,chocolate-theme-element+5))))
+ `(trailing-whitespace ((t (:background ,chocolate-theme-highlight+2 :foreground ,chocolate-theme-bg))))
+ `(whitespace-big-indent ((t (:background ,chocolate-theme-highlight+2 :foreground ,chocolate-theme-bg))))
  `(whitespace-empty ((t (:foreground ,chocolate-theme-shadow+1))))
  `(whitespace-hspace ((t (:inherit (whitespace-empty)))))
  `(whitespace-indentation ((t (:inherit (whitespace-empty)))))
@@ -273,12 +278,13 @@
  `(org-level-6 ((t (:foreground ,chocolate-theme-white+2 :weight normal))))
  `(org-level-7 ((t (:foreground ,chocolate-theme-white+2 :weight normal))))
  `(org-level-8 ((t (:foreground ,chocolate-theme-white+2 :weight normal))))
- `(org-headline-done ((t (:foreground ,chocolate-theme-element :weight normal))))
  `(org-block ((t (:foreground ,chocolate-theme-white+1))))
  `(org-todo ((t (:inherit font-lock-builtin-face))))
  `(org-done ((t (:foreground ,chocolate-theme-element))))
+ `(org-headline-done ((t (:foreground ,chocolate-theme-element :weight normal))))
  `(org-table ((t (:foreground ,chocolate-theme-highlight+1))))
  `(org-priority ((t (:foreground unspecified))))
+ `(org-document-info-keyword ((t (:inherit font-lock-builtin-face))))
  `(org-drawer ((t (:foreground ,chocolate-theme-shadow+2 :inherit font-lock-comment-face))))
  `(org-date ((t (:foreground ,chocolate-theme-highlight+1 :inherit font-lock-string-face))))
  `(org-scheduled-today ((t (:foreground ,chocolate-theme-white))))
@@ -329,6 +335,12 @@
  `(magit-branch-remote-head ((t (:foreground ,chocolate-theme-highlight))))
  `(magit-dimmed ((t (:inherit shadow :foreground ,chocolate-theme-shadow+2))))
  `(magit-hash ((t (:inherit shadow :foreground ,chocolate-theme-shadow+2))))
+ `(magit-log-author ((t (:foreground ,chocolate-theme-element+7))))
+ `(magit-process-ok ((t (:inherit font-lock-builtin-face))))
+ `(magit-reflog-commit ((t (:inherit font-lock-builtin-face))))
+ `(magit-reflog-merge ((t (:inherit font-lock-builtin-face))))
+ `(magit-reflog-cherry-pick ((t (:inherit font-lock-builtin-face))))
+ `(magit-reflog-checkout ((t (:inherit font-lock-constant-face))))
  `(magit-signature-good ((t (:inherit hi-green))))
  `(magit-signature-bad ((t (:inherit hi-red))))
  `(magit-signature-error ((t (:inherit hi-red))))
@@ -336,6 +348,7 @@
  `(magit-signature-untrusted ((t (:inherit hi-pink))))
  `(magit-log-date ((t (:foreground ,chocolate-theme-white+2))))
  `(magit-log-graph ((t (:foreground ,chocolate-theme-white+2))))
+ `(magit-diff-whitespace-warning ((t (:inherit trailing-whitespace :foreground unspecified :background unspecified))))
 
  ;;Third-party mode line
  `(anzu-mode-line ((t (:foreground ,chocolate-theme-element+2 :background ,chocolate-theme-bg))))
@@ -397,6 +410,8 @@
  `(transient-key-return ((t (:foreground ,chocolate-theme-element+2))))
  `(transient-key-exit ((t (:foreground ,chocolate-theme-highlight))))
  `(transient-key-noop ((t (:foreground ,chocolate-theme-shadow))))
+ `(transient-disabled-suffix ((t (:inherit diff-changed))))
+ `(transient-disabled-suffix ((t (:inherit diff-added))))
 
  ;; Term
  `(term-color-black ((t (:foreground ,chocolate-theme-shadow+2 :background unspecified))))
