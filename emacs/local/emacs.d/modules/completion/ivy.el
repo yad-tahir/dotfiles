@@ -272,4 +272,36 @@
 
 ;;   (setq wgrep-auto-save-buffer t))
 
+(use-package org-roam
+  :config
+  (require 'counsel)
+
+  (general-define-key
+   :keymaps 'override
+   :states 'normal
+   "SPC nf" 'do-org-roam-files-ivy
+   "SPC ng" 'do-org-roam-grep-ivy)
+  (defun do-org-roam-files-ivy ()
+    "Gets list of note files along with their headers."
+    (interactive)
+    ;; Only matches files containing the input (%s) AND ending in .org
+    (let ((counsel-fzf-cmd "rg --color never --files -g '*%s*'"))
+      (counsel-fzf nil org-roam-directory "Note files ")))
+
+  (defun do-org-roam-grep-ivy (&optional init-input)
+    "Interactively search through the notes' text. INIT-INPUT can be passed as the
+  initial grep query."
+
+    (interactive)
+    ;; Pass a regex to ask ag to discard org metadata.
+    ;;^[] beginning of the line
+    ;;[^] not
+    ;; * zero or more char
+    ;;(counsel-ag "^[^#]\|[ ]*[^:] " "~/notes" "--nomultiline" )
+    (unless (fboundp 'counsel)
+      (require 'counsel))
+    (setq init-input (or init-input ""))
+    (counsel-rg init-input org-roam-directory "-t org"
+                "In-text Search ")))
+
 (provide 'do-ivy)

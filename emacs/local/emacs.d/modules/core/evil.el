@@ -24,6 +24,7 @@
 
 (use-package evil
   :demand t
+  :ensure t
   :functions (evil-indent@evil-indent-fixed-mouse
               previous-history-element@previous-history-end-element
               next-history-element@next-history-end-element
@@ -235,32 +236,6 @@
    ":" 'evil-ex
    ";" 'evil-ex)
 
-  ;; Other
-  (general-define-key
-   :keymaps '(evil-ex-search-keymap
-              evil-ex-completion-map
-              minibuffer-local-completion-map
-              minibuffer-local-must-match-map
-              minibuffer-local-isearch-map
-              minibuffer-local-ns-map
-              minibuffer-local-map)
-   "C-c" 'previous-history-element
-   "C-t" 'next-history-element
-   "C-h" 'left-char
-   "C-n" 'right-char
-   "M-c" 'beginning-of-buffer
-   "M-t" 'end-of-buffer
-   "C-p" 'yank
-   "C-w" 'forward-word
-   "C-b" 'backward-word
-   "C-$" 'move-end-of-line
-   "C-0" 'move-beginning-of-line
-   "C-a" 'kill-word
-   "C-u" 'kill-line
-   "C-d" 'kill-whole-line
-   "<escape>" 'do-evil-escape-abort
-   "C-k" 'describe-key)
-
   (general-define-key
    :keymaps 'with-editor-mode-map
    :states 'normal
@@ -295,6 +270,7 @@
         evil-want-Y-yank-to-eol t
         ;; No need for t if the cursor has a box shap
         evil-move-beyond-eol nil
+        evil-ex-complete-emacs-commands t
         evil-ex-search-persistent-highlight t
         evil-move-cursor-back t
         evil-magic t

@@ -64,7 +64,7 @@
 (defcustom chocolate-theme-element+3 "#b170da"
   "Palette - element class 3"
   :type 'string :group 'chocolate-theme)
-(defcustom chocolate-theme-element+4 "#ff77ff"
+(defcustom chocolate-theme-element+4 "#ed92f8"
   "Palette - element class 4"
   :type 'string :group 'chocolate-theme)
 (defcustom chocolate-theme-element+5 "#7818b4"
@@ -77,7 +77,7 @@
 (defcustom chocolate-theme-element+7 "#6fd8ff"
   "Palette - element class 7"
   :type 'string :group 'chocolate-theme)
-(defcustom chocolate-theme-element+8 "#00ffff"
+(defcustom chocolate-theme-element+8 "#72a4ff"
   "Palette - element class 8"
   :type 'string :group 'chocolate-theme)
 
@@ -109,7 +109,7 @@
  `(error ((t (:background unspecified :foreground ,chocolate-theme-highlight+2 :weight bold))))
  `(highlight ((t (:foreground ,chocolate-theme-highlight :underline t))))
  `(region ((t (:background ,chocolate-theme-shadow+1 :foreground ,chocolate-theme-highlight))))
- `(secondary-selection ((t (:background ,chocolate-theme-shadow+1 :foreground ,chocolate-theme-element+4))))
+ `(secondary-selection ((t (:background ,chocolate-theme-shadow+1 :foreground ,chocolate-theme-highlight+2))))
  `(lazy-highlight ((t (:inherit secondary-selection))))
  `(bookmark-face ((t (:foreground ,chocolate-theme-highlight+2  :distant-foreground ,chocolate-theme-highlight+2))))
  `(header-line ((t (:inherit lazy-highlight :background ,chocolate-theme-bg))))
@@ -128,10 +128,6 @@
  `(tooltip ((t (:inherit variable-pitch :background ,chocolate-theme-white+1 :foreground ,chocolate-theme-bg))))
  `(fixed-pitch ((t (:family "Monospace"))))
  `(hl-line ((t (:inherit nil :background "nil" :underline (:color ,chocolate-theme-shadow+2 :style dashes :position nil)))))
- `(compilation-mode-line-exit ((t (:foreground unspecified))))
- `(compilation-mode-line-error ((t (:foreground unspecified))))
- `(completions-annotations ((t (:foreground ,chocolate-theme-shadow+2))))
- `(completions-common-part ((t (:foreground ,chocolate-theme-shadow+2))))
  `(widget-documentation ((t (:foreground ,chocolate-theme-white+1))))
  `(widget-field ((t (:background ,chocolate-theme-shadow :foreground ,chocolate-theme-white+2))))
  `(widget-button ((t (:inherit button))))
@@ -379,6 +375,17 @@
  `(telephone-line-warning ((t (:background unspecified :foreground ,chocolate-theme-element+7
                                            :inherit mode-line :weight bold))))
 
+ `(completions-highlight ((t (:foreground ,chocolate-theme-highlight+2 :background ,chocolate-theme-shadow))))
+ `(completions-common-part ((t (:inherit nil :foreground ,chocolate-theme-element+2 :weight bold))))
+ `(completions-first-difference ((t (:inherit nil :foreground unspecified ))))
+ `(compilation-mode-line-exit ((t (:foreground unspecified))))
+ `(compilation-mode-line-error ((t (:foreground unspecified))))
+ `(completions-annotations ((t (:foreground ,chocolate-theme-element+8))))
+ `(orderless-match-face-0 ((t (:foreground ,chocolate-theme-element+8 :weight bold))))
+ `(orderless-match-face-1 ((t (:foreground ,chocolate-theme-element+4 :weight bold))))
+ `(orderless-match-face-2 ((t (:foreground ,chocolate-theme-element+2 :weight bold))))
+ `(orderless-match-face-3 ((t (:foreground ,chocolate-theme-element+6 :weight bold))))
+
  `(ivy-cursor ((t (:inherit cursor :foreground unspecified :background ,chocolate-theme-bg))))
  `(ivy-current-match ((t (:inherit nil :foreground ,chocolate-theme-bg :background ,chocolate-theme-element+2))))
  `(ivy-confirm-face ((t (:inherit nil :background unspecified :foreground ,chocolate-theme-element+1))))
@@ -394,6 +401,9 @@
  ;; we dont want to inherit from dired as this might trigger auto-loading
  `(ivy-subdir ((t (:inherit dired-directory))))
  `(ivy-remote ((t (:inherit font-lock-keyword-face :background unspecified :foreground unspecified))))
+
+ `(vertico-current ((t (:inherit completions-highlight))))
+ `(consult-file ((t (:inherit font-lock-doc-face))))
 
  `(flycheck-info ((t (:underline (:color ,chocolate-theme-shadow :style wave :position nil)))))
  `(flycheck-fringe-info ((t (:foreground ,chocolate-theme-element+3))))

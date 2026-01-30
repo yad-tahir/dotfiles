@@ -22,8 +22,6 @@
   :ensure t
   :commands (org-roam-node-find org-roam-capture
                                 org-roam-node-insert
-                                do-org-roam-files
-                                do-org-roam-grep
                                 do-org-roam-sync
                                 do-org-roam-insert)
   :preface
@@ -49,8 +47,6 @@
    "SPC n" '(:ignore t :which-key "notes")
    "SPC ns" 'org-roam-node-find
    "SPC sn" 'org-roam-node-find
-   "SPC nf" 'do-org-roam-files
-   "SPC ng" 'do-org-roam-grep
    "SPC nl" 'do-org-roam-insert
    "SPC nL" 'do-org-roam-insert-immediate
    "SPC nc" 'org-roam-capture
@@ -152,29 +148,6 @@
   (defun do-org-roam-capture-feeling ()
     (interactive)
     (org-roam-capture- :keys "f"  :node (org-roam-node-create)))
-
-  (defun do-org-roam-files ()
-    "Gets list of note files along with their headers."
-    (interactive)
-    ;; Only matches files containing the input (%s) AND ending in .org
-    (let ((counsel-fzf-cmd "rg --color never --files -g '*%s*'"))
-      (counsel-fzf nil org-roam-directory "Note files ")))
-
-  (defun do-org-roam-grep (&optional init-input)
-    "Interactively search through the notes' text. INIT-INPUT can be passed as the
-  initial grep query."
-
-    (interactive)
-    ;; Pass a regex to ask ag to discard org metadata.
-    ;;^[] beginning of the line
-    ;;[^] not
-    ;; * zero or more char
-    ;;(counsel-ag "^[^#]\|[ ]*[^:] " "~/notes" "--nomultiline" )
-    (unless (fboundp 'counsel)
-      (require 'counsel))
-    (setq init-input (or init-input ""))
-    (counsel-rg init-input org-roam-directory "-t org"
-                "In-text Search "))
 
   (defun do--auto-revert-note-files ()
     (let ((file (buffer-file-name)))

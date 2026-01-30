@@ -24,8 +24,8 @@
 
                  "completion/commands"
                  "completion/company"
-                 "completion/consult"
-                 "completion/ivy"
+                 ;; "completion/ivy"
+                 "completion/vertico"
                  "completion/minibuffer"
                  "completion/snippets"
                  "completion/transient"

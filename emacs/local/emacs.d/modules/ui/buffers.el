@@ -34,9 +34,8 @@
 
 
 (general-define-key
- :keymaps 'override
  :prefix "SPC s"
- :states '(normal visual)
+ :states 'normal
  "b" 'switch-to-buffer)
 
 (general-define-key
