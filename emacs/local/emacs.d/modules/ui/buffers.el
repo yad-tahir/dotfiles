@@ -106,7 +106,7 @@ display the number of open buffers in Emacs."
 
 (defun do--display-warnings (TYPE MESSAGE &optional LEVEL BUFFER-NAME)
   "Display WARNING in the minibuffer instead of creating a new buffer."
-  (message "*WARNING* (%s)(%s): %s %s" LEVEL BUFFER-NAME TYPE MESSAGE ))
+  (message "*EXCEPTION* (%s)(%s): %s %s" LEVEL BUFFER-NAME TYPE MESSAGE ))
 
 (advice-add 'display-warning :override #'do--display-warnings)
 
