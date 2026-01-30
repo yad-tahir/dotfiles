@@ -17,16 +17,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA.
 
-gpu(){
-	local status=$(cat /sys/bus/pci/devices/0000:01:00.0/power/runtime_status 2> /dev/null || echo igpu)
-
-	if [ "$status" == "active" ]; then
-		echo -e "\x04  dGPU \x01 "
-	else
-		echo -e ""
-	fi
-}
-
 temp(){
 	local r=$(sensors | awk '/Package id/{gsub("+", "",$4); print $4}')
 	echo -e " $r "
@@ -41,8 +31,10 @@ fan(){
 		echo -e "\x04  $fan1 \x01 "
 	elif [ $fan1 -ge 2500 ]; then
 		echo -e "\x07  $fan1 \x01 "
-	else
+	elif [ $fan1 -ge 500 ]; then
 		echo -e " $fan1 "
+	else
+		echo -e ""
 	fi
 }
 
@@ -50,8 +42,10 @@ mem(){
 	local m=$(free | awk '/^Mem/{$1=sprintf("%.1f",($2-$7)/(1024^2)); print $1}')
 	if (( $(echo $m'>'24 | bc ) )); then
 		m="\x05  ${m}GB \x01 "
-	else
+	elif (( $(echo $m'>'15 | bc ) )); then
 		m=" ${m}GB "
+	else
+		m=""
 	fi
 	echo -e "$m"
 }
@@ -103,8 +97,10 @@ load(){
 		echo -e "\x04  $r% \x01 "
 	elif [ $r -ge 25 ]; then
 		echo -e "\x07  $r% \x01 "
-	else
+	elif [ $r -ge 5 ]; then
 		echo -e " $r% "
+	else
+		echo -e ""
 	fi
 }
 
@@ -153,7 +149,7 @@ battery(){
 	if [ "$code" = "discharging" ]; then
 		if [ "$level" -ge "35" ]; then
 			echo -e "\x07  $status \x01 "
-		elif [ "$level" -ge "10" ]; then
+		elif [ "$level" -ge "15" ]; then
 			echo -e "\x04  $status \x01 "
 		else
 			echo -e "\x06  $status \x01 "
@@ -165,10 +161,23 @@ battery(){
 	fi
 }
 
+syncthing_progress(){
+    local output
+    output=$(syncthing cli show pending devices 2>/dev/null | tr -d '[:space:]')
+    # If Syncthing isn't running, the output will be empty
+    if [ -z "$output" ]; then
+	echo -e "\x02  \x01 "
+    elif [ "$output" = "[]" ] || [ "$output" = "{}" ] || [ "$output" = "null" ]; then
+	true
+    else
+	echo -e "\x04 ️ \x01 "
+    fi
+}
+
 time_left(){
 	printf " %'d " $(life)
 }
 
-status="$(fan)$(temp)$(load)$(mem)| $(vol)$(keyboard)$(energy_profile)$(battery)$(time_left)| $(date +'%a, %b %d %H:%M')"
+status="$(fan)$(temp)$(load)$(mem)$(syncthing_progress)$(keyboard)$(energy_profile)$(battery)$(vol)| $(time_left)$(date +'%a, %b %d %H:%M')"
 status=$(echo -e "$status" | tr '\n' ' ')
 xsetroot -name "$status"

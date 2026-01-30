@@ -51,8 +51,10 @@ mem(){
 	local m=$(free | awk '/^Mem/{$1=sprintf("%.1f",($2-$7)/(1024^2)); print $1}')
 	if (( $(echo $m'>'80 | bc ) )); then
 		m="\x05  ${m}GB \x01 "
-	else
+	elif (( $(echo $m'>'50 | bc ) )); then
 		m=" ${m}GB "
+	else
+		m=""
 	fi
 	echo -e "$m"
 }
@@ -104,8 +106,10 @@ load(){
 		echo -e "\x04  $r% \x01 "
 	elif [ $r -ge 25 ]; then
 		echo -e "\x07  $r% \x01 "
-	else
+	elif [ $r -ge 5 ]; then
 		echo -e " $r% "
+	else
+		echo -e ""
 	fi
 }
 
@@ -131,10 +135,23 @@ vpn(){
 	fi
 }
 
+syncthing_progress(){
+    local output
+    output=$(lxc exec syncthing -- sudo -u lxd syncthing cli show pending devices 2>/dev/null | tr -d '[:space:]')
+    # If Syncthing isn't running, the output will be empty
+    if [ -z "$output" ]; then
+	echo -e "\x02  \x01 "
+    elif [ "$output" = "[]" ] || [ "$output" = "{}" ] || [ "$output" = "null" ]; then
+	true
+    else
+	echo -e "\x04 ️ \x01 "
+    fi
+}
+
 time_left(){
 	printf " %'d " $(life)
 }
 
-status="$(temp)$(load)$(mem)$(vpn)| $(vol)$(keyboard)| $(time_left)| $(date +'%a, %b %d %H:%M')"
+status="$(temp)$(load)$(mem)$(synthing_progress)$(vpn)$(keyboard)$(vol)| $(time_left)| $(date +'%a, %b %d %H:%M')"
 status=$(echo -e "$status" | tr '\n' ' ')
 xsetroot -name "$status"
