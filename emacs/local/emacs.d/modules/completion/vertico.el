@@ -142,6 +142,7 @@
   (setq consult-project-function (lambda (_) (projectile-project-root)))
 
   (setq consult-preview-key "M-<tab>"
+        consult-narrow-key  "<"
         ;; Badly needed for evil-ex completions
         completion-in-region-function #'consult-completion-in-region)
 
@@ -170,8 +171,13 @@
 
 (use-package org-roam
   :functions (consult--process-collection
-                 org-roam-node-read--completions org-roam-node-read
-                 do--org-roam-node-read-consult)
+                 org-roam-node-list org-roam-node-read
+                 org-roam--format-nodes-using-function
+                 org-roam--format-nodes-using-template
+                 do--org-roam-node-read-consult
+                 do--org-roam-nodes-consult
+                 do--org-roam-nodes-consult-narrow)
+  :after (consult)
   :config
   (general-define-key
    :keymaps 'override
@@ -200,47 +206,135 @@
                       :require-match t
                       :state (consult--file-preview)))))
 
-  (defun do--org-roam-node-read-consult (initial-input &optional filter-fn sort-fn require-match)
+  (defun do--org-roam-nodes-consult (filter-fn sort-fn)
+    "Return org-roam-nodes list
+
+Apply `org-roam-node-display-template', FILTER-FN, SORT-FN, and attach hidden
+metadata for consult."
+    (let* ((nodes (org-roam-node-list))
+           (nodes (if filter-fn
+                      (cl-remove-if-not
+                       (lambda (n) (funcall filter-fn n))
+                       nodes)
+                    nodes))
+           (nodes (if (functionp org-roam-node-display-template)
+                      (org-roam--format-nodes-using-function nodes)
+                    (org-roam--format-nodes-using-template nodes)))
+
+           (sort-fn (or sort-fn
+                        (when org-roam-node-default-sort
+                          (intern (concat
+                                   "org-roam-node-read-sort-by-"
+                                   (symbol-name org-roam-node-default-sort))))))
+           (nodes (if sort-fn (seq-sort sort-fn nodes)
+                    nodes))
+
+           ;; Attach consult hidden metadata
+           (nodes (mapcar
+                   (lambda (entry)
+                     (let* ((title (car entry))  ;; Extract Title string
+                            (node (cdr entry))   ;; Extract Node object
+                            (tags (org-roam-node-tags node))
+                            (category (org-roam-node-category node))
+                            (hidden-parts
+                             (delq nil
+                                   (append
+                                    (when (and category (not (string-empty-p category)))
+                                      (list (concat "#" (downcase category))))
+                                    (mapcar (lambda (tag) (concat ":" tag)) tags)))))
+                       (if hidden-parts
+                           (concat (propertize title 'node node)
+                                   (propertize
+                                    (concat " " (string-join hidden-parts " "))
+                                    'invisible t
+                                    'node node))
+                         (propertize title 'node node))))
+                   nodes)))
+      nodes))
+
+  (defun do--org-roam-nodes-consult-narrow ()
+    "Narrowing configuration with strict filtering logic."
+    (list
+     :predicate ;; The logic that actually filters the list
+     (lambda (cand)
+       (if-let ((node (get-text-property 0 'node cand)))
+           (let ((level (org-roam-node-level node))
+                 ;; Get the raw string to check if it's an alias or title
+                 (cand-str (substring-no-properties cand)))
+             (cond
+              ((eq consult--narrow ?h)
+               (> level 0))
+              ((eq consult--narrow ?a)
+               (and (= level 0)
+                    (cl-loop for alias in (org-roam-node-aliases node)
+                             thereis (string-prefix-p alias cand-str))))
+              ((eq consult--narrow ?t)
+               (and (= level 0)
+                    (not (cl-loop for alias in (org-roam-node-aliases node)
+                                  thereis (string-prefix-p alias cand-str)))))
+              (t t)))
+         t))
+     :keys
+     (list (cons ?t "Title")
+           (cons ?h "Headlines")
+           (cons ?a "Alias"))))
+
+  (defun do--consult-node-group (cand transform)
+    "Group by Title, Headlines, or Alias."
+    (if transform
+        cand
+      (if-let ((node (get-text-property 0 'node cand)))
+          (let ((level (org-roam-node-level node))
+                ;; Clean the candidate string for comparison
+                (cand-str (substring-no-properties cand)))
+            (cond
+             ((> level 0) "Headlines")
+             ((cl-loop for alias in (org-roam-node-aliases node)
+                       thereis (string-prefix-p alias cand-str))
+              "Alias")
+             (t "Title")))
+        "Ungrouped")))
+
+  (defun do--org-roam-node-read-consult (initial-input
+                                         &optional filter-fn sort-fn
+                                         require-match)
     "Drop-in replacement for org-roam-node-read with Consult support."
-    (let* ((nodes (org-roam-node-read--completions filter-fn sort-fn)))
-      (let* ((selected (consult--read
-                        nodes
-                        :prompt "Node: "
-                        :initial initial-input
-                        :category 'org-roam-node
-                        :require-match require-match
-                        :sort nil
-                        :state (lambda (action cand)
-                                 (let ((node
-                                        (cl-loop for item in nodes
-                                                 when (string= (car item) cand)
-                                                 return (get-text-property
-                                                         0
-                                                         'node (car item)))))
-                                   (when (and cand (eq action 'preview))
-                                     (when node
-                                       (funcall (consult--file-preview) 'preview
-                                                (org-roam-node-file node))))))
-                        :lookup (lambda (selected candidates &rest _args)
-                                  (if-let ((found (car (member
-                                                        selected
-                                                               candidates))))
-                                      found ;; node
-                                    selected ;; raw-string needed for capture
-                                    ))))
-             (selected-node (cl-loop for item in nodes
-                                     when (string= (car item) selected)
-                                     return (get-text-property
-                                             0
-                                             'node
-                                             (car item)))))
-        (cond
-         ((null selected) ;; C-g
-          nil)
-         (selected-node
-          selected-node)
-         (t ;; New Node Typed
-          (org-roam-node-create :title (substring-no-properties selected)))))))
+    (let* ((candidates (do--org-roam-nodes-consult filter-fn sort-fn))
+           (selected (consult--read
+                      candidates
+                      :prompt "Node: "
+                      :initial initial-input
+                      :category 'org-roam-node
+                      :require-match require-match
+                      :sort nil
+                      :narrow (do--org-roam-nodes-consult-narrow)
+                      ;; :group 'do--consult-node-group
+                      :state (lambda (action cand)
+                               (when (and cand (eq action 'preview))
+                                 ;; CAND might not an org-node,
+                                 ;; e.g. a mere string typed in the prompt
+                                 (let ((file (ignore-errors
+                                               (org-roam-node-file cand))))
+                                   (funcall
+                                    (consult--file-preview) 'preview file))))
+                      :lookup (lambda (selected-text candidates &rest _)
+                                (if-let ((node
+                                          (cl-loop
+                                           for item in candidates
+                                           when (string=
+                                                 (substring-no-properties item)
+                                                 selected-text)
+                                           return
+                                           (get-text-property 0 'node item))))
+                                    node
+                                  selected-text))))) ;; non-node string
+      (cond
+       ((null selected) ;; e.g. C-g
+        nil)
+       ((not (stringp selected))
+        selected)
+       (t ;; New Node Typed if it not an existing node
+        (org-roam-node-create :title (substring-no-properties selected))))))
 
   (advice-add #'org-roam-node-read :override #'do--org-roam-node-read-consult)
 
