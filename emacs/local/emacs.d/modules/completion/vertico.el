@@ -336,23 +336,12 @@ metadata for consult."
        (t ;; New Node Typed if it not an existing node
         (org-roam-node-create :title (substring-no-properties selected))))))
 
-  (advice-add #'org-roam-node-read :override #'do--org-roam-node-read-consult)
+  (advice-add #'org-roam-node-read :override #'do--org-roam-node-read-consult))
 
-  (defun do--marginalia-annotate-roam-node (cand)
-    "Annotate roam node with its filetags property."
-    (when-let ((node (get-text-property 0 'node cand)))
-      (let* ((tags (org-roam-node-tags node))
-             (mtime (org-roam-node-file-mtime node))
-             (tag-str (if tags
-                          (mapconcat (lambda (tag) (concat "#" tag)) tags " ")
-                        "")))
-
-        (marginalia--fields
-         (tag-str :width -20 :face 'marginalia-list)
-         ((marginalia--time mtime) :face 'marginalia-date :width -12)))))
-
-  (add-to-list 'marginalia-annotators
-               '(org-roam-node do--marginalia-annotate-roam-node builtin none)))
+(use-package org-roam-marginalia
+  :after (org-roam marginalia)
+  :config
+  (org-roam-marginalia-mode 1))
 
 (provide 'do-vertico)
 
