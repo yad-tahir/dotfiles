@@ -1,4 +1,4 @@
-;;; -*- lexical-binding: t; -*-
+;;; package -- My popup menus -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2026
 
@@ -17,6 +17,10 @@
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA.
 
+;;; Commentary:
+;; My command popup menus settings
+
+;;; Code:
 
 (use-package which-key
   :config
@@ -30,7 +34,6 @@
    :keymaps 'which-key-C-h-map
    "<escape>" 'which-key-abort
    "d" 'which-key-toggle-docstrings
-   "TAB" 'which-key-show-next-page-cycle
    "n" 'which-key-show-next-page-cycle
    "h" 'which-key-show-previous-page-cycle
    "z" 'which-key-undo-key)
@@ -45,4 +48,50 @@
 
   (which-key-mode 1))
 
+(use-package embark
+  :ensure t
+  :commands (embark-act embark-bindings)
+  :init
+  (general-define-key
+   :keymaps 'override
+   :states 'normal
+   "C-l" 'embark-act
+   "M-l" 'embark-dwim
+   "<f1> i" 'view-lossage
+   "<f1> l" 'embark-bindings)
+
+  (general-define-key
+   :keymaps 'override
+   "C-l" 'embark-act
+   "M-l" 'embark-dwim
+   "<f1> i" 'view-lossage
+   "<f1> l" 'embark-bindings)
+  :config
+  (add-to-list 'display-buffer-alist
+               '("\\\\*Embark"  ; Match any buffer starting with *Embark
+                 (display-buffer-at-bottom)
+                 (window-height . fit-window-to-buffer)
+                 (pop-up-frames . nil)))
+
+  (setq prefix-help-command #'embark-prefix-help-command)
+
+  (setq embark-indicators
+        '(embark-mixed-indicator))
+
+;; (setq embark-indicators
+;;       '(embark-minimal-indicator  ; default is embark-mixed-indicator
+;;         embark-highlight-indicator
+;;         embark-isearch-highlight-indicator))
+
+  ;; (add-to-list 'vertico-multiform-categories '(embark-keybinding grid))
+  ;; (vertico-multiform-mode)
+
+  )
+
+(use-package embark-consult
+  :ensure t
+  :demand t)
+
 (provide 'do-commands)
+
+;;; commands.el ends here

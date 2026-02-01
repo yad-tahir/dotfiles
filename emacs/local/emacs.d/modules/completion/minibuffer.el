@@ -11,7 +11,7 @@
   :custom
   (context-menu-mode t)
   ;; Support opening new minibuffers from inside existing minibuffers.
-  (enable-recursive-minibuffers nil)
+  (enable-recursive-minibuffers t)
   ;; Hide commands in M-x which do not work in the current mode.  Vertico
   ;; commands are hidden in normal buffers. This setting is useful beyond
   ;; Vertico.

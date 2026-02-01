@@ -24,6 +24,7 @@
 
 (use-package casual-suite
   :ensure t
+  :disabled t
   :commands (casual-calc-tmenu
              casual-dired-tmenu casual-isearch-tmenu
              casual-ibuffer-tmenu casual-ibuffer-filter-tmenu
