@@ -183,6 +183,14 @@
          (prog-mode . org-roam-latte-mode))
   :config
   (setq org-roam-latte-exclude-words '("attach"))
-  (add-to-list 'org-roam-latte-excluded-org-elements 'headline))
+  (add-to-list 'org-roam-latte-exclude-org-elements 'headline))
+
+(use-package org-roam-enrich
+  :after org-roam
+  :demand t
+  :config
+  ;; (setq org-roam-enrich-components '(tags names backlinks frontlinks modified-date category id))
+  ;; (setq org-roam-enrich-renderer 'marginalia)
+  (org-roam-enrich-mode 1))
 
 (provide 'do-notebook)
