@@ -147,12 +147,8 @@ The third optional argument PROPS indicates the properties of the frame"
                                (t ""))
                               (/ (line-number-at-pos)
                                  0.01
-                                 (line-number-at-pos (point-max)))))
-              ;; Create new frames as much as possible. This works beautifully
-              ;; with tiling window managers such as i3 and BSPWM
-              pop-up-frames t
-              ;; Buffers that do not require pop-up frames
-              display-buffer-alist
-              '(("\\*Messages\\*" (display-buffer-in-side-window))))
+                                 (line-number-at-pos (point-max))))))
+
+(setq pop-up-frames t) ;; avoid setq-default because of embark
 
 (provide 'do-windows)
