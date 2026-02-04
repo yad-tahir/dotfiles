@@ -22,22 +22,20 @@
 
 (use-package vertico
   :ensure t
+  :demand t
   :after minibuffer
   :functions (vertico--candidate vertico-insert)
-  :custom
-  (vertico-scroll-margin 0)
-  (vertico-count 15)
-  (vertico-resize nil) ;; Grow and shrink the Vertico minibuffer
-  (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
-  (vertico-preselect 'directory) ;; Disable quark selections
-  :init
-  (vertico-mode)
   :config
   (general-define-key
    :keymaps 'vertico-map
    "TAB" 'minibuffer-complete-word
    "/" 'do--vertico-path-insert)
-  (setq completion-styles '(basic substring partial-completion flex))
+  (setq completion-styles '(basic substring partial-completion flex)
+        vertico-scroll-margin 0
+        vertico-count 15
+        vertico-resize nil ;; Grow and shrink the Vertico minibuffer
+        vertico-cycle t ;; Enable cycling for `vertico-next/previous'
+        vertico-preselect 'directory) ;; Disable quark selections
 
   (defun do--vertico-path-insert ()
     (interactive)
@@ -45,7 +43,8 @@
            (lc (if (string= mb "") mb (substring mb -1))))
       (cond ((string-match-p "^[/~:]" lc) (self-insert-command 1 ?/))
             ((file-directory-p (vertico--candidate)) (vertico-insert))
-            (t (self-insert-command 1 ?/))))))
+            (t (self-insert-command 1 ?/)))))
+  (vertico-mode))
 
 (use-package vertico-directory
   :after vertico
