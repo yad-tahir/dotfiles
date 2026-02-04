@@ -140,7 +140,7 @@
   (autoload 'projectile-project-root "projectile")
   (setq consult-project-function (lambda (_) (projectile-project-root)))
 
-  (setq consult-preview-key '("M-<tab>")
+  (setq consult-preview-key '("M-<tab>" any)
         consult-narrow-key  "<"
         ;; Badly needed for evil-ex completions
         completion-in-region-function #'consult-completion-in-region)
