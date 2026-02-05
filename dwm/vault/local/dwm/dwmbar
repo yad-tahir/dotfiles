@@ -152,6 +152,6 @@ time_left(){
 	printf " %'d " $(life)
 }
 
-status="$(temp)$(load)$(mem)$(synthing_progress)$(vpn)$(keyboard)$(vol)| $(time_left)| $(date +'%a, %b %d %H:%M')"
+status="$(temp)$(load)$(mem)$(syncthing_progress)$(vpn)$(keyboard)$(vol)| $(time_left)| $(date +'%a, %b %d %H:%M')"
 status=$(echo -e "$status" | tr '\n' ' ')
 xsetroot -name "$status"
