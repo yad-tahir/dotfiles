@@ -50,9 +50,12 @@
       mouse-wheel-follow-mouse t ;; scroll window under mouse
 
       scroll-step 1
-      ;; scroll-conservatively 150
-      scroll-margin 50
+      ;; If the cursor is off screen, don't panic.
+      ;; 101 How many lines off-screen are allowed before Emacs panic and center
+      scroll-conservatively 101
+      scroll-margin 10
       maximum-scroll-margin 0.5 ;; `scroll-margin' max; cannot be > 50% win lines
+      scroll-preserve-screen-position t
       auto-window-vscroll nil
 
       ;; Performance
