@@ -62,6 +62,16 @@
 
 (add-hook 'emacs-lisp-mode-hook #'do--emacs-lisp-setup)
 
+(use-package flycheck
+  :disabled t
+  :ensure t
+  :hook ((emacs-lisp-mode . flycheck-mode))
+  :config
+  (general-define-key
+   :map 'emacs-lisp-mode-map
+   :states '(normal visual)
+   "lf" 'flycheck-list-errors))
+
 ;; Third-party packages
 (use-package macrostep
   :ensure t

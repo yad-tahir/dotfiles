@@ -43,6 +43,7 @@
                  "feature/undo"
 
                  "lang/elisp"
+                 "lang/java"
                  "lang/org"
                  "lang/prog"
 

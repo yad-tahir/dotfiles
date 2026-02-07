@@ -405,8 +405,19 @@
  `(vertico-current ((t (:inherit completions-highlight))))
  `(consult-file ((t (:inherit font-lock-doc-face))))
 
+ `(flymake-note ((t (:underline (:color ,chocolate-theme-shadow :style wave :position nil)))))
+ `(flymake-note-echo ((t :inherit shadow)))
+ `(flymake-warning ((t (:underline (:color ,chocolate-theme-highlight :style wave :position nil)))))
+ `(flymake-warning-echo ((t :inherit default)))
+ `(flymake-error ((t (:underline (:color ,chocolate-theme-highlight+2 :style wave :position nil)))))
+ `(flymake-error-echo ((t :inherit default)))
+
  `(flycheck-info ((t (:underline (:color ,chocolate-theme-shadow :style wave :position nil)))))
+ `(flycheck-error ((t (:underline (:color ,chocolate-theme-highlight+2 :style wave :position nil)))))
  `(flycheck-fringe-info ((t (:foreground ,chocolate-theme-element+3))))
+
+ `(eglot-highlight-symbol-face ((t :inherit font-lock-builtin-face :weight bold)))
+
  `(vundo-highlight ((t (:foreground ,chocolate-theme-highlight :weight bold))))
  `(vundo-last-saved ((t (:foreground ,chocolate-theme-element+2))))
  `(vundo-saved ((t (:foreground ,chocolate-theme-element+6))))
@@ -434,6 +445,9 @@
  `(term-color-white ((t (:foreground ,chocolate-theme-white))))
  `(term-default-fg-color ((t (:inherit term-color-white))))
  `(term-default-bg-color ((t (:inherit term-color-black))))
+
+ ;; Prog-modes
+ `(shr-text ((t (:inherit default)))) ;; used by devdoc
 
  ;; Company
  `(company-scrollbar-bg ((t (:background ,chocolate-theme-shadow+1))))

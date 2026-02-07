@@ -1,4 +1,4 @@
-app-editors/emacs gui athena dynamic-loading svg harfbuzz cairo json gpm tiff gif jit gfile webp sqlite tree-sitte source -motif -xpm -sound -alsa -gtk
+app-editors/emacs gui athena dynamic-loading svg harfbuzz cairo json gpm tiff gif jit gfile webp sqlite tree-sitte source libxml2 -motif -xpm -sound -alsa -gtk
 
 # @265-color and @blink for UI enhancements
 x11-terms/rxvt-unicode 256-color blink perl 24-bit-color

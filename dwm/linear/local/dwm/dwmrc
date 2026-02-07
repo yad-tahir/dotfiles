@@ -20,7 +20,7 @@
 # Set the general setting for DPI
 xrandr --auto
 
-systemctl --user import-environment DISPLAY HOME USER UID XDG_VTNR
+systemctl --user import-environment DISPLAY HOME USER UID XDG_VTNR JDK_HOME JAVA_HOME JAVAC
 
 setxkbmap # Make sure X11 keymap is loaded properly before starting sxhkd
 systemctl --user restart sxhkd@${XDG_VTNR}.service &

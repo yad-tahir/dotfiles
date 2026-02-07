@@ -66,9 +66,10 @@ display the number of open buffers in Emacs."
       (setq list (cdr list)))
     result))
 
-(defun do--display-warnings (TYPE MESSAGE &optional LEVEL BUFFER-NAME)
+(defun do--display-warnings (type message &optional level buffer-name)
   "Display WARNING in the minibuffer instead of creating a new buffer."
-  (message "*EXCEPTION* (%s)(%s): %s %s" LEVEL BUFFER-NAME TYPE MESSAGE ))
+  (unless (equal level :debug)
+    (message "*EXCEPTION* (%s)(%s): %s %s" level buffer-name type message )))
 
 (advice-add 'display-warning :override #'do--display-warnings)
 

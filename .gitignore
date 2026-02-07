@@ -26,3 +26,7 @@ emacs/local/emacs.d/eln-cache
 emacs/local/emacs.d/.tramp_history*.tmp
 emacs/local/emacs.d/history
 /emacs/local/emacs.d/projects
+/emacs/local/emacs.d/eglot-java-eclipse-jdt-cache/
+/emacs/local/emacs.d/share/
+/emacs/local/emacs.d/tree-sitter/
+/emacs/local/emacs.d/devdocs/

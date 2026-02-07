@@ -31,34 +31,57 @@
          (add-to-list 'whitespace-style 'lines-tail))))
 (add-hook 'prog-mode-hook  #'do--prog-mode-init)
 
-(use-package flycheck
-  :ensure t
-  :hook ((prog-mode . flycheck-mode))
+
+(use-package flymake
+  :hook
+  (prog-mode . flymake-mode)
   :config
   (general-define-key
-   :map 'prog-mode-map
-   :states '(normal visual)
-   "lf" 'flycheck-list-errors))
+   :keymaps 'flymake-mode-map
+   :states  'normal
+   "lf" '(flymake-show-buffer-diagnostics :which-key "flymake-check"))
+  (general-define-key
+   :keymaps 'flymake-diagnostics-buffer-mode-map
+   :states 'normal
+   "RET" 'flymake-goto-diagnostic))
+
+(use-package eglot ;; Prepare language client for other modes
+  :ensure t
+  :commands (eglot)
+  :config
+  (general-define-key
+   :keymaps 'eglot-mode-map
+   :states 'normal
+   "la" '(eglot-code-actions :which-key "code actions")
+   "lr" '(eglot-rename :which-key "rename symbol")
+   "lb" '(eglot-format :which-key "format buffer")
+   "lH" '(eldoc :which-key "hover help")
+
+   ;; Navigation
+   "gd" '(xref-find-definitions :which-key "definition")
+   "gr" '(xref-find-references :which-key "references")
+   "gi" '(eglot-find-implementation :which-key "implementation"))
+
+  (setq eglot-events-buffer-config '(:size 0 :format full)
+        eglot-connect-timeout 120
+        mode-line-misc-info
+        (delete '(eglot--managed-mode (" [" eglot--mode-line-format "] "))
+                mode-line-misc-info)))
+
+(use-package devdocs ;; Better documentations
+  :ensure t
+  :commands (devdocs-lookup)
+  :init
+  (general-define-key
+   :keymaps 'eglot-mode-map
+   :states 'normal
+   "lh" 'devdocs-lookup
+   "<f1> f" 'devdocs-lookup
+   "<f1> v" 'devdocs-lookup))
 
 ;; (use-package highlight-indent-guides
 ;;   :hook ((prog-mode . highlight-indent-guides-mode))
 ;;   :config
 ;;   (setq highlight-indent-guides-method 'character))
-
-(use-package eglot
-  :ensure t
-  :commands (eglot eglot-mode)
-  :config
-  (add-hook 'eglot-connect-hook #'turn-on-eldoc-mode))
-
-(use-package eldoc-box
-  :ensure t
-  :after (evil eglot)
-  :commands (eldoc-box-eglot-help-at-point)
-  :init
-  (setq evil-lookup-func #'eldoc-box-eglot-help-at-point)
-  :config
-  (set-face-attribute 'eldoc-box-border nil
-                      :background chocolate-theme-highlight))
 
 (provide 'do-prog)
