@@ -44,6 +44,7 @@
 
                  "lang/elisp"
                  "lang/java"
+                 "lang/markdown"
                  "lang/org"
                  "lang/prog"
 
