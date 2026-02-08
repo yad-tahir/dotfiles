@@ -417,6 +417,8 @@
  `(flycheck-fringe-info ((t (:foreground ,chocolate-theme-element+3))))
 
  `(eglot-highlight-symbol-face ((t :inherit font-lock-builtin-face :weight bold)))
+ `(eglot-semantic-readonly ((t :inherit unspecified)))
+ `(eglot-semantic-declaration ((t :inherit unspecified)))
 
  `(vundo-highlight ((t (:foreground ,chocolate-theme-highlight :weight bold))))
  `(vundo-last-saved ((t (:foreground ,chocolate-theme-element+2))))

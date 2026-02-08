@@ -25,8 +25,11 @@
   :hook
   (java-mode . eglot-java-mode)
   :config
+  ;; Disable annoying symbol hover suggestions
+  (add-to-list 'eglot-stay-out-of 'eldoc)
   (add-hook 'java-mode-hook
             #'(lambda ()
+                (setq-local eldoc-idle-delay 0.5)
                 ;; Tell the Java server to use up to 4GB of RAM
                 ;; and use the G1 Garbage Collector for speed.
                 (setq-local eglot-workspace-configuration
@@ -35,11 +38,7 @@
   (add-hook 'before-save-hook
             #'(lambda ()
                 (when (derived-mode-p 'java-mode)
-                  (eglot-format (point-min) (point-max)))))
-  (add-hook 'eglot-managed-mode-hook
-            (lambda ()
-              (setq-local eldoc-idle-delay 0.5)
-              (remove-hook 'eldoc-documentation-functions #'eglot-hover-eldoc-function t))))
+                  (eglot-format (point-min) (point-max))))))
 
 (add-hook 'java-mode-hook
           #'(lambda ()
@@ -47,7 +46,6 @@
               (setq tab-width 4
                     evil-shift-width 4
                     indent-tabs-mode t)))
-
 
 (provide 'do-java)
 
