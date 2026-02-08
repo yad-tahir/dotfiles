@@ -26,7 +26,7 @@
   (add-to-list 'yas-snippet-dirs (concat user-emacs-directory "snippets"))
   (yas-global-mode 1)
   (yas-reload-all)
-  (advice-add 'do--tab-complete
+  (advice-add 'company-complete
               :around
               #'(lambda (org-fn  &rest args)
                   (unless (yas-expand)
@@ -34,6 +34,7 @@
 
 (use-package auto-yasnippet
   :ensure t
+  :disabled t
   :after (:all yasnippet evil)
   :commands (aya-create aya-expand)
   :functions evil-insert-state
