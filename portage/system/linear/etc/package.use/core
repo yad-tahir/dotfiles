@@ -1,5 +1,5 @@
 sys-kernel/installkernel systemd systemd-boot dracut
-sys-fs/zfs rootfs dist-kernel
+sys-fs/zfs rootfs
 sys-kernel/genkernel cryptsetup
 
 sys-apps/systemd boot gnuefi audit elfutils cryptsetup -gcrypt -pcre -cgroup-hybrid

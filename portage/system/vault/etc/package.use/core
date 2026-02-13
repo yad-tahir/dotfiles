@@ -1,7 +1,7 @@
 sys-kernel/genkernel cryptsetup
 
 sys-apps/systemd gnuefi audit elfutils boot cryptsetup -gcrypt -pcre -cgroup-hybrid
-sys-fs/zfs rootfs dist-kernel
+sys-fs/zfs rootfs
 
 # GCC
 sys-devel/gcc graphite -fortran
