@@ -375,7 +375,7 @@
  `(telephone-line-warning ((t (:background unspecified :foreground ,chocolate-theme-element+7
                                            :inherit mode-line :weight bold))))
 
- `(completions-highlight ((t (:foreground ,chocolate-theme-highlight+2 :background ,chocolate-theme-shadow))))
+ `(completions-highlight ((t (:foreground ,chocolate-theme-highlight :background ,chocolate-theme-shadow+1 :weight bold))))
  `(completions-common-part ((t (:inherit nil :foreground ,chocolate-theme-element+2 :weight bold))))
  `(completions-first-difference ((t (:inherit nil :foreground unspecified ))))
  `(compilation-mode-line-exit ((t (:foreground unspecified))))
