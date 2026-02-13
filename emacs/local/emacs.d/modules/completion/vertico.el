@@ -44,7 +44,28 @@
       (cond ((string-match-p "^[/~:]" lc) (self-insert-command 1 ?/))
             ((file-directory-p (vertico--candidate)) (vertico-insert))
             (t (self-insert-command 1 ?/)))))
-  (vertico-mode))
+
+  (defun do--vertico-color-directories (orig-fun cand prefix suffix index start)
+    "Apply `dired-directory' face to directory candidates, respecting `vertico-current'."
+    (let* ((modified-cand (copy-sequence cand))
+           (multi-cat (ignore-errors (get-text-property 0 'multi-category cand)))
+           (actual-path (if (and (consp multi-cat) (eq (car multi-cat) 'file))
+                            (cdr multi-cat)
+                          cand))
+           (is-dir (or (string-suffix-p "/" actual-path)
+                       (ignore-errors (file-directory-p actual-path)))))
+      ;; If it's a directory AND NOT the currently selected item
+      (when (and is-dir (not (= index vertico--index)))
+        (require 'dired) ;; needed for the chosen face
+        (add-face-text-property 0 (length modified-cand)
+                                'dired-directory
+                                'append
+                                modified-cand))
+
+      (funcall orig-fun modified-cand prefix suffix index start)))
+  (advice-add 'vertico--format-candidate :around #'do--vertico-color-directories)
+
+  (vertico-mode 1))
 
 (use-package vertico-directory
   :after vertico
