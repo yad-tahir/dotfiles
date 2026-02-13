@@ -29,9 +29,8 @@ gpu(){
 
 temp(){
 	local cpu=$(sensors k10temp-pci-00c3 | awk '/Tctl/{gsub("+", "",$2); print $2}')
-	# local water=$(sensors it8792-isa-0a60 | awk '/temp2/{gsub("+", "",$2); print $2}')
-	# echo -e " $cpu  $water "
-	echo -e " $cpu "
+	local water=$(sensors asusec-isa-000a | awk '/T_Sensor/{gsub("+", "",$2); print $2}')
+	echo -e " $cpu  $water "
 }
 
 fan(){
