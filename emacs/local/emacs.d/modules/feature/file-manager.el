@@ -128,7 +128,16 @@ separate frame."
 
   (general-define-key
    :keymaps 'dired-mode-map
-   :states '(normal visual)
+   :states 'visual
+   "t" 'evil-next-line
+   "c" 'evil-previous-line
+   ;; Mark
+   "m" 'dired-mark
+   "u" 'dired-unmark)
+
+  (general-define-key
+   :keymaps 'dired-mode-map
+   :states 'normal
    ";" 'nil
    "q" 'nil
    "s" 'nil
