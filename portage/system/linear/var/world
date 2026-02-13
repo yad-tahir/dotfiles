@@ -76,8 +76,8 @@ sys-fs/fuse-exfat
 sys-fs/zfs
 sys-kernel/gentoo-kernel
 sys-kernel/gentoo-kernel:6.16.11
-sys-kernel/gentoo-kernel:6.16.8
 sys-kernel/gentoo-kernel:6.17.12
+sys-kernel/gentoo-kernel:6.18.10
 sys-kernel/installkernel
 sys-kernel/linux-firmware
 sys-power/power-profiles-daemon

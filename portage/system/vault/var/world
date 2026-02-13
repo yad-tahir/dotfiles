@@ -67,10 +67,9 @@ sys-fs/exfat-utils
 sys-fs/fuse-exfat
 sys-fs/inotify-tools
 sys-kernel/gentoo-kernel
-sys-kernel/gentoo-kernel:6.12.41
 sys-kernel/gentoo-kernel:6.16.11
-sys-kernel/gentoo-kernel:6.16.4
 sys-kernel/gentoo-kernel:6.17.12
+sys-kernel/gentoo-kernel:6.18.10
 sys-kernel/linux-firmware
 sys-process/glances
 sys-process/htop
