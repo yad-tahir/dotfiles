@@ -1,6 +1,5 @@
-sys-kernel/genkernel cryptsetup
+sys-apps/systemd gnuefi audit elfutils boot cryptsetup vanilla -gcrypt -pcre -cgroup-hybrid
 
-sys-apps/systemd gnuefi audit elfutils boot cryptsetup -gcrypt -pcre -cgroup-hybrid
 sys-fs/zfs rootfs
 
 # GCC
