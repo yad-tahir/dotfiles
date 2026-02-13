@@ -177,7 +177,6 @@ syncthing_progress(){
 time_left(){
 	printf " %'d " $(life)
 }
-
-status="$(fan)$(temp)$(load)$(mem)$(syncthing_progress)$(keyboard)$(energy_profile)$(battery)$(vol)| $(time_left)$(date +'%a, %b %d %H:%M')"
+status="$(fan)$(temp)$(load)$(mem)$(syncthing_progress)$(keyboard)$(energy_profile)$(battery)$(vol)| $(time_left)| $(date +'%a, %b %d %H:%M')"
 status=$(echo -e "$status" | tr '\n' ' ')
 xsetroot -name "$status"
