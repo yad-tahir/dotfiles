@@ -24,7 +24,9 @@
   :ensure t
   :demand t
   :after minibuffer
-  :functions (vertico--candidate vertico-insert)
+  :functions (vertico--candidate
+              vertico-insert do--vertico-color-directories
+              do--vertico-path-insert)
   :config
   (general-define-key
    :keymaps 'vertico-map
@@ -46,7 +48,7 @@
             (t (self-insert-command 1 ?/)))))
 
   (defun do--vertico-color-directories (orig-fun cand prefix suffix index start)
-    "Apply `dired-directory' face to directory candidates, respecting `vertico-current'."
+    "Apply `dired-directory' face to directory candidates."
     (let* ((modified-cand (copy-sequence cand))
            (multi-cat (ignore-errors (get-text-property 0 'multi-category cand)))
            (actual-path (if (and (consp multi-cat) (eq (car multi-cat) 'file))
@@ -90,7 +92,6 @@
 
   (define-advice marginalia-annotate-buffer (:around (_org-fn cand))
     "Annotate buffer CAND with modification status, file name and major mode."
-    ;; Emacs 31: `project--read-project-buffer' uses `uniquify-get-unique-names'
     (when-let* ((buffer (or (and (stringp cand)
                                  (get-text-property 0 'uniquify-orig-buffer cand))
                             (get-buffer cand))))
@@ -141,7 +142,7 @@
 (use-package consult
   :ensure t
   :after vertico
-  :functions (projectile-project-root
+  :functions (project-root
               consult--read consult--file-preview)
   :init
   (general-define-key
@@ -157,10 +158,6 @@
    "g/" 'consult-line)
 
   :config
-  (require 'projectile)
-  (autoload 'projectile-project-root "projectile")
-  (setq consult-project-function (lambda (_) (projectile-project-root)))
-
   (setq consult-preview-key '("M-<tab>" any)
         consult-narrow-key  "<"
         ;; Badly needed for evil-ex completions
@@ -169,8 +166,10 @@
   (defun do-consult-rg-find ()
     "Search for files using `rg --files' asynchronously."
     (interactive)
-    (let* ((default-directory (if (fboundp 'projectile-project-root)
-                                  (or (projectile-project-root) default-directory)
+    (require 'project)
+    (let* ((proj (project-current))
+           (default-directory (if proj
+                                  (project-root proj)
                                 default-directory)))
       (find-file
        (consult--read
@@ -228,6 +227,7 @@
 
 (use-package consult-org-roam
   :after (org-roam consult)
+  :functions (consult-org-roam-mode)
   :config
   (consult-org-roam-mode 1))
 

@@ -238,7 +238,7 @@
 
 
  ;; dired-mode
- `(dired-directory ((t (:inherit font-lock-builtin-face :weight bold))))
+ `(dired-directory ((t (:inherit font-lock-builtin-face :weight normal))))
  `(dired-symlink ((t (:inherit font-lock-constant-face :weight bold))))
  `(dired-broken-symlink ((t (:foreground ,chocolate-theme-bg :background ,chocolate-theme-highlight+2))))
  `(dired-header ((t (:foreground ,chocolate-theme-element+3 :weight bold))))

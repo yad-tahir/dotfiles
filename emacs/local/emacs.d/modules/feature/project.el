@@ -19,6 +19,7 @@
 
 
 (use-package projectile
+  :disabled t
   :ensure t
   :commands (magit projectile-mode
                    projectile-switch-project
