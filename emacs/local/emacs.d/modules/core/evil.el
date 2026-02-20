@@ -100,10 +100,10 @@
    ;; Basic navigation
    "h" 'evil-backward-char
    "n" 'evil-forward-char
-   "c" 'evil-previous-visual-line
-   "t" 'evil-next-visual-line
-   "gc" 'evil-previous-line
-   "gt" 'evil-next-line
+   "c" 'evil-previous-line
+   "t" 'evil-next-line
+   "gc" 'evil-previous-visual-line
+   "gt" 'evil-next-visual-line
 
    ;; Scrolling
    "C" 'evil-scroll-page-up
@@ -290,7 +290,7 @@
         evil-ex-search-vim-style-regexp t
         ;; evil-search-wrap nil ;; Can be problematic with macros
         shift-select-mode t
-        evil-respect-visual-line-mode t
+        evil-respect-visual-line-mode nil
         ;; Setup the initial state for major modes should be normal
         evil-emacs-state-modes nil
         evil-motion-state-modes nil)

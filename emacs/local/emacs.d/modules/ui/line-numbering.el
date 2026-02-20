@@ -24,7 +24,7 @@
         display-line-numbers-width 4
         display-line-numbers-grow-only t
         ;; Narrowing does not make sense in visual type
-        display-line-numbers-type 'visual)
+        display-line-numbers-type 'retative)
   ;; Start line numbering
   (global-display-line-numbers-mode 1))
 
