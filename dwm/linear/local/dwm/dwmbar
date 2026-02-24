@@ -164,7 +164,7 @@ battery(){
 syncthing_progress(){
     local output
     output=$(syncthing cli show pending devices 2>/dev/null | tr -d '[:space:]')
-    # If Syncthing isn't running, the output will be empty
+    # If syncthing isn't running, the output will be empty
     if [ -z "$output" ]; then
 	echo -e "\x02  \x01 "
     elif [ "$output" = "[]" ] || [ "$output" = "{}" ] || [ "$output" = "null" ]; then
