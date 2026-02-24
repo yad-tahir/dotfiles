@@ -102,9 +102,9 @@ alt + space
 
 # Other applications
 super + w
-	librewolf &
+	librewolf-bin &
 super + shift + w
-	librewolf &
+	librewolf-bin &
 super + semicolon; g
 	urxvtc -hold -name glances -e /usr/bin/glances &
 super + semicolon; h

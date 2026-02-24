@@ -86,7 +86,7 @@ sys-power/upower
 sys-process/glances
 sys-process/htop
 sys-process/lsof
-www-client/librewolf
+www-client/librewolf-bin
 x11-apps/igt-gpu-tools
 x11-apps/setxkbmap
 x11-apps/xev
