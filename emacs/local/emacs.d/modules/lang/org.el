@@ -456,7 +456,7 @@
   (add-to-list 'org-agenda-custom-commands
                '("d" "Daily View"
                  ((agenda "Today Overview"
-                          ((org-agenda-start-day "0d")
+                          ((org-agenda-start-day "+0d")
                            (org-agenda-span 2)
                            ;; (org-agenda-overriding-arguments '((4) "today" 1))  ;; lock the navigation
                            ;; (org-agenda-search-headline-for-time nil) ;; ignore time in title
@@ -476,17 +476,13 @@
                   (todo "WAITING"
                         ((org-agenda-start-with-log-mode '(closed))
                          (org-agenda-sorting-strategy '(timestamp-down))
-                         (org-agenda-overriding-header "Waiting")))
+                         (org-agenda-overriding-header "\nWaiting")))
                   (todo "DONE|CANCELED"
                         ((org-agenda-start-with-log-mode '(closed))
                          (org-agenda-sorting-strategy '(tsia-down))
-                         (org-agenda-overriding-header "Finished Tasks")))
-                  ;; (todo "DONE|CANCELED"
-                  ;;		((org-agenda-start-with-log-mode '(closed))
-                  ;;		 (org-agenda-sorting-strategy '(tsia-down))
-                  ;;		 (org-agenda-overriding-header "Finished Goals")
-                  ;;		 (org-agenda-files (file-expand-wildcards do--org-goals-location))))
-                  )))
+                         (org-agenda-overriding-header "\nFinished Tasks"))))
+
+                 ((org-agenda-compact-blocks t))))
 
 
   (define-advice org-agenda (:around (org-fn &rest args))
