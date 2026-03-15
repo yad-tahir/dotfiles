@@ -182,7 +182,9 @@
   :hook ((text-mode . org-roam-latte-mode)
          (prog-mode . org-roam-latte-mode))
   :config
-  (setq org-roam-latte-exclude-words '("attach"))
+  (setq org-roam-latte-exclude-words '("attach")
+        org-roam-latte-respect-node-tags t
+        org-roam-latte-exclude-scope 'parents)
   (add-to-list 'org-roam-latte-exclude-org-elements 'headline))
 
 (use-package org-roam-enrich
