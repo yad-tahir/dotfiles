@@ -12,7 +12,7 @@ app-editors/nano
 app-eselect/eselect-repository
 app-misc/figlet
 app-misc/neofetch
-app-office/libreoffice
+app-office/libreoffice-bin
 app-portage/eix
 app-portage/elogv
 app-portage/gentoolkit
@@ -36,7 +36,6 @@ media-fonts/dejavu
 media-fonts/fontawesome
 media-fonts/liberation-fonts
 media-fonts/noto
-media-gfx/blender
 media-gfx/feh
 media-gfx/scrot
 media-libs/libva-intel-media-driver
@@ -78,7 +77,6 @@ sys-fs/zfs
 sys-kernel/gentoo-kernel
 sys-kernel/gentoo-kernel:6.17.12
 sys-kernel/gentoo-kernel:6.18.10
-sys-kernel/gentoo-kernel:6.18.17
 sys-kernel/gentoo-kernel:6.19.7
 sys-kernel/installkernel
 sys-kernel/linux-firmware
