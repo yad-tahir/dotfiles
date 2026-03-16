@@ -246,8 +246,16 @@
   ;; Avoid data corruption by auto saving after every refile operation
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
-  ;; Auto revert journal files if any modifications are detected
+  (defun do--resize-org-latex-overlays ()
+    "Dynamically resize org-mode latex fragments to match text scale."
+    (cl-loop for o in (overlays-in (point-min) (point-max))
+             if (eq (overlay-get o 'org-overlay-type) 'org-latex-overlay)
+             do (plist-put (cdr (overlay-get o 'display))
+                           :scale (expt text-scale-mode-step text-scale-mode-amount))))
+  (add-hook 'text-scale-mode-hook #'do--resize-org-latex-overlays)
+
   (defun do--auto-revert-journal-files ()
+    "Auto revert journal files if any modifications are detected"
     (let ((file-name (buffer-file-name)))
       (when (and file-name
                  (string-prefix-p file-name do--org-files-location))
