@@ -291,6 +291,8 @@
  `(org-column-title ((t (:background ,chocolate-theme-shadow+1 :foreground ,chocolate-theme-highlight))))
  `(org-dispatcher-highlight ((t (:background ,chocolate-theme-shadow+1 :foreground ,chocolate-theme-white+2))))
  `(org-clock-overlay ((t (:background ,chocolate-theme-element+8))))
+ `(org-verbatim ((t (:foreground unspecified :weight demi-bold))))
+ `(org-code ((t (:inherit org-verbatim))))
  `(org-mode-line-clock-overrun ((t (:foreground "white"))))
 
  `(org-habit-alert-face ((t (:foreground ,chocolate-theme-bg :background ,chocolate-theme-highlight))))

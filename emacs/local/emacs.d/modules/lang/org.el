@@ -195,7 +195,6 @@
   (plist-put org-format-latex-options :background "Transparent")
   (plist-put org-format-latex-options :scale 1.65)
   (plist-put org-format-latex-options :html-scale 1.65)
-
   (setq org-preview-latex-image-directory "~/.local/emacs/ltximages/")
 
   ;; Open in a current window instead of a new frame
@@ -465,7 +464,7 @@
                '("d" "Daily View"
                  ((agenda "Today Overview"
                           ((org-agenda-start-day "+0d")
-                           (org-agenda-span 2)
+                           (org-agenda-span 1)
                            ;; (org-agenda-overriding-arguments '((4) "today" 1))  ;; lock the navigation
                            ;; (org-agenda-search-headline-for-time nil) ;; ignore time in title
                            (org-agenda-grid-show-always t)
