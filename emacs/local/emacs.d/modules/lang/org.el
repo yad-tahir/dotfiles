@@ -509,9 +509,11 @@
   :hook ((org-mode . org-bullets-mode)))
 
 (use-package org-modern
-  :ensure t
   :disabled t
-  :hook ((org-mode . org-modern-mode)))
+  :ensure t
+  :after (org)
+  :config
+  (global-org-modern-mode 1))
 
 (use-package org-download
   :ensure t
@@ -530,5 +532,12 @@
 (use-package org-fragtog
   :ensure t
   :hook (org-mode . org-fragtog-mode))
+
+(use-package org-timeline
+  :disabled t
+  :ensure t
+  :after (org-agenda)
+  :config
+  (add-hook 'org-agenda-finalize-hook 'org-timeline-insert-timeline :append))
 
 (provide 'do-org)
