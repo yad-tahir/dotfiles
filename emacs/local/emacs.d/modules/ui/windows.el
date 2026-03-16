@@ -147,7 +147,9 @@ The third optional argument PROPS indicates the properties of the frame"
                                (t ""))
                               (/ (line-number-at-pos)
                                  0.01
-                                 (line-number-at-pos (point-max))))))
+                                 (line-number-at-pos (point-max)))))
+              display-buffer-alist
+              '(("\\*Messages\\*" (display-buffer-in-side-window))))
 
 (setq pop-up-frames t) ;; avoid setq-default because of embark
 
