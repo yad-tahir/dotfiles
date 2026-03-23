@@ -177,7 +177,6 @@
   (org-roam-ui-mode 1))
 
 (use-package org-roam-latte
-  :ensure t
   :after (org-roam org)
   :hook ((text-mode . org-roam-latte-mode)
          (prog-mode . org-roam-latte-mode))
