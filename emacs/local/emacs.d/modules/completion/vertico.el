@@ -229,6 +229,11 @@
   :after (org-roam consult)
   :functions (consult-org-roam-mode)
   :config
+  (general-define-key
+   :keymaps 'org-mode-map
+   :states 'normal
+   "SPC nb" 'consult-org-roam-backlinks
+   "SPC nB" 'consult-org-roam-backlinks-recursive)
   (consult-org-roam-mode 1))
 
 (provide 'do-vertico)

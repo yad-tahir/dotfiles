@@ -62,7 +62,7 @@
    "SPC nT" 'org-roam-tag-remove
    "SPC nr" 'org-roam-ref-add
    "SPC nR" 'org-roam-ref-remove
-   "SPC nb" 'org-roam-buffer-toggle)
+   "SPC nn" 'org-roam-buffer-toggle)
 
   (general-define-key
    :keymaps 'org-roam-preview-map
@@ -178,7 +178,7 @@
   (general-define-key
    :keymaps 'org-mode-map
    :states '(normal visual)
-   "SPC nn" 'org-roam-ui-open)
+   "SPC nN" 'org-roam-ui-open)
   (setq org-roam-ui-open-on-start nil)
   (org-roam-ui-mode 1))
 
