@@ -45,11 +45,12 @@
    :states '(normal visual)
    "SPC n" '(:ignore t :which-key "notes")
    "SPC ns" 'org-roam-node-find
-   "SPC sn" 'org-roam-node-find
    "SPC nl" 'do-org-roam-insert
    "SPC nL" 'do-org-roam-insert-immediate
+   "SPC nd" 'do-org-roam-sync
    "SPC nc" 'org-roam-capture
-   "SPC nC" 'do-org-roam-capture-feeling)
+   "SPC nC" 'do-org-roam-capture-feeling
+   "SPC sn" 'org-roam-node-find)
 
   (general-define-key
    :keymaps 'org-mode-map
@@ -163,7 +164,12 @@
         (save-excursion
           (goto-char (point-min))
           (org-fold-show-all)))))
-  (add-hook 'org-mode-hook #'do--org-reveal-drawers-in-notes))
+  (add-hook 'org-mode-hook #'do--org-reveal-drawers-in-notes)
+
+  (defun do-org-roam-sync ()
+    "Synchronize Org Roam database forcefully"
+    (interactive)
+    (org-roam-db-sync 1)))
 
 (use-package org-roam-ui
   :ensure t
