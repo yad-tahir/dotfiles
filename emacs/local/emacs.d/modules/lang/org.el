@@ -90,7 +90,7 @@
    "lt]" 'org-clock-out
    "ltq" 'org-clock-cancel
    "ltg" 'org-clock-goto
-   "lv" 'do-org-toggle-latex-preview
+   "lv" 'org-toggle-link-display
    "lV" '((lambda ()
             "Toggles between org-columns mode and not"
             (interactive)
