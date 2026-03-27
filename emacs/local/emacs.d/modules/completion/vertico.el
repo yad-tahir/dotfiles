@@ -63,7 +63,6 @@
                                 'dired-directory
                                 'append
                                 modified-cand))
-
       (funcall orig-fun modified-cand prefix suffix index start)))
   (advice-add 'vertico--format-candidate :around #'do--vertico-color-directories)
 
@@ -158,7 +157,7 @@
    "g/" 'consult-line)
 
   :config
-  (setq consult-preview-key '("M-<tab>" any)
+  (setq consult-preview-key '("M-<tab>")
         consult-narrow-key  "<"
         ;; Badly needed for evil-ex completions
         completion-in-region-function #'consult-completion-in-region)
