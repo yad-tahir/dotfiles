@@ -28,7 +28,6 @@
   (with-eval-after-load 'org-roam
     (defun do--org-roam-progress-reporter (orig-fun msg &rest args)
       (apply orig-fun (concat "Org-roam: " msg) args))
-
     (advice-add 'org-roam-db-sync :around
                 (lambda(orig-fun &rest args)
                   (advice-add 'make-progress-reporter :around #'do--org-roam-progress-reporter)
