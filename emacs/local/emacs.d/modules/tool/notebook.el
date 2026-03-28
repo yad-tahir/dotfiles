@@ -121,11 +121,11 @@
   (defun do-org-roam-sync ()
     "Refresh Org-Roam's database."
     (interactive)
-    (make-thread
-     (org-roam-db-sync nil) "org-roam db sync"))
+    (org-roam-db-sync t))
 
-  ;; launch an idle timer to keep org-roam db sync with note files
-  (run-with-idle-timer 300 t #'do-org-roam-sync)
+  ;; DB re-sync on idle; it is a force resync, so make sure we are not using
+  ;; Emacs.
+  (run-with-idle-timer 21600 t #'do-org-roam-sync)
 
   (org-roam-db-autosync-mode t)
 
