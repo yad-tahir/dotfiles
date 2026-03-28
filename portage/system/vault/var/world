@@ -28,7 +28,6 @@ dev-vcs/git
 media-fonts/dejavu
 media-fonts/fontawesome
 media-fonts/noto
-media-gfx/feh
 media-gfx/scrot
 media-sound/alsa-utils
 media-sound/mpc
@@ -70,7 +69,7 @@ sys-kernel/gentoo-kernel
 sys-kernel/gentoo-kernel:6.17.12
 sys-kernel/gentoo-kernel:6.18.10
 sys-kernel/gentoo-kernel:6.18.17
-sys-kernel/gentoo-kernel:6.19.7
+sys-kernel/gentoo-kernel:6.19.10
 sys-kernel/linux-firmware
 sys-process/glances
 sys-process/htop

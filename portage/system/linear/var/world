@@ -77,7 +77,7 @@ sys-fs/zfs
 sys-kernel/gentoo-kernel
 sys-kernel/gentoo-kernel:6.17.12
 sys-kernel/gentoo-kernel:6.18.10
-sys-kernel/gentoo-kernel:6.19.7
+sys-kernel/gentoo-kernel:6.19.10
 sys-kernel/installkernel
 sys-kernel/linux-firmware
 sys-power/power-profiles-daemon
