@@ -183,7 +183,7 @@
         org-track-ordered-property-with-tag t ;; Add :ORDER:
         org-enforce-todo-checkbox-dependencies t ;; Don't allow the super task
         org-enforce-todo-dependencies t ;; Don't allow the super task to close
-        org-deadline-warning-days 7
+        org-deadline-warning-days 5
         org-habit-following-days 1
         org-habit-preceding-days 30
         org-habit-graph-column 65
