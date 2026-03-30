@@ -109,8 +109,10 @@
   :init
   (general-define-key
    :states '(normal visual)
-   "M-c" 'drag-stuff-up
-   "M-t" 'drag-stuff-down))
+   "M-<up>" 'drag-stuff-up
+   "M-<down>" 'drag-stuff-down
+   "M-<left>" 'drag-stuff-left
+   "M-<right>" 'drag-stuff-right))
 
 (use-package evil-numbers
   :ensure t

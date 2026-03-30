@@ -25,8 +25,8 @@
   (general-define-key
    :kemaps 'diff-hl-mode-map
    :states '(normal visual)
-   "C-t" 'diff-hl-next-hunk
-   "C-c" 'diff-hl-previous-hunk)
+   "]g" 'diff-hl-next-hunk
+   "[g" 'diff-hl-previous-hunk)
 
   (setq diff-hl-disable-on-remote t)
 

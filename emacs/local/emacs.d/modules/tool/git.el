@@ -132,8 +132,8 @@
   (general-define-key
    :keymaps 'magit-blob-mode-map
    :states '(normal visual)
-   "C-n"    'magit-blob-next
-   "C-h"    'magit-blob-previous
+   "g]"    'magit-blob-next
+   "g["    'magit-blob-previous
 
    "lg" 'magit-file-dispatch
    "lG" 'magit-dispatch
@@ -152,8 +152,13 @@
    "<C-tab>" 'magit-section-cycle
    "C-M-i"   'magit-section-cycle-diffs
    "S-M-i"   'magit-section-cycle-global
-   "C"       'magit-section-backward
    "T"       'magit-section-forward
+   "C"       'magit-section-backward
+   "C-t"     'magit-section-forward
+   "C-c"     'magit-section-backward
+   "C-n"     'magit-next-line
+   "C-h"     'magit-previous-line
+
    "gh"       'magit-go-backward
    "gn"       'magit-go-forward
    "x"       'magit-delete-thing

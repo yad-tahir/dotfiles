@@ -69,14 +69,17 @@
                 (goto-char (+ 1 (point)))
                 (org-meta-return)
                 (evil-insert-state))
-   "C-c" 'org-shiftup
-   "C-t" 'org-shiftdown
-   "C-h" 'org-shiftleft
-   "C-n" 'org-shiftright
-   "M-C" 'org-shiftmetaup
-   "M-T" 'org-shiftmetadown
-   "M-H" 'org-shiftmetaleft
-   "M-N" 'org-shiftmetaright
+
+   "M-c" 'org-shiftup
+   "M-t" 'org-shiftdown
+   "M-h" 'org-shiftleft
+   "M-n" 'org-shiftright
+
+   "C-<up>" 'org-shiftmetaup
+   "C-<down>" 'org-shiftmetadown
+   "C-<left>" 'org-shiftmetaleft
+   "C-<right>" 'org-shiftmetaright
+
    "gC"  'org-up-element
    "gN"  'org-forward-element
    "gH"  'org-backward-element
@@ -370,17 +373,21 @@
    "l <RET>" #'((lambda()(interactive)(do-make-frame)(org-agenda-switch-to))
                 :which-key "org-agenda-switch-new-frame")
    "<f5>" 'org-agenda-redo
+
+   ;; Nav
+   "C-h" 'org-agenda-earlier
+   "C-n" 'org-agenda-later
+
    ;; Ordering
-   "M-t" 'org-agenda-drag-line-forward
-   "M-c" 'org-agenda-drag-line-backward
+   "M-<down>" 'org-agenda-drag-line-forward
+   "M-<up>" 'org-agenda-drag-line-backward
+
+   ;; Shift keys
    "M-h" 'org-agenda-do-date-earlier
    "M-n" 'org-agenda-do-date-later
-   ;; Navigation
-   "C-H" 'org-agenda-earlier
-   "C-N" 'org-agenda-later
-   ;; Shift keys
-   "C-C" 'org-agenda-priority-up
-   "C-T" 'org-agenda-priority-down
+   "M-c" 'org-agenda-priority-up
+   "M-t" 'org-agenda-priority-down
+
    ;; Go to
    "lF" 'org-agenda-follow-mode
    "lj" 'org-agenda-goto-date

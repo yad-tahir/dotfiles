@@ -104,6 +104,10 @@
    "t" 'evil-next-line
    "gc" 'evil-previous-visual-line
    "gt" 'evil-next-visual-line
+   "C-n" 'evil-forward-sentence-begin
+   "C-h" 'evil-backward-sentence-begin
+   "C-t" 'evil-forward-paragraph
+   "C-c" 'evil-backward-paragraph
 
    ;; Scrolling
    "C" 'evil-scroll-page-up
@@ -163,10 +167,12 @@
 
   (general-define-key
    :states 'normal
-   "C-c" 'ignore
-   "C-t" 'ignore
-   "C-n" 'ignore
-   "C-h" 'ignore
+   ;; Basic Nav remapped in motion mode
+   "C-c" nil
+   "C-t" nil
+   "C-n" nil
+   "C-h" nil
+
    "C-z" 'ignore
 
    ;; Reset/remove conflicting bindings

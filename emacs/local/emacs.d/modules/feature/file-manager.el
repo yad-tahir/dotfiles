@@ -145,6 +145,11 @@ separate frame."
    ;; Navigation
    "t" 'dired-next-line
    "c" 'dired-previous-line
+   "C-n" 'dired-next-line
+   "C-h" 'dired-previous-line
+   "C-t" 'dired-next-dirline
+   "C-c" 'dired-prev-dirline
+
    "<RET>" 'dired-find-file
    "<M-RET>" 'dired-find-file-other-window
    "<C-RET>" 'dired-find-file-other-window
