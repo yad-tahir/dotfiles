@@ -31,10 +31,10 @@ super + o
 	wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; dwmbar-cli refresh
 
 {XF86AudioRaiseVolume,XF86AudioLowerVolume}
-	wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%{+,-}; dwmbar-cli refresh
+	wpctl set-mute @DEFAULT_AUDIO_SINK@ 0; wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%{+,-}; dwmbar-cli refresh
 
 super + {e,a}
-	wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%{+,-}; dwmbar-cli refresh
+	wpctl set-mute @DEFAULT_AUDIO_SINK@ 0; wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%{+,-}; dwmbar-cli refresh
 
 XF86AudioPlay
 	emacsclient -nqe '(do-music-toggle)' > /dev/null &
