@@ -66,27 +66,25 @@
    "M-l" 'embark-dwim
    "<f1> i" 'view-lossage
    "<f1> l" 'embark-bindings)
-  :config
-  (add-to-list 'display-buffer-alist
-               '("\\\\*Embark"  ; Match any buffer starting with *Embark
-                 (display-buffer-at-bottom)
-                 (window-height . fit-window-to-buffer)
-                 (pop-up-frames . nil)))
 
+  :config
   (setq prefix-help-command #'embark-prefix-help-command)
 
-  (setq embark-indicators
-        '(embark-mixed-indicator))
+  (setq embark-indicators '(embark-mixed-indicator))
 
-;; (setq embark-indicators
-;;       '(embark-minimal-indicator  ; default is embark-mixed-indicator
-;;         embark-highlight-indicator
-;;         embark-isearch-highlight-indicator))
+  ;; BUG-FIX: Emark window crashing between frame switching
+  (general-define-key
+   :keymaps 'embark-general-map
+   [switch-frame] #'ignore
+   [focus-in] #'ignore
+   [focus-out] #'ignore)
 
-  ;; (add-to-list 'vertico-multiform-categories '(embark-keybinding grid))
-  ;; (vertico-multiform-mode)
-
-  )
+  ;; BUG-FIX Emark pop-ups a frame
+  (setq embark-verbose-indicator-display-action
+        '((display-buffer-reuse-window display-buffer-at-bottom)
+          (window-height . fit-window-to-buffer)
+          (pop-up-frames . nil)        ;; Overrides my global setting
+          (inhibit-switch-frame . t))))
 
 (use-package embark-consult
   :ensure t

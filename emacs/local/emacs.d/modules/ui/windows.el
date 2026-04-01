@@ -151,6 +151,6 @@ The third optional argument PROPS indicates the properties of the frame"
               display-buffer-alist
               '(("\\*Messages\\*" (display-buffer-in-side-window))))
 
-(setq pop-up-frames t) ;; avoid setq-default because of embark
+(setq pop-up-frames t) ;; Avoid setq-default because of embark
 
 (provide 'do-windows)
