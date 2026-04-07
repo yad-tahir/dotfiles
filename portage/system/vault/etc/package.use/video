@@ -9,4 +9,4 @@ media-video/mpv X drm lcms -vulkan
 
 media-video/vlc dvbpsi encode ffmpeg gcrypt libsamplerate ncurses -pulseaudio ssl udev -aom archive flac mp3 mpeg vnc vpx x264 x265 qt5
 
-media-video/obs-studio vlc v4l decklink -lue_single_target_laujit
+media-video/obs-studio vlc v4l decklink pulseaudio truetype -lue_single_target_laujit
