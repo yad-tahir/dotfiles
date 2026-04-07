@@ -61,15 +61,7 @@
     (interactive)
     (require 'simple-mpc)
     (do--music-setup-process)
-    (if do--music-toggle-state
-        (progn
-          (start-process-shell-command "mpc" 'nil "/usr/bin/mpc pause")
-          (setq do--music-toggle-state nil)
-          (message "Music Pause"))
-      (progn
-        (start-process-shell-command "mpc" 'nil "/usr/bin/mpc play")
-        (setq do--music-toggle-state t)
-        (message "Music Play"))))
+    (simple-mpc-toggle))
 
 ;;;###autoload
   (defun do-music-playlist ()
@@ -132,14 +124,20 @@
    "lq" 'do-music-stop
    "ln" 'do-music-next
    "lh" 'do-music-previous
-   "lp" 'do-music-toggle
+   "lt" 'do-music-toggle
    "ll" 'do-music-load-playlist
    "l/" 'do-music-query
    "lr" 'do-music-shuffle
    "lN" 'do-music-seek-forward
    "lH" 'do-music-seek-backward
    "ld" 'do-music-delete
-   "lx" 'do-music-clear-playlist)
+   "lx" 'do-music-clear-playlist
+
+   "C-n" 'do-music-next
+   "C-S-n" 'do-music-seek-forward
+   "C-h" 'do-music-previous
+   "C-S-h" 'do-music-seek-backward
+   "C-t" 'do-music-toggle)
 
   (defun do--music-playlist-init ()
     (general-define-key
@@ -147,7 +145,10 @@
      :states '(normal visual)
      "<RET>" 'do-music-play-selected
      "C-n" 'do-music-next
-     "C-h" 'do-music-previous))
+     "C-S-n" 'do-music-seek-forward
+     "C-h" 'do-music-previous
+     "C-S-h" 'do-music-seek-backward
+     "C-t" 'do-music-toggle))
   (add-hook 'simple-mpc-current-playlist-mode-hook 'do--music-playlist-init)
 
   (defun do--music-query-init ()
