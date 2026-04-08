@@ -50,6 +50,35 @@
    "C-x" 'ignore
    "C-z" 'ignore
 
+   ;; Disable M-* alpha keybindings
+   "M-a" 'ignore
+   "M-b" 'ignore
+   "M-b" 'ignore
+   "M-c" 'ignore
+   "M-d" 'ignore
+   "M-e" 'ignore
+   "M-f" 'ignore
+   "M-g" 'ignore
+   "M-h" 'ignore
+   "M-i" 'ignore
+   "M-j" 'ignore
+   "M-k" 'ignore
+   "M-l" 'ignore
+   "M-m" 'ignore
+   "M-n" 'ignore
+   "M-o" 'ignore
+   "M-p" 'ignore
+   "M-q" 'ignore
+   "M-r" 'ignore
+   "M-s" 'ignore
+   "M-t" 'ignore
+   "M-u" 'ignore
+   "M-v" 'ignore
+   "M-w" 'ignore
+   "M-x" 'ignore
+   "M-y" 'ignore
+   "M-z" 'ignore
+
    ;; no mouse junks!
    "<mouse-3>" 'ignore
    "<mouse-2>" 'ignore)
