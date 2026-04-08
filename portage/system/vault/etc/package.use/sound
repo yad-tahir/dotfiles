@@ -1,12 +1,11 @@
-media-video/pipewire pipewire-alsa sound-server extra loadness flatpak ffmpeg man
-
-# Pulseaudio is no longer supported
-#media-sound/pulseaudio alsa dbus jack system-wide
-#media-sound/pulseaudio-daemon system-wide
-
-media-sound/jack-audio-connection-kit alsa oss
+media-video/pipewire pipewire-alsa sound-server extra loadness flatpak ffmpeg man jack-sdk
+media-sound/qjackctl alsa dbus
 
 # App
+media-sound/jalv jack
+media-libs/noise-suppression-for-voice lv2
+# noise suppression needs @gtk2
+media-libs/suil gtk gtk2
+
 media-sound/mpd audiofile flac -ipv6 -network -dbus -curl -bzip2 -mad -eventfd
-media-sound/qjackctl alsa dbus
 media-sound/easytag flac mp3

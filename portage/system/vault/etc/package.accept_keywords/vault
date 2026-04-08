@@ -19,9 +19,9 @@ x11-misc/dmenu ~amd64
 media-sound/pulsemixer ~amd64
 app-text/zathura-pdf-mupdf ~amd64
 app-text/master-pdf-editor ~amd64
-media-video/obs-studio ~amd64
 sys-apps/amdgpu_top ~amd64
 app-misc/radeontop ~amd64
+media-video/obs-studio ~amd64
 
 # Misc
 virtual/opencl ~amd64

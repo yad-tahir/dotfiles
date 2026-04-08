@@ -29,11 +29,16 @@ media-fonts/dejavu
 media-fonts/fontawesome
 media-fonts/noto
 media-gfx/scrot
+media-libs/lsp-plugins
+media-libs/noise-suppression-for-voice
 media-sound/alsa-utils
+media-sound/jalv
 media-sound/mpc
 media-sound/mpd
 media-sound/pulsemixer
+media-sound/qjackctl
 media-video/mpv
+media-video/obs-studio
 media-video/pipewire
 net-analyzer/traceroute
 net-dns/dnsmasq
