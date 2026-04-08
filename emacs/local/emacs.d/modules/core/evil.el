@@ -133,6 +133,8 @@
    "t" 'evil-next-line
    "gc" 'evil-previous-visual-line
    "gt" 'evil-next-visual-line
+   "<up>" 'evil-previous-visual-line
+   "<down>" 'evil-next-visual-line
    "C-n" 'evil-forward-sentence-begin
    "C-h" 'evil-backward-sentence-begin
    "C-t" 'evil-forward-paragraph
