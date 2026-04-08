@@ -75,10 +75,15 @@
    "M-h" 'org-shiftleft
    "M-n" 'org-shiftright
 
-   "C-<up>" 'org-shiftmetaup
-   "C-<down>" 'org-shiftmetadown
-   "C-<left>" 'org-shiftmetaleft
-   "C-<right>" 'org-shiftmetaright
+   "M-<up>" 'org-metaup
+   "M-<down>" 'org-metadown
+   "M-<left>" 'org-metaleft
+   "M-<right>" 'org-metaright
+
+   "M-S-<up>" 'org-shiftmetaup
+   "M-S-<down>" 'org-shiftmetadown
+   "M-S-<left>" 'org-shiftmetaleft
+   "M-S-<right>" 'org-shiftmetaright
 
    "gC"  'org-up-element
    "gN"  'org-forward-element
@@ -442,15 +447,6 @@
    "ltq" 'org-agenda-clock-cancel
    "ltg" 'org-agenda-clock-goto
    "lx" 'org-agenda-archive)
-
-  (general-define-key
-   :keymaps 'org-agenda-mode-map
-   :states 'insert
-   ;; Ordering
-   "M-t" 'org-agenda-drag-line-forward
-   "M-c" 'org-agenda-drag-line-backward
-   "M-h" 'org-agenda-do-date-earlier
-   "M-n" 'org-agenda-do-date-later)
 
   (setq org-agenda-skip-deadline-if-done t
         org-agenda-tags-column 0

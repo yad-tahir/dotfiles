@@ -108,11 +108,10 @@
   :commands (drag-stuff-up drag-stuff-down drag-stuff-left drag-stuff-right)
   :init
   (general-define-key
-   :states '(normal visual)
+   :keymaps 'prog-mode-map
+   :states 'normal
    "M-<up>" 'drag-stuff-up
-   "M-<down>" 'drag-stuff-down
-   "M-<left>" 'drag-stuff-left
-   "M-<right>" 'drag-stuff-right))
+   "M-<down>" 'drag-stuff-down))
 
 (use-package evil-numbers
   :ensure t
