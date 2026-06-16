@@ -30,6 +30,14 @@
                  "completion/snippets"
                  "completion/transient"
 
+                 "ui/bookmarks"
+                 "ui/buffers"
+                 "ui/line-numbering"
+                 "ui/status-bar"
+                 "ui/text-visual"
+                 "ui/theme"
+                 "ui/windows"
+
                  "feature/diff"
                  "feature/file-manager"
                  "feature/history"
@@ -56,14 +64,6 @@
                  "tool/notebook"
                  "tool/scratch"
                  "tool/search"
-                 "tool/shell"
-
-                 "ui/bookmarks"
-                 "ui/buffers"
-                 "ui/line-numbering"
-                 "ui/status-bar"
-                 "ui/text-visual"
-                 "ui/theme"
-                 "ui/windows")
+                 "tool/shell")
 
 ;;; init.el ends here

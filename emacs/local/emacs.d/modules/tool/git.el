@@ -35,8 +35,11 @@
 
   ;; Activate the blob mode automatically when we visit a file in a git project
   (add-hook 'find-file-hook #'(lambda ()
-                                (when (magit-toplevel)
-                                  (magit-blob-mode 1))))
+                                (when (eq (vc-backend buffer-file-name) 'Git)
+                                  (let ((writable buffer-read-only))
+                                    (magit-blob-mode 1)
+                                    ;; Recover write-ability
+                                    (read-only-mode (or writable 0))))))
   :config
   ;; Remove conflicting key bindings
   (general-define-key

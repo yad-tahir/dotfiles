@@ -31,8 +31,8 @@
   (setq package--init-file-ensured t
         package-enable-at-startup nil
         package-user-dir (concat user-emacs-directory "/packages"))
-  (package-initialize)
-  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/")
+  (package-initialize))
 
   ;; Add my git repos
   (let ((parent-dir (expand-file-name "git/emacs/" "~")))

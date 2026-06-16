@@ -181,6 +181,10 @@
   (setq org-roam-ui-open-on-start nil)
   (org-roam-ui-mode 1))
 
+;; Needed if you install local org-roam latte
+(use-package inflections
+  :ensure t)
+
 (use-package org-roam-latte
   :after (org-roam org)
   :hook ((text-mode . org-roam-latte-mode)
