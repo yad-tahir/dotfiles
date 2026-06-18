@@ -1,7 +1,7 @@
 # Core
-<sys-kernel/gentoo-kernel-6.20 ~amd64
-<virtual/dist-kernel-6.20 ~amd64
-<sys-fs/zfs-2.5 ~amd64
+<sys-kernel/gentoo-kernel-7.1 ~amd64
+<virtual/dist-kernel-7.1 ~amd64
+<sys-fs/zfs-5 ~amd64
 
 app-emulation/qemu ~amd64
 

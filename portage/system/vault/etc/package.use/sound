@@ -1,4 +1,4 @@
-media-video/pipewire pipewire-alsa sound-server extra loadness flatpak ffmpeg man jack-sdk
+media-video/pipewire pipewire-alsa sound-server extra loadness flatpak ffmpeg man jack-sdk extra bluetooth gstreamer
 media-sound/qjackctl alsa dbus
 
 # App
