@@ -86,11 +86,6 @@
                               "#+ARCHIVE: ~/notes/notebook/archive-notes.org\n#+title: ${title}\n")
            :unnarrowed t)
 
-          ("m" "math" plain "%?"
-           :target (file+head "${slug}-%<%Y%m%d>.org"
-                              "#+ARCHIVE: ~/notes/notebook/archive-notes.org\n#+filetags: :math:\n#+title: ${title}\n")
-           :unnarrowed t)
-
           ("3" "3d" plain "%?"
            :target (file+head "${slug}-%<%Y%m%d>.org"
                               "#+ARCHIVE: ~/notes/notebook/archive-notes.org\n#+filetags: :3d:\n#+title: ${title}\n")
@@ -99,6 +94,16 @@
           ("c" "cs" plain "%?"
            :target (file+head "${slug}-%<%Y%m%d>.org"
                               "#+ARCHIVE: ~/notes/notebook/archive-notes.org\n#+filetags: :cs:\n#+title: ${title}\n")
+           :unnarrowed t)
+
+          ("m" "math" plain "%?"
+           :target (file+head "${slug}-%<%Y%m%d>.org"
+                              "#+ARCHIVE: ~/notes/notebook/archive-notes.org\n#+filetags: :math:\n#+title: ${title}\n")
+           :unnarrowed t)
+
+          ("t" "trading" plain "%?"
+           :target (file+head "${slug}-%<%Y%m%d>.org"
+                              "#+ARCHIVE: ~/notes/notebook/archive-notes.org\n#+filetags: :trading:\n#+title: ${title}\n")
            :unnarrowed t)
 
           ("b" "book" plain "%?"
