@@ -371,12 +371,17 @@
    "SPC aA" 'org-agenda)
 
   :config
+  (defun do-org-agenda-switch-new-frame ()
+    (interactive)
+    (do-make-frame)
+    (org-agenda-switch-to))
+
   (general-define-key
    :keymaps 'org-agenda-mode-map
    :states 'normal
    "<RET>" 'org-agenda-switch-to
-   "l <RET>" #'((lambda()(interactive)(do-make-frame)(org-agenda-switch-to))
-                :which-key "org-agenda-switch-new-frame")
+   "l <RET>" 'do-org-agenda-switch-new-frame
+
    "<f5>" 'org-agenda-redo
 
    ;; Nav
