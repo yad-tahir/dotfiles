@@ -102,6 +102,23 @@ separate frame."
             (dired up)
             (dired-goto-file dir)))))
 
+  (defvar do-dired-external-extensions
+    '("pdf" "mp4" "mkv" "avi" "jpg" "jpeg" "png" "gif" "docx" "xlsx" "pptx")
+    "List of file extensions to open externally instead of in Emacs.")
+
+  (defun do-dired-open-file-or-async ()
+    "Open file in Emacs natively, or externally asynchronously if not supported."
+    (interactive)
+    (let* ((file (dired-get-file-for-visit))
+           (ext (downcase (or (file-name-extension file) ""))))
+      (if (member ext do-dired-external-extensions)
+          (let ((cmd "xdg-open"))
+            ;; call-process with 0 as destination runs it asynchronously in the background
+            (call-process cmd nil 0 nil file)
+            (message "Opened %s externally." (file-name-nondirectory file)))
+        ;; Otherwise, open in Emacs natively
+        (dired-find-file))))
+
   (setq wdired-allow-to-change-permissions t
         wdired-create-parent-directories t
         wdired-allow-to-redirect-links t
@@ -150,7 +167,7 @@ separate frame."
    "C-t" 'dired-next-dirline
    "C-c" 'dired-prev-dirline
 
-   "<RET>" 'dired-find-file
+   "<RET>" 'do-dired-open-file-or-async
    "<M-RET>" 'dired-find-file-other-window
    "<C-RET>" 'dired-find-file-other-window
    "DEL" 'dired-up-directory
@@ -283,7 +300,7 @@ separate frame."
     (general-define-key
      :keymaps 'dired-mode-map
      :states 'normal
-     "l <RET>" 'dired-open-xdg)))
+     "l <RET>" 'dired-do-async-shell-command)))
 
 (use-package dired-ranger
   ;; :disabled t

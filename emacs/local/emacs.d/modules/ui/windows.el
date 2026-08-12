@@ -151,6 +151,10 @@ The third optional argument PROPS indicates the properties of the frame"
               display-buffer-alist
               '(("\\*Messages\\*" (display-buffer-in-side-window))))
 
+;; Disable automatic popping up
+(add-to-list 'display-buffer-alist
+             '("\\*Async Shell Command\\*" . (display-buffer-no-window)))
+
 (setq pop-up-frames t) ;; Avoid setq-default because of embark
 
 (provide 'do-windows)
